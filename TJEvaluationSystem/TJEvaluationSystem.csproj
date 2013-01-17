@@ -1,0 +1,353 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{963522FC-D0E7-497B-80D3-0D6BEF1566DF}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TJEvaluationSystem</RootNamespace>
+    <AssemblyName>TJEvaluationSystem</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\Database.mdf" />
+    <Content Include="App_Data\Database_log.ldf">
+      <DependentUpon>Database.mdf</DependentUpon>
+    </Content>
+    <Content Include="Pages\EvaluatorPages\Evaluate.aspx" />
+    <Content Include="Pages\EvaluatorPages\EvaluatorHome.aspx" />
+    <Content Include="Pages\FirstManagerPages\CheckAssess.aspx" />
+    <Content Include="Pages\FirstManagerPages\CheckEvaluator.aspx" />
+    <Content Include="Pages\FirstManagerPages\CheckPost.aspx" />
+    <Content Include="Pages\FirstManagerPages\FirstManagerHome.aspx" />
+    <Content Include="Pages\FirstManagerPages\MakeEvaluated.aspx" />
+    <Content Include="Pages\FirstManagerPages\ManageSecond.aspx" />
+    <Content Include="Pages\FirstManagerPages\SelectEvaluated.aspx" />
+    <Content Include="Pages\FirstManagerPages\SelectSecond.aspx" />
+    <Content Include="Pages\Login.aspx" />
+    <Content Include="Pages\SecondManagerPages\MakeEvaluatorTable.aspx" />
+    <Content Include="Pages\SecondManagerPages\MakePostBook.aspx" />
+    <Content Include="Pages\SecondManagerPages\ManageEvaluatorTable.aspx" />
+    <Content Include="Pages\SecondManagerPages\ManagePostBook.aspx" />
+    <Content Include="Pages\SecondManagerPages\SecondManagerHome.aspx" />
+    <Content Include="Pages\SecondManagerPages\WebForm1.aspx" />
+    <Content Include="Pages\SecondManagerPages\WebForm2.aspx" />
+    <Content Include="Pages\SuperManagerPages\AddUser.aspx" />
+    <Content Include="Pages\SuperManagerPages\FileUploadPage.aspx" />
+    <Content Include="Pages\SuperManagerPages\ManageStander.aspx" />
+    <Content Include="Pages\SuperManagerPages\ManageUserInfo.aspx" />
+    <Content Include="Pages\SuperManagerPages\SuperManagerHome.aspx" />
+    <Content Include="Pages\SuperManagerPages\UploadUserInfo.aspx" />
+    <Content Include="Script\adduser.js" />
+    <Content Include="Script\CommonData.js" />
+    <Content Include="Script\CommonFunction.js" />
+    <Content Include="Script\Evaluator\Evaluate.js" />
+    <Content Include="Script\Evaluator\EvaluatorHome.js" />
+    <Content Include="Script\FirstManager\CheckAssess.js" />
+    <Content Include="Script\FirstManager\CheckPost.js" />
+    <Content Include="Script\FirstManager\FirstManagerHome.js" />
+    <Content Include="Script\FirstManager\ManagerSecond.js" />
+    <Content Include="Script\FirstManager\SelectSecond.js" />
+    <Content Include="Script\Ligerui\jquery-1.3.2.min.js" />
+    <Content Include="Script\Ligerui\ligerui.min.js" />
+    <Content Include="Script\ManageStanderLib.js" />
+    <Content Include="Script\MessageBox.js" />
+    <Content Include="Script\SecondManager\Home.js" />
+    <Content Include="Script\SecondManager\MakeEvaluatorTable.js" />
+    <Content Include="Script\SecondManager\MakePost.js" />
+    <Content Include="Script\SecondManager\ManageEvaluatorTable.js" />
+    <Content Include="Script\SuperManagerIndexData.js" />
+    <Content Include="Script\ManageUserInfo.js" />
+    <Content Include="Script\SuperManger\indexdata.js" />
+    <Content Include="Script\UploadExcel.js" />
+    <Content Include="Script\UploadUserInfo.js" />
+    <Content Include="Style\alogin.css" />
+    <Content Include="Style\CheckPost.css" />
+    <Content Include="Style\common.css" />
+    <Content Include="Style\EvaluatorTable.css" />
+    <Content Include="Style\ManagerHome.css" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Code\Controller\BLL\AssessTableBLL.cs" />
+    <Compile Include="App_Code\Controller\BLL\EvaluatedCollectTableBLL.cs" />
+    <Compile Include="App_Code\Controller\BLL\EvaluatorBLL.cs" />
+    <Compile Include="App_Code\Controller\BLL\EvaluatorTableBLL.cs" />
+    <Compile Include="App_Code\Controller\BLL\MessageBLL.cs" />
+    <Compile Include="App_Code\Controller\BLL\PostResponseBookBLL.cs" />
+    <Compile Include="App_Code\Controller\BLL\StanderLibBLL.cs" />
+    <Compile Include="App_Code\Controller\BLL\UserBLL.cs" />
+    <Compile Include="App_Code\Controller\BLL\UserInfoBLL.cs" />
+    <Compile Include="App_Code\Controller\BLL\UserTypeBLL.cs" />
+    <Compile Include="App_Code\Controller\DBUtility\DBHelper.cs" />
+    <Compile Include="App_Code\Controller\DBUtility\JSON.cs" />
+    <Compile Include="App_Code\Controller\DBUtility\SQLDatabase.cs" />
+    <Compile Include="App_Code\Controller\Role\Commondo.cs" />
+    <Compile Include="App_Code\Model\AssessTable.cs" />
+    <Compile Include="App_Code\Model\EvaluatedCollectTable.cs" />
+    <Compile Include="App_Code\Model\Evaluator.cs" />
+    <Compile Include="App_Code\Model\EvaluatorTable.cs" />
+    <Compile Include="App_Code\Model\message.cs" />
+    <Compile Include="App_Code\Model\PostResponseBook.cs" />
+    <Compile Include="App_Code\Model\StanderLib.cs" />
+    <Compile Include="App_Code\Model\User.cs" />
+    <Compile Include="App_Code\Model\UserInfo.cs" />
+    <Compile Include="App_Code\Model\UserType.cs" />
+    <Compile Include="Pages\EvaluatorPages\Evaluate.aspx.cs">
+      <DependentUpon>Evaluate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\EvaluatorPages\Evaluate.aspx.designer.cs">
+      <DependentUpon>Evaluate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\EvaluatorPages\EvaluatorHome.aspx.cs">
+      <DependentUpon>EvaluatorHome.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\EvaluatorPages\EvaluatorHome.aspx.designer.cs">
+      <DependentUpon>EvaluatorHome.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\CheckAssess.aspx.cs">
+      <DependentUpon>CheckAssess.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\CheckAssess.aspx.designer.cs">
+      <DependentUpon>CheckAssess.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\CheckEvaluator.aspx.cs">
+      <DependentUpon>CheckEvaluator.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\CheckEvaluator.aspx.designer.cs">
+      <DependentUpon>CheckEvaluator.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\CheckPost.aspx.cs">
+      <DependentUpon>CheckPost.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\CheckPost.aspx.designer.cs">
+      <DependentUpon>CheckPost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\FirstManagerHome.aspx.cs">
+      <DependentUpon>FirstManagerHome.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\FirstManagerHome.aspx.designer.cs">
+      <DependentUpon>FirstManagerHome.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\MakeEvaluated.aspx.cs">
+      <DependentUpon>MakeEvaluated.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\MakeEvaluated.aspx.designer.cs">
+      <DependentUpon>MakeEvaluated.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\ManageSecond.aspx.cs">
+      <DependentUpon>ManageSecond.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\ManageSecond.aspx.designer.cs">
+      <DependentUpon>ManageSecond.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\SelectEvaluated.aspx.cs">
+      <DependentUpon>SelectEvaluated.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\SelectEvaluated.aspx.designer.cs">
+      <DependentUpon>SelectEvaluated.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\SelectSecond.aspx.cs">
+      <DependentUpon>SelectSecond.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\SelectSecond.aspx.designer.cs">
+      <DependentUpon>SelectSecond.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Code\Model\Manager.cs" />
+    <Compile Include="App_Code\Controller\BLL\ManagerBLL.cs" />
+    <Compile Include="Pages\SecondManagerPages\MakeEvaluatorTable.aspx.cs">
+      <DependentUpon>MakeEvaluatorTable.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\SecondManagerPages\MakeEvaluatorTable.aspx.designer.cs">
+      <DependentUpon>MakeEvaluatorTable.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SecondManagerPages\MakePostBook.aspx.cs">
+      <DependentUpon>MakePostBook.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\SecondManagerPages\MakePostBook.aspx.designer.cs">
+      <DependentUpon>MakePostBook.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SecondManagerPages\ManageEvaluatorTable.aspx.cs">
+      <DependentUpon>ManageEvaluatorTable.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\SecondManagerPages\ManageEvaluatorTable.aspx.designer.cs">
+      <DependentUpon>ManageEvaluatorTable.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SecondManagerPages\ManagePostBook.aspx.cs">
+      <DependentUpon>ManagePostBook.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\SecondManagerPages\ManagePostBook.aspx.designer.cs">
+      <DependentUpon>ManagePostBook.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SecondManagerPages\SecondManagerHome.aspx.cs">
+      <DependentUpon>SecondManagerHome.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\SecondManagerPages\SecondManagerHome.aspx.designer.cs">
+      <DependentUpon>SecondManagerHome.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SecondManagerPages\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\SecondManagerPages\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SecondManagerPages\WebForm2.aspx.cs">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\SecondManagerPages\WebForm2.aspx.designer.cs">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SuperManagerPages\AddUser.aspx.cs">
+      <DependentUpon>AddUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\SuperManagerPages\AddUser.aspx.designer.cs">
+      <DependentUpon>AddUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SuperManagerPages\FileUploadPage.aspx.cs">
+      <DependentUpon>FileUploadPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\SuperManagerPages\FileUploadPage.aspx.designer.cs">
+      <DependentUpon>FileUploadPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SuperManagerPages\ManageStander.aspx.cs">
+      <DependentUpon>ManageStander.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\SuperManagerPages\ManageStander.aspx.designer.cs">
+      <DependentUpon>ManageStander.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SuperManagerPages\ManageUserInfo.aspx.cs">
+      <DependentUpon>ManageUserInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\SuperManagerPages\ManageUserInfo.aspx.designer.cs">
+      <DependentUpon>ManageUserInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SuperManagerPages\SuperManagerHome.aspx.cs">
+      <DependentUpon>SuperManagerHome.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\SuperManagerPages\SuperManagerHome.aspx.designer.cs">
+      <DependentUpon>SuperManagerHome.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SuperManagerPages\UploadUserInfo.aspx.cs">
+      <DependentUpon>UploadUserInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\SuperManagerPages\UploadUserInfo.aspx.designer.cs">
+      <DependentUpon>UploadUserInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\Home\" />
+    <Folder Include="Images\Ligerui\" />
+    <Folder Include="Images\Login\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52603</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

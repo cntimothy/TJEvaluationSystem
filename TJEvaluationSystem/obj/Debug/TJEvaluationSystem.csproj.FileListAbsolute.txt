@@ -1,0 +1,15 @@
+C:\Users\Ivan\Documents\Visual Studio 2005\Projects\TJEvaluationSystem\TJEvaluationSystem\bin\TJEvaluationSystem.dll
+C:\Users\Ivan\Documents\Visual Studio 2005\Projects\TJEvaluationSystem\TJEvaluationSystem\bin\TJEvaluationSystem.pdb
+C:\Users\Ivan\Documents\Visual Studio 2005\Projects\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\TJEvaluationSystem.dll
+C:\Users\Ivan\Documents\Visual Studio 2005\Projects\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\TJEvaluationSystem.pdb
+C:\Users\Ivan\Documents\Visual Studio 2005\Projects\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\TJEvaluationSystem.csprojResolveAssemblyReference.cache
+E:\vs_projects\web\TJEvaluationSystem\TJEvaluationSystem\bin\TJEvaluationSystem.dll
+E:\vs_projects\web\TJEvaluationSystem\TJEvaluationSystem\bin\TJEvaluationSystem.pdb
+E:\vs_projects\web\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\ResolveAssemblyReference.cache
+E:\vs_projects\web\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\TJEvaluationSystem.dll
+E:\vs_projects\web\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\TJEvaluationSystem.pdb
+d:\documents\visual studio 2010\Projects\TJEvaluationSystem\TJEvaluationSystem\bin\TJEvaluationSystem.dll
+d:\documents\visual studio 2010\Projects\TJEvaluationSystem\TJEvaluationSystem\bin\TJEvaluationSystem.pdb
+d:\documents\visual studio 2010\Projects\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\ResolveAssemblyReference.cache
+d:\documents\visual studio 2010\Projects\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\TJEvaluationSystem.dll
+d:\documents\visual studio 2010\Projects\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\TJEvaluationSystem.pdb
