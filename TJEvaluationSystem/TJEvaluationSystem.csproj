@@ -13,6 +13,7 @@
     <RootNamespace>TJEvaluationSystem</RootNamespace>
     <AssemblyName>TJEvaluationSystem</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -128,6 +129,7 @@
     <Compile Include="App_Code\Controller\BLL\UserInfoBLL.cs" />
     <Compile Include="App_Code\Controller\BLL\UserTypeBLL.cs" />
     <Compile Include="App_Code\Controller\DBUtility\DBHelper.cs" />
+    <Content Include="App_Code\Controller\DBUtility\Generator.cs" />
     <Compile Include="App_Code\Controller\DBUtility\JSON.cs" />
     <Compile Include="App_Code\Controller\DBUtility\SQLDatabase.cs" />
     <Compile Include="App_Code\Controller\Role\Commondo.cs" />
