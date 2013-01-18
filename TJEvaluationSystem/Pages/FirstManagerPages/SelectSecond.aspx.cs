@@ -65,6 +65,11 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
            // table = userinfo.ListToDataTable();
             //table.Columns.Remove("UiType");
             table = searchSql();
+            if (table.Rows.Count <= 0)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "", "alert('不存在二级管理员！')", true);
+                return;
+            }
             string json = JSON.DataTableToJson(table);
             JsonData.Value = json;
 

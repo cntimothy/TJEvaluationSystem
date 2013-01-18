@@ -44,10 +44,19 @@ $(function () {
 });
 
 function ShowAllEavluateUsers() {
+
     var data = document.getElementById("JsonData").value;
     if (data == null || data == "")
         return;
+    $('#EvaluateToolBar').css('display', 'none');
+    $('#ShowEvaluateUsers').css('display', 'block');
+    $('#ShowEvaluateTable').css('display', 'none');
     var userData = JSON2.parse(data);
+    if (userData.Total == 0) {
+        $.ligerDialog.alert('不存在考评', '提示', 'none');
+        $('#ShowEvaluateUsers').css('display', 'none');
+        return;
+    }
     Manager = $("#maingrid").ligerGrid({
         columns: [
     { display: '被考评人', name: 'EvaluatedID', width: 100, align: 'center'},
