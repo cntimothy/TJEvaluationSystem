@@ -135,7 +135,7 @@
     <form id="form1" runat="server">
     <div>
         <div id="EvaluatorTable">
-            <table id="MainTable" class="my_table">
+            &#39;<table id="MainTable" class="my_table">
                <tr id="KeyStander">
                     <td class="num">一</td>
                     <td class="stander_type">关键绩效指标</td>

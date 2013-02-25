@@ -18,3 +18,8 @@ E:\TJEvaluationSystem\TJEvaluationSystem\bin\TJEvaluationSystem.pdb
 E:\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\ResolveAssemblyReference.cache
 E:\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\TJEvaluationSystem.dll
 E:\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\TJEvaluationSystem.pdb
+E:\projects\TJEvaluationSystem\TJEvaluationSystem\bin\TJEvaluationSystem.dll
+E:\projects\TJEvaluationSystem\TJEvaluationSystem\bin\TJEvaluationSystem.pdb
+E:\projects\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\ResolveAssemblyReference.cache
+E:\projects\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\TJEvaluationSystem.dll
+E:\projects\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\TJEvaluationSystem.pdb

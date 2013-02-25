@@ -27,5 +27,10 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 }
             }
         }
+
+        protected void LinkButton1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("../MessagePages/ShowMessages.aspx");
+        }
     }
 }
