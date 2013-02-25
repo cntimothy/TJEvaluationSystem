@@ -32,5 +32,12 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         {
             Response.Redirect("../MessagePages/ShowMessages.aspx");
         }
+
+        protected void LBLogout_Click(object sender, EventArgs e)
+        {
+            Session["username"] = null;
+            Session["usertype"] = null;
+            Response.Redirect("../Login.aspx");
+        }
     }
 }

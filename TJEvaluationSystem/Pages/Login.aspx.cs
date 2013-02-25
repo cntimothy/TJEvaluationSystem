@@ -147,11 +147,6 @@ namespace TJEvaluationSystem.Pages
         {
             Session["username"] = username;
             Session["usertype"] = usertype;
-            if (CBRemindMe.Checked == true)
-            {
-                Response.Cookies["username"].Value = username;
-                Response.Cookies["username"].Expires = DateTime.Now.AddMonths(1);
-            }
         }
     }
 }

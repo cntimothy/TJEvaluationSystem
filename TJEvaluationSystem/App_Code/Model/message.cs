@@ -16,6 +16,13 @@ namespace Model
         string mMessage;
         int mRead;
         DateTime mSendTime;
+        string mTitle;
+
+        public string MTitle
+        {
+            get { return mTitle; }
+            set { mTitle = value; }
+        }
 
         public DateTime MSendTime
         {

@@ -32,13 +32,15 @@ namespace BLL
                      new SqlParameter("@mReceiveID", SqlDbType.VarChar,10),
                      new SqlParameter("@mMessage", SqlDbType.NVarChar,int.MaxValue),
                      new SqlParameter("@mRead", SqlDbType.Int,4),
-                     new SqlParameter("@mSendTime", SqlDbType.DateTime)
+                     new SqlParameter("@mSendTime", SqlDbType.DateTime),
+                     new SqlParameter("@mTitle", SqlDbType.NVarChar, 10),
                  };
                  parameters[0].Value = message[i].MSenderID;
                  parameters[1].Value = message[i].MReceiveID;
                  parameters[2].Value = message[i].MMessage;
                  parameters[3].Value = message[i].MRead;
                  parameters[4].Value = message[i].MSendTime;
+                 parameters[5].Value = message[i].MTitle;
                  string exception = db.InsertExec(sql, parameters);
                  if (exception != "" && exception != null)
                  {
@@ -58,7 +60,7 @@ namespace BLL
              string sql = "select * from tb_Message where mSenderID='"+mSenderID+"'";
              return Select(ref model, ref e, sql);
          }
-         static public bool Select(string mReceiveID,int mRead,ref List<Message> model, ref string e)
+         static public bool Select(string mReceiveID, int mRead,ref List<Message> model, ref string e)
          {
              string sql = "select * from tb_Message where mReceiveID='" + mReceiveID + "' and mRead='" + mRead+"'";
              return Select(ref model, ref e, sql);
@@ -72,12 +74,13 @@ namespace BLL
                 for (int i = 0; i < table.Rows.Count; i++)
                 {
                     Message message= new Message();
-                    message.MID = (int)table.Rows[i][0];
-                    message.MSenderID = (string)table.Rows[i][1];
-                    message.MReceiveID = (string)table.Rows[i][2];
-                    message.MMessage = (string)table.Rows[i][3];
-                    message.MRead = (int)table.Rows[i][4];
-                    message.MSendTime = (DateTime)table.Rows[i][5];
+                    message.MID = (int)table.Rows[i]["mID"];
+                    message.MSenderID = (string)table.Rows[i]["mSenderID"];
+                    message.MReceiveID = (string)table.Rows[i]["mReceiveID"];
+                    message.MMessage = (string)table.Rows[i]["mMessage"];
+                    message.MRead = (int)table.Rows[i]["mRead"];
+                    message.MSendTime = (DateTime)table.Rows[i]["mSendTime"];
+                    message.MTitle = (string)table.Rows[i]["mTitle"];
                     model.Add(message);
                 }
                 return true;

@@ -33,7 +33,7 @@
                             <asp:RadioButton GroupName="Radio" ID="RadioButton1" runat="server" Text="超级管理员" />
                          </span>
                          <span>
-                            <asp:RadioButton GroupName="Radio" ID="RadioButton2" runat="server" Text="一级管理员" />
+                            <asp:RadioButton GroupName="Radio" ID="RadioButton2" runat="server" Text="人事处管理员" />
                         </span>
                     </li>
                     <li><span class="left" >&nbsp;&nbsp;&nbsp;&nbsp;</span> <span style="left">&nbsp;</span>
@@ -43,11 +43,7 @@
                          <span>
                             <asp:RadioButton GroupName="Radio" ID="RadioButton4" runat="server" Text="考评者" />
                         </span>
-                    </li>
-                    <li><span class="left">记住我：</span> <span style="left">&nbsp;</span>
-                        <span style="left">
-                    &nbsp;</span><asp:CheckBox ID="CBRemindMe" runat="server"  /></li>
-                    
+                    </li>                    
                     <li><span class="left"></span>
                         <span style="left">&nbsp;</span>
                         <span style="left">
@@ -68,7 +64,7 @@
             <li class="middle_A"></li>
             <li class="middle_B"></li>
             <li class="middle_C">
-            <span class="btn">
+            <span class="btn">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:ImageButton ID="IBLogin" runat="server" 
                     ImageUrl="../images/login/btnlogin.gif" onclick="IBLogin_Click"  />
             </span>

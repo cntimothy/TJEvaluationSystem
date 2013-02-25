@@ -21,7 +21,7 @@
             <span class="space">|</span>
             <asp:LinkButton ID="LinkButton1" runat="server">消息</asp:LinkButton>
             <span class="space">|</span>
-            <asp:LinkButton ID="LBLogout" runat="server">退出</asp:LinkButton>
+            <asp:LinkButton ID="LBLogout" runat="server">注销</asp:LinkButton>
         </div>
     </div>
     <div id="layout1" style="width:99.2%; margin:0 auto; margin-top:4px; "> 

@@ -91,6 +91,7 @@
     <Content Include="Script\Evaluator\Evaluate.js" />
     <Content Include="Script\Evaluator\EvaluatorHome.js" />
     <Content Include="Script\FirstManager\CheckAssess.js" />
+    <Content Include="Script\FirstManager\CheckEvaluator.js" />
     <Content Include="Script\FirstManager\CheckPost.js" />
     <Content Include="Script\FirstManager\FirstManagerHome.js" />
     <Content Include="Script\FirstManager\ManagerSecond.js" />
@@ -99,6 +100,7 @@
     <Content Include="Script\Ligerui\ligerui.min.js" />
     <Content Include="Script\ManageStanderLib.js" />
     <Content Include="Script\MessageBox.js" />
+    <Content Include="Script\Message\InBox.js" />
     <Content Include="Script\Message\ShowMessages.js" />
     <Content Include="Script\SecondManager\Home.js" />
     <Content Include="Script\SecondManager\MakeEvaluatorTable.js" />
