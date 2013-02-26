@@ -72,10 +72,11 @@ namespace BLL
          }
          static public bool Select(ref List<Message> model, ref string e, string sql)
          {
+             sql += "order by mSendTime";
              DataTable table = new DataTable();
-            table = db.QueryDataTable(sql, ref e);
-            if (table != null && table.Rows.Count > 0)
-            {
+             table = db.QueryDataTable(sql, ref e);
+             if (table != null && table.Rows.Count > 0)
+             {
                 for (int i = 0; i < table.Rows.Count; i++)
                 {
                     Message message= new Message();
