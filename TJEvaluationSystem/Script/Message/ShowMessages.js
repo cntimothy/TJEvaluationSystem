@@ -1,25 +1,9 @@
 ﻿var indexdata1 =
 [
+    { url: "New.aspx", text: "写信" },
    { url: "InBox.aspx", text: "收件箱" },
-   { url: "OutBox.aspx", text: "发件箱" },
-   { url: "ScriptBox.aspx", text: "草稿箱" }
+   { url: "OutBox.aspx", text: "发件箱" }
 ];
-//var indexdata2 =
-//[
-//    { url: "MakeEvaluated.aspx", text: "制定名单" },
-//    { url: "SelectEvaluated.aspx", text: "查看名单" }
-//];
-//var indexdata3 =
-//[
-//        { url: "CheckPost.aspx", text: "审核岗位责任书" },
-//        { url: "CheckAssess.aspx", text: "审核考评表" },
-//        { url: "CheckEvaluator.aspx", text: "审核考评人名单" }
-//];
-//var indexdata4 =
-//[
-//        { url: "ReportBuilder.aspx", text: "报表管理" }
-//];
-
 
 var tab = null;
 var accordion = null;
@@ -59,56 +43,6 @@ $(function () {
             f_addTab(tabid, node.data.text, node.data.url);
         }
     });
-
-//    $("#tree2").ligerTree({
-//        data: indexdata2,
-//        checkbox: false,
-//        slide: false,
-//        nodeWidth: 120,
-//        attribute: ['nodename', 'url'],
-//        onSelect: function (node) {
-//            if (!node.data.url) return;
-//            var tabid = $(node.target).attr("tabid");
-//            if (!tabid) {
-//                tabid = new Date().getTime();
-//                $(node.target).attr("tabid", tabid)
-//            }
-//            f_addTab(tabid, node.data.text, node.data.url);
-//        }
-//    });
-//    $("#tree3").ligerTree({
-//        data: indexdata3,
-//        checkbox: false,
-//        slide: false,
-//        nodeWidth: 120,
-//        attribute: ['nodename', 'url'],
-//        onSelect: function (node) {
-//            if (!node.data.url) return;
-//            var tabid = $(node.target).attr("tabid");
-//            if (!tabid) {
-//                tabid = new Date().getTime();
-//                $(node.target).attr("tabid", tabid)
-//            }
-//            f_addTab(tabid, node.data.text, node.data.url);
-//        }
-//    });
-
-    //    $("#tree4").ligerTree({
-    //        data: indexdata4,
-    //        checkbox: false,
-    //        slide: false,
-    //        nodeWidth: 120,
-    //        attribute: ['nodename', 'url'],
-    //        onSelect: function (node) {
-    //            if (!node.data.url) return;
-    //            var tabid = $(node.target).attr("tabid");
-    //            if (!tabid) {
-    //                tabid = new Date().getTime();
-    //                $(node.target).attr("tabid", tabid)
-    //            }
-    //            f_addTab(tabid, node.data.text, node.data.url);
-    //        }
-    //    });
 
     tab = $("#framecenter").ligerGetTabManager();
     accordion = $("#accordion1").ligerGetAccordionManager();

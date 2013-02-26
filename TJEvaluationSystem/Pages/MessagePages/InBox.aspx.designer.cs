@@ -67,13 +67,22 @@ namespace TJEvaluationSystem.Pages.MessagePages {
         protected global::System.Web.UI.WebControls.Label mTitle;
         
         /// <summary>
-        /// mRead 控件。
+        /// mMessage 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label mRead;
+        protected global::System.Web.UI.WebControls.Label mMessage;
+        
+        /// <summary>
+        /// GoBack 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton GoBack;
         
         /// <summary>
         /// pass 控件。
@@ -157,6 +166,15 @@ namespace TJEvaluationSystem.Pages.MessagePages {
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden UserName;
         
         /// <summary>
+        /// ReadMsgId 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden ReadMsgId;
+        
+        /// <summary>
         /// CheckUser 控件。
         /// </summary>
         /// <remarks>
@@ -191,6 +209,15 @@ namespace TJEvaluationSystem.Pages.MessagePages {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button SearchUnRead;
+        
+        /// <summary>
+        /// SearchAll 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button SearchAll;
         
         /// <summary>
         /// ErrorList 控件。

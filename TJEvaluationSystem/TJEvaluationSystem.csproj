@@ -69,6 +69,7 @@
     <Content Include="Pages\FirstManagerPages\SelectSecond.aspx" />
     <Content Include="Pages\Login.aspx" />
     <Content Include="Pages\MessagePages\InBox.aspx" />
+    <Content Include="Pages\MessagePages\New.aspx" />
     <Content Include="Pages\MessagePages\OutBox.aspx" />
     <Content Include="Pages\MessagePages\ScriptBox.aspx" />
     <Content Include="Pages\MessagePages\ShowMessages.aspx" />
@@ -144,7 +145,7 @@
     <Compile Include="App_Code\Model\EvaluatedCollectTable.cs" />
     <Compile Include="App_Code\Model\Evaluator.cs" />
     <Compile Include="App_Code\Model\EvaluatorTable.cs" />
-    <Compile Include="App_Code\Model\message.cs" />
+    <Compile Include="App_Code\Model\Message.cs" />
     <Compile Include="App_Code\Model\PostResponseBook.cs" />
     <Compile Include="App_Code\Model\StanderLib.cs" />
     <Compile Include="App_Code\Model\User.cs" />
@@ -235,6 +236,13 @@
     </Compile>
     <Compile Include="Pages\MessagePages\InBox.aspx.designer.cs">
       <DependentUpon>InBox.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MessagePages\New.aspx.cs">
+      <DependentUpon>New.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\MessagePages\New.aspx.designer.cs">
+      <DependentUpon>New.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\MessagePages\OutBox.aspx.cs">
       <DependentUpon>OutBox.aspx</DependentUpon>

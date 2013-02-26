@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <title>审核考评人名单</title>
+    <title>收件箱</title>
     <link href="../../Style/common.css" rel="stylesheet" type="text/css" />
     <link href="../../lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css" />
     <script src="../../lib/jquery/jquery-1.3.2.min.js" type="text/javascript"></script>
@@ -27,22 +27,6 @@
     <div class="ToolBar">
          <table style="position:relative;left:20px;height:100%">
                 <tr> 
-                <!--
-                   <td style="padding:1px;">
-                         <select id="department" style="width:100px;height:25px;font-size:15px">
-                         <option value="0">所有部门</option>
-                         <option value="1">电信学院</option>
-                         <option value="2">后勤部门</option>
-                         <option value="3">行政部门</option>
-                         </select>
-                   </td>
-                   <td style="width:10px;"></td>
-                   <td style="padding:1px;"><input type="button" value="查询" id="search_button"  onclick="search()" class="l-button" style="width:100px;height:25px;font-size:15px"/></td>
-                   <td style="width:10px;"></td>
-                   <td style="padding:1px;"><input type="button" value="通过" id="pass_button"  onclick="pass()" class="l-button" style="width:100px;height:25px;font-size:15px"/> </td>
-                    <td style="width:10px;"></td>
-                   <td style="padding:1px;"><input type="button" value="导出excel" id="dao_button"  onclick="dao()" class="l-button" style="width:100px;height:25px;font-size:15px;"/> </td>
-                -->
                     <td style="padding:1px;"><input type="button" value="未读" id="unread_button"  onclick="searchUnRead()" class="l-button" style="width:100px;height:25px;font-size:15px"/></td>
                     <td style="width:10px;"></td>
                     <td style="padding:1px;"><input type="button" value="全部" id="all_button"  onclick="searchAll()" class="l-button" style="width:100px;height:25px;font-size:15px"/></td>
@@ -52,13 +36,13 @@
      </div>
 
      <br /><br />
-     <div id="evaluatedgrid" style="margin:0 auto" ></div> 
+     <div id="Messagegrid" style="margin:0 auto" ></div> 
 
-      <div id="ShowDetailInMessage" class="Hidden" style="text-align:center" >
-          <div class="DetailUserData" style="border:3px solid #a3c0e8;width:500px;margin:0px auto;">
+      <div id="ShowDetailMessage" class="Hidden" style="text-align:center" >
+          <div class="DetailMessage" style="border:3px solid #a3c0e8;width:500px;margin:0px auto;">
             <table>
             <tr>
-                <td align="right" class="tableKey">发送时间</td>
+                <td align="right" class="tableKey">发送时间:</td>
                 <td align="left" class="tableValue">
                     <div class="DetailData">
                         <asp:Label ID="mSendTime" runat="server" Text=""></asp:Label>
@@ -66,7 +50,7 @@
                 </td>
             </tr>
             <tr>
-                <td align="right" class="tableKey">发信人</td>
+                <td align="right" class="tableKey">发信人:</td>
                 <td align="left" class="tableValue">
                     <div class="ShowData">
                         <asp:Label ID="mSenderId" runat="server" Text=""></asp:Label>
@@ -74,7 +58,7 @@
                 </td>
             </tr>
             <tr>
-                <td align="right" class="tableKey">标题</td>
+                <td align="right" class="tableKey">标题:</td>
                 <td align="left" class="tableValue">
                     <div class="ShowData">
                         <asp:Label ID="mTitle" runat="server" Text=""></asp:Label>
@@ -82,13 +66,20 @@
                 </td>
             </tr>
             <tr>
-                <td align="right" class="tableKey">状态</td>
+                <td align="right" class="tableKey">内容:</td>
                 <td align="left" class="tableValue">
                     <div class="ShowData">
-                        <asp:Label ID="mRead" runat="server" Text=""></asp:Label>
+                        <asp:Label ID="mMessage" runat="server" Text=""></asp:Label>
                     </div>
                 </td>
-            </tr>
+            </tr> 
+            <tr>
+                <td align="center" class="tableValue">
+                    <div class="ShowData">
+                        <asp:LinkButton ID="GoBack" runat="server" OnClick="GoBack_Click">返回</asp:LinkButton>
+                    </div>
+                </td>
+            </tr>           
             </table>
         </div>
      </div>
@@ -107,10 +98,12 @@
              <input id="Chose" type="hidden" runat="server"/>
              <input id="Passed" type="hidden" runat="server" />
              <input id="UserName" type="hidden" runat="server" />
+             <input id="ReadMsgId" type="hidden" runat="server" />
              <asp:Button ID="CheckUser" runat="server"  OnClick="Check_User"  />
              <asp:Button ID="PassList" runat="server" Text="Button" onclick="Submit_Click" style="display:none" />
              <asp:Button ID="Dao" runat="server" Text="Button" onclick="Dao_Click" style="display:none" />   
-             <asp:Button ID="SearchUnRead" runat="server" Text="Button" onclick="SearchUnRead_Click" style="display:none" />    
+             <asp:Button ID="SearchUnRead" runat="server" Text="Button" onclick="SearchUnRead_Click" style="display:none" />
+             <asp:Button ID="SearchAll" runat="server" Text="Button" onclick="SearchAll_Click" style="display:none" />
     </div>
     </form>
     <asp:Label ID="ErrorList" runat="server" Text=""></asp:Label>

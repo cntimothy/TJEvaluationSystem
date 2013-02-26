@@ -24,10 +24,21 @@ namespace TJEvaluationSystem.Pages.MessagePages
         {
             string userName = (string)Session["username"];
             List<Message> messages = new List<Message>();            
-            MessageBLL.Select(userName, 0, ref messages, ref exception);
+            MessageBLL.SelectReceive(userName, 0, ref messages, ref exception);
             DataTable table = new DataTable();
             table = messages.ListToDataTable();
-            //ErrorList.Text = (string)table.Rows[0][0] + "   " + table.Rows[0][1].ToString();
+            return table;
+        }
+
+        protected DataTable searchAll()
+        {
+            string userName = (string)Session["username"];
+            List<Message> messages = new List<Message>();
+            MessageBLL.SelectReceive(userName, ref messages, ref exception);
+            if (messages.Count == 0)
+                return null;
+            DataTable table = new DataTable();
+            table = messages.ListToDataTable();
             return table;
         }
 
@@ -35,11 +46,35 @@ namespace TJEvaluationSystem.Pages.MessagePages
         {
             DataTable table = new DataTable();
             table = searchUnRead();
+            if (table == null)
+                return;
             string json = JSON.DataTableToJson(table);
             //ErrorList.Text = json;
             JsonData.Value = json;
             ClientScript.RegisterStartupScript(this.GetType(), "", "load_message()", true);
             return;
+        }
+
+        protected void SearchAll_Click(object sender, EventArgs e)
+        {
+            DataTable table = new DataTable();
+            table = searchAll();
+            if (table == null)
+                return;
+            string json = JSON.DataTableToJson(table);
+            JsonData.Value = json;
+            ClientScript.RegisterStartupScript(this.GetType(), "", "load_message()", true);
+            return;
+        }
+
+        protected void GoBack_Click(object sender, EventArgs e)
+        {
+            int mID = Convert.ToInt32(ReadMsgId.Value);
+            Message model = new Message();
+            model.MID = mID;
+            model.MRead = 1;
+            MessageBLL.Update(model, ref exception);
+            //ErrorList.Text = ReadMsgId.Text;
         }
 
         protected void Check_User(object sender, EventArgs e)

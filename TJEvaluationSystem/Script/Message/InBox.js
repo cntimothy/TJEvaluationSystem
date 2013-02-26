@@ -1,4 +1,4 @@
-﻿var Evaluated = null;
+﻿var messages = null;
 var data = null;
 var DetailData = null;
 var List = null;
@@ -20,16 +20,21 @@ function searchUnRead() {
     document.getElementById("SearchUnRead").click();
 }
 
+function searchAll() {
+    document.getElementById("SearchAll").click();
+}
+
 function load_message() {
     var s = document.getElementById("JsonData").value;
     var MessagesData = JSON2.parse(s);
     data = MessagesData;
-    Evaluated = $("#evaluatedgrid").ligerGrid({
+    messages = $("#Messagegrid").ligerGrid({
         columns: [
-        { display: '发送时间', name: 'MSendTime', width: 100, align: 'center', frozen: true },
-        { display: '发信人', name: 'MSenderID', width: 100, align: 'center' },
-        { display: '标题', name: 'MTitle', width: 220, align: 'center' },
-        { display: '', isSort: false, width: 200, render: function (rowdata, rowindex, value) {
+        { display: 'ID', name: 'MID', width: 100, align: 'center', frozen: true },
+        { display: '发送时间', name: 'MSendTime', width: 150, align: 'center', frozen: true },
+        { display: '发信人', name: 'MSenderID', width: 150, align: 'center' },
+        { display: '标题', name: 'MTitle', width: 300, align: 'center' },
+        { display: '', isSort: false, width: 300, render: function (rowdata, rowindex, value) {
             var h = "";
             h += "<a href='javascript:ShowDetail(" + rowindex + ")'>查看详细</a> ";
             return h;
@@ -42,23 +47,22 @@ function load_message() {
 }
 
 function ShowDetail(rowid) {
-    var rowdata = Evaluated.getSelectedRow(rowid);    //取得数据  
+    var rowdata = messages.getSelectedRow(rowid);    //取得数据  
     if (rowdata == null)
         return;
     DetailData = rowdata;
     //
-    $("#evaluatedgrid").css("display", "none");
-    $("#ShowDetailUserInfo").css("display", "block");
-    // $("#UserInfo").css("display", "none");
-    $(".DetailData").css("display", "block");
-    // $(".AddData").css("display", "none");
+    $("#Messagegrid").css("display", "none");
+    $("#ShowDetailMessage").css("display", "block");
+    $(".DetailMessage").css("display", "block");
     //设置显示与隐藏
-    $(".ShowData").css("display", "block");
-    //$(".EditData").css("display", "none");
+    $(".DetailData").css("display", "block");
     //设置显示值
-    document.getElementById('mSendTime').innerText = rowdata.mSendTime;
-    document.getElementById('mSenderID').innerText = rowdata.mSenderID;
-    document.getElementById('mTitle').innerText = rowdata.mTitle;
+    document.getElementById('mSendTime').innerText = rowdata.MSendTime;
+    document.getElementById('mSenderId').innerText = rowdata.MSenderID;
+    document.getElementById('mTitle').innerText = rowdata.MTitle;
+    document.getElementById('mMessage').innerText = rowdata.MMessage;
+    document.getElementById('ReadMsgId').value = rowdata.MID;;
 }
 
 function Check(rowid) {

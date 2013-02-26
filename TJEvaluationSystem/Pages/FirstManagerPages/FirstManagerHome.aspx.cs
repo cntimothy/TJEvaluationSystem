@@ -15,10 +15,13 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             {
                 try
                 {
-                    if (Session["username"].Equals(DBNull.Value))
+                    string name = (string)Session["username"];
+                    if (name.Equals(DBNull.Value))
                     {
                         Response.Redirect("../Login.aspx");
                     }
+                    else
+                        LUserName.Text = name;
                 }
                 catch (Exception ex)
                 {

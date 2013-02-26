@@ -60,9 +60,14 @@ namespace BLL
              string sql = "select * from tb_Message where mSenderID='"+mSenderID+"'";
              return Select(ref model, ref e, sql);
          }
-         static public bool Select(string mReceiveID, int mRead,ref List<Message> model, ref string e)
+         static public bool SelectReceive(string mReceiveID, int mRead,ref List<Message> model, ref string e)
          {
              string sql = "select * from tb_Message where mReceiveID='" + mReceiveID + "' and mRead='" + mRead+"'";
+             return Select(ref model, ref e, sql);
+         }
+         static public bool SelectReceive(string mReceiveID, ref List<Message> model, ref string e)
+         {
+             string sql = "select * from tb_Message where mReceiveID='" + mReceiveID + "'";
              return Select(ref model, ref e, sql);
          }
          static public bool Select(ref List<Message> model, ref string e, string sql)
