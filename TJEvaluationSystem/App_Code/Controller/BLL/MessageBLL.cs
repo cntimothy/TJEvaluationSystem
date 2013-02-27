@@ -23,9 +23,9 @@ namespace BLL
              for (int i = 0; i < count; i++)
              {
                  string sql = "insert into tb_Message("
-                                  + "mSenderID,mReceiveID,mMessage,mRead,mSendTime)"
+                                  + "mSenderID,mReceiveID,mMessage,mRead,mSendTime,mTitle)"
                                   + "values("
-                                  + "@mSenderID,@mReceiveID,@mMessage,@mRead,@mSendTime)";
+                                  + "@mSenderID,@mReceiveID,@mMessage,@mRead,@mSendTime,@mTitle)";
                  SqlParameter[] parameters =
                  {
                      new SqlParameter("@mSenderID", SqlDbType.VarChar,10),
@@ -33,7 +33,7 @@ namespace BLL
                      new SqlParameter("@mMessage", SqlDbType.NVarChar,int.MaxValue),
                      new SqlParameter("@mRead", SqlDbType.Int,4),
                      new SqlParameter("@mSendTime", SqlDbType.DateTime),
-                     new SqlParameter("@mTitle", SqlDbType.NVarChar, 10),
+                     new SqlParameter("@mTitle", SqlDbType.NVarChar, 20),
                  };
                  parameters[0].Value = message[i].MSenderID;
                  parameters[1].Value = message[i].MReceiveID;
@@ -50,6 +50,38 @@ namespace BLL
              }
              return true;
          }
+        static public bool Insert(List<Message> msgs, ref string e)
+        {
+            for (int i = 0; i < msgs.Count; i++)
+            {
+                string sql = "insert into tb_Message("
+                                 + "mSenderID,mReceiveID,mMessage,mRead,mSendTime,mTitle)"
+                                 + "values("
+                                 + "@mSenderID,@mReceiveID,@mMessage,@mRead,@mSendTime,@mTitle)";
+                SqlParameter[] parameters =
+                 {
+                     new SqlParameter("@mSenderID", SqlDbType.VarChar,10),
+                     new SqlParameter("@mReceiveID", SqlDbType.VarChar,10),
+                     new SqlParameter("@mMessage", SqlDbType.NVarChar,int.MaxValue),
+                     new SqlParameter("@mRead", SqlDbType.Int,4),
+                     new SqlParameter("@mSendTime", SqlDbType.DateTime),
+                     new SqlParameter("@mTitle", SqlDbType.NVarChar, 20),
+                 };
+                parameters[0].Value = msgs[i].MSenderID;
+                parameters[1].Value = msgs[i].MReceiveID;
+                parameters[2].Value = msgs[i].MMessage;
+                parameters[3].Value = msgs[i].MRead;
+                parameters[4].Value = msgs[i].MSendTime;
+                parameters[5].Value = msgs[i].MTitle;
+                string exception = db.InsertExec(sql, parameters);
+                if (exception != "" && exception != null)
+                {
+                    e = exception;
+                    return false;
+                }
+            }
+            return true;
+        }
         static public bool Select(ref List<Message> model, ref string e)
          {
              string sql = "select * from tb_Message ";
@@ -145,6 +177,11 @@ namespace BLL
                 return true;
             else
                 return false;
+        }
+
+        internal static void Insert()
+        {
+            throw new NotImplementedException();
         }
     }
 }

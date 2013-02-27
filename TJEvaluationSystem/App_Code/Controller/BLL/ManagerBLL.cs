@@ -69,6 +69,27 @@ namespace BLL
             }
         }
 
+        public static bool SelectMID(ref List<String> model, int mType, ref string e)
+        {
+            string sql = "select mID from tb_Manager where mType = '" + mType + "'";
+            DataTable table = new DataTable();
+            table = db.QueryDataTable(sql, ref e);
+            if (table != null && table.Rows.Count > 0)
+            {
+                for (int i = 0; i < table.Rows.Count; i++)
+                {
+                    model.Add((string)table.Rows[i]["mID"]);
+                }
+                return true;
+            }
+            else
+            {
+                if (e != "" && e != null)
+                    return false;
+                return false;
+            }
+        }
+
         public static bool Update(Manager model, ref string e)
         {
             StringBuilder strSql = new StringBuilder();
