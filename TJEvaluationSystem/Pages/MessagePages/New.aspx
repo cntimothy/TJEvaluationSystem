@@ -67,6 +67,5 @@
             </table>
         </div>
     </form>
-    <asp:Label ID="ErrorList" runat="server" Text="Label"></asp:Label>
     </body>
 </html>
