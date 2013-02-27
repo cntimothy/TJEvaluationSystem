@@ -28,13 +28,26 @@ namespace TJEvaluationSystem.Pages.MessagePages
             if (Receive.Text == "0")
             {
                 
-                List<string> names = new List<string>();
+                List<string> names = new List<string>();                
                 ManagerBLL.SelectMID(ref names, 2, ref exception);
-                foreach (string mReceiveID in names)
+                //foreach (string mReceiveID in names)
+                //{
+                //    Message msg = new Message();
+                //    msg.MSenderID = mSenderID;
+                //    msg.MReceiveID = mReceiveID;
+                //    msg.MMessage = mMessage;
+                //    msg.MRead = mRead;
+                //    msg.MSendTime = mSendTime;
+                //    msg.MTitle = mTitle;
+                //    msgList.Add(msg);
+                //}
+                foreach (ListItem item in Receive.Items)
                 {
+                    if (item.Value == "0")
+                        continue;
                     Message msg = new Message();
                     msg.MSenderID = mSenderID;
-                    msg.MReceiveID = mReceiveID;
+                    msg.MReceiveID = item.Value;
                     msg.MMessage = mMessage;
                     msg.MRead = mRead;
                     msg.MSendTime = mSendTime;

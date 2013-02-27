@@ -22,14 +22,14 @@
                     <div class="DetailData">
                         <asp:DropDownList ID="Receive" runat="server" DataSourceID="SqlDataSource1" 
                             DataTextField="mID" DataValueField="mID" AppendDataBoundItems="True" >
-                             <asp:ListItem Value="0" >所有系级管理员</asp:ListItem>
+                             <asp:ListItem Value="0" >所有人</asp:ListItem>
                         </asp:DropDownList>
                         <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                             ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True;User Instance=True" 
                             ProviderName="System.Data.SqlClient" 
-                            SelectCommand="SELECT [mID] FROM [tb_Manager] WHERE ([mType] = @mType)">
+                            SelectCommand="SELECT [mID] FROM [tb_Manager] WHERE ([mID] &lt;&gt; @mID)">
                             <SelectParameters>
-                                <asp:Parameter DefaultValue="2" Name="mType" Type="Int32" />
+                                <asp:SessionParameter Name="mID" SessionField="username" Type="String" />
                             </SelectParameters>
                         </asp:SqlDataSource>
                     </div>
@@ -67,5 +67,6 @@
             </table>
         </div>
     </form>
+    <asp:Label ID="ErrorList" runat="server" Text="Label"></asp:Label>
     </body>
 </html>
