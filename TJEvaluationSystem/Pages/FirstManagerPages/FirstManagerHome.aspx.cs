@@ -51,5 +51,10 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             Session["usertype"] = null;
             Response.Redirect("../Login.aspx");
         }
+
+        protected void GoHome_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("./FirstManagerHome.aspx");
+        }
     }
 }

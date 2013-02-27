@@ -51,5 +51,25 @@ namespace TJEvaluationSystem.Pages.MessagePages
         {
             
         }
+
+        protected void GoHome_Click(object sender, EventArgs e)
+        {
+            if ((int)Session["usertype"] == 0)
+            {
+                Response.Redirect("../SuperManagerPages/SuperManagerHome.aspx");
+            }
+            else if ((int)Session["usertype"] == 1)
+            {
+                Response.Redirect("../FirstManagerPages/FirstManagerHome.aspx");
+            }
+            else if ((int)Session["usertype"] == 2)
+            {
+                Response.Redirect("../SecondManagerPages/SecondManagerHome.aspx");
+            }
+            else if ((int)Session["usertype"] == 3)
+            {
+                Response.Redirect("../EvaluatorPages/EvaluatorHome.aspx");
+            }
+        }
     }
 }

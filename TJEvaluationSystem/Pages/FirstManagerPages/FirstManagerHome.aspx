@@ -21,6 +21,8 @@
             <span class="space">|</span>
             <asp:LinkButton ID="LinkButton1" runat="server" onclick="LinkButton1_Click">消息...</asp:LinkButton>
             <span class="space">|</span>
+            <asp:LinkButton ID="GoHome" runat="server" onclick="GoHome_Click">首页</asp:LinkButton>
+            <span class="space">|</span>
             <asp:LinkButton ID="LBLogout" runat="server" onclick="LBLogout_Click">注销</asp:LinkButton>
         </div>
     </div>
