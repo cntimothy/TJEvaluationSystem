@@ -94,15 +94,6 @@ namespace TJEvaluationSystem.Pages.MessagePages {
         protected global::System.Web.UI.WebControls.Label pass;
         
         /// <summary>
-        /// Depart 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden Depart;
-        
-        /// <summary>
         /// JsonData 控件。
         /// </summary>
         /// <remarks>
@@ -139,33 +130,6 @@ namespace TJEvaluationSystem.Pages.MessagePages {
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden Errors;
         
         /// <summary>
-        /// Chose 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden Chose;
-        
-        /// <summary>
-        /// Passed 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden Passed;
-        
-        /// <summary>
-        /// UserName 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden UserName;
-        
-        /// <summary>
         /// ReadMsgId 控件。
         /// </summary>
         /// <remarks>
@@ -173,33 +137,6 @@ namespace TJEvaluationSystem.Pages.MessagePages {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden ReadMsgId;
-        
-        /// <summary>
-        /// CheckUser 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button CheckUser;
-        
-        /// <summary>
-        /// PassList 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button PassList;
-        
-        /// <summary>
-        /// Dao 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Dao;
         
         /// <summary>
         /// SearchUnRead 控件。

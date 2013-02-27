@@ -71,7 +71,6 @@
     <Content Include="Pages\MessagePages\InBox.aspx" />
     <Content Include="Pages\MessagePages\New.aspx" />
     <Content Include="Pages\MessagePages\OutBox.aspx" />
-    <Content Include="Pages\MessagePages\ScriptBox.aspx" />
     <Content Include="Pages\MessagePages\ShowMessages.aspx" />
     <Content Include="Pages\SecondManagerPages\MakeEvaluatorTable.aspx" />
     <Content Include="Pages\SecondManagerPages\MakePostBook.aspx" />
@@ -102,6 +101,7 @@
     <Content Include="Script\ManageStanderLib.js" />
     <Content Include="Script\MessageBox.js" />
     <Content Include="Script\Message\InBox.js" />
+    <Content Include="Script\Message\OutBox.js" />
     <Content Include="Script\Message\ShowMessages.js" />
     <Content Include="Script\SecondManager\Home.js" />
     <Content Include="Script\SecondManager\MakeEvaluatorTable.js" />
@@ -250,13 +250,6 @@
     </Compile>
     <Compile Include="Pages\MessagePages\OutBox.aspx.designer.cs">
       <DependentUpon>OutBox.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\MessagePages\ScriptBox.aspx.cs">
-      <DependentUpon>ScriptBox.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\MessagePages\ScriptBox.aspx.designer.cs">
-      <DependentUpon>ScriptBox.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\MessagePages\ShowMessages.aspx.cs">
       <DependentUpon>ShowMessages.aspx</DependentUpon>

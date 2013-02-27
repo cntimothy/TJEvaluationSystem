@@ -76,25 +76,5 @@ namespace TJEvaluationSystem.Pages.MessagePages
             MessageBLL.Update(model, ref exception);
             //ErrorList.Text = ReadMsgId.Text;
         }
-
-        protected void Check_User(object sender, EventArgs e)
-        {
-            
-        }
-
-        protected void Submit_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        protected void Dao_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void Export(string filename, DataTable table)
-        {
-  
-        }
     }
 }

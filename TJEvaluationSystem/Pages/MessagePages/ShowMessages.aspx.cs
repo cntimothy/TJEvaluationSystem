@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BLL;
 
 namespace TJEvaluationSystem.Pages.MessagePages
 {
@@ -21,13 +22,21 @@ namespace TJEvaluationSystem.Pages.MessagePages
                         Response.Redirect("../Login.aspx");
                     }
                     else
-                        LUserName.Text = name;
+                        LUserName.Text = "欢迎您：" + name;
                 }
                 catch (Exception ex)
                 {
                     ex.ToString();
                     Response.Redirect("../Login.aspx");
                 }
+            }
+            int count = 0;
+            string exception = null;
+            string colname = "mRead";
+            string receiveID = (string)Session["username"];
+            if (MessageBLL.SelectUnReadCount(ref count, colname, receiveID, ref exception))
+            {
+                LinkButton1.Text = "消息（" + count + "）";
             }
         }
 

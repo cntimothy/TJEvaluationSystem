@@ -89,19 +89,12 @@
          <div id="list" style="margin:0 auto" ></div> 
      </div>
 
-     <div class="Hidden">
-             <input id="Depart" type="hidden" runat="server"/>    
+     <div class="Hidden">  
              <input id="JsonData" type="hidden" runat="server"/>
              <input id="UserID" type="hidden" runat="server"/>
              <input id="JsonList" type="hidden" runat="server"/>
              <input id="Errors" type="hidden" runat="server"/>
-             <input id="Chose" type="hidden" runat="server"/>
-             <input id="Passed" type="hidden" runat="server" />
-             <input id="UserName" type="hidden" runat="server" />
              <input id="ReadMsgId" type="hidden" runat="server" />
-             <asp:Button ID="CheckUser" runat="server"  OnClick="Check_User"  />
-             <asp:Button ID="PassList" runat="server" Text="Button" onclick="Submit_Click" style="display:none" />
-             <asp:Button ID="Dao" runat="server" Text="Button" onclick="Dao_Click" style="display:none" />   
              <asp:Button ID="SearchUnRead" runat="server" Text="Button" onclick="SearchUnRead_Click" style="display:none" />
              <asp:Button ID="SearchAll" runat="server" Text="Button" onclick="SearchAll_Click" style="display:none" />
     </div>

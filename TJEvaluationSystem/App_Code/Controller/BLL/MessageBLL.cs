@@ -16,8 +16,8 @@ namespace BLL
     {
         public MessageBLL()
         { }
-         static readonly SQLDatabase db = new SQLDatabase();
-         static public bool Insert(Message[] message, ref string e)
+        static readonly SQLDatabase db = new SQLDatabase();
+        static public bool Insert(Message[] message, ref string e)
          {
              int count = message.Length;
              for (int i = 0; i < count; i++)
@@ -50,27 +50,27 @@ namespace BLL
              }
              return true;
          }
-         static public bool Select(ref List<Message> model, ref string e)
+        static public bool Select(ref List<Message> model, ref string e)
          {
              string sql = "select * from tb_Message ";
              return Select(ref model, ref e, sql);
          }
-         static public bool Select(string mSenderID,ref List<Message> model, ref string e)
+        static public bool Select(string mSenderID,ref List<Message> model, ref string e)
          {
              string sql = "select * from tb_Message where mSenderID='"+mSenderID+"'";
              return Select(ref model, ref e, sql);
          }
-         static public bool SelectReceive(string mReceiveID, int mRead,ref List<Message> model, ref string e)
+        static public bool SelectReceive(string mReceiveID, int mRead,ref List<Message> model, ref string e)
          {
              string sql = "select * from tb_Message where mReceiveID='" + mReceiveID + "' and mRead='" + mRead+"'";
              return Select(ref model, ref e, sql);
          }
-         static public bool SelectReceive(string mReceiveID, ref List<Message> model, ref string e)
+        static public bool SelectReceive(string mReceiveID, ref List<Message> model, ref string e)
          {
              string sql = "select * from tb_Message where mReceiveID='" + mReceiveID + "'";
              return Select(ref model, ref e, sql);
          }
-         static public bool Select(ref List<Message> model, ref string e, string sql)
+        static public bool Select(ref List<Message> model, ref string e, string sql)
          {
              sql += "order by mSendTime";
              DataTable table = new DataTable();
@@ -99,7 +99,7 @@ namespace BLL
                 return false;
             }
          }
-         public static bool Update(Message model, ref string e)
+        static public bool Update(Message model, ref string e)
          {
              StringBuilder strSql = new StringBuilder();
              strSql.Append("update tb_Message set ");
@@ -120,7 +120,7 @@ namespace BLL
              }
              return true;
          }
-         static public bool Delete(int mID, ref string e)
+        static public bool Delete(int mID, ref string e)
          {
              StringBuilder strSql = new StringBuilder();
              strSql.Append("delete from tb_Message ");
@@ -137,5 +137,14 @@ namespace BLL
              return true;
 
          }
+        static public bool SelectUnReadCount(ref int count, string colname, string receiveID, ref string e)
+        {
+            string sql = "select count(" + colname + ")from tb_Message where mReceiveID = '" + receiveID + "'and mRead = '0'";
+            count = Convert.ToInt32(db.QueryValue(sql));
+            if (count != 0)
+                return true;
+            else
+                return false;
+        }
     }
 }

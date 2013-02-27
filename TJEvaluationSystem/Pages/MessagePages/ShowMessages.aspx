@@ -19,7 +19,7 @@
         <div class="l-topmenu-welcome"> 
             <asp:Label ID="LUserName" runat="server" Text="Label" ForeColor="White"></asp:Label>  
             <span class="space">|</span>
-            <asp:LinkButton ID="LinkButton1" runat="server" onclick="LinkButton1_Click">消息</asp:LinkButton>
+            <asp:LinkButton ID="LinkButton1" runat="server" onclick="LinkButton1_Click">消息...</asp:LinkButton>
             <span class="space">|</span>
             <asp:LinkButton ID="LBLogout" runat="server" OnClick="LBLogout_Click">注销</asp:LinkButton>
         </div>
