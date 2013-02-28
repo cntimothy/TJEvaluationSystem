@@ -71,5 +71,10 @@ namespace TJEvaluationSystem.Pages.MessagePages
                 Response.Redirect("../EvaluatorPages/EvaluatorHome.aspx");
             }
         }
+
+        protected void LBAccount_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("../AccountPages/AccountInfo.aspx");
+        }
     }
 }

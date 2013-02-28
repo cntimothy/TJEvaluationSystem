@@ -18,6 +18,7 @@
         <div class="l-topmenu-logo">同济大学派遣员工绩效考核系统</div>
         <div class="l-topmenu-welcome"> 
             <asp:Label ID="LUserName" runat="server" Text="Label" ForeColor="White"></asp:Label>  
+            <asp:LinkButton ID="LBAccount" runat="server" onclick="LBAccount_Click">用户</asp:LinkButton>
             <span class="space">|</span>
             <asp:LinkButton ID="LinkButton1" runat="server" onclick="LinkButton1_Click">消息...</asp:LinkButton>
             <span class="space">|</span>

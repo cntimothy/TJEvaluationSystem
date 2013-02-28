@@ -57,6 +57,9 @@
     <Content Include="App_Data\Database_log.ldf">
       <DependentUpon>Database.mdf</DependentUpon>
     </Content>
+    <Content Include="Pages\AccountPages\AccountInfo.aspx" />
+    <Content Include="Pages\AccountPages\AccountManage.aspx" />
+    <Content Include="Pages\AccountPages\ChangePassword.aspx" />
     <Content Include="Pages\EvaluatorPages\Evaluate.aspx" />
     <Content Include="Pages\EvaluatorPages\EvaluatorHome.aspx" />
     <Content Include="Pages\FirstManagerPages\CheckAssess.aspx" />
@@ -85,6 +88,8 @@
     <Content Include="Pages\SuperManagerPages\ManageUserInfo.aspx" />
     <Content Include="Pages\SuperManagerPages\SuperManagerHome.aspx" />
     <Content Include="Pages\SuperManagerPages\UploadUserInfo.aspx" />
+    <Content Include="Script\Account\AccountManage.js" />
+    <Content Include="Script\Account\ChangePassword.js" />
     <Content Include="Script\adduser.js" />
     <Content Include="Script\CommonData.js" />
     <Content Include="Script\CommonFunction.js" />
@@ -151,6 +156,27 @@
     <Compile Include="App_Code\Model\User.cs" />
     <Compile Include="App_Code\Model\UserInfo.cs" />
     <Compile Include="App_Code\Model\UserType.cs" />
+    <Compile Include="Pages\AccountPages\AccountInfo.aspx.cs">
+      <DependentUpon>AccountInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\AccountPages\AccountInfo.aspx.designer.cs">
+      <DependentUpon>AccountInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AccountPages\AccountManage.aspx.cs">
+      <DependentUpon>AccountManage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\AccountPages\AccountManage.aspx.designer.cs">
+      <DependentUpon>AccountManage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AccountPages\ChangePassword.aspx.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\AccountPages\ChangePassword.aspx.designer.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\EvaluatorPages\Evaluate.aspx.cs">
       <DependentUpon>Evaluate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

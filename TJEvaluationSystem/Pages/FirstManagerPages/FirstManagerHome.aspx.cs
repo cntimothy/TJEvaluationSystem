@@ -22,7 +22,10 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                         Response.Redirect("../Login.aspx");
                     }
                     else
-                        LUserName.Text = "欢迎您：" + name;
+                    {
+                        LUserName.Text = "欢迎您！";
+                        LBAccount.Text = name;
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -55,6 +58,11 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         protected void GoHome_Click(object sender, EventArgs e)
         {
             Response.Redirect("./FirstManagerHome.aspx");
+        }
+
+        protected void LBAccount_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("../AccountPages/AccountManage.aspx");
         }
     }
 }
