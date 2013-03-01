@@ -1,6 +1,6 @@
 ﻿var indexdata1 =
 [
-   { url: "AccountInfo.aspx", text: "账户信息" },
+//   { url: "AccountInfo.aspx", text: "账户信息" },
    { url: "ChangePassword.aspx", text: "更改密码" }
 ];
 
