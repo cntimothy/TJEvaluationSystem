@@ -1,13 +1,11 @@
 ﻿var indexdata =
 [
    { url: "ManageEvaluatorTable.aspx", text: "管理考核表" },
-   { url: "MakeEvaluatorTable.aspx", text: "制作考核表" }
-   
+   { url: "ManageEvaluator.aspx", text: "管理考评人名单" }
 ];
 var indexdata2 =
 [
-   { url: "ManagePostBook.aspx", text: "管理岗位责任书" },
-   { url: "MakePostBook.aspx", text: "制作岗位责任书" }
+   { url: "MakePostBook.aspx", text: "管理岗位责任书" }
 ];
 
 var tab = null;

@@ -9,6 +9,8 @@
 </head>
 <body>
     <form id="form1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
     <div class="Main">
         <ul>
             <li class="top"></li>
@@ -18,6 +20,8 @@
                 <img src="../images/login/logo.gif" alt="" style="" />
             </span></li>
             <li class="topC"></li>
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
             <li class="topD">
                 <ul class="login">
                     <li><span class="left">用户名：</span> <span style="left">&nbsp;</span>
@@ -28,29 +32,31 @@
                         <asp:TextBox ID="TBPassword" runat="server"
                             style="margin-top: 0px" Cssclass="txt" TextMode="Password" ></asp:TextBox>
                     </span></li>
-                    <li><span class="left">登陆身份：</span> <span style="left">&nbsp;</span>
-                         <span>
-                            <asp:RadioButton GroupName="Radio" ID="RadioButton1" runat="server" Text="超级管理员" />
-                         </span>
-                         <span>
-                            <asp:RadioButton GroupName="Radio" ID="RadioButton2" runat="server" Text="人事处管理员" />
+                    <li>
+                        <span class="left">登陆身份：</span> <span style="left">&nbsp;</span>
+                        <span><asp:DropDownList ID="DDLLoginType" runat="server" Cssclass="txt">
+                            <asp:ListItem Value="0">超级管理员</asp:ListItem>
+                            <asp:ListItem Value="1">人事处管理员</asp:ListItem>
+                            <asp:ListItem Value="2">系级管理员</asp:ListItem>
+                            <asp:ListItem Selected="True" Value="3">考评者</asp:ListItem>
+                        </asp:DropDownList>
                         </span>
-                    </li>
-                    <li><span class="left" >&nbsp;&nbsp;&nbsp;&nbsp;</span> <span style="left">&nbsp;</span>
-                       <span>
-                            <asp:RadioButton GroupName="Radio" ID="RadioButton3" runat="server" Text="系级管理员" />
-                         </span>
-                         <span>
-                            <asp:RadioButton GroupName="Radio" ID="RadioButton4" runat="server" Text="考评者" />
-                        </span>
-                    </li>                    
+                    </li>                  
                     <li><span class="left"></span>
                         <span style="left">&nbsp;</span>
                         <span style="left">
-                    &nbsp;</span>             
-                    </li>
-                    
+                    &nbsp;</span>
+                        <span>
+                        <asp:Label ID="LBPrompt"
+                                runat="server" Visible="False" ForeColor="Red"></asp:Label>
+                        <asp:RequiredFieldValidator ID="RFVUserName" runat="server" ControlToValidate="TBUserName"
+                            Display="Dynamic" ErrorMessage="用户名不能为空" ForeColor="Red"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="RFVPassword" runat="server" ControlToValidate="TBPassword"
+                            Display="Dynamic" ErrorMessage="密码不能为空" ForeColor="Red"></asp:RequiredFieldValidator>
+                    </span>
+                    </li> 
                 </ul>
+                
             </li>
             <li class="topE"></li>
             <li class="middle_A"></li>
@@ -59,15 +65,10 @@
             <span class="btn">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:ImageButton ID="IBLogin" runat="server" 
                     ImageUrl="../images/login/btnlogin.gif" onclick="IBLogin_Click"  />
-            </span></br>
-            <span>
-                <asp:Label ID="LBPrompt" runat="server" Visible="False" ForeColor="Red"></asp:Label>
-                <asp:RequiredFieldValidator ID="RFVUserName" runat="server" ControlToValidate="TBUserName"
-                            Display="Dynamic" ErrorMessage="用户名不能为空" ForeColor="Red"></asp:RequiredFieldValidator>
-                <asp:RequiredFieldValidator ID="RFVPassword" runat="server" ControlToValidate="TBPassword"
-                            Display="Dynamic" ErrorMessage="密码不能为空" ForeColor="Red"></asp:RequiredFieldValidator>
             </span>
             </li>
+            </ContentTemplate>
+            </asp:UpdatePanel>
             <li class="middle_D"></li>
             <li class="bottom_A"></li>
             <li class="bottom_B"></li>

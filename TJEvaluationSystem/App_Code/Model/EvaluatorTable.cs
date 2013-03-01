@@ -13,13 +13,13 @@ namespace Model
         string etEvaluatedID;
         string etEvaluateID;
         int etAssessTableID;
-        double etWeight;
-        int etKey;
-        int etResponse;
-        int etAbility;
-        int etAttitude;
-        int etVeto;
-        double etSum;
+        int etWeight;
+        float etKey;
+        float etResponse;
+        float etAbility;
+        float etAttitude;
+        float etVeto;
+        float etSum;
 
         public string EtEvaluatedID
         {
@@ -39,43 +39,43 @@ namespace Model
             set { etAssessTableID = value; }
         }
 
-        public double EtWeight
+        public int EtWeight
         {
             get { return etWeight; }
             set { etWeight = value; }
         }
 
-        public int EtKey
+        public float EtKey
         {
             get { return etKey; }
             set { etKey = value; }
         }
 
-        public int EtResponse
+        public float EtResponse
         {
             get { return etResponse; }
             set { etResponse = value; }
         }
 
-        public int EtAbility
+        public float EtAbility
         {
             get { return etAbility; }
             set { etAbility = value; }
         }
 
-        public int EtAttitude
+        public float EtAttitude
         {
             get { return etAttitude; }
             set { etAttitude = value; }
         }
 
-        public int EtVeto
+        public float EtVeto
         {
             get { return etVeto; }
             set { etVeto = value; }
         }
 
-        public double EtSum
+        public float EtSum
         {
             get { return etSum; }
             set { etSum = value; }

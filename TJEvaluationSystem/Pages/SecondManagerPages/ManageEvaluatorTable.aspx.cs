@@ -27,13 +27,13 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         {
             //查询考核表
             string username = (string)Session["username"];
-            string sqlcmd = "select * from tb_AssessTable where atUserID=" + username;
+            string sqlcmd = "select * from tb_AssessTable where atUserID='" + username+"'";
             List<AssessTable> at = new List<AssessTable>();
             string e = "";
             if (!LoadStanderLib())
                 return;
             if (!AssessTableBLL.Select(sqlcmd, ref at, ref e) || at.Count == 0)
-                JsonData.Value = "";
+                JsonData3.Value = "";
             else 
             {
                 JsonData3.Value = JSON.ScriptSerialize<AssessTable>(at[0]);

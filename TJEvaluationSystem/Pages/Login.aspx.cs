@@ -39,34 +39,11 @@ namespace TJEvaluationSystem.Pages
             {
                 return;
             }
-            int userLevel=-1;
-            if (this.RadioButton1.Checked)
-            {
-                userLevel = 0;
-            }
-            else
-                if (this.RadioButton2.Checked)
-                {
-                    userLevel = 1;
-                }
-                else
-                    if (this.RadioButton3.Checked)
-                    {
-                        userLevel = 2;
-                    }
-                    else
-                        if (this.RadioButton4.Checked)
-                        {
-                            userLevel = 3;
-                        }
-                        else
-                        {
-                            LBPrompt.Visible = true;
-                            LBPrompt.Text = "请选择登陆身份！";
-                            return;
+            //得到用户身份类型
+            int userLevel = -1;
+            userLevel = int.Parse(DDLLoginType.SelectedValue);
 
-                        }
-
+            //根据身份类型检查用户名密码
             if (userLevel == 0 || userLevel == 1)
             {
                 Manager manager = new Manager();
@@ -82,13 +59,13 @@ namespace TJEvaluationSystem.Pages
                 {
                     //登录失败
                     LBPrompt.Visible = true;
-                    LBPrompt.Text =ex;
+                    LBPrompt.Text = ex;
                     return;
                 }
-                 
+
             }
             else
-                 userType = Commondo.login(username, userpwd);
+                userType = Commondo.login(username, userpwd);
             if (userType == -1)
             {
                 //登录失败
@@ -98,10 +75,11 @@ namespace TJEvaluationSystem.Pages
             }
             else
             {
-                RememberMe(username,userType);
+                RememberMe(username, userType);
                 LBPrompt.Visible = false;
-                
-                switch(userLevel)
+
+                //登录成功,页面跳转
+                switch (userLevel)
                 {
                     case 0:
                         Response.Redirect("SuperManagerPages/SuperManagerHome.aspx");
@@ -135,7 +113,7 @@ namespace TJEvaluationSystem.Pages
                             LBPrompt.Text = "您没有访问权限！";
                             return;
                         }
-                        
+
                         break;
                     default:
                         break;

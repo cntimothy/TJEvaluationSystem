@@ -30,12 +30,12 @@ namespace BLL
                     new SqlParameter("@etEvaluatedID", SqlDbType.VarChar,10),
                     new SqlParameter("@etEvaluateID",SqlDbType.VarChar,10),
                     new SqlParameter("@etAssessTableID", SqlDbType.Int,4),
-                    new SqlParameter("@etWeight", SqlDbType.Float),
-                    new SqlParameter("@etKey",SqlDbType.Int,4),
-                    new SqlParameter("@etResponse", SqlDbType.Int,4),
-                    new SqlParameter("@etAbility", SqlDbType.Int,4),
-                    new SqlParameter("@etAttitude", SqlDbType.Int,4),
-                    new SqlParameter("@etVeto",SqlDbType.Int,4),
+                    new SqlParameter("@etWeight", SqlDbType.Int,4),
+                    new SqlParameter("@etKey",SqlDbType.Float),
+                    new SqlParameter("@etResponse", SqlDbType.Float),
+                    new SqlParameter("@etAbility", SqlDbType.Float),
+                    new SqlParameter("@etAttitude", SqlDbType.Float),
+                    new SqlParameter("@etVeto",SqlDbType.Float),
                     new SqlParameter("@etSum", SqlDbType.Float)
 
                 };
@@ -83,13 +83,14 @@ namespace BLL
                     et.EtEvaluatedID = (string)table.Rows[i][0];
                     et.EtEvaluateID = (string)table.Rows[i][1];
                     et.EtAssessTableID= (int)table.Rows[i][2];
-                    et.EtWeight = (double)table.Rows[i][3];
-                    et.EtKey = (int)table.Rows[i][4];
-                    et.EtResponse = (int)table.Rows[i][5];
-                    et.EtAbility = (int)table.Rows[i][6];
-                    et.EtAttitude = (int)table.Rows[i][7];
-                    et.EtVeto = (int)table.Rows[i][8];
-                    et.EtSum= (double)table.Rows[i][9];
+                    et.EtWeight = (int)table.Rows[i][3];
+                    var test = table.Rows[i][4];
+                    et.EtKey = (float)Convert.ToDouble(table.Rows[i][4]);
+                    et.EtResponse = (float)Convert.ToDouble(table.Rows[i][5]);
+                    et.EtAbility = (float)Convert.ToDouble(table.Rows[i][6]);
+                    et.EtAttitude = (float)Convert.ToDouble(table.Rows[i][7]);
+                    et.EtVeto = (float)Convert.ToDouble(table.Rows[i][8]);
+                    et.EtSum = (float)Convert.ToDouble(table.Rows[i][9]);
                     model.Add(et);
                 }
                 return true;
@@ -117,15 +118,15 @@ namespace BLL
             strSql.Append("etSum=@etSum");
             strSql.Append(" where etEvaluatedID=@etEvaluatedID and  etEvaluateID=@etEvaluateID");
             SqlParameter[] parameters =
-                {
+            {
                     new SqlParameter("@etEvaluatedID", SqlDbType.VarChar,10),
                     new SqlParameter("@etEvaluateID",SqlDbType.VarChar,10),
-                    new SqlParameter("@etWeight", SqlDbType.Float),
-                    new SqlParameter("@etKey",SqlDbType.Int,4),
-                    new SqlParameter("@etResponse", SqlDbType.Int,4),
-                    new SqlParameter("@etAbility", SqlDbType.Int,4),
-                    new SqlParameter("@etAttitude", SqlDbType.Int,4),
-                    new SqlParameter("@etVeto",SqlDbType.Int,4),
+                    new SqlParameter("@etWeight", SqlDbType.Int,4),
+                    new SqlParameter("@etKey",SqlDbType.Float),
+                    new SqlParameter("@etResponse", SqlDbType.Float),
+                    new SqlParameter("@etAbility", SqlDbType.Float),
+                    new SqlParameter("@etAttitude", SqlDbType.Float),
+                    new SqlParameter("@etVeto",SqlDbType.Float),
                     new SqlParameter("@etSum", SqlDbType.Float)
 
                 };

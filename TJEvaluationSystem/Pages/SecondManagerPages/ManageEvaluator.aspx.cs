@@ -166,7 +166,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
 
                 model[i] = new Evaluator();
                 model[i].UiID = userinfo.UiID;
-                model[i].EvaluatedID1 = UserID.Value;
+                model[i].EvaluatedID = UserID.Value;
                 model[i].Relation = role;
                 model[i].Pass = 0;
                  
@@ -229,7 +229,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             string json = this.ListDelete.Value;
             List<Evaluator> model = JSON.ScriptDeserialize<List<Evaluator>>(json);
 
-            if (!EvaluatorBLL.Delete(model.ElementAt(0).UiID, model.ElementAt(0).EvaluatedID1, ref exception))
+            if (!EvaluatorBLL.Delete(model.ElementAt(0).UiID, model.ElementAt(0).EvaluatedID, ref exception))
             {
                 Errors.Value = exception;
                 this.Chose.Value = "submit";
