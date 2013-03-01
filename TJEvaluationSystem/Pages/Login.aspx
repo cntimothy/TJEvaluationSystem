@@ -47,15 +47,7 @@
                     <li><span class="left"></span>
                         <span style="left">&nbsp;</span>
                         <span style="left">
-                    &nbsp;</span>
-                        <span>
-                        <asp:Label ID="LBPrompt"
-                                runat="server" Visible="False" ForeColor="Red"></asp:Label>
-                        <asp:RequiredFieldValidator ID="RFVUserName" runat="server" ControlToValidate="TBUserName"
-                            Display="Dynamic" ErrorMessage="用户名不能为空" ForeColor="Red"></asp:RequiredFieldValidator>
-                        <asp:RequiredFieldValidator ID="RFVPassword" runat="server" ControlToValidate="TBPassword"
-                            Display="Dynamic" ErrorMessage="密码不能为空" ForeColor="Red"></asp:RequiredFieldValidator>
-                    </span>
+                    &nbsp;</span>             
                     </li>
                     
                 </ul>
@@ -67,6 +59,13 @@
             <span class="btn">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:ImageButton ID="IBLogin" runat="server" 
                     ImageUrl="../images/login/btnlogin.gif" onclick="IBLogin_Click"  />
+            </span></br>
+            <span>
+                <asp:Label ID="LBPrompt" runat="server" Visible="False" ForeColor="Red"></asp:Label>
+                <asp:RequiredFieldValidator ID="RFVUserName" runat="server" ControlToValidate="TBUserName"
+                            Display="Dynamic" ErrorMessage="用户名不能为空" ForeColor="Red"></asp:RequiredFieldValidator>
+                <asp:RequiredFieldValidator ID="RFVPassword" runat="server" ControlToValidate="TBPassword"
+                            Display="Dynamic" ErrorMessage="密码不能为空" ForeColor="Red"></asp:RequiredFieldValidator>
             </span>
             </li>
             <li class="middle_D"></li>

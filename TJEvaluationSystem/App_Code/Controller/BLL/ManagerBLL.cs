@@ -64,7 +64,8 @@ namespace BLL
             {
                 if (e != "" && e != null)
                     return false;
-                e = "用户" + mID + " 不具有登陆权限";
+                //e = "用户" + mID + "用户名或密码错误！";
+                e = "用户名或密码错误!";
                 return false;
             }
         }
