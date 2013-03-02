@@ -112,6 +112,7 @@
     <Content Include="Script\SecondManager\Home.js" />
     <Content Include="Script\SecondManager\MakeEvaluatorTable.js" />
     <Content Include="Script\SecondManager\MakePost.js" />
+    <Content Include="Script\SecondManager\ManageEvaluator.js" />
     <Content Include="Script\SecondManager\ManageEvaluatorTable.js" />
     <Content Include="Script\SuperManagerIndexData.js" />
     <Content Include="Script\ManageUserInfo.js" />
