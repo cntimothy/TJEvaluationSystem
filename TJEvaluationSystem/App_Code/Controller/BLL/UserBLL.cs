@@ -83,6 +83,15 @@ namespace BLL
              }
          }
 
+         public static bool UpdatePassword(string uID, int uType, string newPassword, ref string e)
+         {
+             User model = new User();
+             model.UID = uID;
+             model.UPassword = newPassword;
+             model.UType = uType;
+             return Update(model, ref e);
+         }
+
          public static bool Update(User model, ref string e)
          {
              StringBuilder strSql = new StringBuilder();

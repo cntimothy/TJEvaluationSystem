@@ -1,7 +1,8 @@
 ﻿var indexdata1 =
 [
    { url: "ManageSecond.aspx", text: "制定名单" },
-   { url: "SelectSecond.aspx", text: "查看名单" }
+   { url: "SelectSecond.aspx", text: "查看名单" },
+    { url: "ResetPassword.aspx", text: "重置密码" }
 ];
 var indexdata2=
 [

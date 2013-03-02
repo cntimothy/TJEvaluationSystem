@@ -34,7 +34,7 @@
              </div>              
         </div>
         <div position="center" id="framecenter"> 
-            <div tabid="home" title="人事处管理员页面" style="height:300px" >
+            <div tabid="home" title="邮箱" style="height:300px" >
                 <iframe frameborder="0" name="home" id="home" src=""></iframe>
             </div> 
         </div> 

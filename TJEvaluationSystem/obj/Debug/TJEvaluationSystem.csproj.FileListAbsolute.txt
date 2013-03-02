@@ -13,11 +13,6 @@ d:\documents\visual studio 2010\Projects\TJEvaluationSystem\TJEvaluationSystem\b
 d:\documents\visual studio 2010\Projects\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\ResolveAssemblyReference.cache
 d:\documents\visual studio 2010\Projects\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\TJEvaluationSystem.dll
 d:\documents\visual studio 2010\Projects\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\TJEvaluationSystem.pdb
-E:\TJEvaluationSystem\TJEvaluationSystem\bin\TJEvaluationSystem.dll
-E:\TJEvaluationSystem\TJEvaluationSystem\bin\TJEvaluationSystem.pdb
-E:\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\ResolveAssemblyReference.cache
-E:\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\TJEvaluationSystem.dll
-E:\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\TJEvaluationSystem.pdb
 E:\projects\TJEvaluationSystem\TJEvaluationSystem\bin\TJEvaluationSystem.dll
 E:\projects\TJEvaluationSystem\TJEvaluationSystem\bin\TJEvaluationSystem.pdb
 E:\projects\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\ResolveAssemblyReference.cache
@@ -28,3 +23,8 @@ D:\project\TJEvaluationSystem\TJEvaluationSystem\bin\TJEvaluationSystem.pdb
 D:\project\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\ResolveAssemblyReference.cache
 D:\project\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\TJEvaluationSystem.dll
 D:\project\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\TJEvaluationSystem.pdb
+E:\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\ResolveAssemblyReference.cache
+E:\TJEvaluationSystem\TJEvaluationSystem\bin\TJEvaluationSystem.dll
+E:\TJEvaluationSystem\TJEvaluationSystem\bin\TJEvaluationSystem.pdb
+E:\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\TJEvaluationSystem.dll
+E:\TJEvaluationSystem\TJEvaluationSystem\obj\Debug\TJEvaluationSystem.pdb
