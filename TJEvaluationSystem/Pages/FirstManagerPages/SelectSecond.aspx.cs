@@ -24,33 +24,49 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
 
         protected DataTable searchSql()
         {
-            int s = Convert.ToInt32(Depart.Value);
+            string department = Depart.Value;
             List<UserInfo> userinfo = new List<UserInfo>();
-            switch (s)
+            if (department == "0")
             {
-                case 0:
-                    UserInfoBLL.Select(2, ref userinfo, ref exception);
-                    UserInfoBLL.Select(5, ref userinfo, ref exception);
-                    UserInfoBLL.Select(6, ref userinfo, ref exception);
-                    UserInfoBLL.Select(9, ref userinfo, ref exception);
-                    fname = "所有二级管理员名单:";
-                    break;
-                case 1:
-                    UserInfoBLL.Select("cs", 2, ref userinfo, ref exception);
-                    UserInfoBLL.Select("cs", 5, ref userinfo, ref exception);
-                    UserInfoBLL.Select("cs", 6, ref userinfo, ref exception);
-                    UserInfoBLL.Select("cs", 9, ref userinfo, ref exception);
-                    fname = "电信学院二级管理员名单:";
-                    break;
-                default:
-                    UserInfoBLL.Select(2, ref userinfo, ref exception);
-                    UserInfoBLL.Select(5, ref userinfo, ref exception);
-                    UserInfoBLL.Select(6, ref userinfo, ref exception);
-                    UserInfoBLL.Select(9, ref userinfo, ref exception);
-                    fname = "所有二级管理员名单:";
-                    break;
-
+                UserInfoBLL.Select(2, ref userinfo, ref exception);
+                UserInfoBLL.Select(5, ref userinfo, ref exception);
+                UserInfoBLL.Select(6, ref userinfo, ref exception);
+                UserInfoBLL.Select(9, ref userinfo, ref exception);
+                fname = "所有二级管理员名单:";
             }
+            else
+            {
+                UserInfoBLL.Select(department, 2, ref userinfo, ref exception);
+                UserInfoBLL.Select(department, 5, ref userinfo, ref exception);
+                UserInfoBLL.Select(department, 6, ref userinfo, ref exception);
+                UserInfoBLL.Select(department, 9, ref userinfo, ref exception);
+                fname = department + "二级管理员名单:";
+            }
+            //switch (s)
+            //{
+            //    case 0:
+            //        UserInfoBLL.Select(2, ref userinfo, ref exception);
+            //        UserInfoBLL.Select(5, ref userinfo, ref exception);
+            //        UserInfoBLL.Select(6, ref userinfo, ref exception);
+            //        UserInfoBLL.Select(9, ref userinfo, ref exception);
+            //        fname = "所有二级管理员名单:";
+            //        break;
+            //    case 1:
+            //        UserInfoBLL.Select("cs", 2, ref userinfo, ref exception);
+            //        UserInfoBLL.Select("cs", 5, ref userinfo, ref exception);
+            //        UserInfoBLL.Select("cs", 6, ref userinfo, ref exception);
+            //        UserInfoBLL.Select("cs", 9, ref userinfo, ref exception);
+            //        fname = "电信学院二级管理员名单:";
+            //        break;
+            //    default:
+            //        UserInfoBLL.Select(2, ref userinfo, ref exception);
+            //        UserInfoBLL.Select(5, ref userinfo, ref exception);
+            //        UserInfoBLL.Select(6, ref userinfo, ref exception);
+            //        UserInfoBLL.Select(9, ref userinfo, ref exception);
+            //        fname = "所有二级管理员名单:";
+            //        break;
+
+            //}
 
             DataTable table = new DataTable();
             table = userinfo.ListToDataTable();
@@ -166,6 +182,8 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             // table = userinfo.ListToDataTable();
             //table.Columns.Remove("UiType");
             table = searchSql();
+            if (table == null)
+                return;
             string json = JSON.DataTableToJson(table);
             JsonData.Value = json;
 

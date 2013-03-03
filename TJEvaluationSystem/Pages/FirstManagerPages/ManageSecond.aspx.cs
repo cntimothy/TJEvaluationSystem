@@ -27,24 +27,32 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         }
         protected void Search_Click(object sender, EventArgs e)
         {
-            int s = Convert.ToInt32(Depart.Value);
+            string department = Depart.Value;
             List<UserInfo> userinfo = new List<UserInfo>();
-            switch (s)
+            if (department == "0")
             {
-                case 0:
-                    UserInfoBLL.Select(ref userinfo, ref exception);
-                    //name.Text = "所有员工名单:";
-                    break;
-                case 1:
-                    UserInfoBLL.Select("cs", ref userinfo, ref exception);
-                    //name.Text = "电信学院员工名单:";
-                    break;
-                default:
-                    UserInfoBLL.Select(ref userinfo, ref exception);
-                    //name.Text = "所有员工名单:";
-                    break;
-
+                UserInfoBLL.Select(ref userinfo, ref exception);
             }
+            else
+            {
+                UserInfoBLL.Select(department, ref userinfo, ref exception);
+            }
+            //switch (s)
+            //{
+            //    case 0:
+            //        UserInfoBLL.Select(ref userinfo, ref exception);
+            //        //name.Text = "所有员工名单:";
+            //        break;
+            //    case 1:
+            //        UserInfoBLL.Select("cs", ref userinfo, ref exception);
+            //        //name.Text = "电信学院员工名单:";
+            //        break;
+            //    default:
+            //        UserInfoBLL.Select(ref userinfo, ref exception);
+            //        //name.Text = "所有员工名单:";
+            //        break;
+
+            //}
             if (exception!=null&&exception!="")
             {
                 Errors.Value = exception;

@@ -27,6 +27,7 @@
          <div class="ToolBar">
          <table style="position:relative;left:20px;height:100%">
                 <tr> 
+                   <!--
                    <td style="padding:1px;">
                          <select id="department" style="width:100px;height:25px;font-size:15px">
                          <option value="0">所有部门</option>
@@ -34,11 +35,22 @@
                          <option value="2">后勤部门</option>
                          <option value="3">行政部门</option>
                          </select> </td>
+                   -->
+                   <td>
+                       <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
+                           ConnectionString="<%$ ConnectionStrings:ConnectionString %>" 
+                           SelectCommand="SELECT DISTINCT [uiDepartment] FROM [tb_UserInfo]"></asp:SqlDataSource>
+                       <span>请选择部门</span>
+                       <asp:DropDownList ID="department" runat="server" 
+                           DataSourceID="SqlDataSource1" DataTextField="uiDepartment" 
+                           DataValueField="uiDepartment" AppendDataBoundItems="True">
+                           <asp:ListItem Value="0" >所有部门</asp:ListItem>
+                       </asp:DropDownList>
+                   </td>
                    <td style="width:10px;"></td>
                    <td style="padding:1px;"><input type="button" value="查询" id="search_button"  onclick="search()" class="l-button" style="width:100px;height:25px;font-size:15px"/></td>
                    <td style="width:10px;"></td>
                    <td style="padding:1px;"><input type="button" value="提交" id="dao_button"  onclick=" getSelected()" class="l-button" style="width:100px;height:25px;font-size:15px"/> </td>
-                  
                 </tr>
          </table>
          </div>

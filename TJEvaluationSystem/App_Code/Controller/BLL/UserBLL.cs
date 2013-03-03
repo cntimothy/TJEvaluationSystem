@@ -82,6 +82,29 @@ namespace BLL
                  return false;
              }
          }
+         
+         public static bool Select(User user, ref string e)
+         {
+             string uID = user.UID;
+             string uPassword = user.UPassword;
+             int uType = user.UType;
+
+             string sql = "select * from tb_User where uID='" + uID + "' and uPassword='" + uPassword + "' and uType='" + uType + "'";
+             DataTable table = new DataTable();
+             table = db.QueryDataTable(sql, ref e);
+             if (table != null && table.Rows.Count > 0)
+             {
+                 return true;
+             }
+             else
+             {
+                 if (e != "" && e != null)
+                     return false;
+                 //e = "用户" + mID + "用户名或密码错误！";
+                 e = "用户名或密码错误!";
+                 return false;
+             }
+         }
 
          public static bool UpdatePassword(string uID, int uType, string newPassword, ref string e)
          {

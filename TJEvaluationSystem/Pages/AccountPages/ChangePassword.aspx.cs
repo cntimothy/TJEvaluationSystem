@@ -51,41 +51,87 @@ namespace TJEvaluationSystem.Pages.AccountPages
         //检查用户名密码
         public bool CheckPassword(string name,string password,int type )
         {
-            if (name == "" || password == "" || type < 1 || type > 2)
-                return false;
-            Manager manager = new Manager();
-            manager.MID = name;
-            manager.MPassword = password;
-            manager.MType = type;
-            string ex = "";
-            if (ManagerBLL.Select(manager, ref ex))
+            if (type == 1)
             {
-                return true;
+                if (name == "" || password == "" || type < 1 || type > 2)
+                    return false;
+                Manager manager = new Manager();
+                manager.MID = name;
+                manager.MPassword = password;
+                manager.MType = type;
+                string ex = "";
+                if (ManagerBLL.Select(manager, ref ex))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else if (type == 2)
+            {
+                if (name == "" || password == "" || type < 1 || type > 2)
+                    return false;
+                User user = new User();
+                user.UID = name;
+                user.UPassword = password;
+                user.UType = type;
+                string ex = "";
+                if (UserBLL.Select(user, ref ex))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
-            {
-                return false ;
-            }
+                return false;
         }
 
         //设置新密码
         public bool SetNewPassword(string name, string password, int type)
         {
-            if (name == "" || password == "" || type < 1 || type > 2)
-                return false;
-            Manager manager = new Manager();
-            manager.MID = name;
-            manager.MPassword = password;
-            manager.MType = type;
-            string ex = "";
-            if (ManagerBLL.Update(manager, ref ex))
+            if (type == 1)
             {
-                return true;
+                if (name == "" || password == "" || type < 1 || type > 2)
+                    return false;
+                Manager manager = new Manager();
+                manager.MID = name;
+                manager.MPassword = password;
+                manager.MType = type;
+                string ex = "";
+                if (ManagerBLL.Update(manager, ref ex))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else if (type == 2)
+            {
+                if (name == "" || password == "" || type < 1 || type > 2)
+                    return false;
+                User user = new User();
+                user.UID = name;
+                user.UPassword = password;
+                user.UType = type;
+                string ex = "";
+                if (UserBLL.Update(user, ref ex))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
-            {
                 return false;
-            }
         }
 
     }
