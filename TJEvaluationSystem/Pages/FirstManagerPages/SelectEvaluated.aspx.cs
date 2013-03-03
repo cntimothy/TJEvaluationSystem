@@ -22,32 +22,16 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         }
         protected DataTable searchSql()
         {
-            int s = Convert.ToInt32(Depart.Value);
+            string department = Depart.Value;
             List<UserInfo> userinfo = new List<UserInfo>();
-            switch (s)
+            string type = "____1%";
+            if (department == "0")
             {
-                case 0:
-                    UserInfoBLL.Select(4, ref userinfo, ref exception);
-                    UserInfoBLL.Select(6, ref userinfo, ref exception);
-                    UserInfoBLL.Select(7, ref userinfo, ref exception);
-                    UserInfoBLL.Select(9, ref userinfo, ref exception);
-                    fname= "所有被考评者名单:";
-                    break;
-                case 1:
-                    UserInfoBLL.Select("cs", 4, ref userinfo, ref exception);
-                    UserInfoBLL.Select("cs", 6, ref userinfo, ref exception);
-                    UserInfoBLL.Select("cs", 7, ref userinfo, ref exception);
-                    UserInfoBLL.Select("cs", 9, ref userinfo, ref exception);
-                    fname= "电信学院被考评者名单:";
-                    break;
-                default:
-                    UserInfoBLL.Select(4, ref userinfo, ref exception);
-                    UserInfoBLL.Select(6, ref userinfo, ref exception);
-                    UserInfoBLL.Select(7, ref userinfo, ref exception);
-                    UserInfoBLL.Select(9, ref userinfo, ref exception);
-                    fname = "所有被考评者名单:";
-                    break;
-
+                UserInfoBLL.SelectByType(type, ref userinfo, ref exception);
+            }
+            else
+            {
+                UserInfoBLL.Select(department, type, ref userinfo, ref exception);
             }
 
             DataTable table = new DataTable();
@@ -56,42 +40,11 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         }
         protected void Submit_Click(object sender, EventArgs e)
         {
-           /* int s = Convert.ToInt32(Depart.Value);
-            List<UserInfo> userinfo = new List<UserInfo>();
-            switch (s)
-            {
-                case 0:
-                    UserInfoBLL.Select(4, ref userinfo, ref exception);
-                    UserInfoBLL.Select(6, ref userinfo, ref exception);
-                    UserInfoBLL.Select(7, ref userinfo, ref exception);
-                    UserInfoBLL.Select(9, ref userinfo, ref exception);
-                    name.Text = "所有被考评者名单:";
-                    break;
-                case 1:
-                    UserInfoBLL.Select("cs", 4, ref userinfo, ref exception);
-                    UserInfoBLL.Select("cs", 6, ref userinfo, ref exception);
-                    UserInfoBLL.Select("cs", 7, ref userinfo, ref exception);
-                    UserInfoBLL.Select("cs", 9, ref userinfo, ref exception);
-                    name.Text = "电信学院被考评者名单:";
-                    break;
-                default:
-                    UserInfoBLL.Select(4, ref userinfo, ref exception);
-                    UserInfoBLL.Select(6, ref userinfo, ref exception);
-                    UserInfoBLL.Select(7, ref userinfo, ref exception);
-                    UserInfoBLL.Select(9, ref userinfo, ref exception);
-                    name.Text = "所有被考评者名单:";
-                    break;
-
-            }
-
-            DataTable table = new DataTable();
-            table = userinfo.ListToDataTable();*/
-            //table.Columns.Remove("UiType");
              DataTable table = new DataTable();
              table = searchSql();
              if (table.Rows.Count <= 0)
              {
-                 ClientScript.RegisterStartupScript(this.GetType(), "", "alert('不存在二级管理员！')", true);
+                 ClientScript.RegisterStartupScript(this.GetType(), "", "alert('不存在被考评者！')", true);
                  return;
              }
             string json = JSON.DataTableToJson(table);
@@ -138,12 +91,14 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             if (UserBLL.Select(deleted.UiID, ref model, ref exception))
             {
                 User user = model.ElementAt(0);
-                user.UType = deleted.UiType - 4;
+                user.UType = user.UType.Remove(3, 1).Insert(3, "1");
+                //user.UType = deleted.UiType - 4;
                 UserBLL.Update(user, ref exception);
             }
            // userID = deleted.UiID;
            // UserBLL.Delete(userID, ref exception);
-            deleted.UiType = deleted.UiType-4;
+            //deleted.UiType = deleted.UiType-4;
+            deleted.UiType = deleted.UiType.Remove(3, 1).Insert(3, "1");
             UserInfoBLL.Update(deleted, ref exception);
 
             DataTable table = new DataTable();

@@ -26,23 +26,15 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         }
         protected void Search_Click(object sender, EventArgs e)
         {
-            int s = Convert.ToInt32(Depart.Value);
+            string department = Depart.Value;            
             //List<UserInfo> userinfo = new List<UserInfo>();
-            switch (s)
+            if (department == "0")
             {
-                case 0:
-                    UserInfoBLL.Select(ref userinfo, ref exception);
-                    //name.Text = "所有员工名单:";
-                    break;
-                case 1:
-                    UserInfoBLL.Select("cs", ref userinfo, ref exception);
-                    //name.Text = "电信学院员工名单:";
-                    break;
-                default:
-                    UserInfoBLL.Select(ref userinfo, ref exception);
-                    //name.Text = "所有员工名单:";
-                    break;
-
+                UserInfoBLL.Select(ref userinfo, ref exception);
+            }
+            else
+            {
+                UserInfoBLL.SelectByDepartment(department, ref userinfo, ref exception);
             }
             if (exception != null && exception != "")
             {
@@ -69,20 +61,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             {
                 UserInfo userinfo = new UserInfo();
                 userinfo = userData.ElementAt(i);
-                if (userinfo.UiType == 0 || userinfo.UiType == 4)
-                    userinfo.UiType = 4;
-                else
-                    if (userinfo.UiType == 2 || userinfo.UiType == 3||userinfo.UiType==5)
-                    {
-                        userinfo.UiType += 4;
-                    }
-                    else
-                        if (userinfo.UiType == 6 || userinfo.UiType == 7 || userinfo.UiType == 9)
-                        {
-                            userinfo.UiType = userinfo.UiType;
-                        }
-                        
-              
+                userinfo.UiType = userinfo.UiType.Remove(4, 1).Insert(4, "1");
                 UserInfoBLL.Update(userinfo, ref exception);
 
                 List<User> users = new List<User>();

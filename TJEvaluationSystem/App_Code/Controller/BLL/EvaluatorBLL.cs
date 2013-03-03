@@ -121,11 +121,12 @@ namespace BLL
                 {
                     User user = new Model.User();
                     user = users.ElementAt(0);
-                    if (user.UType == 3 || user.UType == 5 || user.UType == 7 || user.UType == 9)
-                        user.UType = user.UType;
-                    else
-                        if (user.UType == 2 || user.UType == 6)
-                            user.UType += 3;
+                    user.UType = user.UType.Remove(2, 1).Insert(2, "1");
+                    //if (user.UType == 3 || user.UType == 5 || user.UType == 7 || user.UType == 9)
+                    //    user.UType = user.UType;
+                    //else
+                    //    if (user.UType == 2 || user.UType == 6)
+                    //        user.UType += 3;
 
                     if (!UserBLL.Update(user, ref e))
                     {
@@ -137,7 +138,7 @@ namespace BLL
                     User[] user = new User[1];
                     user[0] = new User();
                     user[0].UID = model.UiID;
-                    user[0].UType = 3;//考评者
+                    user[0].UType = "00100";//考评者
                     if (!UserBLL.Insert(user, ref e))
                     {
                         return false;
@@ -149,9 +150,11 @@ namespace BLL
                 {
                     UserInfo ui = new UserInfo();
                     ui = userinfos.ElementAt(0);
-                    if (ui.UiType == 0 || ui.UiType == 2 || ui.UiType == 4 || ui.UiType == 6)
+                    //if (ui.UiType == 0 || ui.UiType == 2 || ui.UiType == 4 || ui.UiType == 6)
+                    if(ui.UiType.ElementAt(0) == '1')
                     {
-                        ui.UiType += 3;
+                        //ui.UiType += 3;
+                        ui.UiType = ui.UiType.Remove(2, 1).Insert(2, "1");
                         UserInfoBLL.Update(ui, ref e);
                     }
 

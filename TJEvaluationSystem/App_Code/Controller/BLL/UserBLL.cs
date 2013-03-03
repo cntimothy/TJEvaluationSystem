@@ -30,7 +30,7 @@ namespace BLL
                 {
                     new SqlParameter("@uID", SqlDbType.VarChar,10),
                     new SqlParameter("@uPassword",SqlDbType.Char,6),
-                    new SqlParameter("@uType", SqlDbType.Int,4)
+                    new SqlParameter("@uType", SqlDbType.VarChar,10)
                 };
                  parameters[0].Value = model[i].UID;
                  //获取身份证号作密码
@@ -68,7 +68,7 @@ namespace BLL
                      User user = new User();
                      user.UID = (string)table.Rows[i][0];
                      user.UPassword = (string)table.Rows[i][1];
-                     user.UType = (Int32)table.Rows[i][2];
+                     user.UType = (string)table.Rows[i][2];
 
                      model.Add(user);
                  }
@@ -87,9 +87,9 @@ namespace BLL
          {
              string uID = user.UID;
              string uPassword = user.UPassword;
-             int uType = user.UType;
+             string uType = user.UType;
 
-             string sql = "select * from tb_User where uID='" + uID + "' and uPassword='" + uPassword + "' and uType='" + uType + "'";
+             string sql = "select * from tb_User where uID='" + uID + "' and uPassword='" + uPassword + "' and uType like'" + uType + "'";
              DataTable table = new DataTable();
              table = db.QueryDataTable(sql, ref e);
              if (table != null && table.Rows.Count > 0)
@@ -106,7 +106,7 @@ namespace BLL
              }
          }
 
-         public static bool UpdatePassword(string uID, int uType, string newPassword, ref string e)
+         public static bool UpdatePassword(string uID, string uType, string newPassword, ref string e)
          {
              User model = new User();
              model.UID = uID;
@@ -126,7 +126,7 @@ namespace BLL
                 {
                     new SqlParameter("@uID", SqlDbType.VarChar,10),
                     new SqlParameter("@uPassword",SqlDbType.Char,6),
-                    new SqlParameter("@uType", SqlDbType.Int,4),
+                    new SqlParameter("@uType", SqlDbType.VarChar,10),
                    
                 };
              parameters[0].Value = model.UID;

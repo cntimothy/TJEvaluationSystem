@@ -12,7 +12,7 @@ namespace Model
     {
         string uID;
         string uPassword;
-        int uType;
+        string uType;
 
         public string UID
         {
@@ -26,7 +26,7 @@ namespace Model
             set { uPassword = value; }
         }
 
-        public int UType
+        public string UType
         {
             get { return uType; }
             set { uType = value; }

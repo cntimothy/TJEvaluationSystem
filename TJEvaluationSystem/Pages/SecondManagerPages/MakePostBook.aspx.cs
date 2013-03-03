@@ -33,11 +33,9 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             {
                 uiDepart = user.ElementAt(0).UiDepartment;
                 List<UserInfo> Evaluated = new List<UserInfo>();
-                bool b1=UserInfoBLL.Select(uiDepart, 4, ref Evaluated, ref exception);
-                bool b2 = UserInfoBLL.Select(uiDepart, 6, ref Evaluated, ref exception);
-                bool b3 = UserInfoBLL.Select(uiDepart, 7, ref Evaluated, ref exception);
-                bool b4 = UserInfoBLL.Select(uiDepart, 9, ref Evaluated, ref exception);
-                if (b1||b2||b3||b4)
+                string type = "____1%";
+                bool b=UserInfoBLL.Select(uiDepart, type, ref Evaluated, ref exception);
+                if (b)
                 {
                     DataTable table = new DataTable();
                     table = Evaluated.ListToDataTable();

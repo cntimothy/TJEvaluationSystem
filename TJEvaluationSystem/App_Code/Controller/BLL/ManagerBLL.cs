@@ -28,7 +28,7 @@ namespace BLL
                 {
                     new SqlParameter("@uID", SqlDbType.VarChar,10),
                     new SqlParameter("@uPassword",SqlDbType.Char,6),
-                    new SqlParameter("@uType", SqlDbType.Int,4)
+                    new SqlParameter("@uType", SqlDbType.VarChar,10)
                 };
                 parameters[0].Value = model[i].MID;
                 //获取身份证号作密码
@@ -47,13 +47,27 @@ namespace BLL
             return true;
         }
 
+        public static bool SelectMType(string mID, string mPassword, ref string mType, ref string e)
+        { 
+            string sql = "select mType from tb_Manager where mID='" + mID + "' and mPassword='" + mPassword + "'";
+            mType = db.QueryValue(sql);
+            if (mType != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public static bool Select(Manager manager, ref string e)
         {
             string mID = manager.MID;
             string mPassword = manager.MPassword;
-            int mType = manager.MType;
+            string mType = manager.MType;
 
-            string sql = "select * from tb_Manager where mID='" + mID + "' and mPassword='" + mPassword + "' and mType='" + mType + "'";
+            string sql = "select * from tb_Manager where mID='" + mID + "' and mPassword='" + mPassword + "' and mType like'" + mType + "'";
             DataTable table = new DataTable();
             table = db.QueryDataTable(sql, ref e);
             if (table != null && table.Rows.Count > 0)
@@ -70,9 +84,9 @@ namespace BLL
             }
         }
 
-        public static bool SelectMID(ref List<String> model, int mType, ref string e)
+        public static bool SelectMID(ref List<String> model, string mType, ref string e)
         {
-            string sql = "select mID from tb_Manager where mType = '" + mType + "'";
+            string sql = "select mID from tb_Manager where mType like '" + mType + "'";
             DataTable table = new DataTable();
             table = db.QueryDataTable(sql, ref e);
             if (table != null && table.Rows.Count > 0)
@@ -102,7 +116,7 @@ namespace BLL
                 {
                     new SqlParameter("@mID", SqlDbType.VarChar,10),
                     new SqlParameter("@mPassword",SqlDbType.Char,6),
-                    new SqlParameter("@mType", SqlDbType.Int,4),
+                    new SqlParameter("@mType", SqlDbType.VarChar, 10),
                    
                 };
             parameters[0].Value = model.MID;

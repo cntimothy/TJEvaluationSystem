@@ -26,7 +26,7 @@ namespace BLL
                                   + "@utID,@utType)";
                 SqlParameter[] parameters =
                 {
-                    new SqlParameter("@utID", SqlDbType.Int,4),
+                    new SqlParameter("@utID", SqlDbType.VarChar, 10),
                     new SqlParameter("@utType",SqlDbType.NVarChar,20)
                 };
                 parameters[0].Value = model[i].UtID;
@@ -48,7 +48,7 @@ namespace BLL
             return Select(ref model, ref e, sql);
         }
         //根据utID选择
-        public static bool Select(int utID, ref List<UserType> model, ref string e)
+        public static bool Select(string utID, ref List<UserType> model, ref string e)
         {
             string sql = "select * from tb_UserType where utID=" + utID;
             return Select(ref model, ref e, sql);
@@ -63,7 +63,7 @@ namespace BLL
                 for (int i = 0; i < table.Rows.Count; i++)
                 {
                     UserType usertype = new UserType();
-                    usertype.UtID = (int)table.Rows[i][0];
+                    usertype.UtID = (string)table.Rows[i][0];
                     usertype.UtType = (string)table.Rows[i][1];
                   
                     ut.Add(usertype);
@@ -88,7 +88,7 @@ namespace BLL
             strSql.Append(" where utID=@utID ");
             SqlParameter[] parameters =
                 {
-                    new SqlParameter("@utID", SqlDbType.Int,4),
+                    new SqlParameter("@utID", SqlDbType.VarChar, 10),
                     new SqlParameter("@utType",SqlDbType.NVarChar,20)
                     
                 };
@@ -109,7 +109,7 @@ namespace BLL
             strSql.Append("delete from tb_UserType ");
             strSql.Append(" where utID=@utID ");
             SqlParameter[] parameters = {
-					new SqlParameter("@utID", SqlDbType.Int,4)};
+					new SqlParameter("@utID", SqlDbType.VarChar, 10)};
             parameters[0].Value = utID;
 
             e = db.QueryExec(strSql.ToString(), parameters);

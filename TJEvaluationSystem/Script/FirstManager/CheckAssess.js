@@ -13,7 +13,9 @@ $(function () {
 });
 
 //处理
+function search() { 
 
+}
 //显示考核表信息
 function ShowAllTables() {
     var data = document.getElementById("JsonData").value;
@@ -236,7 +238,7 @@ function ShowDetail(rowindex) {
 }
 
 //返回
-function Back() {
+function back() {
     $('#TrShowAllTables').css('display', 'block');
     $('#TrShowTableInfo').css('display', 'none');
     $('#ShowAllTables').css('display', 'block');

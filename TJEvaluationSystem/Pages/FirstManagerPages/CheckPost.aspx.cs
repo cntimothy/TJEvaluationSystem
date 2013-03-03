@@ -26,32 +26,18 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         }
         protected DataTable searchSql()
         {
-            int s = Convert.ToInt32(Depart.Value);
+            string department = Depart.Value;
             List<UserInfo> userinfo = new List<UserInfo>();
-            switch (s)
+            string type = "____1%";
+            if (department == "0")
             {
-                case 0:
-                    UserInfoBLL.Select(4, ref userinfo, ref exception);
-                    UserInfoBLL.Select(6, ref userinfo, ref exception);
-                    UserInfoBLL.Select(7, ref userinfo, ref exception);
-                    UserInfoBLL.Select(9, ref userinfo, ref exception);
-                    //name.Text = "所有被考评者名单:";
-                    break;
-                case 1:
-                    UserInfoBLL.Select("cs", 4, ref userinfo, ref exception);
-                    UserInfoBLL.Select("cs", 6, ref userinfo, ref exception);
-                    UserInfoBLL.Select("cs", 7, ref userinfo, ref exception);
-                    UserInfoBLL.Select("cs", 9, ref userinfo, ref exception);
-                    //name.Text = "电信学院被考评者名单:";
-                    break;
-                default:
-                    UserInfoBLL.Select(4, ref userinfo, ref exception);
-                    UserInfoBLL.Select(6, ref userinfo, ref exception);
-                    UserInfoBLL.Select(7, ref userinfo, ref exception);
-                    UserInfoBLL.Select(9, ref userinfo, ref exception);
-                    //name.Text = "所有被考评者名单:";
-                    break;
-
+                UserInfoBLL.SelectByType(type, ref userinfo, ref exception);
+                name.Text = "所有被考评者名单:";
+            }
+            else
+            {
+                UserInfoBLL.Select("department", type, ref userinfo, ref exception);
+                name.Text = "电信学院被考评者名单:";
             }
 
             DataTable table = new DataTable();

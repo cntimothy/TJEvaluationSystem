@@ -20,9 +20,9 @@ namespace Model
         string uiMobPhone;
         string uiAddress;
         string uiZipCode;
-        int uiType;
+        string uiType;
 
-        public int UiType
+        public string UiType
         {
             get { return uiType; }
             set { uiType = value; }

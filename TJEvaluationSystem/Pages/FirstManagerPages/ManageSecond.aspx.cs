@@ -35,7 +35,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             }
             else
             {
-                UserInfoBLL.Select(department, ref userinfo, ref exception);
+                UserInfoBLL.SelectByDepartment(department, ref userinfo, ref exception);
             }
             //switch (s)
             //{
@@ -78,21 +78,20 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             {
                 UserInfo userinfo = new UserInfo();
                 userinfo= userData.ElementAt(i);
-                if (userinfo.UiType == 0 || userinfo.UiType == 2)
-                    userinfo.UiType = 2;
-                else
-                    if (userinfo.UiType == 3 || userinfo.UiType == 4 || userinfo.UiType == 7)
-                        userinfo.UiType += 2;
-                    else
-                        if (userinfo.UiType == 5 || userinfo.UiType == 6 || userinfo.UiType == 9)
-                            userinfo.UiType = userinfo.UiType;
+                userinfo.UiType = userinfo.UiType.Remove(2, 1).Insert(2, "1");
+                //if (userinfo.UiType == 0 || userinfo.UiType == 2)
+                //    userinfo.UiType = 2;
+                //else
+                //    if (userinfo.UiType == 3 || userinfo.UiType == 4 || userinfo.UiType == 7)
+                //        userinfo.UiType += 2;
+                //    else
+                //        if (userinfo.UiType == 5 || userinfo.UiType == 6 || userinfo.UiType == 9)
+                //            userinfo.UiType = userinfo.UiType;
 
                 List<UserInfo> userinfos = new List<UserInfo>();
-                bool b1=UserInfoBLL.Select(userinfo.UiDepartment,2,ref userinfos,ref exception);
-                bool b2=UserInfoBLL.Select(userinfo.UiDepartment,5,ref userinfos,ref exception);
-                bool b3=UserInfoBLL.Select(userinfo.UiDepartment,6,ref userinfos,ref exception);
-                bool b4=UserInfoBLL.Select(userinfo.UiDepartment,9,ref userinfos,ref exception);
-                if (b1||b2||b3||b4)
+                string type = "__1%";
+                bool b=UserInfoBLL.Select(userinfo.UiDepartment,type,ref userinfos,ref exception);
+                if (b)
                 {
                     if (userinfos.ElementAt(0).UiID == userinfo.UiID)
                     {

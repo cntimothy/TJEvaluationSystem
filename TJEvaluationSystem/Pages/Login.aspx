@@ -35,10 +35,10 @@
                     <li>
                         <span class="left">登陆身份：</span> <span style="left">&nbsp;</span>
                         <span><asp:DropDownList ID="DDLLoginType" runat="server" Cssclass="txt">
-                            <asp:ListItem Value="0">超级管理员</asp:ListItem>
-                            <asp:ListItem Value="1">人事处管理员</asp:ListItem>
-                            <asp:ListItem Value="2">系级管理员</asp:ListItem>
-                            <asp:ListItem Selected="True" Value="3">考评者</asp:ListItem>
+                            <asp:ListItem Value="10000">超级管理员</asp:ListItem>
+                            <asp:ListItem Value="01000">人事处管理员</asp:ListItem>
+                            <asp:ListItem Value="00100">系级管理员</asp:ListItem>
+                            <asp:ListItem Selected="True" Value="00010">考评者</asp:ListItem>
                         </asp:DropDownList>
                         </span>
                     </li>                  

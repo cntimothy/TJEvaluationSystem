@@ -12,7 +12,7 @@ namespace Model
     {
         string mID;
         string mPassword;
-        int mType;
+        string mType;
 
         public string MID
         {
@@ -26,7 +26,7 @@ namespace Model
             set { mPassword = value; }
         }
 
-        public int MType
+        public string MType
         {
             get { return mType; }
             set { mType = value; }

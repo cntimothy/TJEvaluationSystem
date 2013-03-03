@@ -24,7 +24,7 @@ namespace TJEvaluationSystem.Pages.AccountPages
             if (oldPsw == null || oldPsw == "" || newPsw == null || newPsw == "")
                 return;
             string name = (string)Session["username"];
-            int type = (int)Session["usertype"];
+            string type = (string)Session["usertype"];
             if (name.Equals(DBNull.Value) || type.Equals(DBNull.Value))
                 return;
             if (!CheckPassword(name, oldPsw, type))
@@ -49,11 +49,11 @@ namespace TJEvaluationSystem.Pages.AccountPages
         }
 
         //检查用户名密码
-        public bool CheckPassword(string name,string password,int type )
+        public bool CheckPassword(string name,string password,string type )
         {
-            if (type == 1)
+            if (type.ElementAt(1) == '1')
             {
-                if (name == "" || password == "" || type < 1 || type > 2)
+                if (name == "" || password == "")
                     return false;
                 Manager manager = new Manager();
                 manager.MID = name;
@@ -69,9 +69,9 @@ namespace TJEvaluationSystem.Pages.AccountPages
                     return false;
                 }
             }
-            else if (type == 2)
+            else if (type.ElementAt(2) == '1')
             {
-                if (name == "" || password == "" || type < 1 || type > 2)
+                if (name == "" || password == "")
                     return false;
                 User user = new User();
                 user.UID = name;
@@ -92,11 +92,11 @@ namespace TJEvaluationSystem.Pages.AccountPages
         }
 
         //设置新密码
-        public bool SetNewPassword(string name, string password, int type)
+        public bool SetNewPassword(string name, string password, string type)
         {
-            if (type == 1)
+            if (type.ElementAt(1) == '1')
             {
-                if (name == "" || password == "" || type < 1 || type > 2)
+                if (name == "" || password == "" )
                     return false;
                 Manager manager = new Manager();
                 manager.MID = name;
@@ -112,9 +112,9 @@ namespace TJEvaluationSystem.Pages.AccountPages
                     return false;
                 }
             }
-            else if (type == 2)
+            else if (type.ElementAt(2) == '1')
             {
-                if (name == "" || password == "" || type < 1 || type > 2)
+                if (name == "" || password == "" )
                     return false;
                 User user = new User();
                 user.UID = name;

@@ -26,20 +26,23 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         {
             string department = Depart.Value;
             List<UserInfo> userinfo = new List<UserInfo>();
+            string type = "__1%";
             if (department == "0")
             {
-                UserInfoBLL.Select(2, ref userinfo, ref exception);
-                UserInfoBLL.Select(5, ref userinfo, ref exception);
-                UserInfoBLL.Select(6, ref userinfo, ref exception);
-                UserInfoBLL.Select(9, ref userinfo, ref exception);
+                //UserInfoBLL.Select(2, ref userinfo, ref exception);
+                //UserInfoBLL.Select(5, ref userinfo, ref exception);
+                //UserInfoBLL.Select(6, ref userinfo, ref exception);
+                //UserInfoBLL.Select(9, ref userinfo, ref exception);
+                UserInfoBLL.SelectByType(type, ref userinfo, ref exception);
                 fname = "所有二级管理员名单:";
             }
             else
             {
-                UserInfoBLL.Select(department, 2, ref userinfo, ref exception);
-                UserInfoBLL.Select(department, 5, ref userinfo, ref exception);
-                UserInfoBLL.Select(department, 6, ref userinfo, ref exception);
-                UserInfoBLL.Select(department, 9, ref userinfo, ref exception);
+                //UserInfoBLL.Select(department, 2, ref userinfo, ref exception);
+                //UserInfoBLL.Select(department, 5, ref userinfo, ref exception);
+                //UserInfoBLL.Select(department, 6, ref userinfo, ref exception);
+                //UserInfoBLL.Select(department, 9, ref userinfo, ref exception);
+                UserInfoBLL.Select(department, type, ref userinfo, ref exception);
                 fname = department + "二级管理员名单:";
             }
             //switch (s)
@@ -151,31 +154,31 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         protected void Delete_Click(object sender, EventArgs e)
         {
             string userID = "";
-            int userType = -1;
+            string userType = "-1";
             List<UserInfo> userinfo = new List<UserInfo>();
             userinfo = JSON.isEfect(UserID.Value);
             UserInfo deleted = userinfo.ElementAt(0);
 
             userID = deleted.UiID;
             userType = deleted.UiType;
-            if (userType == 2 || userType == 6)
+            //if (userType == 2 || userType == 6)
+            if(userType.Substring(2, 5) == "100")
             {
                 UserBLL.Delete(userID, ref exception);
             }
             else
-                if (userType == 5 || userType == 9)
+            {
+                List<User> model = new List<Model.User>();
+                if (UserBLL.Select(deleted.UiID, ref model, ref exception))
                 {
-                    List<User> model = new List<Model.User>();
-                    if (UserBLL.Select(deleted.UiID, ref model, ref exception))
-                    {
-                        User user = model.ElementAt(0);
-                        user.UType = userType - 2;
-                        UserBLL.Update(user, ref exception);
-                    }
-
-
+                    User user = model.ElementAt(0);
+                    user.UType = user.UType.Remove(2, 1).Insert(2, "1");
+                    //user.UType = userType - 2;
+                    UserBLL.Update(user, ref exception);
                 }
-            deleted.UiType = deleted.UiType - 2 ;
+            }
+            //deleted.UiType = deleted.UiType - 2 ;
+            deleted.UiType = deleted.UiType.Remove(2, 1).Insert(2, "1");
             UserInfoBLL.Update(deleted, ref exception);
 
             DataTable table = new DataTable();

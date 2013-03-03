@@ -35,7 +35,8 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         {
             string uiDepartment = Department.Text;
             List<UserInfo> UserInfoes = new List<UserInfo>();
-            UserInfoBLL.Select(uiDepartment, 2, ref UserInfoes,  ref exception);
+            string type = "__1%";
+            UserInfoBLL.Select(uiDepartment, type, ref UserInfoes,  ref exception);
             if (UserInfoes.Count == 0)
                 return null;
             DataTable table = new DataTable();
@@ -46,7 +47,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         protected void Reset_Click(object sender, EventArgs e)
         {
             string uID = UID.Value;
-            int uType = Int32.Parse(UType.Value);
+            string uType = UType.Value;
             string newPassword = "000000";
             if (UserBLL.UpdatePassword(uID, uType, newPassword, ref exception))
                 Response.Write("<script>alert('该用户的密码已重置为000000！')</script>");

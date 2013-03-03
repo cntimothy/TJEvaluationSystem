@@ -21,32 +21,16 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         }
         protected DataTable searchSql()
         {
-            int s = Convert.ToInt32(Depart.Value);
+            string department = Depart.Value;
+            string type = "___1%";
             List<UserInfo> userinfo = new List<UserInfo>();
-            switch (s)
+            if(department == "0")
             {
-                case 0:
-                    UserInfoBLL.Select(4, ref userinfo, ref exception);
-                    UserInfoBLL.Select(6, ref userinfo, ref exception);
-                    UserInfoBLL.Select(7, ref userinfo, ref exception);
-                    UserInfoBLL.Select(9, ref userinfo, ref exception);
-                    
-                    break;
-                case 1:
-                    UserInfoBLL.Select("cs", 4, ref userinfo, ref exception);
-                    UserInfoBLL.Select("cs", 6, ref userinfo, ref exception);
-                    UserInfoBLL.Select("cs", 7, ref userinfo, ref exception);
-                    UserInfoBLL.Select("cs", 9, ref userinfo, ref exception);
-                    
-                    break;
-                default:
-                    UserInfoBLL.Select(4, ref userinfo, ref exception);
-                    UserInfoBLL.Select(6, ref userinfo, ref exception);
-                    UserInfoBLL.Select(7, ref userinfo, ref exception);
-                    UserInfoBLL.Select(9, ref userinfo, ref exception);
-                    
-                    break;
-
+                UserInfoBLL.SelectByType(type, ref userinfo, ref exception);
+            }
+            else
+            {
+                UserInfoBLL.Select(department, type, ref userinfo, ref exception);
             }
 
             DataTable table = new DataTable();

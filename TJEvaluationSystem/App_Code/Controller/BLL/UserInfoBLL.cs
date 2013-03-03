@@ -39,7 +39,7 @@ namespace BLL
                     new SqlParameter("@uiMobPhone", SqlDbType.VarChar,20),
                     new SqlParameter("@uiAddress",SqlDbType.NVarChar,50),
                     new SqlParameter("@uiZipCode", SqlDbType.VarChar,50),
-                    new SqlParameter("@uiType", SqlDbType.Int,4)
+                    new SqlParameter("@uiType", SqlDbType.VarChar,10)
 
                 };
                  parameters[0].Value = model[i].UiID;
@@ -70,21 +70,21 @@ namespace BLL
              return Select(ref ui, ref e, sql);
          }
         //根据部门选择
-         public static bool Select(string uiDepartment, ref List<UserInfo> ui, ref string e)
+         public static bool SelectByDepartment(string uiDepartment, ref List<UserInfo> ui, ref string e)
          {
              string sql = "select * from tb_UserInfo where uiDepartment='" + uiDepartment + "'";
              return Select(ref ui, ref e, sql);
          }
          //根据类型选择
-         public static bool Select(int uiType, ref List<UserInfo> ui, ref string e)
+         public static bool SelectByType(string uiType, ref List<UserInfo> ui, ref string e)
          {
-             string sql = "select * from tb_UserInfo where uiType=" + uiType;
+             string sql = "select * from tb_UserInfo where uiType like '" + uiType + "'";
              return Select(ref ui, ref e, sql);
          }
         //根据部门和类型选择
-         public static bool Select(string uiDepartment,int uiType,ref List<UserInfo> ui, ref string e)
+         public static bool Select(string uiDepartment,string uiType,ref List<UserInfo> ui, ref string e)
          {
-             string sql = "select * from tb_UserInfo where uiDepartment='" + uiDepartment + "' and uiType='" + uiType+"'";
+             string sql = "select * from tb_UserInfo where uiDepartment='" + uiDepartment + "' and uiType like '" + uiType+"'";
              return Select(ref ui, ref e, sql);
          }
         //根据用户id选择
@@ -114,7 +114,7 @@ namespace BLL
                      userinfo.UiZipCode = (string)table.Rows[i][9];
                      if (!table.Rows[i][10].Equals(DBNull.Value))
                      {
-                         userinfo.UiType = (int)table.Rows[i][10];
+                         userinfo.UiType = (string)table.Rows[i][10];
                      }
                      ui.Add(userinfo);
                  }
@@ -157,7 +157,7 @@ namespace BLL
                     new SqlParameter("@uiMobPhone", SqlDbType.VarChar,20),
                     new SqlParameter("@uiAddress",SqlDbType.NVarChar,50),
                     new SqlParameter("@uiZipCode", SqlDbType.VarChar,50),
-                    new SqlParameter("@uiType", SqlDbType.Int,4)
+                    new SqlParameter("@uiType", SqlDbType.VarChar,10)
                 };
              parameters[0].Value = model.UiID;
              parameters[1].Value = model.UiName;

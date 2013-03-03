@@ -30,10 +30,10 @@
                 <tr id="TrShowAllTables">
                     <td class="tool_bar_td"><input type="text" id="DepType"/></td>
                     <td class="tool_bar_td"><input type="text" id="PassedType"/></td>
-                    <td class="tool_bar_td"><input type="button" value="查询" onclick="Search()" class="l-button" style="width:70px;"/> </td>
+                    <td class="tool_bar_td"><input type="button" value="查询" onclick="search()" class="l-button" style="width:70px;"/> </td>
                 </tr>
                 <tr id="TrShowTableInfo">
-                    <td class="tool_bar_td"><input type="button" value="返回" onclick="Back()" class="l-button" style="width:70px;"/> </td>
+                    <td class="tool_bar_td"><input type="button" value="返回" onclick="back()" class="l-button" style="width:70px;"/> </td>
                 </tr>
             </table>
         </div>
