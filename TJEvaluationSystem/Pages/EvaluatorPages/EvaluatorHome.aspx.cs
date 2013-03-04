@@ -49,6 +49,7 @@ namespace TJEvaluationSystem.Pages.EvaluatorPages
         {
             Session["username"] = null;
             Session["usertype"] = null;
+            Session["userlevel"] = null;
             Response.Redirect("../Login.aspx");
         }
 

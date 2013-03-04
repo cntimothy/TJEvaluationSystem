@@ -6,7 +6,11 @@ function search()
  {
     var s = document.getElementById("department").value;
     document.getElementById("Depart").value = s;
-    document.getElementById("Search").click();   
+    document.getElementById("Search").click();
+}
+
+function sendback() {
+
 }
 
 function tanchuang() 

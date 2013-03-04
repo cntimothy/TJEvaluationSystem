@@ -35,12 +35,12 @@
                 </tr>
          </table>
                     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-             ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True;User Instance=True" 
-             ProviderName="System.Data.SqlClient" 
+             ConnectionString="<%$ ConnectionStrings:ConnectionString %>" 
              
-             SelectCommand="SELECT DISTINCT [uiDepartment] FROM [tb_UserInfo] WHERE ([uiType] = @uiType)">
+             
+             SelectCommand="SELECT DISTINCT [uiDepartment] FROM [tb_UserInfo] WHERE ([uiType] LIKE '%' + @uiType + '%')">
                         <SelectParameters>
-                            <asp:Parameter DefaultValue="2" Name="uiType" Type="Int32" />
+                            <asp:Parameter DefaultValue="__1%" Name="uiType" Type="String" />
                         </SelectParameters>
          </asp:SqlDataSource>
      </div>

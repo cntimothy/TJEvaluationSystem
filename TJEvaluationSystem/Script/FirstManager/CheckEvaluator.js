@@ -10,6 +10,10 @@ function tanchuang() {
     }
 }
 
+function sendback() { 
+
+}
+
 function search() 
 {
     var s = document.getElementById("department").value;

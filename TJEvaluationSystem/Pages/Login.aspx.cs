@@ -46,9 +46,6 @@ namespace TJEvaluationSystem.Pages
             //根据身份类型检查用户名密码
             if (userLevel.Substring(0, 5) == "10000" || userLevel.Substring(0, 5) == "01000")
             {
-                //Manager manager = new Manager();
-                //manager.MID = username;
-                //manager.MPassword = userpwd;
                 string ex = "";
                 if (!ManagerBLL.SelectMType(username, userpwd, ref userType, ref ex))
                 {
@@ -69,7 +66,7 @@ namespace TJEvaluationSystem.Pages
             }
             else
             {
-                RememberMe(username, userType);
+                RememberMe(username, userType, userLevel);
                 LBPrompt.Visible = false;
 
                 //登录成功,页面跳转
@@ -136,53 +133,14 @@ namespace TJEvaluationSystem.Pages
                     LBPrompt.Text = "您没有访问权限！";
                     return;
                 }
-                
-                //switch (userLevel)
-                //{
-                //    case 0:
-                //        Response.Redirect("SuperManagerPages/SuperManagerHome.aspx");
-                //        break;
-                //    case 1:
-                //        Response.Redirect("FirstManagerPages/FirstManagerHome.aspx");
-                //        break;
-                //    case 2:
-                //        if (userType == 2 || userType == 5 || userType == 6 || userType == 9)
-                //        {
-                //            Response.Redirect("SecondManagerPages/SecondManagerHome.aspx");
-                //        }
-                //        else
-                //        {
-                //            //登录失败
-                //            LBPrompt.Visible = true;
-                //            LBPrompt.Text = "您没有访问权限！";
-                //            return;
-                //        }
-
-                //        break;
-                //    case 3:
-                //        if (userType == 3 || userType == 5 || userType == 7 || userType == 9)
-                //        {
-                //            Response.Redirect("EvaluatorPages/EvaluatorHome.aspx");
-                //        }
-                //        else
-                //        {
-                //            //登录失败
-                //            LBPrompt.Visible = true;
-                //            LBPrompt.Text = "您没有访问权限！";
-                //            return;
-                //        }
-
-                //        break;
-                //    default:
-                //        break;
-                //}
             }
         }
 
-        protected void RememberMe(string username, string usertype)
+        protected void RememberMe(string username, string usertype, string userlevel)
         {
             Session["username"] = username;
             Session["usertype"] = usertype;
+            Session["userlevel"] = userlevel;
         }
     }
 }

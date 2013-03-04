@@ -47,24 +47,25 @@ namespace TJEvaluationSystem.Pages.AccountPages
         {
             Session["username"] = null;
             Session["usertype"] = null;
+            Session["userlevel"] = null;
             Response.Redirect("../Login.aspx");
         }
 
         protected void GoHome_Click(object sender, EventArgs e)
         {
-            if ((int)Session["usertype"] == 0)
+            if ((string)Session["userlevel"] == "10000")
             {
                 Response.Redirect("../SuperManagerPages/SuperManagerHome.aspx");
             }
-            else if ((int)Session["usertype"] == 1)
+            else if ((string)Session["userlevel"] == "01000")
             {
                 Response.Redirect("../FirstManagerPages/FirstManagerHome.aspx");
             }
-            else if ((int)Session["usertype"] == 2)
+            else if ((string)Session["userlevel"] == "00100")
             {
                 Response.Redirect("../SecondManagerPages/SecondManagerHome.aspx");
             }
-            else if ((int)Session["usertype"] == 3)
+            else if ((string)Session["userlevel"] == "00010")
             {
                 Response.Redirect("../EvaluatorPages/EvaluatorHome.aspx");
             }
