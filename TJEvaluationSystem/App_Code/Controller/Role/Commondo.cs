@@ -20,20 +20,46 @@ public class Commondo
 
     //登陆 查询User表，验证登陆用户类型
     //-1---登陆失败，0---超级管理员，1---一级管理员，2---二级管理员，3---考评者
-    public static string login(string uID, string uPassword)
+    public static string login(string ID, string password, string level, ref string exception)
     {
-        List<User> model = new List<User>();
-        string exception = "";
-        if (UserBLL.Select(uID, ref model, ref exception))
+        if (level.Substring(0, 5) == "10000" || level.Substring(0, 5) == "01000" || level.Substring(0, 5) == "00100")
         {
-            string password = model.ElementAt(0).UPassword;
-            string type = model.ElementAt(0).UType;
-            password = password.Trim();
-            if (password.Equals(uPassword))
+            List<Manager> model = new List<Manager>();
+            if (ManagerBLL.Select(ID, ref model, ref exception))
             {
-                return type;
+                string mPassword = model.ElementAt(0).MPassword.Trim();
+                string mType = model.ElementAt(0).MType;
+                if (password.Equals(password))
+                {
+                    return mType;
+                }
+                else
+                {
+                    exception = "密码错误！";
+                    return "-1";
+                }
             }
-            else return "-1";
+            return "-1";
+        }
+        else if (level.Substring(0, 5) == "00010")
+        {
+            List<User> model = new List<User>();
+            if (UserBLL.Select(ID, ref model, ref exception))
+            {
+                string uPassword = model.ElementAt(0).UPassword;
+                string uType = model.ElementAt(0).UType;
+                password = password.Trim();
+                if (password.Equals(uPassword))
+                {
+                    return uType;
+                }
+                else
+                {
+                    exception = "密码错误！";
+                    return "-1";
+                }
+            }
+            return "-1";
         }
         else return "-1";
     }

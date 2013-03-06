@@ -78,11 +78,38 @@ namespace BLL
             {
                 if (e != "" && e != null)
                     return false;
-                //e = "用户" + mID + "用户名或密码错误！";
                 e = "用户名或密码错误!";
                 return false;
             }
         }
+        public static bool Select(string mID, ref List<Manager> model, ref string e)
+        {
+            mID = mID.Trim();
+            string sql = "select * from tb_Manager where mID='" + mID + "'";
+            DataTable table = new DataTable();
+            table = db.QueryDataTable(sql, ref e);
+            if (table != null && table.Rows.Count > 0)
+            {
+                for (int i = 0; i < table.Rows.Count; i++)
+                {
+                    Manager manager = new Manager();
+                    manager.MID = (string)table.Rows[i]["mID"];
+                    manager.MPassword = (string)table.Rows[i]["mPassword"];
+                    manager.MType = (string)table.Rows[i]["mType"];
+
+                    model.Add(manager);
+                }
+                return true;
+            }
+            else
+            {
+                if (e != "" && e != null)
+                    return false;
+                e = "无此用户！";
+                return false;
+            }
+        }
+
 
         public static bool SelectMID(ref List<String> model, string mType, ref string e)
         {

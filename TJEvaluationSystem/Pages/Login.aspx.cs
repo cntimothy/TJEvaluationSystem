@@ -31,6 +31,7 @@ namespace TJEvaluationSystem.Pages
 
         protected void IBLogin_Click(object sender, ImageClickEventArgs e)
         {
+            string exception = "";
             string username = TBUserName.Text.Trim();
             string userpwd = TBPassword.Text.Trim();
             string userType = "-1";
@@ -42,26 +43,12 @@ namespace TJEvaluationSystem.Pages
             //得到用户身份类型
             string userLevel = "-1";
             userLevel = DDLLoginType.SelectedValue;
-
-            //根据身份类型检查用户名密码
-            if (userLevel.Substring(0, 5) == "10000" || userLevel.Substring(0, 5) == "01000")
-            {
-                string ex = "";
-                if (!ManagerBLL.SelectMType(username, userpwd, ref userType, ref ex))
-                {
-                    //登录失败
-                    LBPrompt.Visible = true;
-                    LBPrompt.Text = ex;
-                    return;
-                }
-            }
-            else
-                userType = Commondo.login(username, userpwd);
+            userType = Commondo.login(username, userpwd, userLevel,ref exception);
             if (userType == "-1")
             {
                 //登录失败
                 LBPrompt.Visible = true;
-                LBPrompt.Text = "用户名或密码错误！";
+                LBPrompt.Text = exception;
                 return;
             }
             else
@@ -80,7 +67,7 @@ namespace TJEvaluationSystem.Pages
                     {
                         //登录失败
                         LBPrompt.Visible = true;
-                        LBPrompt.Text = "您没有访问权限！";
+                        LBPrompt.Text = "登录身份选择错误！";
                         return;
                     }
                 }
@@ -94,7 +81,7 @@ namespace TJEvaluationSystem.Pages
                     {
                         //登录失败
                         LBPrompt.Visible = true;
-                        LBPrompt.Text = "您没有访问权限！";
+                        LBPrompt.Text = "登录身份选择错误！";
                         return;
                     }
                 }
@@ -108,7 +95,7 @@ namespace TJEvaluationSystem.Pages
                     {
                         //登录失败
                         LBPrompt.Visible = true;
-                        LBPrompt.Text = "您没有访问权限！";
+                        LBPrompt.Text = "登录身份选择错误！";
                         return;
                     }
                 }
@@ -122,7 +109,7 @@ namespace TJEvaluationSystem.Pages
                     {
                         //登录失败
                         LBPrompt.Visible = true;
-                        LBPrompt.Text = "您没有访问权限！";
+                        LBPrompt.Text = "登录身份选择错误！";
                         return;
                     }
                 }
@@ -130,7 +117,7 @@ namespace TJEvaluationSystem.Pages
                 {
                     //登录失败
                     LBPrompt.Visible = true;
-                    LBPrompt.Text = "您没有访问权限！";
+                    LBPrompt.Text = "您无权登录系统！";
                     return;
                 }
             }
