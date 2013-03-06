@@ -8,26 +8,73 @@ using BLL;
 using Model;
 using DBUtility;
 using System.Web.Script.Serialization;
+using System.Data;
 
 namespace TJEvaluationSystem.Pages.SecondManagerPages
 {
     public partial class ManageEvaluatorTable : System.Web.UI.Page
     {
+        private string exception = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                LoadEvaluatorTable();
+                //LoadEvaluatorTable();
+                LoadUserList();
+            }
+            
+        }
+
+        //导入被考核人员名单
+        public void LoadUserList()
+        {
+            
+            string username = (string)Session["username"];
+            string uiDepart = "";
+            List<UserInfo> user = new List<UserInfo>();
+
+            //查询当前用户
+            if (UserInfoBLL.Select(ref user, username, ref exception))
+            {
+                //获得部门
+                uiDepart = user.ElementAt(0).UiDepartment;
+                List<UserInfo> Evaluated = new List<UserInfo>();
+                string type = "____1%";
+                //查询被考评名单
+                bool b = UserInfoBLL.Select(uiDepart, type, ref Evaluated, ref exception);
+                if (b)
+                {
+                    //获取名单，在前台显示
+                    DataTable table = new DataTable();
+                    table = Evaluated.ListToDataTable();
+                    string json = JSON.DataTableToJson(table);
+                    JsonData.Value = json;
+                    ClientScript.RegisterStartupScript(this.GetType(), "", "ShowUserList()", true);
+                    return;
+
+                }
+
+                else
+                {
+                    //不存在名单
+                    ClientScript.RegisterStartupScript(this.GetType(), "", "f_alert('warn','本部门不存在被考评人员!')", true);
+                    return;
+                }
+            }
+            else
+            {
+                //获取数据失败
+                ClientScript.RegisterStartupScript(this.GetType(), "", "f_alert('error','获取数据失败!')", true);
+                return;
             }
             
         }
 
         //导入考核表
-        public void LoadEvaluatorTable()
+        public void LoadEvaluatorTable(string id)
         {
             //查询考核表
-            string username = (string)Session["username"];
-            string sqlcmd = "select * from tb_AssessTable where atUserID='" + username+"'";
+            string sqlcmd = "select * from tb_AssessTable where atUserID='" + id + "'";
             List<AssessTable> at = new List<AssessTable>();
             string e = "";
             if (!LoadStanderLib())
@@ -38,7 +85,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             {
                 JsonData3.Value = JSON.ScriptSerialize<AssessTable>(at[0]);
             }
-            ClientScript.RegisterStartupScript(this.GetType(), "fun", "ShowTable();", true);
+            ScriptManager.RegisterStartupScript(BGetEvaluateTable,this.GetType(), "fun", "ShowTable();", true);
         }
 
         //获取指标库
@@ -107,7 +154,8 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         {
             //转换数据
             string data = JsonData.Value;
-            if (data == "")
+            string userID = JsonData2.Value;
+            if (data == "" || data == null || userID == "" || userID == null)
             {
                 ScriptManager.RegisterStartupScript(BFinishMakeTable, this.GetType(), "error", "f_alert('error','保存失败，请重试!');", true);
                 return;
@@ -121,9 +169,8 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             string message = "";
             AssessTable assess = s[0];
             //查询用户信息
-            string username = (string)Session["username"];
             List<UserInfo> ui = new List<UserInfo>();
-            if (!UserInfoBLL.Select(ref ui, username, ref message) || ui.Count==0)
+            if (!UserInfoBLL.Select(ref ui, userID, ref message) || ui.Count == 0)
             {
                 // 失败
                 ScriptManager.RegisterStartupScript(BFinishMakeTable, this.GetType(), "error", "f_alert('error','保存失败，请重试!');", true);
@@ -131,7 +178,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             }
             else 
             {
-                assess.AtUserID = username;
+                assess.AtUserID = userID;
                 assess.AtDep = ui[0].UiDepartment;
             }
             assess.AtDate = DateTime.Now.Date;
@@ -180,6 +227,21 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 JsonData.Value = data;
                 ScriptManager.RegisterStartupScript(BFinishMakeTable, this.GetType(), "success", "SaveEditTableDone();", true);
             }
+        }
+
+         //根据ID获取考核表
+        protected void BGetEvaluateTable_Click(object sender, EventArgs e)
+        {
+            //转换数据
+            string data = JsonData.Value;
+            if (data == null || data == "")
+            {
+                ScriptManager.RegisterStartupScript(BGetEvaluateTable, this.GetType(), "", "f_alert('error','获取数据失败!');", true);
+                return;
+            }
+
+            //获取考核表
+            LoadEvaluatorTable(data);
         }
 
         //刷新

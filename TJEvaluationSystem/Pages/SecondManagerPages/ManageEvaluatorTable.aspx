@@ -25,6 +25,88 @@
     <div>
         <div class="l-loading" style="display: block" id="pageloading">
         </div>
+        <div id="ShowUserList" style="height:100%">
+            <div id="UserList">
+                <div id="UserListGrid" style="margin: 0; padding: 0;height:100%""></div>
+            </div>
+            <div id="UserInfo" class="Hidden" style="text-align:center">
+                <div class="ToolBar">
+                    <table class="tool_bar_table">
+                        <tr>
+                            <td class="tool_bar_td">
+                                <input type="button" class="l-button" value="返回" style="width: 70px;" onclick="BackToUserList();" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="DetailUserData" style="border:3px solid #a3c0e8;width:500px;margin:0px auto;padding-top:10px;">
+                    <table>
+                    <tr>
+                        <td align="right" class="tableKey">工号：</td>
+                        <td align="left" class="tableValue">
+                            <asp:Label ID="LID" runat="server" Text=""></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="tableKey">姓名：</td>
+                        <td align="left" class="tableValue">
+                            <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="tableKey">性别：</td>
+                        <td align="left" class="tableValue">
+                            <asp:Label ID="LSex" runat="server" Text=""></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="tableKey">身份证号：</td>
+                        <td align="left" class="tableValue">
+                            <asp:Label ID="LIdentityNum" runat="server" Text=""></asp:Label>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td align="right" class="tableKey">部门：</td>
+                        <td align="left" class="tableValue">
+                            <asp:Label ID="LDepartment" runat="server" Text=""></asp:Label>
+                       </td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="tableKey">电话：</td>
+                        <td align="left" class="tableValue">
+                            <asp:Label ID="LTelphone" runat="server" Text=""></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="tableKey">手机：</td>
+                        <td align="left" class="tableValue">
+                            <asp:Label ID="LPhone" runat="server" Text=""></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="tableKey">Email：</td>
+                        <td align="left" class="tableValue">
+                            <asp:Label ID="LEmail" runat="server" Text=""></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="tableKey">地址：</td>
+                        <td align="left" class="tableValue">
+                            <asp:Label ID="LAddress" runat="server" Text=""></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="tableKey">邮编：</td>
+                        <td align="left" class="tableValue">
+                            <asp:Label ID="LZipcode" runat="server" Text=""></asp:Label>
+                        </td>
+                    </tr>
+                    </table>
+                </div>
+             </div>
+            </div>
+        </div>
+        <div id="ShowEvaluateTable" class="Hidden">
         <div class="ToolBar Hidden">
             <div id="ShowTableBar">
                 <table class="tool_bar_table">
@@ -36,10 +118,16 @@
                         <td class="tool_bar_td" id="EditTableButton">
                             <input type="button" class="l-button" value="编辑" style="width: 70px;" onclick="EditEvaluatorTable();" />
                         </td>
+                        <td class="tool_bar_td">
+                            <input type="button" class="l-button" value="返回" style="width: 70px;" onclick="BackToUserList();" />
+                        </td>
                     </tr>
                     <tr id="TrNoTable">
                         <td class="tool_bar_td">
                             <input type="button" class="l-button" value="制作考核表" style="width: 70px;" onclick="MakeEvaluatorTable();" />
+                        </td>
+                        <td class="tool_bar_td">
+                            <input type="button" class="l-button" value="返回" style="width: 70px;" onclick="BackToUserList();" />
                         </td>
                     </tr>
                 </table>
@@ -52,6 +140,10 @@
                         </td>
                         <td class="tool_bar_td ">
                             <input type="button" class="l-button" value="重置考核表" style="width: 70px;" onclick="ResetTable();" />
+
+                        </td>
+                        <td class="tool_bar_td">
+                            <input type="button" class="l-button" value="返回" style="width: 70px;" onclick="BackToUserList();" />
                         </td>
                     </tr>
                     <tr id="TrEditTable">
@@ -1864,6 +1956,7 @@
                 </div>
             </div>
         </div>
+        </div>
         <div class="Hidden">
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
@@ -1873,6 +1966,7 @@
                     <asp:Button ID="BGetStanderLib" runat="server" Text="Button" OnClick="BGetStanderLib_Click" />
                     <asp:Button ID="BFinishMakeTable" runat="server" Text="" OnClick="BFinishMakeTable_Click" />
                     <asp:Button ID="BFinishEditTable" runat="server" Text="" OnClick="BFinishEditTable_Click" />
+                    <asp:Button ID="BGetEvaluateTable" runat="server" Text="" OnClick="BGetEvaluateTable_Click"/>
                 </ContentTemplate>
             </asp:UpdatePanel>
             <asp:Button ID="BRefresh" runat="server" Text="" OnClick="BRefresh_Click" />
