@@ -401,6 +401,7 @@
     <Folder Include="Images\Login\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_GlobalResources\userinfo.zip" />
     <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagram2.cd" />
   </ItemGroup>
