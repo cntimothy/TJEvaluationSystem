@@ -22,6 +22,9 @@
         <div class="ToolBar">
             <table style="height:100%">
                 <tr>
+                <td><asp:Button ID="DownloadFile" runat="server" 
+                        Text="下载模版" class="l-button" Width="100px" onclick="DownloadFile_Click"/></td>
+                <td style="padding:10px;">
                 <td style="padding:10px;"><asp:FileUpload  ID="FUExcel"  runat="server" Height="20px" width="300px" BackColor="White" class="l-text"/></td>
                 <td style="padding:10px;">
                 <asp:Button ID="BLoadFile" runat="server" 

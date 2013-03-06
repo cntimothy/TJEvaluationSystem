@@ -19,6 +19,16 @@ namespace TJEvaluationSystem.Pages.SuperManagerPages
 
         }
 
+        protected void DownloadFile_Click(object sender, EventArgs e)
+        {
+            Response.ContentType = "application/x-zip-compressed";
+            Response.AddHeader("Content-Disposition", "attachment;filename=人员信息模版.zip");
+            string filename = Server.MapPath("../../App_GlobalResources/userinfo.zip");
+            //指定编码 防止中文文件名乱码 
+            Response.HeaderEncoding = System.Text.Encoding.GetEncoding("utf-8");
+            Response.TransmitFile(filename); 
+        }
+
         protected void BLoadFile_Click(object sender, EventArgs e)
         {
             string filePath;

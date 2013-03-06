@@ -66,9 +66,9 @@ namespace BLL
                  for (int i = 0; i < table.Rows.Count; i++)
                  {
                      User user = new User();
-                     user.UID = (string)table.Rows[i][0];
-                     user.UPassword = (string)table.Rows[i][1];
-                     user.UType = (string)table.Rows[i][2];
+                     user.UID = (string)table.Rows[i]["uID"];
+                     user.UPassword = (string)table.Rows[i]["uPassword"];
+                     user.UType = (string)table.Rows[i]["uType"];
 
                      model.Add(user);
                  }
@@ -78,7 +78,7 @@ namespace BLL
              {
                  if (e != "" && e != null)
                      return false;
-                 e = "用户" + uID + " 不具有登陆权限";
+                 e = "无此用户！";
                  return false;
              }
          }
