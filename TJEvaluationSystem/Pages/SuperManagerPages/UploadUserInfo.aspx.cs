@@ -53,7 +53,5 @@ namespace TJEvaluationSystem.Pages.SuperManagerPages
                 ScriptManager.RegisterStartupScript(BSaveData, this.GetType(), "success", "SaveSuccess();", true);
             }
         }
-
-       
     }
 }

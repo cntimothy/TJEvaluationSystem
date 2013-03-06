@@ -56,82 +56,18 @@
           <div class="DetailUserData" style="border:3px solid #a3c0e8;width:500px;margin:0px auto;">
             <table>
             <tr>
-                <td align="right" class="tableKey">工号：</td>
+                <td align="right" class="tableKey">用户名：</td>
                 <td align="left" class="tableValue">
                     <div class="DetailData">
-                        <asp:Label ID="LID" runat="server" Text=""></asp:Label>
+                        <asp:Label ID="MID" runat="server" Text=""></asp:Label>
                     </div>
                 </td>
             </tr>
             <tr>
-                <td align="right" class="tableKey">姓名：</td>
-                <td align="left" class="tableValue">
-                    <div class="ShowData">
-                        <asp:Label ID="LName" runat="server" Text=""></asp:Label>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" class="tableKey">性别：</td>
-                <td align="left" class="tableValue">
-                    <div class="ShowData">
-                        <asp:Label ID="LSex" runat="server" Text=""></asp:Label>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" class="tableKey">身份证号：</td>
-                <td align="left" class="tableValue">
-                    <div class="ShowData">
-                        <asp:Label ID="LIdentityNum" runat="server" Text=""></asp:Label>
-                    </div>
-                </td>
-            </tr>
-             <tr>
                 <td align="right" class="tableKey">部门：</td>
                 <td align="left" class="tableValue">
                     <div class="ShowData">
-                        <asp:Label ID="LDepartment" runat="server" Text=""></asp:Label>
-                    </div>
-               </td>
-            </tr>
-            <tr>
-                <td align="right" class="tableKey">电话：</td>
-                <td align="left" class="tableValue">
-                    <div class="ShowData">
-                        <asp:Label ID="LTelphone" runat="server" Text=""></asp:Label>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" class="tableKey">手机：</td>
-                <td align="left" class="tableValue">
-                    <div class="ShowData">
-                        <asp:Label ID="LPhone" runat="server" Text=""></asp:Label>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" class="tableKey">Email：</td>
-                <td align="left" class="tableValue">
-                    <div class="ShowData">
-                        <asp:Label ID="LEmail" runat="server" Text=""></asp:Label>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" class="tableKey">地址：</td>
-                <td align="left" class="tableValue">
-                    <div class="ShowData">
-                        <asp:Label ID="LAddress" runat="server" Text=""></asp:Label>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" class="tableKey">邮编：</td>
-                <td align="left" class="tableValue">
-                    <div class="ShowData">
-                        <asp:Label ID="LZipcode" runat="server" Text=""></asp:Label>
+                        <asp:Label ID="MDepartment" runat="server" Text=""></asp:Label>
                     </div>
                 </td>
             </tr>

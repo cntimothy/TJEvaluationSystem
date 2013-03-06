@@ -23,19 +23,18 @@ namespace BLL
             int count = model.Length;
             for (int i = 0; i < count; i++)
             {
-                string sql = "insert into tb_Manager values(@uID,@uPassword,@uType)";
+                string sql = "insert into tb_Manager values(@mID,@mPassword,@mType,@mDepartment)";
                 SqlParameter[] parameters =
                 {
-                    new SqlParameter("@uID", SqlDbType.VarChar,10),
-                    new SqlParameter("@uPassword",SqlDbType.Char,6),
-                    new SqlParameter("@uType", SqlDbType.VarChar,10)
+                    new SqlParameter("@mID", SqlDbType.VarChar,10),
+                    new SqlParameter("@mPassword",SqlDbType.Char,6),
+                    new SqlParameter("@mType", SqlDbType.VarChar,10),
+                    new SqlParameter("@mDepartment", SqlDbType.NVarChar,50)
                 };
                 parameters[0].Value = model[i].MID;
-                //获取身份证号作密码
-
-
                 parameters[1].Value = model[i].MPassword;
                 parameters[2].Value = model[i].MType;
+                parameters[3].Value = model[i].MDepartment;
 
                 string exception = db.InsertExec(sql, parameters);
                 if (exception != "" && exception != null)
@@ -82,6 +81,43 @@ namespace BLL
                 return false;
             }
         }
+
+        public static bool SelectByType(string mType, ref List<Manager> managers, ref string e)
+        {
+            string sql = "select * from tb_Manager where mType like '" + mType + "'";
+            return Select(ref managers, ref e, sql);
+        }
+
+        public static bool Select(string mDepartment, string mType, ref List<Manager> managers, ref string e)
+        {
+            string sql = "select * from tb_Manager where mDepartment = '" + mDepartment + "' and mTYpe like '" + mType + "'";
+            return Select(ref managers, ref e, sql);
+        }
+        public static bool Select(ref List<Manager> managers, ref string e,string sql)
+        {
+            DataTable table = new DataTable();
+            table = db.QueryDataTable(sql, ref e);
+            if (table != null && table.Rows.Count > 0)
+            {
+                for (int i = 0; i < table.Rows.Count; i++)
+                {
+                    Manager manager = new Manager();
+                    manager.MID = (string)table.Rows[i]["mID"];
+                    manager.MPassword = (string)table.Rows[i]["mPassword"];
+                    manager.MDepartment = (string)table.Rows[i]["mDepartment"];
+                    manager.MType = (string)table.Rows[i]["mType"];
+                    managers.Add(manager);
+                }
+                return true;
+            }
+            else
+            {
+                if (e != "" && e != null)
+                    return false;
+                e = "查询用户不存在";
+                return false;
+            }
+        }
         public static bool Select(string mID, ref List<Manager> model, ref string e)
         {
             mID = mID.Trim();
@@ -96,7 +132,7 @@ namespace BLL
                     manager.MID = (string)table.Rows[i]["mID"];
                     manager.MPassword = (string)table.Rows[i]["mPassword"];
                     manager.MType = (string)table.Rows[i]["mType"];
-
+                    manager.MDepartment = (string)table.Rows[i]["mDepartment"];
                     model.Add(manager);
                 }
                 return true;
@@ -132,23 +168,36 @@ namespace BLL
             }
         }
 
+        public static bool UpdatePassword(string mID, string mType, string mDepartment, string newPassword, ref string e)
+        {
+            Manager manager = new Manager();
+            manager.MID = mID;
+            manager.MType = mType;
+            manager.MDepartment = mDepartment;
+            manager.MPassword = newPassword;
+            return Update(manager, ref e);
+        }
+        
         public static bool Update(Manager model, ref string e)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("update tb_Manager set ");
             strSql.Append("mPassword=@mPassword,");
-            strSql.Append("mType=@mType");
+            strSql.Append("mType=@mType,");
+            strSql.Append("mDepartment=@mDepartment");
             strSql.Append(" where mID=@mID ");
             SqlParameter[] parameters =
                 {
                     new SqlParameter("@mID", SqlDbType.VarChar,10),
                     new SqlParameter("@mPassword",SqlDbType.Char,6),
                     new SqlParameter("@mType", SqlDbType.VarChar, 10),
+                    new SqlParameter("@mDepartment", SqlDbType.NVarChar,50)
                    
                 };
             parameters[0].Value = model.MID;
             parameters[1].Value = model.MPassword;
             parameters[2].Value = model.MType;
+            parameters[3].Value = model.MDepartment;
 
 
             e = db.QueryExec(strSql.ToString(), parameters);
@@ -168,7 +217,6 @@ namespace BLL
             SqlParameter[] parameters = {
 					new SqlParameter("@mID", SqlDbType.VarChar,10)};
             parameters[0].Value = mID;
-
             e = db.QueryExec(strSql.ToString(), parameters);
             if (e != "" && e != null)
             {

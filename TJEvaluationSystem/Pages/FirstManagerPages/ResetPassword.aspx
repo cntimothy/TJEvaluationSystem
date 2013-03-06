@@ -27,9 +27,12 @@
     <div class="ToolBar">
          <table style="position:relative;left:20px;height:100%">
                 <tr>
-                    <td>请选择部门：<asp:DropDownList ID="Department" runat="server" 
-                            DataSourceID="SqlDataSource1" DataTextField="uiDepartment" 
-                            DataValueField="uiDepartment"></asp:DropDownList></td>                    
+                    <td><span>请选择部门</span>
+                    <asp:DropDownList ID="Department" runat="server" 
+                            DataSourceID="SqlDataSource1" DataTextField="mDepartment" 
+                            DataValueField="mDepartment" AppendDataBoundItems="True">
+                            <asp:ListItem Value="0" >所有部门</asp:ListItem>
+                            </asp:DropDownList></td>                    
                     <td style="padding:1px;"><input type="button" value="查询" id="Search_button"  onclick="search()" class="l-button" style="width:100px;height:25px;font-size:15px"/></td>
                     <td style="width:10px;"></td>
                 </tr>
@@ -38,9 +41,10 @@
              ConnectionString="<%$ ConnectionStrings:ConnectionString %>" 
              
              
-             SelectCommand="SELECT DISTINCT [uiDepartment] FROM [tb_UserInfo] WHERE ([uiType] LIKE '%' + @uiType + '%')">
+             
+             SelectCommand="SELECT DISTINCT [mDepartment] FROM [tb_Manager] WHERE ([mType] LIKE '%' + @mType + '%')">
                         <SelectParameters>
-                            <asp:Parameter DefaultValue="__1%" Name="uiType" Type="String" />
+                            <asp:Parameter DefaultValue="__1%" Name="mType" Type="String" />
                         </SelectParameters>
          </asp:SqlDataSource>
      </div>
@@ -52,8 +56,9 @@
              <input id="UserID" type="hidden" runat="server"/>
              <input id="JsonList" type="hidden" runat="server"/>
              <input id="Errors" type="hidden" runat="server"/>
-             <input id="UID" type="hidden" runat="server"/>
-             <input id="UType" type="hidden" runat="server"/>
+             <input id="MID" type="hidden" runat="server"/>
+             <input id="MType" type="hidden" runat="server"/>
+             <input id="MDepartment" type="hidden" runat="server"/>
     </div>
      </form>
 </body>

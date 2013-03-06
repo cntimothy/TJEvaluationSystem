@@ -13,6 +13,13 @@ namespace Model
         string mID;
         string mPassword;
         string mType;
+        string mDepartment;
+
+        public string MDepartment
+        {
+            get { return mDepartment; }
+            set { mDepartment = value; }
+        }
 
         public string MID
         {

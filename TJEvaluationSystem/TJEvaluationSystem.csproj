@@ -68,6 +68,7 @@
     <Content Include="Pages\FirstManagerPages\FirstManagerHome.aspx" />
     <Content Include="Pages\FirstManagerPages\MakeEvaluated.aspx" />
     <Content Include="Pages\FirstManagerPages\ManageSecond.aspx" />
+    <Content Include="Pages\FirstManagerPages\ManageSecondFrame.aspx" />
     <Content Include="Pages\FirstManagerPages\ResetPassword.aspx" />
     <Content Include="Pages\FirstManagerPages\SelectEvaluated.aspx" />
     <Content Include="Pages\FirstManagerPages\SelectSecond.aspx" />
@@ -101,7 +102,7 @@
     <Content Include="Script\FirstManager\CheckEvaluator.js" />
     <Content Include="Script\FirstManager\CheckPost.js" />
     <Content Include="Script\FirstManager\FirstManagerHome.js" />
-    <Content Include="Script\FirstManager\ManagerSecond.js" />
+    <Content Include="Script\FirstManager\ManageSecond.js" />
     <Content Include="Script\FirstManager\ResetPassword.js" />
     <Content Include="Script\FirstManager\SelectSecond.js" />
     <Content Include="Script\Ligerui\jquery-1.3.2.min.js" />
@@ -236,6 +237,13 @@
     </Compile>
     <Compile Include="Pages\FirstManagerPages\ManageSecond.aspx.designer.cs">
       <DependentUpon>ManageSecond.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\ManageSecondFrame.aspx.cs">
+      <DependentUpon>ManageSecondFrame.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\ManageSecondFrame.aspx.designer.cs">
+      <DependentUpon>ManageSecondFrame.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\FirstManagerPages\ResetPassword.aspx.cs">
       <DependentUpon>ResetPassword.aspx</DependentUpon>
@@ -399,9 +407,11 @@
     <Folder Include="Images\Home\" />
     <Folder Include="Images\Ligerui\" />
     <Folder Include="Images\Login\" />
+    <Folder Include="uploadfile\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\userinfo.zip" />
+    <Content Include="App_GlobalResources\managerinfo.zip" />
     <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagram2.cd" />
   </ItemGroup>

@@ -112,21 +112,30 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages {
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden Errors;
         
         /// <summary>
-        /// UID 控件。
+        /// MID 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden UID;
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden MID;
         
         /// <summary>
-        /// UType 控件。
+        /// MType 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden UType;
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden MType;
+        
+        /// <summary>
+        /// MDepartment 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden MDepartment;
     }
 }

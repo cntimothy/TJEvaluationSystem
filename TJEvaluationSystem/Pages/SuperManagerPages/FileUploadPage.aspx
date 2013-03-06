@@ -24,10 +24,10 @@
                 <tr>
                 <td><asp:Button ID="DownloadFile" runat="server" 
                         Text="下载模版" class="l-button" Width="100px" onclick="DownloadFile_Click"/></td>
-                <td style="padding:10px;">
+                <td style="padding:10px;"></td>
                 <td style="padding:10px;"><asp:FileUpload  ID="FUExcel"  runat="server" Height="20px" width="300px" BackColor="White" class="l-text"/></td>
-                <td style="padding:10px;">
-                <asp:Button ID="BLoadFile" runat="server" 
+                <td style="padding:10px;"></td>
+                <td><asp:Button ID="BLoadFile" runat="server" 
                         Text="导入Excel文件" class="l-button" Width="100px" onclick="BLoadFile_Click"/></td>
                 <td style="padding:10px;"><asp:Label ID="LLoadInfo" runat="server" Text="请导入Excel文件！" ForeColor="#FF3300" Width="200px"></asp:Label></td>
                 </tr>

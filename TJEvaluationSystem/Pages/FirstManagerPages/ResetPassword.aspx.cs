@@ -33,23 +33,31 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
 
         protected DataTable Search1()
         {
-            string uiDepartment = Department.Text;
-            List<UserInfo> UserInfoes = new List<UserInfo>();
+            List<Manager> managers = new List<Manager>();
             string type = "__1%";
-            UserInfoBLL.Select(uiDepartment, type, ref UserInfoes,  ref exception);
-            if (UserInfoes.Count == 0)
+            if (Department.SelectedValue == "0")
+            {
+                ManagerBLL.SelectByType(type, ref managers, ref exception);
+            }
+            else
+            {
+                string mDepartment = Department.Text;
+                ManagerBLL.Select(mDepartment, type, ref managers, ref exception);
+            }
+            if (managers.Count == 0)
                 return null;
             DataTable table = new DataTable();
-            table = UserInfoes.ListToDataTable();
+            table = managers.ListToDataTable();
             return table;
         }
 
         protected void Reset_Click(object sender, EventArgs e)
         {
-            string uID = UID.Value;
-            string uType = UType.Value;
+            string mID = MID.Value;
+            string mType = MType.Value;
+            string mDepartment = MDepartment.Value;
             string newPassword = "000000";
-            if (UserBLL.UpdatePassword(uID, uType, newPassword, ref exception))
+            if (ManagerBLL.UpdatePassword(mID, mType, mDepartment, newPassword, ref exception))
                 Response.Write("<script>alert('该用户的密码已重置为000000！')</script>");
             else
                 Response.Write("<script>alert('重置失败！')</script>");

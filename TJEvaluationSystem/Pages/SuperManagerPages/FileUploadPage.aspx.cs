@@ -9,6 +9,7 @@ using System.Data;
 using BLL;
 using Model;
 using DBUtility;
+using System.IO;
 
 namespace TJEvaluationSystem.Pages.SuperManagerPages
 {
@@ -22,7 +23,6 @@ namespace TJEvaluationSystem.Pages.SuperManagerPages
         protected void DownloadFile_Click(object sender, EventArgs e)
         {
             Response.ContentType = "application/x-zip-compressed";
-            Response.AddHeader("Content-Disposition", "attachment;filename=人员信息模版.zip");
             string filename = Server.MapPath("../../App_GlobalResources/userinfo.zip");
             //指定编码 防止中文文件名乱码 
             Response.HeaderEncoding = System.Text.Encoding.GetEncoding("utf-8");
@@ -51,7 +51,7 @@ namespace TJEvaluationSystem.Pages.SuperManagerPages
             //处理Excel文件
             try
             {
-                filePath = System.AppDomain.CurrentDomain.BaseDirectory.ToString() + "uploadfile\\" + FUExcel.PostedFile.FileName;
+                filePath = System.AppDomain.CurrentDomain.BaseDirectory.ToString() + "uploadfile\\" + Path.GetFileName(FUExcel.PostedFile.FileName);
                 //  保存文件
                 FUExcel.SaveAs(filePath);
                 //数据源
@@ -69,6 +69,13 @@ namespace TJEvaluationSystem.Pages.SuperManagerPages
 
                 DataTable table = new DataTable();
                 table = ds.Tables["table1"];
+                foreach (DataRow dr in table.Rows)
+                {
+                    if (dr["MID"] == null)
+                    {
+                        table.Rows.Remove(dr);
+                    }
+                }
 
                 string json = JSON.DataTableToJson(table);
 

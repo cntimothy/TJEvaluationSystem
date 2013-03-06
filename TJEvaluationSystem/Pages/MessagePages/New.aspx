@@ -26,8 +26,7 @@
                         </asp:DropDownList>
                         <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                             ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True;User Instance=True" 
-                            ProviderName="System.Data.SqlClient" 
-                            SelectCommand="SELECT [mID] FROM [tb_Manager] WHERE ([mID] &lt;&gt; @mID)">
+                            ProviderName="System.Data.SqlClient" >
                             <SelectParameters>
                                 <asp:SessionParameter Name="mID" SessionField="username" Type="String" />
                             </SelectParameters>

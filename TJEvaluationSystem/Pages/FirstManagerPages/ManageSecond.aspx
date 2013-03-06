@@ -3,9 +3,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>管理二级管理员</title>
-     <link href="../../Style/common.css" rel="stylesheet" type="text/css" />
+<head id="Head1" runat="server">
+    <title>导入系级管理员信息</title>
+    <link href="../../Style/common.css" rel="stylesheet" type="text/css" />
     <link href="../../lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css" />
     <script src="../../lib/jquery/jquery-1.3.2.min.js" type="text/javascript"></script>
     <script src="../../lib/json2.js" type="text/javascript"></script>
@@ -17,56 +17,39 @@
     <script src="../../lib/ligerUI/js/plugins/ligerGrid.js" type="text/javascript"></script>
     <script src="../../lib/ligerUI/js/plugins/ligerDateEditor.js" type="text/javascript"></script>
     <script src="../../lib/ligerUI/js/plugins/ligerSpinner.js" type="text/javascript"></script>
-    <script src="../../../lib/ligerUI/js/plugins/ligerToolBar.js" type="text/javascript"></script>
-    <script src="../../lib/ligerUI/js/plugins/ligerTextBox.js" type="text/javascript"></script>
-    <script src="../../Script/FirstManager/ManagerSecond.js" type="text/javascript"></script>
+    <script src="../../script/commondata.js" type="text/javascript"></script>
+    <script src="../../Script/FirstManager/ManageSecond.js" type="text/javascript"></script>
+    <script src="../../script/messagebox.js" type="text/javascript"></script>
 </head>
 <body>
     <form id="form1" runat="server">
-     <asp:ScriptManager ID="ScriptManager1" runat="server"/>
-         <div class="ToolBar">
-         <table style="position:relative;left:20px;height:100%">
-                <tr> 
-                   <!--
-                   <td style="padding:1px;">
-                         <select id="department" style="width:100px;height:25px;font-size:15px">
-                         <option value="0">所有部门</option>
-                         <option value="1">电信学院</option>
-                         <option value="2">后勤部门</option>
-                         <option value="3">行政部门</option>
-                         </select> </td>
-                   -->
-                   <td>
-                       <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-                           ConnectionString="<%$ ConnectionStrings:ConnectionString %>" 
-                           SelectCommand="SELECT DISTINCT [uiDepartment] FROM [tb_UserInfo]"></asp:SqlDataSource>
-                       <span>请选择部门</span>
-                       <asp:DropDownList ID="department" runat="server" 
-                           DataSourceID="SqlDataSource1" DataTextField="uiDepartment" 
-                           DataValueField="uiDepartment" AppendDataBoundItems="True">
-                           <asp:ListItem Value="0" >所有部门</asp:ListItem>
-                       </asp:DropDownList>
-                   </td>
-                   <td style="width:10px;"></td>
-                   <td style="padding:1px;"><input type="button" value="查询" id="search_button"  onclick="search()" class="l-button" style="width:100px;height:25px;font-size:15px"/></td>
-                   <td style="width:10px;"></td>
-                   <td style="padding:1px;"><input type="button" value="提交" id="dao_button"  onclick=" getSelected()" class="l-button" style="width:100px;height:25px;font-size:15px"/> </td>
-                </tr>
-         </table>
-         </div>
-    <br />
-    <%--<asp:label id="name" runat="server" style="position:relative;left:20px;font-size:16px;"></asp:label>--%>
-    <br /><br />
-    <div id="secondgrid" style="margin:0 auto"></div> 
-    <div class="Hidden">
+    <div>
+        <asp:ScriptManager ID="ScriptManager1" runat="server">
+        </asp:ScriptManager>
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+        <ContentTemplate>
+        <iframe id="FileUpload" name="FileUpload" src="ManageSecondFrame.aspx" frameborder="0" 
+                height="40" scrolling="no" width="100%"  ></iframe>
+        </ContentTemplate>
+        </asp:UpdatePanel>
+        <div id="ExcelDate" style="display:none">
+            <div id="maingrid" ></div>
+            <div class="ToolBar" style="height:31px;" >
+                <table ><tr>
+                    <td style="padding:4px 10px 4px 10px;">
+                    <input type="button" class="l-button" style="width:120px" onclick="save()" value="保存到数据库"/>
+                    </td>
+                </tr></table>
+            </div>
+        </div>
+        <div id="hidden" style="display:none;">
             <input id="JsonData" type="hidden" runat="server"/>
-            <input id="JsonChecked" type="hidden" runat="server"/>
-            <input id="Errors" type="hidden" runat="server"/>
-             <input id="Hidden1" type="hidden" runat="server"/>
-            <asp:Button ID="Search" runat="server" Text="Button" onclick="Search_Click" />  
-            <asp:Button ID="Button1" runat="server" Text="Button" onclick="Submit_Click" />
-            
-            <input id="Depart" type="hidden" runat="server"/>    
+            <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
+            <ContentTemplate>
+            <asp:Button ID="BSaveData" runat="server" Text="Button" onclick="BSaveData_Click" />
+             </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
     </div>
     </form>
 </body>

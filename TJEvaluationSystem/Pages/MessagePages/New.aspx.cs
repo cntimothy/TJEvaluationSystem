@@ -13,7 +13,18 @@ namespace TJEvaluationSystem.Pages.MessagePages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            //载入收件人信息
+            string userLevel = (string)Session["userlevel"];
+            string type = "";
+            if (userLevel == "01000")
+            {
+                type = "__1%";
+            }
+            else
+            {
+                type = "_1%";
+            }
+            SqlDataSource1.SelectCommand = "select mID from tb_Manager where mType like '" + type + "'";
         }
 
         protected void Send_Click(object sender, EventArgs e)
