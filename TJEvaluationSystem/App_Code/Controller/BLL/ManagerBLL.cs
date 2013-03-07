@@ -93,6 +93,13 @@ namespace BLL
             string sql = "select * from tb_Manager where mDepartment = '" + mDepartment + "' and mTYpe like '" + mType + "'";
             return Select(ref managers, ref e, sql);
         }
+
+        public static bool SelectByID(string mID, ref List<Manager> managers, ref string e)
+        {
+            string sql = "select * from tb_Manager where mID = '" + mID + "'";
+            return Select(ref managers, ref e, sql);
+        }
+
         public static bool Select(ref List<Manager> managers, ref string e,string sql)
         {
             DataTable table = new DataTable();

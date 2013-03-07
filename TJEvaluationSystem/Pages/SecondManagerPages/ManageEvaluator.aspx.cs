@@ -28,11 +28,11 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             string username = (string)Session["username"];
             string uiDepart = "";
 
-            List<UserInfo> user = new List<UserInfo>();
+            List<Manager> managers = new List<Manager>();
 
-            if (UserInfoBLL.Select(ref user, username, ref exception))
+            if (ManagerBLL.SelectByID(username, ref managers, ref exception))
             {
-                uiDepart = user.ElementAt(0).UiDepartment;
+                uiDepart = managers.ElementAt(0).MDepartment;
                 List<UserInfo> Evaluated = new List<UserInfo>();
                 string type = "____1%";
                 bool b = UserInfoBLL.Select(uiDepart, type, ref Evaluated, ref exception);
@@ -57,27 +57,27 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             else
             {
                 Errors.Value = "您无此操作权限！";
-                //ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
                 return false;
             }
         }
 
+        //搜索考评者
         private bool searchEvaluator()
         {
             string username = (string)Session["username"];
             string uiDepart = "";
-            string evaluated = UserID.Value;
-            List<UserInfo> user = new List<UserInfo>();
+            string evaluatedID = UserID.Value;
+            List<Manager> managers = new List<Manager>();
 
-            if (UserInfoBLL.Select(ref user, username, ref exception))
+            if (ManagerBLL.SelectByID(username, ref managers, ref exception))
             {
-                uiDepart = user.ElementAt(0).UiDepartment;
+                uiDepart = managers.ElementAt(0).MDepartment;
                 List<UserInfo> ui = new List<UserInfo>();
                 UserInfoBLL.SelectByDepartment(uiDepart, ref ui, ref exception);
                 int i = 0;
                 for (; i < ui.Count; i++)
                 {
-                    if (ui.ElementAt(i).UiID == evaluated)
+                    if (ui.ElementAt(i).UiID == evaluatedID)
                         break;
                 }
 
@@ -88,7 +88,6 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 table = ui.ListToDataTable();
                 string json = JSON.DataTableToJson(table);
                 JsonEvaluator.Value = json;
-                //ClientScript.RegisterStartupScript(this.GetType(), "", "load_evaluator()", true);
                 return true;
                 
             }
@@ -96,6 +95,8 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 return false;
 
         }
+
+        //调用searchEvaluated（）搜索被考评者
         protected void Search(object sender, EventArgs e)
         {
             if (searchEvaluated())
@@ -108,13 +109,11 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
 
         protected void Search_User(object sender, EventArgs e)
         {
-            //searchEvaluated();
             string username = (string)Session["username"];
-          //  string uiDepart = "";
-            string evaluated = UserID.Value;
+            string evaluatedID = UserID.Value;
 
             List<Evaluator> model = new List<Evaluator>();
-            EvaluatorBLL.Select(ref model, evaluated, 1, ref exception);
+            EvaluatorBLL.Select(ref model, evaluatedID, 1, ref exception);
             if (model.Count > 0)
             {
                 Errors.Value = "考评人名单已制定并通过了审核！";
@@ -148,11 +147,9 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             string role = "";
             if (this.RadioButton1.Checked)
                 role = "领导";//领导
-            else
-                if (this.RadioButton2.Checked)
+            else if (this.RadioButton2.Checked)
                     role = "同事";//同事
-                else
-                    if (this.RadioButton3.Checked)
+            else if (this.RadioButton3.Checked)
                         role = "下属";//下属
             string strData = JsonChose.Value;
             List<UserInfo> userData = JSON.ScriptDeserialize<List<UserInfo>>(strData);

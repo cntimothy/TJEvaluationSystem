@@ -165,7 +165,7 @@ function showList1() {
     var UsersData3 = JSON2.parse(s3);
      List = $("#list").ligerGrid({
         columns: [
-        { display: '被考评人', name: 'EvaluatedID1', width: 100, align: 'center', frozen: true },
+        { display: '被考评人', name: 'EvaluatedID', width: 100, align: 'center', frozen: true },
         { display: '考评人', name: 'UiID', width: 100, align: 'center' },
         { display: '身份', name: 'Relation', width: 80, align: 'center' }
         ],
@@ -184,7 +184,7 @@ function showList2() {
     var UsersData3 = JSON2.parse(s3);
     List = $("#list").ligerGrid({
         columns: [
-        { display: '被考评人', name: 'EvaluatedID1', width: 100, align: 'center', frozen: true },
+        { display: '被考评人', name: 'EvaluatedID', width: 100, align: 'center', frozen: true },
         { display: '考评人', name: 'UiID', width: 100, align: 'center' },
         { display: '身份', name: 'Relation', width: 80, align: 'center' },
          { display: '撤销', isSort: false, width: 40, render: function (rowdata, rowindex, value) 
