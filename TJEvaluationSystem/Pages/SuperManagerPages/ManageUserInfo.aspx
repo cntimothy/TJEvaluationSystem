@@ -20,7 +20,7 @@
     <script src="../../../lib/ligerUI/js/plugins/ligerToolBar.js" type="text/javascript"></script>
     <script src="../../lib/ligerUI/js/plugins/ligerTextBox.js" type="text/javascript"></script>
     <script src="../../Script/commondata.js" type="text/javascript"></script>
-    <script src="../../Script/ManageUserInfo.js" type="text/javascript"></script>
+    <script src="../../Script/SuperManager/ManageUserInfo.js" type="text/javascript"></script>
     <script src="../../Script/messagebox.js" type="text/javascript"></script>
     <script src="../../Script/CommonFunction.js" type="text/javascript"></script>
 </head>
@@ -33,11 +33,12 @@
             <div class="ToolBar">
                 <table style="height:100%">
                     <tr>
-                        <td style="padding:1px;"><input type="button" value="添加" id="add_button"  onclick="AddUser()" class="l-button" style="width:55px;height:22px;"/> </td>
-                        <td style="width:30px;"></td>
                         <td style="padding:1px;"><input type="text" id="search_type"/></td>
                         <td style="padding:1px;"><input type="text" id="search_content" style="width:200px" /></td>
                         <td style="padding:1px;"><input type="button" value="查询" id="search_button"  onclick="Search()" class="l-button" style="width:55px;height:22px;"/> </td>
+                        <td style="width:30px;"></td>
+                        <td style="padding:1px;"><input type="button" value="添加" id="add_button"  onclick="AddUser()" class="l-button" style="width:55px;height:22px;"/> </td>
+                        <td style="width:30px;"></td>
                     </tr>
                 </table>
             </div>

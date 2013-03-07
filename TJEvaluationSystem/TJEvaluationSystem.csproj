@@ -120,8 +120,8 @@
     <Content Include="Script\SecondManager\ManageEvaluator.js" />
     <Content Include="Script\SecondManager\ManageEvaluatorTable.js" />
     <Content Include="Script\SuperManagerIndexData.js" />
-    <Content Include="Script\ManageUserInfo.js" />
-    <Content Include="Script\SuperManger\indexdata.js" />
+    <Content Include="Script\SuperManager\ManageUserInfo.js" />
+    <Content Include="Script\SuperManager\indexdata.js" />
     <Content Include="Script\UploadExcel.js" />
     <Content Include="Script\UploadUserInfo.js" />
     <Content Include="Style\alogin.css" />

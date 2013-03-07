@@ -24,6 +24,10 @@ namespace TJEvaluationSystem.Pages.SuperManagerPages
             //insert to db
             string dataAdd = UserData.Value;
             UserInfo[] user = JSON.ScriptDeserialize<UserInfo[]>(dataAdd);  //将Json字符串转换为UserInfo对象
+            foreach (UserInfo ui in user)
+            {
+                ui.UiType = "00000";
+            }
             if (user.Length == 0)
             {
                 ScriptManager.RegisterStartupScript(BAddUser,this.GetType(), "error", "f_alert('error','添加人员信息失败，请重试!');", true);
@@ -60,7 +64,7 @@ namespace TJEvaluationSystem.Pages.SuperManagerPages
             {
                 if (ui.Count <= 0)
                 {
-                    ClientScript.RegisterStartupScript(this.GetType(), "error", "f_alert('error','获取数据失败，请重试');", true);
+                    ClientScript.RegisterStartupScript(this.GetType(), "error", "f_alert('error','数据库中没有用户信息');", true);
                 }
                 else
                 {
