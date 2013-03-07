@@ -44,7 +44,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
              table = searchSql();
              if (table.Rows.Count <= 0)
              {
-                 ClientScript.RegisterStartupScript(this.GetType(), "", "alert('不存在被考评者！')", true);
+                 ClientScript.RegisterStartupScript(this.GetType(), "", "alert('被考评者名单尚未制定！')", true);
                  return;
              }
             string json = JSON.DataTableToJson(table);

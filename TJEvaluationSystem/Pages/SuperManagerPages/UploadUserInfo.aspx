@@ -18,7 +18,7 @@
     <script src="../../lib/ligerUI/js/plugins/ligerDateEditor.js" type="text/javascript"></script>
     <script src="../../lib/ligerUI/js/plugins/ligerSpinner.js" type="text/javascript"></script>
     <script src="../../script/commondata.js" type="text/javascript"></script>
-    <script src="../../script/UploadUserInfo.js" type="text/javascript"></script>
+    <script src="../../script/SuperManager/UploadUserInfo.js" type="text/javascript"></script>
     <script src="../../script/messagebox.js" type="text/javascript"></script>
 
 </head>

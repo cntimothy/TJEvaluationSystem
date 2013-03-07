@@ -93,7 +93,7 @@
     <Content Include="Pages\SuperManagerPages\UploadUserInfo.aspx" />
     <Content Include="Script\Account\AccountManage.js" />
     <Content Include="Script\Account\ChangePassword.js" />
-    <Content Include="Script\adduser.js" />
+    <Content Include="Script\SuperManager\adduser.js" />
     <Content Include="Script\CommonData.js" />
     <Content Include="Script\CommonFunction.js" />
     <Content Include="Script\Evaluator\Evaluate.js" />
@@ -109,7 +109,7 @@
     <Content Include="Script\FirstManager\SelectSecond.js" />
     <Content Include="Script\Ligerui\jquery-1.3.2.min.js" />
     <Content Include="Script\Ligerui\ligerui.min.js" />
-    <Content Include="Script\ManageStanderLib.js" />
+    <Content Include="Script\SuperManager\ManageStanderLib.js" />
     <Content Include="Script\MessageBox.js" />
     <Content Include="Script\Message\InBox.js" />
     <Content Include="Script\Message\OutBox.js" />
@@ -119,11 +119,11 @@
     <Content Include="Script\SecondManager\MakePost.js" />
     <Content Include="Script\SecondManager\ManageEvaluator.js" />
     <Content Include="Script\SecondManager\ManageEvaluatorTable.js" />
-    <Content Include="Script\SuperManagerIndexData.js" />
+    <Content Include="Script\SuperManager\SuperManagerIndexData.js" />
     <Content Include="Script\SuperManager\ManageUserInfo.js" />
     <Content Include="Script\SuperManager\indexdata.js" />
     <Content Include="Script\UploadExcel.js" />
-    <Content Include="Script\UploadUserInfo.js" />
+    <Content Include="Script\SuperManager\UploadUserInfo.js" />
     <Content Include="Style\alogin.css" />
     <Content Include="Style\CheckPost.css" />
     <Content Include="Style\common.css" />

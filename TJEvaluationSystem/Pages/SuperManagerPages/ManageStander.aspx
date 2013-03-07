@@ -20,7 +20,7 @@
     <script src="../../lib/ligerUI/js/plugins/ligerToolBar.js" type="text/javascript"></script>
     <script src="../../lib/ligerUI/js/plugins/ligerTextBox.js" type="text/javascript"></script>
     <script src="../../Script/commondata.js" type="text/javascript"></script>
-    <script src="../../Script/managestanderlib.js" type="text/javascript"></script>
+    <script src="../../Script/SuperManager/managestanderlib.js" type="text/javascript"></script>
     <script src="../../Script/messagebox.js" type="text/javascript"></script>
     <script type="text/javascript">
         

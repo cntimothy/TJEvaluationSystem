@@ -23,7 +23,7 @@
     <script src="../../lib/jquery-validation/jquery.validate.min.js" type="text/javascript"></script> 
     <script src="../../lib/jquery-validation/jquery.metadata.js" type="text/javascript"></script>
     <script src="../../lib/jquery-validation/messages_cn.js" type="text/javascript"></script>
-    <script src="../../script/adduser.js" type="text/javascript"></script>
+    <script src="../../script/SuperManager/adduser.js" type="text/javascript"></script>
     <script src="../../Script/messagebox.js" type="text/javascript"></script>
     <style type="text/css">
            body{ font-size:12px;padding:10px}
