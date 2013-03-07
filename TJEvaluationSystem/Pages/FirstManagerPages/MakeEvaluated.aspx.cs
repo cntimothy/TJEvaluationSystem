@@ -26,8 +26,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         }
         protected void Search_Click(object sender, EventArgs e)
         {
-            string department = Depart.Value;            
-            //List<UserInfo> userinfo = new List<UserInfo>();
+            string department = Department.SelectedValue; 
             if (department == "0")
             {
                 UserInfoBLL.Select(ref userinfo, ref exception);
@@ -45,7 +44,6 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
 
             DataTable table = new DataTable();
             table = userinfo.ListToDataTable();
-            //table.Columns.Remove("UiType");
             string json = JSON.DataTableToJson(table);
             JsonData.Value = json;
 
@@ -63,19 +61,6 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 userinfo = userData.ElementAt(i);
                 userinfo.UiType = userinfo.UiType.Remove(4, 1).Insert(4, "1");
                 UserInfoBLL.Update(userinfo, ref exception);
-
-                List<User> users = new List<User>();
-                if (UserBLL.Select(userinfo.UiID, ref users, ref exception))
-                {
-                    User user = new Model.User();
-                    user = users.ElementAt(0);
-                    user.UType = userinfo.UiType;
-                    UserBLL.Update(user, ref exception);
-                }
-                else
-                {
-                    exception = "";
-                }
             }
 
             if (exception == "" || exception == null)

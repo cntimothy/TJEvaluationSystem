@@ -22,7 +22,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         }
         protected DataTable searchSql()
         {
-            string department = Depart.Value;
+            string department = Department.SelectedValue;
             List<UserInfo> userinfo = new List<UserInfo>();
             string type = "____1%";
             if (department == "0")
@@ -82,23 +82,11 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
 
         protected void Delete_Click(object sender, EventArgs e)
         {
-           // string userID = "";
             List<UserInfo> userinfo = new List<UserInfo>();
             userinfo = JSON.isEfect(UserID.Value);
             UserInfo deleted = userinfo.ElementAt(0);
 
-            List<User> model = new List<Model.User>();
-            if (UserBLL.Select(deleted.UiID, ref model, ref exception))
-            {
-                User user = model.ElementAt(0);
-                user.UType = user.UType.Remove(3, 1).Insert(3, "1");
-                //user.UType = deleted.UiType - 4;
-                UserBLL.Update(user, ref exception);
-            }
-           // userID = deleted.UiID;
-           // UserBLL.Delete(userID, ref exception);
-            //deleted.UiType = deleted.UiType-4;
-            deleted.UiType = deleted.UiType.Remove(3, 1).Insert(3, "1");
+            deleted.UiType = deleted.UiType.Remove(4, 1).Insert(4, "0");
             UserInfoBLL.Update(deleted, ref exception);
 
             DataTable table = new DataTable();

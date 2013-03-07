@@ -76,6 +76,11 @@ namespace TJEvaluationSystem.Pages.SuperManagerPages
                         table.Rows.Remove(dr);
                     }
                 }
+                table.Columns.Add("UiType");
+                foreach (DataRow dr in table.Rows)
+                {
+                    dr["UiType"] = "00000";
+                }
 
                 string json = JSON.DataTableToJson(table);
 

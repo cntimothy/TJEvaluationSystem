@@ -102,8 +102,10 @@
     <Content Include="Script\FirstManager\CheckEvaluator.js" />
     <Content Include="Script\FirstManager\CheckPost.js" />
     <Content Include="Script\FirstManager\FirstManagerHome.js" />
+    <Content Include="Script\FirstManager\MakeEvaluated.js" />
     <Content Include="Script\FirstManager\ManageSecond.js" />
     <Content Include="Script\FirstManager\ResetPassword.js" />
+    <Content Include="Script\FirstManager\SelectEvaluated.js" />
     <Content Include="Script\FirstManager\SelectSecond.js" />
     <Content Include="Script\Ligerui\jquery-1.3.2.min.js" />
     <Content Include="Script\Ligerui\ligerui.min.js" />

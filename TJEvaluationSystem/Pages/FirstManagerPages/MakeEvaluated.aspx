@@ -32,7 +32,7 @@
                            ConnectionString="<%$ ConnectionStrings:ConnectionString %>" 
                            SelectCommand="SELECT DISTINCT [uiDepartment] FROM [tb_UserInfo]"></asp:SqlDataSource>
                        <span>请选择部门</span>
-                       <asp:DropDownList ID="department" runat="server" 
+                       <asp:DropDownList ID="Department" runat="server" 
                            DataSourceID="SqlDataSource1" DataTextField="uiDepartment" 
                            DataValueField="uiDepartment" AppendDataBoundItems="True">
                            <asp:ListItem Value="0" >所有部门</asp:ListItem>

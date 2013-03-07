@@ -10,8 +10,6 @@ function tanchuang() {
 }
 
 function search() {
-    var s = document.getElementById("department").value;
-    document.getElementById("Depart").value = s;
     document.getElementById("Search").click();
 
 }
@@ -23,7 +21,7 @@ function load_userinfo() {
         checkbox: true,
         columns:
          [
-            { display: '工号', name: 'UiID', width: 50, align: 'left' },
+            { display: '用户名', name: 'UiID', width: 50, align: 'left' },
             { display: '姓名', name: 'UiName', minWidth: 60, align: 'left' },
             { display: '性别', name: 'UiSex', width: 50, align: 'left' },
             { display: '身份证号', name: 'UiIdentityNum', width: 100, align: 'left' },
