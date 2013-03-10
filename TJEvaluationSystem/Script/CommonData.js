@@ -1,6 +1,6 @@
 ﻿//用户信息类型
 var UserInfoTypeData = [
-                        { text: '工号', id: '1' },
+                        { text: '用户名', id: '1' },
                         { text: '姓名', id: '2' },
                         { text: '性别', id: '3' },
                         { text: '身份证号', id: '4' },

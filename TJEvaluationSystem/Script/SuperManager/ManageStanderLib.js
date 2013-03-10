@@ -210,7 +210,7 @@ function AddStander() {
 //添加
 function AddNewStander() {
     var libType = document.getElementById('TBLibType').value;
-    //检查工号是否已经存在
+    //检查用户名是否已经存在
     if (libType == "") {
         $.ligerDialog.warn('请输入库类型!');
         return;

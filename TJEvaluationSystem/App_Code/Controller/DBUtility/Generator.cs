@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Microsoft.Office.Interop.Word;
-using MSWord = Microsoft.Office.Interop.Word;
-using System.IO;
-using System.Reflection;
-using System.Data;
-using System.Data.SqlClient;
+using System.Web;
 
 namespace DBUtility
 {

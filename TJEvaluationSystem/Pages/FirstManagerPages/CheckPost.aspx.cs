@@ -26,7 +26,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         }
         protected DataTable searchSql()
         {
-            string department = Depart.Value;
+            string department = Department.SelectedValue;
             List<UserInfo> userinfo = new List<UserInfo>();
             string type = "____1%";
             if (department == "0")
@@ -36,76 +36,21 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             }
             else
             {
-                UserInfoBLL.Select("department", type, ref userinfo, ref exception);
-                name.Text = "电信学院被考评者名单:";
+                UserInfoBLL.Select(department, type, ref userinfo, ref exception);
+                name.Text = department + "被考评者名单:";
             }
 
             DataTable table = new DataTable();
             table = userinfo.ListToDataTable();
             return table;
         }
-        /* private void show(int point)
-         {
-             PostResponseBook prb = new PostResponseBook();
-             post = (List<PostResponseBook>)Session["posts"];
-             if (post.Count > point && point >= 0)
-             {
-                 prb = post.ElementAt(point);
-                 prbEmployer.Text = prb.PrbEmployer;
-                 prbLaborUnit.Text = prb.PrbLaborUnit;
-                 prbLaborDep.Text = prb.PrbLaborDep;
-                 prbPostName.Text = prb.PrbPostName;
-                 prbPostType.Text = prb.PrbPostType;
-                 prbEduBg.Text = prb.PrbEduBg;
-                 prbCertificate.Text = prb.PrbCertificate;
-                 prbExperience.Text = prb.PrbExperience;
-                 prbSkill.Text = prb.PrbSkill;
-                 prbPersonality.Text = prb.PrbPersonality;
-                 prbPhycond.Text = prb.PrbPhyCond;
-                 prbWorkOutline.Text = prb.PrbWorkOutline;
-                 prbWorkContentRequest.Text = prb.PrbWorkContntRequest;
-                 prbPower.Text = prb.PrbPower;
-                 prbResponse.Text = prb.PrbResponse;
-                 prbDirectLeader.Text = prb.PrbDirectLeader;
-                 prbSubordinate.Text = prb.PrbSubordinate;
-                 prbColleague.Text = prb.PrbColleague;
-                 prbServices.Text = prb.PrbServices;
-                 prbRelations.Text = prb.PrbReleations;
-                 prbWorkEnter.Text = prb.PrbWorkEnter;
-                 prbPostAssess.Text = prb.PrbPostAssess;
-                 prbOthers.Text = prb.PrbOthers;
-
-               
-                 return;
-             }
-             else
-             {
-                 if (point < 0)
-                     point = 0;
-                 if (post.Count <= point)
-                 {
-                     point = post.Count-1;
-                 }
-                 Session.Add("point", point);
-                 if (post.Count > 0)
-                 {
-                     ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang1()", true);
-                 }
-                 else
-                 {
-                   
-                     ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang3()", true);
-                 }
-             }
-             return;
-         }*/
+       
         protected void Search_Click(object sender, EventArgs e)
         {
-            // Session.RemoveAll();
-            //UpdatePanel1.Update();
-
             DataTable table = new DataTable();
             table = searchSql();
+            if (table == null)
+                return;
 
             string json = JSON.DataTableToJson(table);
             JsonData.Value = json;
@@ -253,6 +198,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             DataTable table = new DataTable();
             table = prb.ListToDataTable<PostResponseBook>();
 
+            
             //Generator g = new Generator(table);
             //g.Generate();
 

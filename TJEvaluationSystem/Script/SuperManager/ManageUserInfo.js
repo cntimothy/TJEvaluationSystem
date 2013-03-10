@@ -5,7 +5,7 @@ var changed = false;
 
 //初始化查询类型
 $(function Init() {
-    var searchType = [{ text: '工号', id: '1' },
+    var searchType = [{ text: '用户名', id: '1' },
                       { text: '姓名', id: '2' },
                       { text: '性别', id: '3' },
                       { text: '部门', id: '5' },
@@ -13,7 +13,7 @@ $(function Init() {
                       { text: 'Email', id: '8' }
                         ];
     $("#search_type").ligerComboBox({
-        data: searchType, valueFieldID: 'type_value', initText: '工号', width: 70
+        data: searchType, valueFieldID: 'type_value', initText: '用户名', width: 70
     });
     $("#search_content").ligerTextBox({ nullText: '请输入查询内容' });
     $("#search_content").ligerTextBox({ nullText: '请输入查询内容' });
@@ -36,7 +36,7 @@ function ShowUserInfo(){
     data = UsersData;
     manager = $("#maingrid4").ligerGrid({
         columns: [
-        { display: '工号', name: 'UiID', width: 100, align: 'center', frozen: true },
+        { display: '用户名', name: 'UiID', width: 100, align: 'center', frozen: true },
         { display: '姓名', name: 'UiName', width: 100, align: 'center'},
         { display: '性别', name: 'UiSex', width: 80, align: 'center'},
         { display: '身份证号', name: 'UiIdentityNum', width: 100, align: 'center', hide: true },
@@ -264,15 +264,15 @@ function AddUser(item) {
 //添加
 function AddNewUser() {
     var id = document.getElementById('TBID').value;
-    //检查工号是否已经存在
+    //检查用户名是否已经存在
     if (CheckNull(id))
     {
-        $.ligerDialog.warn('请输入工号!');
+        $.ligerDialog.warn('请输入用户名!');
         return;
     }
     var exist=document.getElementById('idExist').value;
     if (exist != "") {
-        $.ligerDialog.warn('工号已存在！');
+        $.ligerDialog.warn('用户名已存在！');
         return;
     }
     var name = document.getElementById('TBName').value;
@@ -377,7 +377,7 @@ function GetWhere(key) {
     var clause = function (rowdata, rowindex) {
         var type = $("#search_type").val();
         switch (type) {
-            case '工号':
+            case '用户名':
                 return rowdata.UiID.indexOf(key) > -1;
                 break;
             case '姓名':

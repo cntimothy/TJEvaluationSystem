@@ -26,7 +26,7 @@ function load_userinfo()
     data = UsersData;
     Evaluated = $("#evaluatedgrid").ligerGrid({
         columns: [
-        { display: '工号', name: 'UiID', width: 100, align: 'center', frozen: true },
+        { display: '用户名', name: 'UiID', width: 100, align: 'center', frozen: true },
         { display: '姓名', name: 'UiName', width: 100, align: 'center' },
         { display: '性别', name: 'UiSex', width: 80, align: 'center' },
         { display: '身份证号', name: 'UiIdentityNum', width: 100, align: 'center', hide: true },

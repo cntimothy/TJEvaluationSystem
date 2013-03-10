@@ -75,7 +75,7 @@
         <div class="DetailUserData" style="border:3px solid #a3c0e8;width:500px;margin:0px auto;">
             <table>
             <tr>
-                <td align="right" class="tableKey">工号：</td>
+                <td align="right" class="tableKey">用户名：</td>
                 <td align="left" class="tableValue">
                     <div class="DetailData">
                         <asp:Label ID="LID" runat="server" Text=""></asp:Label>

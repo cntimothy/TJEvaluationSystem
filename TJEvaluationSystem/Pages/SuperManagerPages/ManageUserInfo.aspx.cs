@@ -139,7 +139,7 @@ namespace TJEvaluationSystem.Pages.SuperManagerPages
             LoadUserData();
         }
 
-        //检查工号
+        //检查用户名
         protected void TBID_TextChanged(object sender, EventArgs e)
         {
             string id = TBID.Text;

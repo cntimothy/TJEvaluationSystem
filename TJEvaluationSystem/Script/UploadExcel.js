@@ -6,7 +6,7 @@ function f_initGrid() {
     var EmployeeData = JSON2.parse(s);
     g = manager = $("#maingrid").ligerGrid({
         columns: [
-            { display: '工号', name: 'UiID', width: 50, align: 'left', editor: { type: 'text'} },
+            { display: '用户名', name: 'UiID', width: 50, align: 'left', editor: { type: 'text'} },
             { display: '姓名', name: 'UiName', minWidth: 60, align: 'left', editor: { type: 'text'} },
             { display: '性别', name: 'UiSex', width: 50, align: 'left',
                 editor: { type: 'select', data: sexData, valueColumnName: 'Sex' }

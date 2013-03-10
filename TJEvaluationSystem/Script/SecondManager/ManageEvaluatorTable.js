@@ -61,7 +61,7 @@ function ShowUserList() {
     userData = JSON2.parse(users);
     Evaluated = $("#UserListGrid").ligerGrid({
         columns: [
-        { display: '工号', name: 'UiID', width: 100, align: 'center', frozen: true },
+        { display: '用户名', name: 'UiID', width: 100, align: 'center', frozen: true },
         { display: '姓名', name: 'UiName', width: 100, align: 'center' },
         { display: '性别', name: 'UiSex', width: 80, align: 'center' },
         { display: '部门', name: 'UiDepartment', width: 150, align: 'center' },

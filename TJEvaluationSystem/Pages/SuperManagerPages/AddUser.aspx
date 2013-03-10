@@ -38,7 +38,7 @@
     <div>
         <table cellpadding="0" cellspacing="0" class="l-table-edit" >
             <tr>
-                <td align="right" class="l-table-edit-td">工号:</td>
+                <td align="right" class="l-table-edit-td">用户名:</td>
                 <td align="left" class="l-table-edit-td"><input name="txtID" type="text" id="txtID"  runat="server" ltype="text" validate="{required:true}"/></td>
                 <td align="left"><input id="data_id" type="hidden" runat="server"/></td>
             </tr>
