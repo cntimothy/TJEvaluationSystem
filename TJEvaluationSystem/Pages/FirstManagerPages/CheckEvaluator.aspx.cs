@@ -14,15 +14,15 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
 {
     public partial class CheckEvaluator : System.Web.UI.Page
     {
-        private string exception = "";
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
         protected DataTable searchSql()
         {
-            string department = Depart.Value;
-            string type = "___1%";
+            string exception = "";
+            string department = Department.SelectedValue;
+            string type = "____1%";
             List<UserInfo> userinfo = new List<UserInfo>();
             if(department == "0")
             {
@@ -40,11 +40,12 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
 
         protected void Search_Click(object sender, EventArgs e)
         {
-            // Session.RemoveAll();
-            //UpdatePanel1.Update();
-
             DataTable table = new DataTable();
             table = searchSql();
+            if (table == null)
+            {
+                return;
+            }
 
             string json = JSON.DataTableToJson(table);
             JsonData.Value = json;
@@ -56,6 +57,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
 
         protected void Check_User(object sender, EventArgs e)
         {
+            string exception = "";
             string evaluated = UserID.Value;
             
             List<Evaluator> model = new List<Evaluator>();
@@ -88,6 +90,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
 
         protected void Submit_Click(object sender, EventArgs e)
         {
+            string exception = "";
             string evaluated = UserID.Value;
             if (evaluated.Length <= 0)
             {
@@ -97,6 +100,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 return;
             }
             List<Evaluator> model = new List<Evaluator>();
+            exception = "";
             if (EvaluatorBLL.Select(ref model, evaluated, 1, ref exception))
             {
                 Errors.Value = "考评人名单已通过审核";
@@ -105,11 +109,14 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 return;
             }
 
+            exception = "";
             if (EvaluatorBLL.Select(ref model, evaluated, 0, ref exception))
             {
                 for (int i = 0; i < model.Count; i++)
                 {
                     model[i].Pass = 1;
+
+                    exception = "";
                     if (!EvaluatorBLL.Update1(model[i], ref exception))
                     {
                         Errors.Value = exception;
@@ -119,10 +126,6 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                     }
                 }
                 this.pass.Text = "已通过审核";
-                //DataTable table = new DataTable();
-                //table = model.ListToDataTable();
-                //string json = JSON.DataTableToJson(table);
-                //JsonList.Value = json;
                 ClientScript.RegisterStartupScript(this.GetType(), "", "showList1()", true);
                 return;
             }
@@ -133,6 +136,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
 
         protected void Dao_Click(object sender, EventArgs e)
         {
+            string exception = "";
             string evaluated = UserID.Value;
             if (evaluated.Length <= 0)
             {
@@ -143,6 +147,8 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             }
 
             List<Evaluator> model = new List<Evaluator>();
+
+            exception = "";
             if (EvaluatorBLL.Select(ref model, evaluated, 1, ref exception))
             {
                 DataTable table = new DataTable();
@@ -153,6 +159,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 return;
             }
 
+            exception = "";
             if (EvaluatorBLL.Select(ref model, evaluated, 0, ref exception))
             {
                 DataTable table = new DataTable();

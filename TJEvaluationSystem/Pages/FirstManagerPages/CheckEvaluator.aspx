@@ -32,14 +32,14 @@
                            ConnectionString="<%$ ConnectionStrings:ConnectionString %>" 
                            SelectCommand="SELECT DISTINCT [uiDepartment] FROM [tb_UserInfo]"></asp:SqlDataSource>
                        <span>请选择部门</span>
-                       <asp:DropDownList ID="department" runat="server" 
+                       <asp:DropDownList ID="Department" runat="server" 
                            DataSourceID="SqlDataSource1" DataTextField="uiDepartment" 
                            DataValueField="uiDepartment" AppendDataBoundItems="True">
                            <asp:ListItem Value="0" >所有部门</asp:ListItem>
                        </asp:DropDownList>
                    </td>
                    <td style="width:10px;"></td>
-                   <td style="padding:1px;"><input type="button" value="查询" id="search_button"  onclick="search()" class="l-button" style="width:100px;height:25px;font-size:15px"/></td>
+                   <td style="padding:1px;"><input type="button" value="获取被考评人名单" id="search_button"  onclick="search()" class="l-button" style="width:150px;height:25px;font-size:15px"/></td>
                    <td style="width:10px;"></td>
                    <td style="padding:1px;"><input type="button" value="通过" id="pass_button"  onclick="pass()" class="l-button" style="width:100px;height:25px;font-size:15px"/> </td>
                     <td style="width:10px;"></td>

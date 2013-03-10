@@ -32,7 +32,7 @@ namespace BLL
                     new SqlParameter("@uPassword",SqlDbType.Char,6),
                     new SqlParameter("@uType", SqlDbType.VarChar,10)
                 };
-                 parameters[0].Value = model[i].UID;
+
                  //获取身份证号作密码
                  List<UserInfo> userinfo = new List<UserInfo>();
                  if (!UserInfoBLL.Select(ref userinfo, model[i].UID, ref e))
@@ -40,10 +40,9 @@ namespace BLL
                      return false;
                  }
 
-                 string pwd=userinfo.ElementAt(0).UiIdentityNum;
-
-                 parameters[1].Value = pwd.Substring(11,6);
-                 parameters[2].Value = model[i].UType;
+                 parameters[0].Value = userinfo.ElementAt(0).UiID;
+                 parameters[1].Value = userinfo.ElementAt(0).UiIdentityNum;
+                 parameters[2].Value = "00010";
 
                  string exception = db.InsertExec(sql, parameters);
                  if (exception != "" && exception != null)

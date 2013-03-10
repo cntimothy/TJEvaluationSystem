@@ -16,8 +16,6 @@ function sendback() {
 
 function search() 
 {
-    var s = document.getElementById("department").value;
-    document.getElementById("Depart").value = s;
     document.getElementById("Search").click();
 }
 
@@ -85,8 +83,6 @@ function Check(rowid)
 
     if (rowdata == null)
         return;
-
-//    $("#dao_button").css("display", "block");
     document.getElementById("UserID").value = rowdata.UiID;
     document.getElementById("CheckUser").click();
 }
@@ -99,7 +95,7 @@ function showList1()
     var UsersData3 = JSON2.parse(s3);
     List = $("#list").ligerGrid({
         columns: [
-        { display: '被考评人', name: 'EvaluatedID1', width: 100, align: 'center', frozen: true },
+        { display: '被考评人', name: 'EvaluatedID', width: 100, align: 'center', frozen: true },
         { display: '考评人', name: 'UiID', width: 100, align: 'center' },
         { display: '身份', name: 'Relation', width: 80, align: 'center' }
         ],
