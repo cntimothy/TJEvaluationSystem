@@ -136,6 +136,7 @@ namespace BLL
                              + " atDep='" + atDep + "' and atDate>='" + atDate + "' and atDate<'" + newyear + "'";
             return Select(sql, ref model, ref e);
         }
+
         public static bool Select(string atUserID, string atDep, DateTime atDate, ref List<AssessTable> model, ref string e)
         {
             DateTime newyear = atDate.AddYears(1);

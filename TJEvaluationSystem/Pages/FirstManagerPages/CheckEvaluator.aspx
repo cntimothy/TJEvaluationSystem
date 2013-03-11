@@ -156,6 +156,7 @@
              <asp:Button ID="Search" runat="server" Text="Button" onclick="Search_Click" style="display:none"/>
              <asp:Button ID="CheckUser" runat="server"  OnClick="Check_User"  />
              <asp:Button ID="PassList" runat="server" Text="Button" onclick="Submit_Click" style="display:none" />
+             <asp:Button ID="SendBack" runat="server" Text="Button" onclick="SendBack_Click" style="display:none" />
              <asp:Button ID="Dao" runat="server" Text="Button" onclick="Dao_Click" style="display:none" />      
     </div>
 

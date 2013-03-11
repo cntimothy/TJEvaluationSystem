@@ -32,7 +32,8 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             {
                 UserInfoBLL.Select(department, type, ref userinfo, ref exception);
             }
-
+            if (userinfo == null)
+                return null;
             DataTable table = new DataTable();
             table = userinfo.ListToDataTable();
             return table;
@@ -172,6 +173,11 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             this.Chose.Value = "submit";
             ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
 
+            
+        }
+
+        protected void SendBack_Click(object Sender, EventArgs e)
+        { 
             
         }
 

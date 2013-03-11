@@ -3,18 +3,18 @@ var StanderLib = null;
 var AssessTables = null;
 var Manager = null;
 //初始化
-$(function () {
-    $("#DepType").ligerComboBox({
-        data: DepartmentData, valueFieldID: 'type_value', initText: '所有部门', width: 70
-    });
-    $("#PassedType").ligerComboBox({
-        data: DepartmentData, valueFieldID: 'type_value', initText: '所有状态', width: 70
-    });
-});
+//$(function () {
+//    $("#DepType").ligerComboBox({
+//        data: DepartmentData, valueFieldID: 'type_value', initText: '所有部门', width: 70
+//    });
+//    $("#PassedType").ligerComboBox({
+//        data: DepartmentData, valueFieldID: 'type_value', initText: '所有状态', width: 70
+//    });
+//});
 
 //处理
-function search() { 
-
+function search() {
+    document.getElementById("LoadButton").click();
 }
 //显示考核表信息
 function ShowAllTables() {

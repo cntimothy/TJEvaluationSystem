@@ -39,7 +39,8 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 UserInfoBLL.Select(department, type, ref userinfo, ref exception);
                 name.Text = department + "被考评者名单:";
             }
-
+            if (userinfo == null)
+                return null;
             DataTable table = new DataTable();
             table = userinfo.ListToDataTable();
             return table;
@@ -179,6 +180,11 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             string json = JSON.DataTableToJson(table);
             JsonData.Value = json;
             ClientScript.RegisterStartupScript(this.GetType(), "", "load_userinfo()", true);
+        }
+
+        protected void SendBack_Click(object Sender, EventArgs e)
+        {
+
         }
 
 

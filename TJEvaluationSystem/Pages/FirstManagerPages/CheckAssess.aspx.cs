@@ -8,6 +8,7 @@ using BLL;
 using Model;
 using DBUtility;
 using System.Web.Script.Serialization;
+using System.Data;
 
 namespace TJEvaluationSystem.Pages.FirstManagerPages
 {
@@ -17,27 +18,36 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         {
             if (!IsPostBack)
             {
-                LoadTableData();
+
             }
-            
+
         }
 
-        protected void LoadTableData()
+        protected void LoadTableData(object sender, EventArgs e)
         {
-            string sql1 = "select * from tb_AssessTable";
+            string department = Department.SelectedValue;
+            string sql1 = "";
+            if (department == "0")
+            {
+                sql1 = "select * from tb_AssessTable ";
+            }
+            else
+            {
+                sql1 = "select * from tb_AssessTable where atDep = '" + department + "'";
+            }
             string sql2 = "select * from tb_StanderLib";
             List<AssessTable> at = new List<AssessTable>();
-            string e = "";
-            if (!AssessTableBLL.Select(sql1, ref at, ref e) || e != "" || at.Count <= 0)
+            string exception = "";
+            if (!AssessTableBLL.Select(sql1, ref at, ref exception) || exception != "" || at.Count <= 0)
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "error", "f_alert('error','获取数据失败，请重试');", true);
+                ClientScript.RegisterStartupScript(this.GetType(), "error", "f_alert('error','数据库中没有考核表！');", true);
                 return;
             }
-            e="";
-            List<StanderLib> ui = StanderLibBLL.Select(sql2, ref e);
-            if(ui==null||ui.Count<=0||e!="")
+            exception = "";
+            List<StanderLib> ui = StanderLibBLL.Select(sql2, ref exception);
+            if (ui == null || ui.Count <= 0 || exception != "")
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "error", "f_alert('error','获取数据失败，请重试');", true);
+                ClientScript.RegisterStartupScript(this.GetType(), "error", "f_alert('error','指标库为空！');", true);
                 return;
             }
            

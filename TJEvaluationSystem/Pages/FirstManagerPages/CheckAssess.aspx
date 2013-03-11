@@ -25,18 +25,31 @@
     </asp:ScriptManager>
     <div>
         <div class="l-loading" style="display:block" id="pageloading"></div> 
-        <div class="ToolBar ">
-            <table class="tool_bar_table">
-                <tr id="TrShowAllTables">
-                    <td class="tool_bar_td"><input type="text" id="DepType"/></td>
-                    <td class="tool_bar_td"><input type="text" id="PassedType"/></td>
-                    <td class="tool_bar_td"><input type="button" value="查询" onclick="search()" class="l-button" style="width:70px;"/> </td>
+        <div class="ToolBar">
+         <table style="position:relative;left:20px;height:100%">
+                <tr> 
+                   <td>
+                        <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
+                           ConnectionString="<%$ ConnectionStrings:ConnectionString %>" 
+                           SelectCommand="SELECT DISTINCT [uiDepartment] FROM [tb_UserInfo]"></asp:SqlDataSource>
+                       <span>请选择部门</span>
+                       <asp:DropDownList ID="Department" runat="server" 
+                           DataSourceID="SqlDataSource1" DataTextField="uiDepartment" 
+                           DataValueField="uiDepartment" AppendDataBoundItems="True">
+                           <asp:ListItem Value="0" >所有部门</asp:ListItem>
+                       </asp:DropDownList>
+                   </td>
+                   <td style="width:10px;"></td>
+                   <td style="padding:1px;"><input type="button" value="获取考评表" id="search_button"  onclick="search()" class="l-button" style="width:150px;height:25px;font-size:15px"/></td>
+                   <td style="width:10px;"></td>
+                   <td style="padding:1px;"><input type="button" value="通过" id="pass_button"  onclick="pass()" class="l-button" style="width:100px;height:25px;font-size:15px"/> </td>
+                    <td style="width:10px;"></td>
+                    <td style="padding:1px;"><input type="button" value="退回" id="sendback_button"  onclick="sendback()" class="l-button" style="width:100px;height:25px;font-size:15px"/> </td>
+                    <td style="width:10px;"></td>
+                   <td style="padding:1px;"><input type="button" value="导出excel" id="dao_button"  onclick="dao()" class="l-button" style="width:100px;height:25px;font-size:15px;"/> </td>
                 </tr>
-                <tr id="TrShowTableInfo">
-                    <td class="tool_bar_td"><input type="button" value="返回" onclick="back()" class="l-button" style="width:70px;"/> </td>
-                </tr>
-            </table>
-        </div>
+         </table>
+     </div>
         <div id="ShowAllTables" >
             <div id="maingrid" style="margin:0; padding:0;"></div>
         </div>
@@ -1186,6 +1199,7 @@
             </ContentTemplate>
             </asp:UpdatePanel>
             <asp:Button ID="BRefresh" runat="server" Text="" onclick="BRefresh_Click" />
+            <asp:Button ID="LoadButton" runat="server" Text="" onclick="LoadTableData" />
         </div>
     </div>
     </form>

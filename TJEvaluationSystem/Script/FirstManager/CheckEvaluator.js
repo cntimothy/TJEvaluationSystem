@@ -10,8 +10,8 @@ function tanchuang() {
     }
 }
 
-function sendback() { 
-
+function sendback() {
+    document.getElementById("SendBack").click();
 }
 
 function search() 
