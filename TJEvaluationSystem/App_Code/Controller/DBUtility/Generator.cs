@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Text;
+using MSWord = Microsoft.Office.Interop.Word;
+using System.IO;
+using System.Reflection;
+using System.Data;
+using Microsoft.Office.Interop.Word;
 
 namespace DBUtility
 {

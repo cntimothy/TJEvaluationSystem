@@ -20,6 +20,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         {
             if (!IsPostBack)
             {
+
             }
         }
 
@@ -27,11 +28,11 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         {
             string username = (string)Session["username"];
             string uiDepart = "";
-            List<UserInfo> user = new List<UserInfo>();
-            
-            if (UserInfoBLL.Select(ref user, username, ref exception))
+            List<Manager> manager = new List<Manager>();
+            exception = "";
+            if (ManagerBLL.SelectByID(username, ref manager, ref exception))
             {
-                uiDepart = user.ElementAt(0).UiDepartment;
+                uiDepart = manager.ElementAt(0).MDepartment;
                 List<UserInfo> Evaluated = new List<UserInfo>();
                 string type = "____1%";
                 bool b=UserInfoBLL.Select(uiDepart, type, ref Evaluated, ref exception);

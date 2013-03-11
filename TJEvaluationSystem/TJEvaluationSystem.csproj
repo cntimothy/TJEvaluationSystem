@@ -34,6 +34,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Word, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>bin\Microsoft.Office.Interop.Word.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web.DynamicData" />
@@ -81,7 +86,6 @@
     <Content Include="Pages\SecondManagerPages\MakePostBook.aspx" />
     <Content Include="Pages\SecondManagerPages\ManageEvaluator.aspx" />
     <Content Include="Pages\SecondManagerPages\ManageEvaluatorTable.aspx" />
-    <Content Include="Pages\SecondManagerPages\ManagePostBook.aspx" />
     <Content Include="Pages\SecondManagerPages\SecondManagerHome.aspx" />
     <Content Include="Pages\SecondManagerPages\WebForm1.aspx" />
     <Content Include="Pages\SecondManagerPages\WebForm2.aspx" />
@@ -332,13 +336,6 @@
     </Compile>
     <Compile Include="Pages\SecondManagerPages\ManageEvaluatorTable.aspx.designer.cs">
       <DependentUpon>ManageEvaluatorTable.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\SecondManagerPages\ManagePostBook.aspx.cs">
-      <DependentUpon>ManagePostBook.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\SecondManagerPages\ManagePostBook.aspx.designer.cs">
-      <DependentUpon>ManagePostBook.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\SecondManagerPages\SecondManagerHome.aspx.cs">
       <DependentUpon>SecondManagerHome.aspx</DependentUpon>
