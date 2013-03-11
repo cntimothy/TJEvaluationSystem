@@ -132,6 +132,15 @@
     <Content Include="Style\CheckPost.css" />
     <Content Include="Style\common.css" />
     <Content Include="Style\EvaluatorTable.css" />
+    <Content Include="Style\ligerui-all.css" />
+    <Content Include="Style\ligerui-common.css" />
+    <Content Include="Style\ligerui-dialog.css" />
+    <Content Include="Style\ligerui-form.css" />
+    <Content Include="Style\ligerui-grid.css" />
+    <Content Include="Style\ligerui-layout.css" />
+    <Content Include="Style\ligerui-menu.css" />
+    <Content Include="Style\ligerui-tab.css" />
+    <Content Include="Style\ligerui-tree.css" />
     <Content Include="Style\ManagerHome.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

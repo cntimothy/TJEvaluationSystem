@@ -195,8 +195,12 @@
                      <asp:TextBox ID="prbWorkOutline" runat="server"  CssClass="textbox1"  TextMode="MultiLine"></asp:TextBox>
                      <br />
                      <asp:Label ID="Label17" runat="server" Text="2.工作内容及工作要求："  CssClass="label1"></asp:Label>
+                     <input type="button" id="Add" value=" + " onclick="addItem()" />
                      <br />
-                     <asp:TextBox ID="prbWorkContentRequest" runat="server" CssClass="textbox1"  TextMode="MultiLine"></asp:TextBox>
+                     
+                     <div id="WorkContentRequest">
+                     </div>
+
                      <br /><br />
                      <asp:Label ID="Label18" runat="server" Text="(三)权责范围" style="font-size:17px;font-weight:600;text-align:left;"></asp:Label>
                      <br />
@@ -250,6 +254,7 @@
             <input id="Hidden1" type="hidden" runat="server"/>
             <input id="UserID" type="hidden" runat="server"/>
             <input id="Passed" type="hidden" runat="server"/>
+            <input id="prbWorkContentRequest" type="hidden" runat="server"/>
             <asp:Button ID="SearchEvaluated" runat="server"  OnClick="Search"  />
             <asp:Button ID="SubmitPost" runat="server"  OnClick="SubmitPost_Click"  />
             <asp:Button ID="SearchPost" runat="server" Text="Button" onclick="SearchPost_Click" />  

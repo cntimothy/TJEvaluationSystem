@@ -14,11 +14,46 @@ function search()
 }
 function submitpost()
  {
-     if (confirm('确认提交？'))
-     {
-        document.getElementById("SubmitPost").click();
+     if (confirm('确认提交？')) {
+         var str = "";
+         var num = document.getElementById("WorkContentRequest").childNodes.length;
+         var count = 1;
+         for (; count < num; count++) {
+             if (count != 1)
+                 str += "&";
+             var titleID = "Title" + count;
+             var contentID = "Content" + count;
+             var requestID = "Request" + count;
+             var checkPointID = "CheckPoint" + count;
+             str = str + count.toString() + ")" + "*" + trim(document.getElementById(titleID).value) + "$" +
+                    "具体内容：" + "*" + trim(document.getElementById(contentID).value) + "$" +
+                    "具体要求：" + "*" + trim(document.getElementById(requestID).value) + "$" +
+                    "考核要点：" + "*" + trim(document.getElementById(checkPointID).value);
+         }
+         document.getElementById("prbWorkContentRequest").value = str;
+         document.getElementById("SubmitPost").click();
     }
-   
+
+ }
+
+ function trim(str) { //删除左右两端的空格
+     return str.replace(/(^\s*)|(\s*$)/g, "");
+ }
+
+function addItem() {
+    var parentDiv = document.getElementById("WorkContentRequest");
+    var childDiv = document.createElement("div");
+    var count = parentDiv.childNodes.length;
+    childDiv.id = "WorkContentRequestChild" + count;
+    childDiv.innerHTML = "<span class=\"label1\">标题</span><br/>" +
+                        "<input type=\"text\" id=\"Title" + count + "\" class=\"textbox3\"><br/>" +
+                        "<span class=\"label1\">具体内容</span><br/>"+
+                        "<textarea id=\"Content" + count + "\" class=\"textbox1\" ></textarea><br/>" +
+                        "<span class=\"label1\">具体要求</span><br/>"+
+                        "<textarea id=\"Request" + count + "\" class=\"textbox1\" ></textarea><br/>" +
+                        "<span class=\"label1\">考核要点</span><br/>" +
+                        "<textarea id=\"CheckPoint" + count + "\" class=\"textbox1\" ></textarea><br/>";
+    parentDiv.appendChild(childDiv);
 }
 
 function load_userinfo()
@@ -92,6 +127,22 @@ function Make(rowid)
 function EditPost() {
     $("#evaluatedgrid").css("display", "none");
     $("#box").css("display", "block");
+    var str = document.getElementById("prbWorkContentRequest").value;
+    var bigPoint = str.split("&");
+    var count = 1;
+    for (; count <= bigPoint.length; count++){
+        addItem();
+        var titleID = "Title" + count;
+        var contentID = "Content" + count;
+        var requestID = "Request" + count;
+        var checkPointID = "CheckPoint" + count;
+        var smallPoint = bigPoint[count-1].split("$");
+        document.getElementById(titleID).value = smallPoint[0].split("*")[1];
+        document.getElementById(contentID).value = smallPoint[1].split("*")[1];
+        document.getElementById(requestID).value = smallPoint[2].split("*")[1];
+        document.getElementById(checkPointID).value = smallPoint[3].split("*")[1];
+    }
+
     var s = document.getElementById("Passed").value;
     if (s == "1") 
     {
@@ -107,7 +158,6 @@ function EditPost() {
         document.getElementById("prbPersonality").disabled = true;
         document.getElementById("prbPhycond").disabled = true;
         document.getElementById("prbWorkOutline").disabled = true;
-        document.getElementById("prbWorkContentRequest").disabled = true;
         document.getElementById("prbPower").disabled = true;
         document.getElementById("prbResponse").disabled = true;
         document.getElementById("prbDirectLeader").disabled = true;
@@ -119,6 +169,19 @@ function EditPost() {
         document.getElementById("prbPostAssess").disabled = true;
         document.getElementById("prbOthers").disabled = true;
         document.all.submit_button.disabled = true;
+        document.getElementById("Add").disabled = true;
+
+        var num = document.getElementById("WorkContentRequest").childNodes.length;
+        for (var i = 1; i < num; i++) {
+            var titleID = "Title" + i;
+            var contentID = "Content" + i;
+            var requestID = "Request" + i;
+            var checkPointID = "CheckPoint" + i;
+            document.getElementById(titleID).disabled = true;
+            document.getElementById(contentID).disabled = true;
+            document.getElementById(requestID).disabled = true;
+            document.getElementById(checkPointID).disabled = true;
+        }
     }
     else 
     {
@@ -134,7 +197,6 @@ function EditPost() {
         document.getElementById("prbPersonality").disabled = false;
         document.getElementById("prbPhycond").disabled = false;
         document.getElementById("prbWorkOutline").disabled = false;
-        document.getElementById("prbWorkContentRequest").disabled = false;
         document.getElementById("prbPower").disabled = false;
         document.getElementById("prbResponse").disabled = false;
         document.getElementById("prbDirectLeader").disabled = false;
@@ -146,6 +208,19 @@ function EditPost() {
         document.getElementById("prbPostAssess").disabled = false;
         document.getElementById("prbOthers").disabled = false;
         document.getElementById("submit_button").disabled = false;
+        document.getElementById("Add").disabled = false;
+
+        var num = document.getElementById("WorkContentRequest").childNodes.length;
+        for (var i = 1; i < num; i++) {
+            var titleID = "Title" + i;
+            var contentID = "Content" + i;
+            var requestID = "Request" + i;
+            var checkPointID = "CheckPoint" + i;
+            document.getElementById(titleID).disabled = false;
+            document.getElementById(Content).disabled = false;
+            document.getElementById(Request).disabled = false;
+            document.getElementById(CheckPoint).disabled = false;
+        }
     }
 
 }

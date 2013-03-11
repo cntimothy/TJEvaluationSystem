@@ -27,6 +27,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
       protected void Search(object sender, EventArgs e)
         {
             string username = (string)Session["username"];
+            //string username = "admin2";
             string uiDepart = "";
             List<Manager> manager = new List<Manager>();
             exception = "";
@@ -93,7 +94,8 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 prbPersonality.Text = prb.PrbPersonality;
                 prbPhycond.Text = prb.PrbPhyCond;
                 prbWorkOutline.Text = prb.PrbWorkOutline;
-                prbWorkContentRequest.Text = prb.PrbWorkContntRequest;
+                //prbWorkContentRequest.Text = prb.PrbWorkContntRequest;
+                prbWorkContentRequest.Value = prb.PrbWorkContntRequest;
                 prbPower.Text = prb.PrbPower;
                 prbResponse.Text = prb.PrbResponse;
                 prbDirectLeader.Text = prb.PrbDirectLeader;
@@ -121,7 +123,8 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 prbPersonality.Text = "";
                 prbPhycond.Text = "";
                 prbWorkOutline.Text = "";
-                prbWorkContentRequest.Text = "";
+                //prbWorkContentRequest.Text = "";
+                prbWorkContentRequest.Value = "";
                 prbPower.Text = "";
                 prbResponse.Text = "";
                 prbDirectLeader.Text = "";
@@ -169,7 +172,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             prb.PrbPersonality = prbPersonality.Text;
             prb.PrbPhyCond = prbPhycond.Text;
             prb.PrbWorkOutline = prbWorkOutline.Text;
-            prb.PrbWorkContntRequest = prbWorkContentRequest.Text;
+            prb.PrbWorkContntRequest = prbWorkContentRequest.Value;
             prb.PrbPower = prbPower.Text;
             prb.PrbResponse = prbResponse.Text;
             prb.PrbDirectLeader = prbDirectLeader.Text;
@@ -195,8 +198,5 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             
             ClientScript.RegisterStartupScript(this.GetType(), "", "load_userinfo()", true);
         }
-        
-
-
     }
 }

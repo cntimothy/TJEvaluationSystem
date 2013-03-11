@@ -91,7 +91,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 prbPersonality.Text = prb.PrbPersonality;
                 prbPhycond.Text = prb.PrbPhyCond;
                 prbWorkOutline.Text = prb.PrbWorkOutline;
-                prbWorkContentRequest.Text = prb.PrbWorkContntRequest;
+                prbWorkContentRequest.Text = prb.PrbWorkContntRequest.Replace("&", "\n").Replace("$", "\n").Replace("*", "");
                 prbPower.Text = prb.PrbPower;
                 prbResponse.Text = prb.PrbResponse;
                 prbDirectLeader.Text = prb.PrbDirectLeader;

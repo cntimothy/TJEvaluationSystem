@@ -32,3 +32,15 @@
    
 }
 
+.textbox3
+{
+    position:relative;
+    text-align:left;
+    border-bottom-width:inherit;
+    border-left-width:inherit;
+    border-right-width:inherit;
+    border-top-width:inherit;
+   
+    width:800px; 
+}
+
