@@ -31,94 +31,94 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// LID 控件。
+        /// LUID 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LID;
+        protected global::System.Web.UI.WebControls.Label LUID;
         
         /// <summary>
-        /// Label1 控件。
+        /// LUName 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label LUName;
         
         /// <summary>
-        /// LSex 控件。
+        /// LUSex 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LSex;
+        protected global::System.Web.UI.WebControls.Label LUSex;
         
         /// <summary>
-        /// LIdentityNum 控件。
+        /// LUIdentityNum 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LIdentityNum;
+        protected global::System.Web.UI.WebControls.Label LUIdentityNum;
         
         /// <summary>
-        /// LDepartment 控件。
+        /// LUDepartment 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LDepartment;
+        protected global::System.Web.UI.WebControls.Label LUDepartment;
         
         /// <summary>
-        /// LTelphone 控件。
+        /// LUTelphone 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LTelphone;
+        protected global::System.Web.UI.WebControls.Label LUTelphone;
         
         /// <summary>
-        /// LPhone 控件。
+        /// LUPhone 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LPhone;
+        protected global::System.Web.UI.WebControls.Label LUPhone;
         
         /// <summary>
-        /// LEmail 控件。
+        /// LUEmail 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LEmail;
+        protected global::System.Web.UI.WebControls.Label LUEmail;
         
         /// <summary>
-        /// LAddress 控件。
+        /// LUAddress 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LAddress;
+        protected global::System.Web.UI.WebControls.Label LUAddress;
         
         /// <summary>
-        /// LZipcode 控件。
+        /// LUZipcode 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LZipcode;
+        protected global::System.Web.UI.WebControls.Label LUZipcode;
         
         /// <summary>
         /// LStanderType 控件。
@@ -218,6 +218,15 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden JsonData3;
+        
+        /// <summary>
+        /// JsonData4 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden JsonData4;
         
         /// <summary>
         /// BGetStanderLib 控件。

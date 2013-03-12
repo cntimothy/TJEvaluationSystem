@@ -15,6 +15,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
     public partial class ManageEvaluatorTable : System.Web.UI.Page
     {
         private string exception = "";
+        private string userID = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -79,6 +80,8 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             string e = "";
             if (!LoadStanderLib())
                 return;
+            if (!LoadResponseStander())
+                return;
             if (!AssessTableBLL.Select(sqlcmd, ref at, ref e) || at.Count == 0)
                 JsonData3.Value = "";
             else 
@@ -139,13 +142,84 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             }
         }
 
+        //导入工作内容
+        public bool LoadResponseStander()
+        {
+            List<PostResponseBook> postBook = new List<PostResponseBook>();
+            //查找岗位责任书
+            if (PostResponseBookBLL.Select(userID, ref postBook, ref exception))
+            {
+                if (postBook.Count <= 0)
+                    return false;
+                else
+                {
+                    //获取工作内容与工作要求
+                    PostResponseBook book = postBook[0];
+                    string content = book.PrbWorkContntRequest;
+                    if (content == "")
+                        return false;
+                    else 
+                    {
+                        //转换成json字符串
+                        JsonData4.Value = ToJsonTest(content);
+                        return true;
+                    }
+                    
+                }
+            }
+            else
+                return false;
+        }
+
+        //将工作内容工作要求转转成JSON格式
+        public string ToJsonTest(string s)
+        {
+            string json = "";
+            json += "{ \"Rows\":[";
+            string[] test = s.Split(new Char[] {'&'});
+            string[] key = { "Title", "Content", "Request", "Point" };
+            for (int i = 0; i < test.Length-1; i++)
+            {
+                json += "{";
+                string[] test2 = test[i].Split(new Char[] { '$' });
+                for (int j = 0; j < test2.Length-1; j++)
+                {
+                    string[] test3 = test2[j].Split(new Char[] { '*' });
+
+                    if (j < test2.Length - 2)
+                    {
+                        json += "\"" + key[j] + "\":" + "\"" + test3[1] + "\",";
+                    }
+                    else
+                    {
+                        json += "\"" + key[j] + "\":" + "\"" + test3[1] + "\"";
+                    }
+                }
+                if (i == test.Length - 2)
+                {
+                    json += "} ";
+                }
+                else
+                {
+                    json += "}, ";
+                }
+            }
+            json += "],\"Total\":" + "\"" + (test.Length-1).ToString() + "\"" + "}";
+            return json;
+        }
+
         //获取指标库
         protected void BGetStanderLib_Click(object sender, EventArgs e)
         {
-            if (LoadStanderLib())
+            if (LoadStanderLib() && LoadResponseStander())
             {
                 ScriptManager.RegisterStartupScript(BGetStanderLib, this.GetType(), "showdata", "ShowStander();", true);
                 ScriptManager.RegisterStartupScript(BGetStanderLib, this.GetType(), "showdata", "ShowVetoStander();", true);
+                ScriptManager.RegisterStartupScript(BGetStanderLib, this.GetType(), "showdata", "ShowResponseStander();", true);
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(BGetStanderLib, this.GetType(), "error", "f_alert('error','获取数据失败，请重试!');", true);
             }
         }
 
@@ -239,7 +313,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 ScriptManager.RegisterStartupScript(BGetEvaluateTable, this.GetType(), "", "f_alert('error','获取数据失败!');", true);
                 return;
             }
-
+            userID = data;
             //获取考核表
             LoadEvaluatorTable(data);
         }

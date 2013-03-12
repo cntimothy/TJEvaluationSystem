@@ -1,6 +1,7 @@
 ﻿//
 var standerLib = null;
 var standerLibVeto = null;
+var responseStanderLib = null;
 
 var keyResponse1 = false;
 var keyResponse2 = false;
@@ -30,6 +31,7 @@ var veto5 = false;
 
 var manager = null;
 var managerVeto = null;
+var managerResponse = null;
 var stdType = null;
 var tableData = null;
 var userData = null;
@@ -61,7 +63,7 @@ function ShowUserList() {
     userData = JSON2.parse(users);
     Evaluated = $("#UserListGrid").ligerGrid({
         columns: [
-        { display: '用户名', name: 'UiID', width: 100, align: 'center', frozen: true },
+        { display: '工号', name: 'UiID', width: 100, align: 'center', frozen: true },
         { display: '姓名', name: 'UiName', width: 100, align: 'center' },
         { display: '性别', name: 'UiSex', width: 80, align: 'center' },
         { display: '部门', name: 'UiDepartment', width: 150, align: 'center' },
@@ -81,20 +83,21 @@ function ShowUserList() {
     $("#pageloading").hide();
 }
 
+//查看用户详细信息
 function ShowUserInfo(rowid) {
     var rowdata = Evaluated.getSelectedRow(rowid);    //取得数据  
     if (rowdata == null)
         return;
-    document.getElementById('LID').innerText = rowdata.UiID;
-    document.getElementById('LName').innerText = rowdata.UiName;
-    document.getElementById('LSex').innerText = rowdata.UiSex;
-    document.getElementById('LIdentityNum').innerText = rowdata.UiIdentityNum;
-    document.getElementById('LDepartment').innerText = rowdata.UiDepartment;
-    document.getElementById('LTelphone').innerText = rowdata.UiTelephone;
-    document.getElementById('LPhone').innerText = rowdata.UiMobPhone;
-    document.getElementById('LEmail').innerText = rowdata.UiEmail;
-    document.getElementById('LAddress').innerText = rowdata.UiAddress;
-    document.getElementById('LZipcode').innerText = rowdata.UiZipCode;
+    document.getElementById('LUID').innerText = rowdata.UiID;
+    document.getElementById('LUName').innerText = rowdata.UiName;
+    document.getElementById('LUSex').innerText = rowdata.UiSex;
+    document.getElementById('LUIdentityNum').innerText = rowdata.UiIdentityNum;
+    document.getElementById('LUDepartment').innerText = rowdata.UiDepartment;
+    document.getElementById('LUTelphone').innerText = rowdata.UiTelephone;
+    document.getElementById('LUPhone').innerText = rowdata.UiMobPhone;
+    document.getElementById('LUEmail').innerText = rowdata.UiEmail;
+    document.getElementById('LUAddress').innerText = rowdata.UiAddress;
+    document.getElementById('LUZipcode').innerText = rowdata.UiZipCode;
     $("#UserList").css("display", "none");
     $("#UserInfo").css("display", "block");
 }
@@ -114,13 +117,15 @@ function ViewEvaluateTable(rowid) {
 function ShowTable() {
     var lib1 = document.getElementById("JsonData").value;
     var lib2 = document.getElementById("JsonData2").value;
-    if (lib1 == null || lib1 == "" || lib2 == null || lib2 == "")
+    var lib3 = document.getElementById("JsonData4").value;
+    if (lib1 == null || lib1 == "" || lib2 == null || lib2 == "" || lib3 == null || lib3 == "")
     {
         $.ligerDialog.warn('获取指标库数据失败!');
         return;
     }
     ShowStander();
     ShowVetoStander();
+    ShowResponseStander();
     standerLib = JSON2.parse(lib1);
     standerLibVeto = JSON2.parse(lib2);  
 
@@ -187,8 +192,6 @@ function ViewEvaluatorTable() {
             $(nameID).html(strArr[0]);
             $(contentID).html(strArr[1]);
             $(trID).css("display", "block");
-            $(showClass).css('display', 'block');
-            $(editClass).css('display', 'none');
             return true;
         }
         return false;
@@ -363,7 +366,7 @@ function ResetTable() {
 
 //制作考核表
 function MakeEvaluatorTable() {
-    if (standerLib == null || standerLibVeto==null) {
+    if (standerLib == null || standerLibVeto == null || responseStanderLib==null) {
         document.getElementById('BGetStanderLib').click();
     }
     StartMakeEvaluatorTable();
@@ -381,6 +384,7 @@ function StartMakeEvaluatorTable() {
     $('#TrEditTable').css('display', 'none');
     $('.EditTable').css('display', 'block');
     $('.ViewTable').css('display', 'none');
+    $('.score').css('display', 'none');
 }
 
 //初始化考核表
@@ -613,6 +617,7 @@ function SelectStander(std) {
     $('#VetoStanderInfoBar').css('display', 'none');
     $('#StanderInfo').css('display', 'block');
     $('#VetoStanderInfo').css('display', 'none');
+    $('#ResponseStanderInfo').css('display', 'none');
     $('#DetailStanderInfo').css('display', 'none');
     manager.loadData(standerLib);
 }
@@ -629,6 +634,24 @@ function SelectVetoStander(std) {
     $('#StanderInfoBar').css('display', 'none');
     $('#StanderInfo').css('display', 'none');
     $('#VetoStanderInfo').css('display', 'block');
+    $('#ResponseStanderInfo').css('display', 'none');
+    $('#DetailStanderInfo').css('display', 'none');
+    managerVeto.loadData(standerLibVeto);
+}
+
+//选择岗位责任指标
+function SelectResponseStander(std) {
+    if (std == null)
+        return;
+    stdType = std;
+    $("#EvaluatorTable").css("display", "none");
+    $("#SelectStander").css("display", "block");
+    $('#EditTableBar').css('display', 'none');
+    $('#VetoStanderInfoBar').css('display', 'block');
+    $('#StanderInfoBar').css('display', 'none');
+    $('#StanderInfo').css('display', 'none');
+    $('#VetoStanderInfo').css('display', 'none');
+    $('#ResponseStanderInfo').css('display', 'block');
     $('#DetailStanderInfo').css('display', 'none');
     managerVeto.loadData(standerLibVeto);
 }
@@ -664,13 +687,9 @@ function ShowStander() {
         return h;
     }
     }],
-        usePager: true, pageSize: 10,
-        data: standerLib,
-        height: '100%',
-        isScroll: false,
-        onSelectRow: function (rowdata, rowindex) {
-            $("#txtrowindex").val(rowindex);
-        }
+    usePager: true, pageSize: 10,
+    data: standerLib,
+    width: '100%', height: '90%'
     });
 }
 
@@ -722,13 +741,33 @@ function ShowVetoStander() {
         return h;
     }
     }],
-        usePager: true, pageSize: 10,
-        data: standerLibVeto,
-        height: '100%',
-        isScroll: false,
-        onSelectRow: function (rowdata, rowindex) {
-            $("#txtrowindex").val(rowindex);
-        }
+    usePager: true, pageSize: 10,
+    data: standerLibVeto,
+    width: '100%', height: '90%'
+    });
+}
+
+//显示岗位职责指标
+function ShowResponseStander() {
+    var s = document.getElementById("JsonData4").value;
+    if (s == null || s == "")
+        return;
+    responseStanderLib = JSON2.parse(s);
+    managerResponse = $("#maingrid6").ligerGrid({
+        columns: [
+    { display: '标题', name: 'Title', width: 150, align: 'center' },
+    { display: '具体内容', name: 'Content', width: 220, align: 'center' },
+    { display: '具体要求', name: 'Request', width: 220, align: 'center' },
+    { display: '考核要点', name: 'Point', width: 220, align: 'center' },
+    { display: '', isSort: false, width: 50, render: function (rowdata, rowindex, value) {
+        var h = "";
+        h += "<a href='javascript:SelectResponseRow(" + rowindex + ")'>选择</a> ";
+        return h;
+    }
+    }],
+    usePager: true, pageSize: 10,
+    data: responseStanderLib,
+    width: '100%', height: '90%'
     });
 }
 
@@ -771,37 +810,27 @@ function BackToStanderList() {
 
 //添加关键责任
 function AddKeyResponse() {
-    //var name = document.getElementById("TBKeyResponseName").value;
-    //var content = document.getElementById("TBKeyResponseContent").value;
-    var name = $('#TBKeyResponseName').val();
-    var content = $('#TBKeyResponseContent').val();
+    var name = document.getElementById('LKeyResponseName').innerText;
+    var content = document.getElementById('LKeyResponseContent').innerText; 
 
     if (name == "" || content == "") {
-        $.ligerDialog.warn('请输入指标信息!');
+        $.ligerDialog.warn('请选择指标!');
         return;
     }
 
     if (keyResponse1 == false) {
-        $(".ShowKeyResponse1").css("display", "block");
-        $(".EditKeyResponse1").css("display", "none");
         $('#LKeyResponse1Name').html(name);
         $('#LKeyResponse1Content').html(content);
-        //document.getElementById("LKeyResponse1Name").innerText = name;
-        //document.getElementById("LKeyResponse1Content").innerText = content;
         document.getElementById("KeyResponse1").style.display = "block";
         keyResponse1 = true;
     }
     else if (keyResponse2 == false) {
-        $(".ShowKeyResponse2").css("display", "block");
-        $(".EditKeyResponse2").css("display", "none");
         document.getElementById("LKeyResponse2Name").innerText = name;
         document.getElementById("LKeyResponse2Content").innerText = content;
         document.getElementById("KeyResponse2").style.display = "block";
         keyResponse2 = true;
     }
     else if (keyResponse3 == false) {
-        $(".ShowKeyResponse3").css("display", "block");
-        $(".EditKeyResponse3").css("display", "none");
         document.getElementById("LKeyResponse3Name").innerText = name;
         document.getElementById("LKeyResponse3Content").innerText = content;
         document.getElementById("KeyResponse3").style.display = "block";
@@ -812,37 +841,8 @@ function AddKeyResponse() {
     }
     if (keyResponse1 == true && keyResponse2 == true && keyResponse3 == true)
         document.getElementById("KeyResponse").style.display = "none";
-    document.getElementById("TBKeyResponseName").value = "";
-    document.getElementById("TBKeyResponseContent").value = "";
-}
-
-//编辑关键责任1
-function EditKeyResponse1() {
-    $(".ShowKeyResponse1").css("display", "none");
-    $(".EditKeyResponse1").css("display", "block");
-    document.getElementById("TBKeyResponse1Name").value = document.getElementById("LKeyResponse1Name").innerText;
-    document.getElementById("TBKeyResponse1Content").value = document.getElementById("LKeyResponse1Content").innerText;
-}
-
-//完成编辑关键责任1
-function EndEditKeyResponse1() {
-    var name = document.getElementById("TBKeyResponse1Name").value;
-    var content = document.getElementById("TBKeyResponse1Content").value;
-
-    if (name == "" || content == "") {
-        $.ligerDialog.warn('请输入指标信息!');
-        return;
-    }
-    $(".ShowKeyResponse1").css("display", "block");
-    $(".EditKeyResponse1").css("display", "none");
-    document.getElementById("LKeyResponse1Name").innerText = name;
-    document.getElementById("LKeyResponse1Content").innerText = content;
-}
-
-//取消编辑关键责任1
-function CancelEditKeyResponse1() {
-    $(".ShowKeyResponse1").css("display", "block");
-    $(".EditKeyResponse1").css("display", "none");
+    document.getElementById("LKeyResponseName").innerText = "";
+    document.getElementById("LKeyResponseContent").innerText = "";
 }
 
 //删除关键责任1
@@ -852,62 +852,10 @@ function DeleteKeyResponse1() {
     document.getElementById("KeyResponse").style.display = "block";
 }
 
-function EditKeyResponse2() {
-    $(".ShowKeyResponse2").css("display", "none");
-    $(".EditKeyResponse2").css("display", "block");
-    document.getElementById("TBKeyResponse2Name").value = document.getElementById("LKeyResponse2Name").innerText;
-    document.getElementById("TBKeyResponse2Content").value = document.getElementById("LKeyResponse2Content").innerText;
-}
-
-function EndEditKeyResponse2() {
-    var name = document.getElementById("TBKeyResponse2Name").value;
-    var content = document.getElementById("TBKeyResponse2Content").value;
-
-    if (name == "" || content == "") {
-        $.ligerDialog.warn('请输入指标信息!');
-        return;
-    }
-    $(".ShowKeyResponse2").css("display", "block");
-    $(".EditKeyResponse2").css("display", "none");
-    document.getElementById("LKeyResponse2Name").innerText = name;
-    document.getElementById("LKeyResponse2Content").innerText = content;
-}
-
-function CancelEditKeyResponse2() {
-    $(".ShowKeyResponse2").css("display", "block");
-    $(".EditKeyResponse2").css("display", "none");
-}
-
 function DeleteKeyResponse2() {
     document.getElementById("KeyResponse2").style.display = "none";
     keyResponse2 = false;
     document.getElementById("KeyResponse").style.display = "block";
-}
-
-function EditKeyResponse3() {
-    $(".ShowKeyResponse3").css("display", "none");
-    $(".EditKeyResponse3").css("display", "block");
-    document.getElementById("TBKeyResponse3Name").value = document.getElementById("LKeyResponse3Name").innerText;
-    document.getElementById("TBKeyResponse3Content").value = document.getElementById("LKeyResponse3Content").innerText;
-}
-
-function EndEditKeyResponse3() {
-    var name = document.getElementById("TBKeyResponse3Name").value;
-    var content = document.getElementById("TBKeyResponse3Content").value;
-
-    if (name == "" || content == "") {
-        $.ligerDialog.warn('请输入指标信息!');
-        return;
-    }
-    $(".ShowKeyResponse3").css("display", "block");
-    $(".EditKeyResponse3").css("display", "none");
-    document.getElementById("LKeyResponse3Name").innerText = name;
-    document.getElementById("LKeyResponse3Content").innerText = content;
-}
-
-function CancelEditKeyResponse3() {
-    $(".ShowKeyResponse3").css("display", "block");
-    $(".EditKeyResponse3").css("display", "none");
 }
 
 function DeleteKeyResponse3() {
@@ -1065,7 +1013,7 @@ function SelectRow(rowid) {
             document.getElementById('LAbility3ContentC').innerText = rowdata.SlContentC;
             document.getElementById('LAbility3ContentD').innerText = rowdata.SlContentD;
             break;
-        case 'Ability34':
+        case 'Ability4':
             document.getElementById('Ability4Num').value = rowdata.SlID;
             document.getElementById('LAbility4Name').innerText = rowdata.SlName;
             document.getElementById('LAbility4ContentA').innerText = rowdata.SlContentA;
@@ -1153,6 +1101,72 @@ function SelectVetoRow(rowid) {
         case 'Veto5':
             document.getElementById('Veto5Num').value = rowdata.SlID;
             document.getElementById('LVeto5Content').innerText = rowdata.SlContentA;
+            break;
+        default:
+            break;
+    }
+    stdType = null;
+    BackToTable();
+}
+
+//判断责任指标是否已经选择
+function CheckResponseSelected(name) {
+    if (keyResponse1 == true && document.getElementById("LKeyResponse1Name").innerText == name)
+        return true;
+    if (keyResponse2 == true && document.getElementById("LKeyResponse2Name").innerText == name)
+        return true;
+    if (keyResponse3 == true && document.getElementById("LKeyResponse3Name").innerText == name)
+        return true;
+    if (response1 == true && document.getElementById("LResponse1Name").innerText == name)
+        return true;
+    if (response2 == true && document.getElementById("LResponse2Name").innerText == name)
+        return true;
+    if (response3 == true && document.getElementById("LResponse3Name").innerText == name)
+        return true;
+    return false;
+}
+
+//选中岗位责任返回
+function SelectResponseRow(rowid) {
+    var rowdata = managerResponse.getSelectedRow(rowid);    //取得数据
+    if (rowdata == null)
+        return;
+    if (CheckResponseSelected(rowdata.Title)) {
+        $.ligerDialog.warn('该指标已存在，请选择其它指标!');
+        return;
+    }
+    switch (stdType) {
+        case 'KeyResponse':
+            document.getElementById('LKeyResponseName').innerText = rowdata.Title;
+            document.getElementById('LKeyResponseContent').innerText = rowdata.Request;
+            break;
+        case 'KeyResponse1':
+            document.getElementById('LKeyResponse1Name').innerText = rowdata.Title;
+            document.getElementById('LKeyResponse1Content').innerText = rowdata.Request;
+            break;
+        case 'KeyResponse2':
+            document.getElementById('LKeyResponse2Name').innerText = rowdata.Title;
+            document.getElementById('LKeyResponse2Content').innerText = rowdata.Request;
+            break;
+        case 'KeyResponse3':
+            document.getElementById('LKeyResponse3Name').innerText = rowdata.Title;
+            document.getElementById('LKeyResponse3Content').innerText = rowdata.Request;
+            break;
+        case 'Response':
+            document.getElementById('LResponseName').innerText = rowdata.Title;
+            document.getElementById('LResponseContent').innerText = rowdata.Request;
+            break;
+        case 'Response1':
+            document.getElementById('LResponse1Name').innerText = rowdata.Title;
+            document.getElementById('LResponse1Content').innerText = rowdata.Request;
+            break;
+        case 'Response2':
+            document.getElementById('LResponse2Name').innerText = rowdata.Title;
+            document.getElementById('LResponse2Content').innerText = rowdata.Request;
+            break;
+        case 'Response3':
+            document.getElementById('LResponse3Name').innerText = rowdata.Title;
+            document.getElementById('LResponse3Content').innerText = rowdata.Request;
             break;
         default:
             break;
@@ -1324,33 +1338,27 @@ function DeleteKeyAttitude3() {
 
 //添加责任
 function AddResponse() {
-    var name = document.getElementById("TBResponseName").value;
-    var content = document.getElementById("TBResponseContent").value;
+    var name = document.getElementById('LResponseName').innerText;
+    var content = document.getElementById('LResponseContent').innerText;
 
     if (name == "" || content == "") {
-        $.ligerDialog.warn('请输入指标信息!');
+        $.ligerDialog.warn('请选择指标!');
         return;
     }
 
     if (response1 == false) {
-        $(".ShowResponse1").css("display", "block");
-        $(".EditResponse1").css("display", "none");
         document.getElementById("LResponse1Name").innerText = name;
         document.getElementById("LResponse1Content").innerText = content;
         document.getElementById("Response1").style.display = "block";
         response1 = true;
     }
     else if (response2 == false) {
-        $(".ShowResponse2").css("display", "block");
-        $(".EditResponse2").css("display", "none");
         document.getElementById("LResponse2Name").innerText = name;
         document.getElementById("LResponse2Content").innerText = content;
         document.getElementById("Response2").style.display = "block";
         response2 = true;
     }
     else if (response3 == false) {
-        $(".ShowResponse3").css("display", "block");
-        $(".EditResponse3").css("display", "none");
         document.getElementById("LResponse3Name").innerText = name;
         document.getElementById("LResponse3Content").innerText = content;
         document.getElementById("Response3").style.display = "block";
@@ -1361,37 +1369,8 @@ function AddResponse() {
     }
     if (response1 && response2 && response3)
         document.getElementById("Response").style.display = "none";
-    document.getElementById("TBResponseName").value = "";
-    document.getElementById("TBResponseContent").value = "";
-}
-
-//编辑责任1
-function EditResponse1() {
-    $(".ShowResponse1").css("display", "none");
-    $(".EditResponse1").css("display", "block");
-    document.getElementById("TBResponse1Name").value = document.getElementById("LResponse1Name").innerText;
-    document.getElementById("TBResponse1Content").value = document.getElementById("LResponse1Content").innerText;
-}
-
-//完成编辑责任1
-function EndEditResponse1() {
-    var name = document.getElementById("TBResponse1Name").value;
-    var content = document.getElementById("TBResponse1Content").value;
-
-    if (name == "" || content == "") {
-        $.ligerDialog.warn('请输入指标信息!');
-        return;
-    }
-    $(".ShowResponse1").css("display", "block");
-    $(".EditResponse1").css("display", "none");
-    document.getElementById("LResponse1Name").innerText = name;
-    document.getElementById("LResponse1Content").innerText = content;
-}
-
-//取消编辑责任1
-function CancelEditResponse1() {
-    $(".ShowResponse1").css("display", "block");
-    $(".EditResponse1").css("display", "none");
+    document.getElementById("LResponseName").innerText = "";
+    document.getElementById("LResponseContent").innerText = "";
 }
 
 //删除责任1
@@ -1401,69 +1380,11 @@ function DeleteResponse1() {
     document.getElementById("Response").style.display = "block";
 }
 
-//编辑责任2
-function EditResponse2() {
-    $(".ShowResponse2").css("display", "none");
-    $(".EditResponse2").css("display", "block");
-    document.getElementById("TBResponse2Name").value = document.getElementById("LResponse2Name").innerText;
-    document.getElementById("TBResponse2Content").value = document.getElementById("LResponse2Content").innerText;
-}
-
-//完成编辑责任2
-function EndEditResponse2() {
-    var name = document.getElementById("TBResponse2Name").value;
-    var content = document.getElementById("TBResponse2Content").value;
-
-    if (name == "" || content == "") {
-        $.ligerDialog.warn('请输入指标信息!');
-        return;
-    }
-    $(".ShowResponse2").css("display", "block");
-    $(".EditResponse2").css("display", "none");
-    document.getElementById("LResponse2Name").innerText = name;
-    document.getElementById("LResponse2Content").innerText = content;
-}
-
-//取消编辑责任2
-function CancelEditResponse2() {
-    $(".ShowResponse2").css("display", "block");
-    $(".EditResponse2").css("display", "none");
-}
-
 //删除责任2
 function DeleteResponse2() {
     document.getElementById("Response2").style.display = "none";
     response2 = false;
     document.getElementById("Response").style.display = "block";
-}
-
-//编辑责任3
-function EditResponse3() {
-    $(".ShowResponse3").css("display", "none");
-    $(".EditResponse3").css("display", "block");
-    document.getElementById("TBResponse3Name").value = document.getElementById("LResponse3Name").innerText;
-    document.getElementById("TBResponse3Content").value = document.getElementById("LResponse3Content").innerText;
-}
-
-//完成编辑责任3
-function EndEditResponse3() {
-    var name = document.getElementById("TBResponse3Name").value;
-    var content = document.getElementById("TBResponse3Content").value;
-
-    if (name == "" || content == "") {
-        $.ligerDialog.warn('请输入指标信息!');
-        return;
-    }
-    $(".ShowResponse3").css("display", "block");
-    $(".EditResponse3").css("display", "none");
-    document.getElementById("LResponse3Name").innerText = name;
-    document.getElementById("LResponse3Content").innerText = content;
-}
-
-//取消编辑责任3
-function CancelEditResponse3() {
-    $(".ShowResponse3").css("display", "block");
-    $(".EditResponse3").css("display", "none");
 }
 
 //删除责任3

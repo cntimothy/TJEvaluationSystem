@@ -42,63 +42,63 @@
                 <div id="DetailUserData" style="border:3px solid #a3c0e8;width:500px;margin:0px auto;padding-top:10px;">
                     <table>
                     <tr>
-                        <td align="right" class="tableKey">用户名：</td>
+                        <td align="right" class="tableKey">工号：</td>
                         <td align="left" class="tableValue">
-                            <asp:Label ID="LID" runat="server" Text=""></asp:Label>
+                            <asp:Label ID="LUID" runat="server" Text=""></asp:Label>
                         </td>
                     </tr>
                     <tr>
                         <td align="right" class="tableKey">姓名：</td>
                         <td align="left" class="tableValue">
-                            <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
+                            <asp:Label ID="LUName" runat="server" Text=""></asp:Label>
                         </td>
                     </tr>
                     <tr>
                         <td align="right" class="tableKey">性别：</td>
                         <td align="left" class="tableValue">
-                            <asp:Label ID="LSex" runat="server" Text=""></asp:Label>
+                            <asp:Label ID="LUSex" runat="server" Text=""></asp:Label>
                         </td>
                     </tr>
                     <tr>
                         <td align="right" class="tableKey">身份证号：</td>
                         <td align="left" class="tableValue">
-                            <asp:Label ID="LIdentityNum" runat="server" Text=""></asp:Label>
+                            <asp:Label ID="LUIdentityNum" runat="server" Text=""></asp:Label>
                         </td>
                     </tr>
                      <tr>
                         <td align="right" class="tableKey">部门：</td>
                         <td align="left" class="tableValue">
-                            <asp:Label ID="LDepartment" runat="server" Text=""></asp:Label>
+                            <asp:Label ID="LUDepartment" runat="server" Text=""></asp:Label>
                        </td>
                     </tr>
                     <tr>
                         <td align="right" class="tableKey">电话：</td>
                         <td align="left" class="tableValue">
-                            <asp:Label ID="LTelphone" runat="server" Text=""></asp:Label>
+                            <asp:Label ID="LUTelphone" runat="server" Text=""></asp:Label>
                         </td>
                     </tr>
                     <tr>
                         <td align="right" class="tableKey">手机：</td>
                         <td align="left" class="tableValue">
-                            <asp:Label ID="LPhone" runat="server" Text=""></asp:Label>
+                            <asp:Label ID="LUPhone" runat="server" Text=""></asp:Label>
                         </td>
                     </tr>
                     <tr>
                         <td align="right" class="tableKey">Email：</td>
                         <td align="left" class="tableValue">
-                            <asp:Label ID="LEmail" runat="server" Text=""></asp:Label>
+                            <asp:Label ID="LUEmail" runat="server" Text=""></asp:Label>
                         </td>
                     </tr>
                     <tr>
                         <td align="right" class="tableKey">地址：</td>
                         <td align="left" class="tableValue">
-                            <asp:Label ID="LAddress" runat="server" Text=""></asp:Label>
+                            <asp:Label ID="LUAddress" runat="server" Text=""></asp:Label>
                         </td>
                     </tr>
                     <tr>
                         <td align="right" class="tableKey">邮编：</td>
                         <td align="left" class="tableValue">
-                            <asp:Label ID="LZipcode" runat="server" Text=""></asp:Label>
+                            <asp:Label ID="LUZipcode" runat="server" Text=""></asp:Label>
                         </td>
                     </tr>
                     </table>
@@ -218,24 +218,14 @@
                                     <table class="my_table" frame="void">
                                         <tr id="KeyResponse1" class="ViewTable">
                                             <td class="stander_name" style="border-top: none; border-left: none;">
-                                                <div class="ShowKeyResponse1">
-                                                    <label id="LKeyResponse1Name" class="my_lable">
-                                                    </label>
-                                                </div>
-                                                <div class="EditKeyResponse1">
-                                                    <input type="text" id="TBKeyResponse1Name" class="input_textbox" /></div>
+                                                <label id="LKeyResponse1Name" class="my_lable"></label>
                                             </td>
                                             <td style="border-top: none; padding: 0px">
                                                 <table class="my_table" frame="void">
                                                     <tr>
                                                         <td colspan="4" class="stander_content" style="border-top: none; border-left: none;
                                                             border-right: none;">
-                                                            <div class="ShowKeyResponse1">
-                                                                <label id="LKeyResponse1Content" class="my_lable">
-                                                                </label>
-                                                            </div>
-                                                            <div class="EditKeyResponse1">
-                                                                <textarea id="TBKeyResponse1Content" class="input_textarea"></textarea></div>
+                                                            <label id="LKeyResponse1Content" class="my_lable"></label>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -255,18 +245,10 @@
                                                 </table>
                                             </td>
                                             <td class="fun" style="border-top: none; border-right: none;">
-                                                <div class="ShowKeyResponse1">
-                                                    <input type="button" value="编辑" onclick="EditKeyResponse1()" class="l-button" style="width: 60px;
-                                                        height: 20px;" />
-                                                    <input type="button" value="删除" onclick="DeleteKeyResponse1()" class="l-button" style="width: 60px;
-                                                        height: 20px;" />
-                                                </div>
-                                                <div class="EditKeyResponse1">
-                                                    <input type="button" value="完成" onclick="EndEditKeyResponse1()" class="l-button"
-                                                        style="width: 60px; height: 20px;" />
-                                                    <input type="button" value="取消" onclick="CancelEditKeyResponse1()" class="l-button"
-                                                        style="width: 60px; height: 20px;" />
-                                                </div>
+                                                <input type="button" value="重新选择" onclick="SelectResponseStander('KeyResponse1')" class="l-button" style="width: 60px;
+                                                    height: 20px;" />
+                                                <input type="button" value="删除" onclick="DeleteKeyResponse1()" class="l-button" style="width: 60px;
+                                                    height: 20px;" />
                                             </td>
                                             <td class="score" style="border-top: none; border-right: none;">
                                                 <div class="ShowScore">
@@ -279,24 +261,16 @@
                                         </tr>
                                         <tr id="KeyResponse2" class="ViewTable">
                                             <td class="stander_name" style="border-top: none; border-left: none;">
-                                                <div class="ShowKeyResponse2">
-                                                    <label id="LKeyResponse2Name" class="my_lable">
-                                                    </label>
-                                                </div>
-                                                <div class="EditKeyResponse2">
-                                                    <input type="text" id="TBKeyResponse2Name" class="input_textbox" /></asp:TextBox></div>
+                                                <label id="LKeyResponse2Name" class="my_lable">
+                                                </label>
                                             </td>
                                             <td style="border-top: none; padding: 0px">
                                                 <table class="my_table" frame="void">
                                                     <tr>
                                                         <td colspan="4" class="stander_content" style="border-left: none; border-right: none;
                                                             border-top: none;">
-                                                            <div class="ShowKeyResponse2">
-                                                                <label id="LKeyResponse2Content" class="my_lable">
-                                                                </label>
-                                                            </div>
-                                                            <div class="EditKeyResponse2">
-                                                                <textarea id="TBKeyResponse2Content" class="input_textarea"></textarea></div>
+                                                            <label id="LKeyResponse2Content" class="my_lable">
+                                                            </label>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -316,18 +290,10 @@
                                                 </table>
                                             </td>
                                             <td class="fun" style="border-top: none; border-right: none;">
-                                                <div class="ShowKeyResponse2">
-                                                    <input type="button" value="编辑" onclick="EditKeyResponse2()" class="l-button" style="width: 60px;
-                                                        height: 20px;" />
-                                                    <input type="button" value="删除" onclick="DeleteKeyResponse2()" class="l-button" style="width: 60px;
-                                                        height: 20px;" />
-                                                </div>
-                                                <div class="EditKeyResponse2">
-                                                    <input type="button" value="完成" onclick="EndEditKeyResponse2()" class="l-button"
-                                                        style="width: 60px; height: 20px;" />
-                                                    <input type="button" value="取消" onclick="CancelEditKeyResponse2()" class="l-button"
-                                                        style="width: 60px; height: 20px;" />
-                                                </div>
+                                                <input type="button" value="重新选择" onclick="SelectResponseStander('KeyResponse2')" class="l-button" style="width: 60px;
+                                                    height: 20px;" />
+                                                <input type="button" value="删除" onclick="DeleteKeyResponse2()" class="l-button" style="width: 60px;
+                                                    height: 20px;" />
                                             </td>
                                             <td class="score" style="border-top: none; border-right: none;">
                                                 <div class="ShowScore">
@@ -340,24 +306,16 @@
                                         </tr>
                                         <tr id="KeyResponse3" class="ViewTable">
                                             <td class="stander_name" style="border-top: none; border-left: none;">
-                                                <div class="ShowKeyResponse3">
-                                                    <label id="LKeyResponse3Name" class="my_lable">
-                                                    </label>
-                                                </div>
-                                                <div class="EditKeyResponse3">
-                                                    <input type="text" id="TBKeyResponse3Name" class="input_textbox" /></div>
+                                                <label id="LKeyResponse3Name" class="my_lable">
+                                                </label>
                                             </td>
                                             <td style="border-top: none; padding: 0px">
                                                 <table class="my_table" frame="void">
                                                     <tr>
                                                         <td colspan="4" class="stander_content" style="border-left: none; border-right: none;
                                                             border-top: none;">
-                                                            <div class="ShowKeyResponse3">
-                                                                <label id="LKeyResponse3Content" class="my_lable">
-                                                                </label>
-                                                            </div>
-                                                            <div class="EditKeyResponse3">
-                                                                <textarea id="TBKeyResponse3Content" class="input_textarea"></textarea></div>
+                                                            <label id="LKeyResponse3Content" class="my_lable">
+                                                            </label>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -377,18 +335,10 @@
                                                 </table>
                                             </td>
                                             <td class="fun" style="border-top: none; border-right: none;">
-                                                <div class="ShowKeyResponse3">
-                                                    <input type="button" value="编辑" onclick="EditKeyResponse3()" class="l-button" style="width: 60px;
-                                                        height: 20px;" />
-                                                    <input type="button" value="删除" onclick="DeleteKeyResponse3()" class="l-button" style="width: 60px;
-                                                        height: 20px;" />
-                                                </div>
-                                                <div class="EditKeyResponse3">
-                                                    <input type="button" value="完成" onclick="EndEditKeyResponse3()" class="l-button"
-                                                        style="width: 60px; height: 20px;" />
-                                                    <input type="button" value="取消" onclick="CancelEditKeyResponse3()" class="l-button"
-                                                        style="width: 60px; height: 20px;" />
-                                                </div>
+                                                <input type="button" value="重新选择" onclick="SelectResponseStander('KeyResponse3')" class="l-button" style="width: 60px;
+                                                    height: 20px;" />
+                                                <input type="button" value="删除" onclick="DeleteKeyResponse3()" class="l-button" style="width: 60px;
+                                                    height: 20px;" />
                                             </td>
                                             <td class="score" style="border-top: none; border-right: none;">
                                                 <div class="ShowScore">
@@ -402,13 +352,17 @@
                                         <tr id="KeyResponse" class="EditTable">
                                             <td class="stander_name_edit" style="border-top: none; border-bottom: none; border-left: none">
                                                 岗位内容：<br />
-                                                <input type="text" id="TBKeyResponseName" class="input_textbox" />
+                                                <label id="LKeyResponseName" class="my_lable">
+                                                </label>
                                             </td>
                                             <td class="stander_content_big_edit" style="border-top: none; border-bottom: none;">
                                                 岗位要求:<br />
-                                                <textarea id="TBKeyResponseContent" class="input_textarea"></textarea>
+                                                <label id="LKeyResponseContent" class="my_lable">
+                                                </label>
                                             </td>
                                             <td class="fun" style="border-top: none; border-bottom: none; border-right: none">
+                                                <input type="button" value="选择" onclick="SelectResponseStander('KeyResponse')" class="l-button" style="width: 60px;
+                                                    height: 22px;" />
                                                 <input type="button" value="添加" onclick="AddKeyResponse()" class="l-button" style="width: 60px;
                                                     height: 22px;" />
                                             </td>
@@ -908,24 +862,16 @@
                         <table class="my_table" frame="void">
                             <tr id="Response1" class="ViewTable">
                                 <td class="stander_name_big" style="border-top: none; border-left: none;">
-                                    <div class="ShowResponse1">
-                                        <label id="LResponse1Name" class="my_lable">
-                                        </label>
-                                    </div>
-                                    <div class="EditResponse1">
-                                        <input type="text" id="TBResponse1Name" class="input_textbox" /></div>
+                                    <label id="LResponse1Name" class="my_lable">
+                                    </label>
                                 </td>
                                 <td style="border-top: none; padding: 0px">
                                     <table class="my_table" frame="void">
                                         <tr>
                                             <td colspan="4" class="stander_content" style="border-top: none; border-left: none;
                                                 border-right: none;">
-                                                <div class="ShowResponse1">
-                                                    <label id="LResponse1Content" class="my_lable">
-                                                    </label>
-                                                </div>
-                                                <div class="EditResponse1">
-                                                    <textarea id="TBResponse1Content" class="input_textarea"></textarea></div>
+                                                <label id="LResponse1Content" class="my_lable">
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
@@ -945,18 +891,10 @@
                                     </table>
                                 </td>
                                 <td class="fun" style="border-top: none; border-right: none;">
-                                    <div class="ShowResponse1">
-                                        <input type="button" value="编辑" onclick="EditResponse1()" class="l-button" style="width: 60px;
-                                            height: 20px;" />
-                                        <input type="button" value="删除" onclick="DeleteResponse1()" class="l-button" style="width: 60px;
-                                            height: 20px;" />
-                                    </div>
-                                    <div class="EditResponse1">
-                                        <input type="button" value="完成" onclick="EndEditResponse1()" class="l-button" style="width: 60px;
-                                            height: 20px;" />
-                                        <input type="button" value="取消" onclick="CancelEditResponse1();" class="l-button"
-                                            style="width: 60px; height: 20px;" />
-                                    </div>
+                                    <input type="button" value="重新选择" onclick="SelectResponseStander('Response1')" class="l-button" style="width: 60px;
+                                        height: 20px;" />
+                                    <input type="button" value="删除" onclick="DeleteResponse1()" class="l-button" style="width: 60px;
+                                        height: 20px;" />
                                 </td>
                                 <td class="score" style="border-top: none; border-right: none;">
                                     <div class="ShowScore">
@@ -969,24 +907,16 @@
                             </tr>
                             <tr id="Response2" class="ViewTable">
                                 <td class="stander_name_big" style="border-top: none; border-left: none;">
-                                    <div class="ShowResponse2">
-                                        <label id="LResponse2Name" class="my_lable">
-                                        </label>
-                                    </div>
-                                    <div class="EditResponse2">
-                                        <input type="text" id="TBResponse2Name" class="input_textbox" /></div>
+                                    <label id="LResponse2Name" class="my_lable">
+                                    </label>
                                 </td>
                                 <td style="border-top: none; padding: 0px">
                                     <table class="my_table" frame="void">
                                         <tr>
                                             <td colspan="4" class="stander_content" style="border-top: none; border-left: none;
                                                 border-right: none;">
-                                                <div class="ShowResponse2">
-                                                    <label id="LResponse2Content" class="my_lable">
-                                                    </label>
-                                                </div>
-                                                <div class="EditResponse2">
-                                                    <textarea id="TBResponse2Content" class="input_textarea"></textarea></div>
+                                                <label id="LResponse2Content" class="my_lable">
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
@@ -1006,18 +936,10 @@
                                     </table>
                                 </td>
                                 <td class="fun" style="border-top: none; border-right: none;">
-                                    <div class="ShowResponse2">
-                                        <input type="button" value="编辑" onclick="EditResponse2()" class="l-button" style="width: 60px;
-                                            height: 20px;" />
-                                        <input type="button" value="删除" onclick="DeleteResponse2()" class="l-button" style="width: 60px;
-                                            height: 20px;" />
-                                    </div>
-                                    <div class="EditResponse2">
-                                        <input type="button" value="完成" onclick="EndEditResponse2()" class="l-button" style="width: 60px;
-                                            height: 20px;" />
-                                        <input type="button" value="取消" onclick="CancelEditResponse2()" class="l-button"
-                                            style="width: 60px; height: 20px;" />
-                                    </div>
+                                    <input type="button" value="重新选择" onclick="SelectResponseStander('Response2')" class="l-button" style="width: 60px;
+                                        height: 20px;" />
+                                    <input type="button" value="删除" onclick="DeleteResponse2()" class="l-button" style="width: 60px;
+                                        height: 20px;" />
                                 </td>
                                 <td class="score" style="border-top: none; border-right: none;">
                                     <div class="ShowScore">
@@ -1030,23 +952,15 @@
                             </tr>
                             <tr id="Response3" class="ViewTable">
                                 <td class="stander_name_big" style="border-bottom: none; border-left: none;">
-                                    <div class="ShowResponse3">
-                                        <label id="LResponse3Name" class="my_lable">
-                                        </label>
-                                    </div>
-                                    <div class="EditResponse3">
-                                        <input type="text" id="TBResponse3Name" class="input_textbox" /></div>
+                                    <label id="LResponse3Name" class="my_lable">
+                                    </label>
                                 </td>
                                 <td style="border-bottom: none; padding: 0px">
                                     <table class="my_table" frame="void">
                                         <tr>
                                             <td colspan="4" class="stander_content" style="border: none;">
-                                                <div class="ShowResponse3">
-                                                    <label id="LResponse3Content" class="my_lable">
-                                                    </label>
-                                                </div>
-                                                <div class="EditResponse3">
-                                                    <textarea id="TBResponse3Content" class="input_textarea"></textarea></div>
+                                                <label id="LResponse3Content" class="my_lable">
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
@@ -1066,18 +980,10 @@
                                     </table>
                                 </td>
                                 <td class="fun" style="border-bottom: none; border-right: none;">
-                                    <div class="ShowResponse3">
-                                        <input type="button" value="编辑" onclick="EditResponse3()" class="l-button" style="width: 60px;
-                                            height: 20px;" />
-                                        <input type="button" value="删除" onclick="DeleteResponse3()" class="l-button" style="width: 60px;
-                                            height: 20px;" />
-                                    </div>
-                                    <div class="EditResponse3">
-                                        <input type="button" value="完成" onclick="EndEditResponse3()" class="l-button" style="width: 60px;
-                                            height: 20px;" />
-                                        <input type="button" value="取消" onclick="CancelEditResponse3()" class="l-button"
-                                            style="width: 60px; height: 20px;" />
-                                    </div>
+                                    <input type="button" value="重新选择" onclick="SelectResponseStander('Response3')" class="l-button" style="width: 60px;
+                                        height: 20px;" />
+                                    <input type="button" value="删除" onclick="DeleteResponse3()" class="l-button" style="width: 60px;
+                                        height: 20px;" />
                                 </td>
                                 <td class="score" style="border-top: none; border-right: none;">
                                     <div class="ShowScore">
@@ -1091,13 +997,17 @@
                             <tr id="Response" class="EditTable">
                                 <td class="stander_name_big_edit" style="border-top: none; border-bottom: none; border-left: none">
                                     岗位内容：<br />
-                                    <input type="text" id="TBResponseName" class="input_textbox" />
+                                    <label id="LResponseName" class="my_lable">
+                                    </label>
                                 </td>
                                 <td class="stander_content_big_edit" style="border-top: none; border-bottom: none;">
                                     岗位要求:<br />
-                                    <textarea id="TBResponseContent" class="input_textarea"></textarea>
+                                    <label id="LResponseContent" class="my_lable">
+                                    </label>
                                 </td>
                                 <td class="fun" style="border-top: none; border-bottom: none; border-right: none">
+                                    <input type="button" value="选择" onclick="SelectResponseStander('Response')" class="l-button" style="width: 60px;
+                                        height: 20px;" />
                                     <input type="button" value="添加" onclick="AddResponse()" class="l-button" style="width: 60px;
                                         height: 22px;" />
                                 </td>
@@ -1888,6 +1798,10 @@
                 <div id="maingrid5" style="margin: 0; padding: 0;">
                 </div>
             </div>
+            <div id="ResponseStanderInfo">
+                <div id="maingrid6" style="margin: 0; padding: 0;">
+                </div>
+            </div>
             <div id="DetailStanderInfo" class="Hidden">
                 <div id="StanderDetail" style="border: 3px solid #a3c0e8; width: 500px; margin: 0px auto;">
                     <table style="border: none">
@@ -1963,6 +1877,7 @@
                     <input id="JsonData" type="hidden" runat="server" />
                     <input id="JsonData2" type="hidden" runat="server" />
                     <input id="JsonData3" type="hidden" runat="server" />
+                    <input id="JsonData4" type="hidden" runat="server" />
                     <asp:Button ID="BGetStanderLib" runat="server" Text="Button" OnClick="BGetStanderLib_Click" />
                     <asp:Button ID="BFinishMakeTable" runat="server" Text="" OnClick="BFinishMakeTable_Click" />
                     <asp:Button ID="BFinishEditTable" runat="server" Text="" OnClick="BFinishEditTable_Click" />
