@@ -21,27 +21,27 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             if (!IsPostBack)
             {
                 //LoadEvaluatorTable();
-                LoadUserList();
             }
             
         }
 
         //导入被考核人员名单
-        public void LoadUserList()
+        protected void LoadUserList(object sender, EventArgs e)
         {
             
             string username = (string)Session["username"];
             string uiDepart = "";
-            List<UserInfo> user = new List<UserInfo>();
+            List<Manager> managers = new List<Manager>();
 
             //查询当前用户
-            if (UserInfoBLL.Select(ref user, username, ref exception))
+            if (ManagerBLL.SelectByID(username, ref managers, ref exception))
             {
                 //获得部门
-                uiDepart = user.ElementAt(0).UiDepartment;
+                uiDepart = managers.ElementAt(0).MDepartment;
                 List<UserInfo> Evaluated = new List<UserInfo>();
                 string type = "____1%";
                 //查询被考评名单
+                exception = "";
                 bool b = UserInfoBLL.Select(uiDepart, type, ref Evaluated, ref exception);
                 if (b)
                 {
@@ -83,8 +83,11 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             if (!LoadResponseStander())
                 return;
             if (!AssessTableBLL.Select(sqlcmd, ref at, ref e) || at.Count == 0)
+            {
                 JsonData3.Value = "";
-            else 
+                return;
+            }
+            else
             {
                 JsonData3.Value = JSON.ScriptSerialize<AssessTable>(at[0]);
             }

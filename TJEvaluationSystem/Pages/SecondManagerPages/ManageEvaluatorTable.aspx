@@ -22,6 +22,20 @@
     <form id="form1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
+    <div class="ToolBar">
+                    <table style="position:relative;left:20px;height:100%">
+                        <tr>
+                        <!--
+                            <td class="tool_bar_td">
+                                <input type="button" class="l-button" value="返回" style="width: 70px;" onclick="BackToUserList();" />
+                            </td>
+                            -->
+                          <td style="width:10px;"></td>
+                          <td style="padding:1px;"><input type="button" value="获取被考评人名单" id="search_button"  onclick="search()" class="l-button" style="width:130px;height:25px;font-size:15px"/></td>
+                          <td style="width:10px;"></td>
+                        </tr>
+                    </table>
+                </div>
     <div>
         <div class="l-loading" style="display: block" id="pageloading">
         </div>
@@ -30,15 +44,7 @@
                 <div id="UserListGrid" style="margin: 0; padding: 0;height:100%""></div>
             </div>
             <div id="UserInfo" class="Hidden" style="text-align:center">
-                <div class="ToolBar">
-                    <table class="tool_bar_table">
-                        <tr>
-                            <td class="tool_bar_td">
-                                <input type="button" class="l-button" value="返回" style="width: 70px;" onclick="BackToUserList();" />
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                
                 <div id="DetailUserData" style="border:3px solid #a3c0e8;width:500px;margin:0px auto;padding-top:10px;">
                     <table>
                     <tr>
@@ -1885,8 +1891,8 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
             <asp:Button ID="BRefresh" runat="server" Text="" OnClick="BRefresh_Click" />
+            <asp:Button ID="SearchEvaluated" runat="server"  OnClick="LoadUserList"  />
         </div>
-    </div>
     </form>
 </body>
 </html>

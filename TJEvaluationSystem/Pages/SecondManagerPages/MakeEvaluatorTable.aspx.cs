@@ -29,13 +29,13 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             if (exception.Length > 0)
             {
                 //Alert
-                ClientScript.RegisterStartupScript(this.GetType(), "error", "f_alert('error','获取数据失败，请重试');", true);
+                ClientScript.RegisterStartupScript(this.GetType(), "error", "f_alert('error','指标库为空！');", true);
             }
             else
             {
                 if (ui.Count <= 0)
                 {
-                    ClientScript.RegisterStartupScript(this.GetType(), "error", "f_alert('error','获取数据失败，请重试');", true);
+                    ClientScript.RegisterStartupScript(this.GetType(), "error", "f_alert('error','数据库中没有相关人员信息！');", true);
                 }
                 else
                 {

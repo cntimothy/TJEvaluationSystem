@@ -51,6 +51,10 @@ $(function () {
     $("#search_content").ligerTextBox({ nullText: '请输入查询内容' });
 });
 
+function search() {
+    document.getElementById("SearchEvaluated").click();
+}
+
 //显示被考评名单
 function ShowUserList() {
     var users = document.getElementById("JsonData").value;
