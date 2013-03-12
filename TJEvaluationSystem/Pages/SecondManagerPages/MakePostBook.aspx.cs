@@ -65,6 +65,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
 
         protected void SearchPost_Click(object sender, EventArgs e)
         {
+            exception = "";
             prbUserID =UserID.Value;
             List<PostResponseBook> post = new List<PostResponseBook>();
             if (PostResponseBookBLL.Select(prbUserID, ref post, ref exception))
@@ -142,6 +143,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
 
         protected void SubmitPost_Click(object sender, EventArgs e)
         {
+            exception = "";
             PostResponseBook prb = new PostResponseBook();
             if (Passed.Value.Equals(DBNull.Value)||Passed.Value=="")
             {

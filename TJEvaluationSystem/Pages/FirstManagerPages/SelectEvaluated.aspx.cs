@@ -22,6 +22,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         }
         protected DataTable searchSql()
         {
+            exception = "";
             string department = Department.SelectedValue;
             List<UserInfo> userinfo = new List<UserInfo>();
             string type = "____1%";
@@ -82,6 +83,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
 
         protected void Delete_Click(object sender, EventArgs e)
         {
+            exception = "";
             List<UserInfo> userinfo = new List<UserInfo>();
             userinfo = JSON.isEfect(UserID.Value);
             UserInfo deleted = userinfo.ElementAt(0);

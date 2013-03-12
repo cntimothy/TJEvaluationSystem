@@ -33,6 +33,7 @@ namespace TJEvaluationSystem.Pages.MessagePages
 
         protected DataTable search()
         {
+            exception = "";
             string userName = (string)Session["username"];
             List<Message> messages = new List<Message>();
             MessageBLL.Select(userName, ref messages, ref exception);

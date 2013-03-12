@@ -34,7 +34,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 }
             }
             int count = 0;
-            string exception = null;
+            string exception = "";
             string colname = "mRead";
             string receiveID = (string)Session["username"];
             if (MessageBLL.SelectUnReadCount(ref count, colname, receiveID, ref exception))

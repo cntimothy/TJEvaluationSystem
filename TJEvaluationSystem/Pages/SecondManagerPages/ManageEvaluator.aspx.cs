@@ -25,6 +25,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         }
         private bool searchEvaluated()
         {
+            exception = "";
             string username = (string)Session["username"];
             string uiDepart = "";
 
@@ -64,6 +65,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         //搜索考评者
         private bool searchEvaluator()
         {
+            exception = "";
             string username = (string)Session["username"];
             string uiDepart = "";
             string evaluatedID = UserID.Value;
@@ -109,6 +111,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
 
         protected void Search_User(object sender, EventArgs e)
         {
+            exception = "";
             string username = (string)Session["username"];
             string evaluatedID = UserID.Value;
 
@@ -144,6 +147,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
 
         protected void Submit(object sender, EventArgs e)
         {
+            exception = "";
             string role = "";
             if (this.RadioButton1.Checked)
                 role = "领导";//领导
@@ -189,6 +193,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
 
         protected void Check_User(object sender, EventArgs e)
         {
+            exception = "";
             string evaluated = UserID.Value;
 
             List<Evaluator> model = new List<Evaluator>();
@@ -221,6 +226,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
 
         protected void Delete(object sender, EventArgs e)
         {
+            exception = "";
             string json = this.ListDelete.Value;
             List<Evaluator> model = JSON.ScriptDeserialize<List<Evaluator>>(json);
 

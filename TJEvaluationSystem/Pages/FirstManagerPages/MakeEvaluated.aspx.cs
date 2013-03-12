@@ -26,6 +26,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         }
         protected void Search_Click(object sender, EventArgs e)
         {
+            exception = "";
             string department = Department.SelectedValue; 
             if (department == "0")
             {
@@ -54,6 +55,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         protected void Submit_Click(object sender, EventArgs e)
         {
             string strData = JsonChecked.Value;
+            exception = "";
             List<UserInfo> userData = JSON.ScriptDeserialize<List<UserInfo>>(strData);
             for (int i = 0; i < userData.Count; i++)
             {

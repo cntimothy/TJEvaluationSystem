@@ -34,6 +34,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         protected DataTable Search1()
         {
             List<Manager> managers = new List<Manager>();
+            exception = "";
             string type = "__1%";
             if (Department.SelectedValue == "0")
             {
@@ -53,6 +54,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
 
         protected void Reset_Click(object sender, EventArgs e)
         {
+            exception = "";
             string mID = MID.Value;
             string mType = MType.Value;
             string mDepartment = MDepartment.Value;

@@ -72,7 +72,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 ClientScript.RegisterStartupScript(this.GetType(), "", "showList1()", true);
                 return;
             }
-
+            exception = "";
             if (EvaluatorBLL.Select(ref model, evaluated, 0, ref exception))
             {
                 this.pass.Text = "未通过审核";

@@ -65,6 +65,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         {
             prbUserID = UserID.Value;
             List<PostResponseBook> post1 = new List<PostResponseBook>();
+            exception = "";
             if (PostResponseBookBLL.Select(prbUserID, ref post1, ref exception))
             {
                 PostResponseBook prb = new PostResponseBook();
@@ -172,6 +173,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             prb.PrbPostAssess = prbPostAssess.Text;
             prb.PrbOthers = prbOthers.Text;
 
+            exception = "";
             PostResponseBookBLL.Update(prb, ref exception);
 
             DataTable table = new DataTable();
@@ -197,7 +199,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
                 return;
             }
-
+            exception = "";
             PostResponseBookBLL.Select(UserID.Value, ref prb, ref exception);
             
 

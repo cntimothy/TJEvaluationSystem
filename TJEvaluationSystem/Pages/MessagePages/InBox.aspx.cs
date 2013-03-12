@@ -22,6 +22,7 @@ namespace TJEvaluationSystem.Pages.MessagePages
 
         protected DataTable searchUnRead()
         {
+            exception = "";
             string userName = (string)Session["username"];
             List<Message> messages = new List<Message>();            
             MessageBLL.SelectReceive(userName, 0, ref messages, ref exception);
@@ -32,6 +33,7 @@ namespace TJEvaluationSystem.Pages.MessagePages
 
         protected DataTable searchAll()
         {
+            exception = "";
             string userName = (string)Session["username"];
             List<Message> messages = new List<Message>();
             MessageBLL.SelectReceive(userName, ref messages, ref exception);
@@ -69,6 +71,7 @@ namespace TJEvaluationSystem.Pages.MessagePages
 
         protected void GoBack_Click(object sender, EventArgs e)
         {
+            exception = "";
             int mID = Convert.ToInt32(ReadMsgId.Value);
             Message model = new Message();
             model.MID = mID;

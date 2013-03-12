@@ -24,6 +24,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
 
         protected DataTable searchSql()
         {
+            exception = "";
             string department = Depart.Value;
             List<Manager> managers = new List<Manager>();
             string type = "__1%";
@@ -61,34 +62,6 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
 
         }
 
-       /*protected void Dao_Click(object sender, EventArgs e)
-        {
-            int s = Convert.ToInt32(Depart.Value);
-            List<UserInfo> userinfo = new List<UserInfo>();
-            switch (s)
-            {
-                case 0:
-                    UserInfoBLL.Select(2, ref userinfo, ref exception);
-                    name.Text = "所有二级管理员名单:";
-                    break;
-                case 1:
-                    UserInfoBLL.Select("cs", 2, ref userinfo, ref exception);
-                    name.Text = "电信学院二级管理员名单:";
-                    break;
-                default:
-                    UserInfoBLL.Select(2, ref userinfo, ref exception);
-                    name.Text = "所有二级管理员名单:";
-                    break;
-
-            }
-
-            DataTable table = new DataTable();
-            table = userinfo.ListToDataTable();
-            
-            JSON.dataTableToCsv(table, @"e:\1.xls"); //调用函数
-
-            System.Diagnostics.Process.Start(@"e:\1.xls");  //打开excel文件
-        }*/
         protected void Export_Click(object sender, EventArgs e)
         {
             DataTable table = new DataTable();
@@ -118,6 +91,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
 
         protected void Delete_Click(object sender, EventArgs e)
         {
+            exception = "";
             string userID = "";
             string userType = "-1";
             List<UserInfo> userinfo = new List<UserInfo>();

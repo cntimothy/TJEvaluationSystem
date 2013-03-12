@@ -28,7 +28,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         //导入被考核人员名单
         protected void LoadUserList(object sender, EventArgs e)
         {
-            
+            exception = "";
             string username = (string)Session["username"];
             string uiDepart = "";
             List<Manager> managers = new List<Manager>();
@@ -41,7 +41,6 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 List<UserInfo> Evaluated = new List<UserInfo>();
                 string type = "____1%";
                 //查询被考评名单
-                exception = "";
                 bool b = UserInfoBLL.Select(uiDepart, type, ref Evaluated, ref exception);
                 if (b)
                 {
@@ -148,6 +147,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         //导入工作内容
         public bool LoadResponseStander()
         {
+            exception = "";
             List<PostResponseBook> postBook = new List<PostResponseBook>();
             //查找岗位责任书
             if (PostResponseBookBLL.Select(userID, ref postBook, ref exception))
