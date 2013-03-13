@@ -42,12 +42,12 @@ function ShowAllTables() {
     }},
     { display: '', isSort: false, width: 100, render: function (rowdata, rowindex, value) {
         var h = "";
-        if (rowdata.AtPass == 0) {
-            h += "<a href='javascript:SetPassedTrue(" + rowindex + ")'>审核通过</a> ";
-        }
-        else if (rowdata.AtPass == 1) {
-            h += "<a href='javascript:SetPassedFalse(" + rowindex + ")'>审核未通过</a> ";
-        }
+//        if (rowdata.AtPass == 0) {
+//            h += "<a href='javascript:SetPassedTrue(" + rowindex + ")'>审核通过</a> ";
+//        }
+//        else if (rowdata.AtPass == 1) {
+//            h += "<a href='javascript:SetPassedFalse(" + rowindex + ")'>审核未通过</a> ";
+//        }
         h += "<a href='javascript:ShowDetail(" + rowindex + ")'>查看</a> ";
         return h;
     }
@@ -65,28 +65,35 @@ function ShowAllTables() {
 }
 
 //设置审核
-function SetPassedTrue(rowindex) {
-    var rowdata = Manager.getSelectedRow(rowindex);    //取得数据
-    if (rowdata == null)
-        return;
-    document.getElementById("JsonData").value = rowdata.AtID;
-    document.getElementById("JsonData2").value = "true";
-    document.getElementById("JsonData3").value = rowindex;
-    document.getElementById("BSetPassed").click();
+function SetPassedTrue() {
+    if (window.confirm("确认通过？")) {
+        var rowindex = document.getElementById("RowIndex").value;
+        var rowdata = Manager.getSelectedRow(rowindex);    //取得数据
+        if (rowdata == null)
+            return;
+        document.getElementById("JsonData").value = rowdata.AtID;
+        document.getElementById("JsonData2").value = "true";
+        document.getElementById("JsonData3").value = rowindex;
+        document.getElementById("BSetPassed").click();
+    }
 }
 
-function SetPassedFalse(rowindex) {
-    var rowdata = Manager.getSelectedRow(rowindex);    //取得数据
-    if (rowdata == null)
-        return;
-    document.getElementById("JsonData").value = rowdata.AtID;
-    document.getElementById("JsonData2").value = "false";
-    document.getElementById("JsonData3").value = rowindex;
-    document.getElementById("BSetPassed").click();
+function SetPassedFalse() {
+    if (window.confirm("确认退回？")) {
+        var rowindex = document.getElementById("RowIndex").value;
+        var rowdata = Manager.getSelectedRow(rowindex);    //取得数据
+        if (rowdata == null)
+            return;
+        document.getElementById("JsonData").value = rowdata.AtID;
+        document.getElementById("JsonData2").value = "false";
+        document.getElementById("JsonData3").value = rowindex;
+        document.getElementById("BSetPassed").click();
+    }
 }
 
 //设置审核完成
 function SetPassedDone() {
+    alert('设置成功！');
     var rowindex = document.getElementById("JsonData3").value;
     var type = document.getElementById("JsonData2").value;
     if (rowindex == null || rowindex == "" || type == null || type == "")
@@ -105,6 +112,7 @@ function SetPassedDone() {
 
 //显示考核表
 function ShowDetail(rowindex) {
+    document.getElementById("RowIndex").value = rowindex;
     var tableData = Manager.getSelectedRow(rowindex);    //取得数据
     if (tableData == null)
         return;

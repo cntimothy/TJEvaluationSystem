@@ -42,9 +42,9 @@
                    <td style="width:10px;"></td>
                    <td style="padding:1px;"><input type="button" value="获取考评表" id="search_button"  onclick="search()" class="l-button" style="width:150px;height:25px;font-size:15px"/></td>
                    <td style="width:10px;"></td>
-                   <td style="padding:1px;"><input type="button" value="通过" id="pass_button"  onclick="pass()" class="l-button" style="width:100px;height:25px;font-size:15px"/> </td>
+                   <td style="padding:1px;"><input type="button" value="通过" id="pass_button"  onclick="SetPassedTrue()" class="l-button" style="width:100px;height:25px;font-size:15px"/> </td>
                     <td style="width:10px;"></td>
-                    <td style="padding:1px;"><input type="button" value="退回" id="sendback_button"  onclick="sendback()" class="l-button" style="width:100px;height:25px;font-size:15px"/> </td>
+                    <td style="padding:1px;"><input type="button" value="退回" id="sendback_button"  onclick="SetPassedFalse()" class="l-button" style="width:100px;height:25px;font-size:15px"/> </td>
                     <td style="width:10px;"></td>
                    <td style="padding:1px;"><input type="button" value="导出excel" id="dao_button"  onclick="dao()" class="l-button" style="width:100px;height:25px;font-size:15px;"/> </td>
                 </tr>
@@ -1200,6 +1200,7 @@
             </asp:UpdatePanel>
             <asp:Button ID="BRefresh" runat="server" Text="" onclick="BRefresh_Click" />
             <asp:Button ID="LoadButton" runat="server" Text="" onclick="LoadTableData" />
+            <input type="hidden" id="RowIndex"  runat="server"/>
         </div>
     </div>
     </form>
