@@ -128,19 +128,21 @@ function EditPost() {
     $("#evaluatedgrid").css("display", "none");
     $("#box").css("display", "block");
     var str = document.getElementById("prbWorkContentRequest").value;
-    var bigPoint = str.split("&");
-    var count = 1;
-    for (; count <= bigPoint.length; count++){
-        addItem();
-        var titleID = "Title" + count;
-        var contentID = "Content" + count;
-        var requestID = "Request" + count;
-        var checkPointID = "CheckPoint" + count;
-        var smallPoint = bigPoint[count-1].split("$");
-        document.getElementById(titleID).value = smallPoint[0].split("*")[1];
-        document.getElementById(contentID).value = smallPoint[1].split("*")[1];
-        document.getElementById(requestID).value = smallPoint[2].split("*")[1];
-        document.getElementById(checkPointID).value = smallPoint[3].split("*")[1];
+    if (str != "") {
+        var bigPoint = str.split("&");
+        var count = 1;
+        for (; count <= bigPoint.length; count++) {
+            addItem();
+            var titleID = "Title" + count;
+            var contentID = "Content" + count;
+            var requestID = "Request" + count;
+            var checkPointID = "CheckPoint" + count;
+            var smallPoint = bigPoint[count - 1].split("$");
+            document.getElementById(titleID).value = smallPoint[0].split("*")[1];
+            document.getElementById(contentID).value = smallPoint[1].split("*")[1];
+            document.getElementById(requestID).value = smallPoint[2].split("*")[1];
+            document.getElementById(checkPointID).value = smallPoint[3].split("*")[1];
+        }
     }
 
     var s = document.getElementById("Passed").value;
@@ -217,9 +219,9 @@ function EditPost() {
             var requestID = "Request" + i;
             var checkPointID = "CheckPoint" + i;
             document.getElementById(titleID).disabled = false;
-            document.getElementById(Content).disabled = false;
-            document.getElementById(Request).disabled = false;
-            document.getElementById(CheckPoint).disabled = false;
+            document.getElementById(contentID).disabled = false;
+            document.getElementById(requestID).disabled = false;
+            document.getElementById(checkPointID).disabled = false;
         }
     }
 

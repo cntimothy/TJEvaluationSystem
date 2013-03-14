@@ -21,7 +21,7 @@ function load_userinfo() {
         checkbox: true,
         columns:
          [
-            { display: '用户名', name: 'UiID', width: 50, align: 'left' },
+            { display: '用户名', name: 'UiID', width: 80, align: 'left' },
             { display: '姓名', name: 'UiName', minWidth: 60, align: 'left' },
             { display: '性别', name: 'UiSex', width: 50, align: 'left' },
             { display: '身份证号', name: 'UiIdentityNum', width: 100, align: 'left' },

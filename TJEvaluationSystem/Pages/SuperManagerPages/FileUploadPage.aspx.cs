@@ -71,7 +71,7 @@ namespace TJEvaluationSystem.Pages.SuperManagerPages
                 table = ds.Tables["table1"];
                 foreach (DataRow dr in table.Rows)
                 {
-                    if (dr["MID"] == null)
+                    if (dr["UiID"] == null)
                     {
                         table.Rows.Remove(dr);
                     }

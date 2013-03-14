@@ -26,6 +26,10 @@ namespace TJEvaluationSystem.Pages.MessagePages
             string userName = (string)Session["username"];
             List<Message> messages = new List<Message>();            
             MessageBLL.SelectReceive(userName, 0, ref messages, ref exception);
+            if (messages.Count == 0)
+            {
+                return null;
+            }
             DataTable table = new DataTable();
             table = messages.ListToDataTable();
             return table;

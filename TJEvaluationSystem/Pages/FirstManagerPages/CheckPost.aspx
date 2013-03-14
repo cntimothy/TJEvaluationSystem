@@ -265,6 +265,7 @@
             <input id="Errors" type="hidden" runat="server"/>
             <input id="UserID" type="hidden" runat="server"/>
             <input id="Passed" type="hidden" runat="server"/>
+            <input id="prbWorkContentRequestTemp" type="hidden" runat="server" />
              <asp:Button ID="Search" runat="server" Text="Button" onclick="Search_Click" style="display:none"/>
              <asp:Button ID="SearchPost" runat="server" Text="Button" onclick="SearchPost_Click" />  
              <asp:Button ID="Pass" runat="server" Text="Button" onclick="Submit_Click" style="display:none" />

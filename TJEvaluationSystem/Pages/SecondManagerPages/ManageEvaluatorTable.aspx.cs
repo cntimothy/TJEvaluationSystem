@@ -84,7 +84,6 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             if (!AssessTableBLL.Select(sqlcmd, ref at, ref e) || at.Count == 0)
             {
                 JsonData3.Value = "";
-                return;
             }
             else
             {

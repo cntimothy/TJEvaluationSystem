@@ -93,7 +93,8 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 prbPersonality.Text = prb.PrbPersonality;
                 prbPhycond.Text = prb.PrbPhyCond;
                 prbWorkOutline.Text = prb.PrbWorkOutline;
-                prbWorkContentRequest.Text = prb.PrbWorkContntRequest.Replace("&", "\n").Replace("$", "\n").Replace("*", "");
+                prbWorkContentRequestTemp.Value = prb.PrbWorkContntRequest;
+                prbWorkContentRequest.Text = prbWorkContentRequestTemp.Value.Replace("&", "\n").Replace("$", "\n").Replace("*", "");
                 prbPower.Text = prb.PrbPower;
                 prbResponse.Text = prb.PrbResponse;
                 prbDirectLeader.Text = prb.PrbDirectLeader;
@@ -161,7 +162,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             prb.PrbPersonality = prbPersonality.Text;
             prb.PrbPhyCond = prbPhycond.Text;
             prb.PrbWorkOutline = prbWorkOutline.Text;
-            prb.PrbWorkContntRequest = prbWorkContentRequest.Text;
+            prb.PrbWorkContntRequest = prbWorkContentRequestTemp.Value;
             prb.PrbPower = prbPower.Text;
             prb.PrbResponse = prbResponse.Text;
             prb.PrbDirectLeader = prbDirectLeader.Text;
