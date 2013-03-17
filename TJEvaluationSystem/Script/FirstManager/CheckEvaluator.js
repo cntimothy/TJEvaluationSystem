@@ -11,7 +11,9 @@ function tanchuang() {
 }
 
 function sendback() {
-    document.getElementById("SendBack").click();
+    if (window.confirm("确认退回？")) {
+        document.getElementById("SendBack").click();
+    }
 }
 
 function search() 

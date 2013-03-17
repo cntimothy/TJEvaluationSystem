@@ -93,6 +93,23 @@ namespace BLL
 
         }
 
+        public static bool Select1(ref List<Evaluator> model, string uiID, int pass, ref string e)
+        {
+            string sql = "select * from tb_Evaluator where uiID='" + uiID + "' and pass=" + pass;
+            return Select1(ref model, ref e, sql);
+        }
+        public static bool Select1(ref List<Evaluator> model, ref string e, string sql)
+        {
+            DataTable table = new DataTable();
+            table = db.QueryDataTable(sql, ref e);
+            if (table.Rows.Count == 1)
+            {
+                return true;
+            }
+            else return false;
+        }
+
+
         //更新通过,同时要更新User Userinfo
         public static bool Update1(Evaluator model, ref string e)
         {
@@ -169,6 +186,76 @@ namespace BLL
             }
             return false;
         }
+
+        //退回,同时要更新User Userinfo
+        public static bool Update3(Evaluator model, ref string e)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("update tb_Evaluator set ");
+            strSql.Append("pass=@pass");
+            strSql.Append(" where uiID=@uiID and  EvaluatedID=@EvaluatedID");
+            SqlParameter[] parameters =
+                {
+                    new SqlParameter("@uiID", SqlDbType.VarChar,10),
+                    new SqlParameter("@EvaluatedID",SqlDbType.VarChar,10),
+                    new SqlParameter("@relation", SqlDbType.VarChar,10),
+                    new SqlParameter("@pass", SqlDbType.Int,4)
+                };
+            parameters[0].Value = model.UiID;
+            parameters[1].Value = model.EvaluatedID;
+            parameters[2].Value = model.Relation;
+            parameters[3].Value = model.Pass;
+
+            if (e != "" && e != null)
+            {
+                return false;
+            }
+
+            //查找Evaluator表，如果考评人姓名等于UiID只有一人，就更新userinfo表和user表
+            List<Evaluator> evaluators = new List<Evaluator>();
+            if (EvaluatorBLL.Select1(ref evaluators, model.UiID, 1, ref e))
+            {
+                //更新Userinfo表
+                List<UserInfo> userinfos = new List<UserInfo>();
+                if (UserInfoBLL.Select(ref userinfos, model.UiID, ref e))
+                {
+                    UserInfo ui = new UserInfo();
+                    ui = userinfos.ElementAt(0);
+                    ui.UiType = ui.UiType.Remove(3, 1).Insert(3, "0");
+                    UserInfoBLL.Update(ui, ref e);
+
+                }
+
+                //更新User表，
+                if (model.Pass == 0)
+                {
+                    //List<User> users = new List<User>();
+                    //if (UserBLL.Select(model.UiID, ref users, ref e))
+                    //{
+                    //    User user = new Model.User();
+                    //    user = users.ElementAt(0);
+                    //    user.UType = user.UType.Remove(3, 1).Insert(3, "0");
+
+                    //    if (!UserBLL.Update(user, ref e))
+                    //    {
+                    //        return false;
+                    //    }
+                    //}
+                    string UID = model.UiID;
+                    UserBLL.Delete(UID, ref e);
+                }
+
+                //更新Evaluator表
+                e = db.QueryExec(strSql.ToString(), parameters);
+                if (e != "" && e != null)
+                {
+                    return false;
+                }
+                else return true;
+            }
+            return false;
+        }
+
         //更新考评人名单
         public static bool Update2(Evaluator model, ref string e)
         {

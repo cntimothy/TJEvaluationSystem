@@ -176,10 +176,49 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             
         }
 
-        protected void SendBack_Click(object Sender, EventArgs e)
-        { 
-            
+        protected void SendBack_Click(object sender, EventArgs e)
+        {
+            string exception = "";
+            string evaluated = UserID.Value;
+            if (evaluated.Length <= 0)
+            {
+                Errors.Value = "没有选中考评人名单";
+                this.Chose.Value = "submit";
+                ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
+                return;
+            }
+            List<Evaluator> model = new List<Evaluator>();
+
+            if (EvaluatorBLL.Select(ref model, evaluated, 0, ref exception))
+            {
+                Errors.Value = "考评人名单并未通过，待审核";
+                this.Chose.Value = "submit";
+                ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
+                return;
+            }
+            if (EvaluatorBLL.Select(ref model, evaluated, 1, ref exception))
+            {
+                for (int i = 0; i < model.Count; i++)
+                {
+                    model[i].Pass = 0;
+                    exception = "";
+                    if (!EvaluatorBLL.Update3(model[i], ref exception))
+                    {
+                        Errors.Value = exception;
+                        this.Chose.Value = "submit";
+                        ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
+                        return;
+                    }
+                }
+                this.pass.Text = "考评人名单已退回，待审核";
+                ClientScript.RegisterStartupScript(this.GetType(), "", "showList1()", true);
+                return;
+            }
+            Errors.Value = "已退回";
+            this.Chose.Value = "submit";
+            ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
         }
+
 
         private void Export(string filename, DataTable table)
         {
