@@ -8,7 +8,9 @@ function search()
 }
 
 function sendback() {
-
+    if (confirm('确认退回？')) {
+        document.getElementById("SendBack").click();
+    }
 }
 
 function tanchuang() 
