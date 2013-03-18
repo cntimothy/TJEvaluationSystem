@@ -29,7 +29,7 @@
     </div>
     <div id="layout1" style="width:99.2%; margin:0 auto; margin-top:4px; "> 
         <div position="left"  title="人事处管理员" id="accordion1"> 
-              <div title="管理二级管理员" class="l-scroll">
+              <div title="管理系级管理员" class="l-scroll">
                 <ul id="tree1" style="margin-top:3px;"></ul>
              </div>
               <div title="管理被考评者" class="l-scroll">

@@ -9,6 +9,12 @@ var indexdata2=
 [
    { url: "ManageStander.aspx", text: "浏览指标库" }
 ];
+var indexdata3 =
+[
+   { url: "../AccountPages/ManageFirstOrSecond.aspx", text: "制定名单" },
+   { url: "../AccountPages/SelectFirstorSecond.aspx", text: "查看名单" },
+   { url: "../AccountPages/ResetPassword.aspx", text: "重置密码" }
+];
 
 
 var tab = null;
@@ -52,6 +58,23 @@ $(function () {
 
     $("#tree2").ligerTree({
         data: indexdata2,
+        checkbox: false,
+        slide: false,
+        nodeWidth: 120,
+        attribute: ['nodename', 'url'],
+        onSelect: function (node) {
+            if (!node.data.url) return;
+            var tabid = $(node.target).attr("tabid");
+            if (!tabid) {
+                tabid = new Date().getTime();
+                $(node.target).attr("tabid", tabid)
+            }
+            f_addTab(tabid, node.data.text, node.data.url);
+        }
+    });
+
+    $("#tree3").ligerTree({
+        data: indexdata3,
         checkbox: false,
         slide: false,
         nodeWidth: 120,

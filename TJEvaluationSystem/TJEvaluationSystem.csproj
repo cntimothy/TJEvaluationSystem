@@ -65,6 +65,9 @@
     <Content Include="Pages\AccountPages\AccountInfo.aspx" />
     <Content Include="Pages\AccountPages\AccountManage.aspx" />
     <Content Include="Pages\AccountPages\ChangePassword.aspx" />
+    <Content Include="Pages\AccountPages\ManageFirstOrSecond.aspx" />
+    <Content Include="Pages\AccountPages\ResetPassword.aspx" />
+    <Content Include="Pages\AccountPages\SelectFirstOrSecond.aspx" />
     <Content Include="Pages\EvaluatorPages\Evaluate.aspx" />
     <Content Include="Pages\EvaluatorPages\EvaluatorHome.aspx" />
     <Content Include="Pages\FirstManagerPages\CheckAssess.aspx" />
@@ -195,6 +198,27 @@
     </Compile>
     <Compile Include="Pages\AccountPages\ChangePassword.aspx.designer.cs">
       <DependentUpon>ChangePassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AccountPages\ManageFirstOrSecond.aspx.cs">
+      <DependentUpon>ManageFirstOrSecond.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\AccountPages\ManageFirstOrSecond.aspx.designer.cs">
+      <DependentUpon>ManageFirstOrSecond.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AccountPages\ResetPassword.aspx.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\AccountPages\ResetPassword.aspx.designer.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AccountPages\SelectFirstOrSecond.aspx.cs">
+      <DependentUpon>SelectFirstOrSecond.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\AccountPages\SelectFirstOrSecond.aspx.designer.cs">
+      <DependentUpon>SelectFirstOrSecond.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\EvaluatorPages\Evaluate.aspx.cs">
       <DependentUpon>Evaluate.aspx</DependentUpon>

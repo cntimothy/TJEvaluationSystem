@@ -34,6 +34,9 @@
             <div title="指标库管理" class="l-scroll">
                 <ul id="tree2" style="margin-top:3px;">
             </div>
+            <div title="管理系级管理员" class="l-scroll">
+                <ul id="tree3" style="margin-top:3px;"></ul>
+             </div>
     
         </div>
         <div position="center" id="framecenter"> 
