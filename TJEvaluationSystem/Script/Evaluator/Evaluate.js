@@ -41,7 +41,14 @@ $(function () {
     $('#CBVetoScore').ligerComboBox({
         data: scoreData2, valueFieldID: 'type_value', initText: '0', width: 50
     });
+    $('#pageloading').hide();
 });
+
+//考评尚未开始
+function NoActiveEvaluation() {
+    f_alert('warn', '考评尚未开始！');
+}
+
 
 function ShowAllEavluateUsers() {
 
@@ -75,7 +82,7 @@ function ShowAllEavluateUsers() {
             $("#txtrowindex").val(rowindex);
         }
     });
-    $('#pageloading').hide();
+    
 }
 
 

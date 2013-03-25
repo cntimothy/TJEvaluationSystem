@@ -18,44 +18,58 @@ namespace BLL
         { }
 
         static readonly SQLDatabase db = new SQLDatabase();
-        static public bool Insert(EvaluatorTable[] model, ref string e)
+
+        //提交考评结果
+        //成功返回true,否则返回false
+        static public bool SubmitEvaluateResult(EvaluatorTable et)
         {
-            int count = model.Length;
-            for (int i = 0; i < count; i++)
+            if (et == null)
+                return false;
+            //获取EvaluationID
+            string e = "";
+            if (Insert(et, ref e))
+                return true;
+            else
+                return false;
+        }
+
+        static public bool Insert(EvaluatorTable model, ref string e)
+        {
+                
+            string sql = "insert into tb_EvaluatorTable values("
+                                + "@etEvaluatedID,@etEvaluateID,@etAssessTableID,@etEvaluationID,@etWeight,@etKey,@etResponse,@etAbility,@etAttitude,@etVeto,@etSum)";
+            SqlParameter[] parameters =
             {
-                string sql = "insert into tb_EvaluatorTable values("
-                                  + "@etEvaluatedID,@etEvaluateID,@etAssessTableID,@etWeight,@etKey,@etResponse,@etAbility,@etAttitude,@etVeto,@etSum)";
-                SqlParameter[] parameters =
-                {
-                    new SqlParameter("@etEvaluatedID", SqlDbType.VarChar,10),
-                    new SqlParameter("@etEvaluateID",SqlDbType.VarChar,10),
-                    new SqlParameter("@etAssessTableID", SqlDbType.Int,4),
-                    new SqlParameter("@etWeight", SqlDbType.Int,4),
-                    new SqlParameter("@etKey",SqlDbType.Float),
-                    new SqlParameter("@etResponse", SqlDbType.Float),
-                    new SqlParameter("@etAbility", SqlDbType.Float),
-                    new SqlParameter("@etAttitude", SqlDbType.Float),
-                    new SqlParameter("@etVeto",SqlDbType.Float),
-                    new SqlParameter("@etSum", SqlDbType.Float)
+                new SqlParameter("@etEvaluatedID", SqlDbType.VarChar,10),
+                new SqlParameter("@etEvaluateID",SqlDbType.VarChar,10),
+                new SqlParameter("@etAssessTableID", SqlDbType.Int,4),
+                new SqlParameter("@etEvaluationID", SqlDbType.Int,4),
+                new SqlParameter("@etWeight", SqlDbType.Int,4),
+                new SqlParameter("@etKey",SqlDbType.Float),
+                new SqlParameter("@etResponse", SqlDbType.Float),
+                new SqlParameter("@etAbility", SqlDbType.Float),
+                new SqlParameter("@etAttitude", SqlDbType.Float),
+                new SqlParameter("@etVeto",SqlDbType.Float),
+                new SqlParameter("@etSum", SqlDbType.Float)
 
-                };
-                parameters[0].Value = model[i].EtEvaluatedID;
-                parameters[1].Value = model[i].EtEvaluateID;
-                parameters[2].Value = model[i].EtAssessTableID;
-                parameters[3].Value = model[i].EtWeight;
-                parameters[4].Value = model[i].EtKey;
-                parameters[5].Value = model[i].EtResponse;
-                parameters[6].Value = model[i].EtAbility;
-                parameters[7].Value = model[i].EtAttitude;
-                parameters[8].Value = model[i].EtVeto;
-                parameters[9].Value = model[i].EtSum;
+            };
+            parameters[0].Value = model.EtEvaluatedID;
+            parameters[1].Value = model.EtEvaluateID;
+            parameters[2].Value = model.EtAssessTableID;
+            parameters[3].Value = model.EtEvaluationID;
+            parameters[4].Value = model.EtWeight;
+            parameters[5].Value = model.EtKey;
+            parameters[6].Value = model.EtResponse;
+            parameters[7].Value = model.EtAbility;
+            parameters[8].Value = model.EtAttitude;
+            parameters[9].Value = model.EtVeto;
+            parameters[10].Value = model.EtSum;
 
-                string exception = db.InsertExec(sql, parameters);
-                if (exception != "" && exception != null)
-                {
-                    e = exception;
-                    return false;
-                }
+            string exception = db.InsertExec(sql, parameters);
+            if (exception != "" && exception != null)
+            {
+                e = exception;
+                return false;
             }
             return true;
         }
@@ -80,17 +94,18 @@ namespace BLL
                 for (int i = 0; i < table.Rows.Count; i++)
                 {
                     EvaluatorTable et = new EvaluatorTable();
-                    et.EtEvaluatedID = (string)table.Rows[i][0];
-                    et.EtEvaluateID = (string)table.Rows[i][1];
-                    et.EtAssessTableID= (int)table.Rows[i][2];
-                    et.EtWeight = (int)table.Rows[i][3];
+                    et.EtEvaluatedID = (string)table.Rows[i]["etEvaluatedID"];
+                    et.EtEvaluateID = (string)table.Rows[i]["etEvaluateID"];
+                    et.EtAssessTableID= (int)table.Rows[i]["etAssessTableID"];
+                    et.EtEvaluationID = (int)table.Rows[i]["etEvaluationID"];
+                    et.EtWeight = (int)table.Rows[i]["etWeight"];
                     var test = table.Rows[i][4];
-                    et.EtKey = (float)Convert.ToDouble(table.Rows[i][4]);
-                    et.EtResponse = (float)Convert.ToDouble(table.Rows[i][5]);
-                    et.EtAbility = (float)Convert.ToDouble(table.Rows[i][6]);
-                    et.EtAttitude = (float)Convert.ToDouble(table.Rows[i][7]);
-                    et.EtVeto = (float)Convert.ToDouble(table.Rows[i][8]);
-                    et.EtSum = (float)Convert.ToDouble(table.Rows[i][9]);
+                    et.EtKey = (float)Convert.ToDouble(table.Rows[i]["etKey"]);
+                    et.EtResponse = (float)Convert.ToDouble(table.Rows[i]["etResponse"]);
+                    et.EtAbility = (float)Convert.ToDouble(table.Rows[i]["etAbility"]);
+                    et.EtAttitude = (float)Convert.ToDouble(table.Rows[i]["etAttitude"]);
+                    et.EtVeto = (float)Convert.ToDouble(table.Rows[i]["etVeto"]);
+                    et.EtSum = (float)Convert.ToDouble(table.Rows[i]["etSum"]);
                     model.Add(et);
                 }
                 return true;

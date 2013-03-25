@@ -13,14 +13,26 @@ namespace TJEvaluationSystem.Pages.EvaluatorPages
 {
     public partial class Evaluate : System.Web.UI.Page
     {
+        private int EvaluationID = -1;  //考评记录ID
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                //判断是否登陆
                 string name = (string)Session["username"];
                 if (name == null || name == "")
                     Response.Redirect("../Login.aspx");
-                LoadEvaluateUserData();
+                //判断考评是否已开始
+                EvaluationID=EvaluationHistoryBLL.CheckActiveEvaluation();
+                if (EvaluationID != -1)
+                {
+                    LoadEvaluateUserData();
+                }
+                else
+                {
+                    //考评未开始
+                    ClientScript.RegisterStartupScript(this.GetType(), "", "NoActiveEvaluation();", true);
+                }
             }
         }
 
@@ -107,20 +119,24 @@ namespace TJEvaluationSystem.Pages.EvaluatorPages
                 return;
             }
 
-            EvaluatorTable[] et= JSON.ScriptDeserialize<EvaluatorTable[]>(data);  //将Json字符串转换为对象
-            if (et.Length == 0)
+            EvaluatorTable et= JSON.ScriptDeserialize<EvaluatorTable>(data);  //将Json字符串转换为对象
+            if (et==null)
             {
                 ScriptManager.RegisterStartupScript(BFinishEvaluate, this.GetType(), "error", "f_alert('error','提交失败，请重试!');", true);
                 return;
             }
+            et.EtEvaluationID = EvaluationID;
             string message="";
-            if (!EvaluatorTableBLL.Insert(et, ref message) || message != "")
+            if (!EvaluatorTableBLL.SubmitEvaluateResult(et))
             {
                 ScriptManager.RegisterStartupScript(BFinishEvaluate, this.GetType(), "error", "f_alert('error','提交失败，请重试!');", true);
                 return;
             }
-            //提交成功
-            LoadEvaluateUserData();
+            else
+            {
+                //提交成功
+                LoadEvaluateUserData();
+            }
         }
     }
 }
