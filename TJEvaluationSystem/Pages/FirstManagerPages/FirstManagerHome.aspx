@@ -35,6 +35,9 @@
               <div title="管理被考评者" class="l-scroll">
                 <ul id="tree2" style="margin-top:3px;"></ul>
              </div>
+             <div title="管理考评" class="l-scroll">
+                <ul id="tree4" style="margin-top:3px;"></ul>
+             </div>
               <div title="审核" class="l-scroll">
                 <ul id="tree3" style="margin-top:3px;"></ul>
              </div>

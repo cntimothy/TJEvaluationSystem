@@ -75,6 +75,7 @@
     <Content Include="Pages\FirstManagerPages\CheckPost.aspx" />
     <Content Include="Pages\FirstManagerPages\FirstManagerHome.aspx" />
     <Content Include="Pages\FirstManagerPages\MakeEvaluated.aspx" />
+    <Content Include="Pages\FirstManagerPages\ManageCurrentEvaluation.aspx" />
     <Content Include="Pages\FirstManagerPages\ManageSecond.aspx" />
     <Content Include="Pages\FirstManagerPages\ManageSecondFrame.aspx" />
     <Content Include="Pages\FirstManagerPages\ResetPassword.aspx" />
@@ -100,6 +101,7 @@
     <Content Include="Pages\SuperManagerPages\UploadUserInfo.aspx" />
     <Content Include="Script\Account\AccountManage.js" />
     <Content Include="Script\Account\ChangePassword.js" />
+    <Content Include="Script\FirstManager\ManageCurrentEvaluation.js" />
     <Content Include="Script\SuperManager\adduser.js" />
     <Content Include="Script\CommonData.js" />
     <Content Include="Script\CommonFunction.js" />
@@ -156,6 +158,7 @@
   <ItemGroup>
     <Compile Include="App_Code\Controller\BLL\AssessTableBLL.cs" />
     <Compile Include="App_Code\Controller\BLL\EvaluatedCollectTableBLL.cs" />
+    <Compile Include="App_Code\Controller\BLL\EvaluationHistoryBLL.cs" />
     <Compile Include="App_Code\Controller\BLL\EvaluatorBLL.cs" />
     <Compile Include="App_Code\Controller\BLL\EvaluatorTableBLL.cs" />
     <Compile Include="App_Code\Controller\BLL\MessageBLL.cs" />
@@ -170,6 +173,7 @@
     <Compile Include="App_Code\Controller\Role\Commondo.cs" />
     <Compile Include="App_Code\Model\AssessTable.cs" />
     <Compile Include="App_Code\Model\EvaluatedCollectTable.cs" />
+    <Compile Include="App_Code\Model\EvaluationHistory.cs" />
     <Compile Include="App_Code\Model\Evaluator.cs" />
     <Compile Include="App_Code\Model\EvaluatorTable.cs" />
     <Compile Include="App_Code\Model\Message.cs" />
@@ -268,6 +272,13 @@
     </Compile>
     <Compile Include="Pages\FirstManagerPages\MakeEvaluated.aspx.designer.cs">
       <DependentUpon>MakeEvaluated.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\ManageCurrentEvaluation.aspx.cs">
+      <DependentUpon>ManageCurrentEvaluation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\ManageCurrentEvaluation.aspx.designer.cs">
+      <DependentUpon>ManageCurrentEvaluation.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\FirstManagerPages\ManageSecond.aspx.cs">
       <DependentUpon>ManageSecond.aspx</DependentUpon>

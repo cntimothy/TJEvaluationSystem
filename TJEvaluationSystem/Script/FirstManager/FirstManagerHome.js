@@ -15,10 +15,10 @@ var indexdata3 =
         { url: "CheckAssess.aspx", text: "审核考评表" },
         { url: "CheckEvaluator.aspx", text: "审核考评人名单" }
 ];
-//var indexdata4 =
-//[
-//        { url: "ReportBuilder.aspx", text: "报表管理" }
-//];
+var indexdata4 =
+[
+        { url: "ManageCurrentEvaluation.aspx", text: "管理当前考评" }
+];
 
 
 var tab= null;
@@ -93,22 +93,22 @@ $(function () {
         }
     });
 
-//    $("#tree4").ligerTree({
-//        data: indexdata4,
-//        checkbox: false,
-//        slide: false,
-//        nodeWidth: 120,
-//        attribute: ['nodename', 'url'],
-//        onSelect: function (node) {
-//            if (!node.data.url) return;
-//            var tabid = $(node.target).attr("tabid");
-//            if (!tabid) {
-//                tabid = new Date().getTime();
-//                $(node.target).attr("tabid", tabid)
-//            }
-//            f_addTab(tabid, node.data.text, node.data.url);
-//        }
-//    });
+    $("#tree4").ligerTree({
+        data: indexdata4,
+        checkbox: false,
+        slide: false,
+        nodeWidth: 120,
+        attribute: ['nodename', 'url'],
+        onSelect: function (node) {
+            if (!node.data.url) return;
+            var tabid = $(node.target).attr("tabid");
+            if (!tabid) {
+                tabid = new Date().getTime();
+                $(node.target).attr("tabid", tabid)
+            }
+            f_addTab(tabid, node.data.text, node.data.url);
+        }
+    });
 
     tab = $("#framecenter").ligerGetTabManager();
     accordion = $("#accordion1").ligerGetAccordionManager();
