@@ -17,6 +17,28 @@ namespace BLL
         public EvaluatedCollectTableBLL()
         { }
         static readonly SQLDatabase db = new SQLDatabase();
+
+        static public bool CountEvaluationResult(string id)
+        {
+            if (id == "")
+                return false;
+            //获取考核结果
+            List<EvaluatorTable> ets = new List<EvaluatorTable>();
+            string e = "";
+            if (!EvaluatorTableBLL.Select(id, ref ets, ref e))
+                return false;
+            if (ets.Count == 0)
+                return false;
+            EvaluatedCollectTable ect = new EvaluatedCollectTable();
+            ect.EctUserID = id;
+            ect.EctScore = 0;
+            for (int i = 0; i < ets.Count; i++)
+            {
+                ect.EctScore += ets[i].EtSum * ets[i].EtWeight;
+            }
+                return true;
+        }
+
         static public bool Insert(EvaluatedCollectTable[] ect, ref string e)
         {
              int count = ect.Length;

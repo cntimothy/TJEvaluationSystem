@@ -43,6 +43,25 @@ namespace BLL
             return Insert(eh,ref e);
         }
 
+        //统计考评结果
+        //成功返回true，失败返回false;
+        static public bool CountEvaluationResult()
+        {
+            //获取被考评名单
+            List<UserInfo> uis = new List<UserInfo>();
+            string e = "";
+            if (!UserInfoBLL.GetEvaluatedUser(ref uis, ref e, ""))
+                return false;
+            if (uis.Count == 0)
+                return false;
+
+            for (int i = 0; i < uis.Count; i++)
+            {
+                //统计每个被考评人结果
+            }
+            return true;
+        }
+
 
         public static bool Select(ref List<EvaluationHistory> ehs, ref string e, string sql)
         {

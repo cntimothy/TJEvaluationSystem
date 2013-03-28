@@ -163,7 +163,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                     else 
                     {
                         //转换成json字符串
-                        JsonData4.Value = ToJsonTest(content);
+                        JsonData4.Value = ToJsonTest(content.Replace("\n"," ").Replace("\r"," "));
                         return true;
                     }
                     
@@ -180,15 +180,15 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             json += "{ \"Rows\":[";
             string[] test = s.Split(new Char[] {'&'});
             string[] key = { "Title", "Content", "Request", "Point" };
-            for (int i = 0; i < test.Length-1; i++)
+            for (int i = 0; i < test.Length; i++)
             {
                 json += "{";
                 string[] test2 = test[i].Split(new Char[] { '$' });
-                for (int j = 0; j < test2.Length-1; j++)
+                for (int j = 0; j < test2.Length; j++)
                 {
                     string[] test3 = test2[j].Split(new Char[] { '*' });
 
-                    if (j < test2.Length - 2)
+                    if (j < test2.Length - 1)
                     {
                         json += "\"" + key[j] + "\":" + "\"" + test3[1] + "\",";
                     }
@@ -197,7 +197,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                         json += "\"" + key[j] + "\":" + "\"" + test3[1] + "\"";
                     }
                 }
-                if (i == test.Length - 2)
+                if (i == test.Length - 1)
                 {
                     json += "} ";
                 }
@@ -206,7 +206,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                     json += "}, ";
                 }
             }
-            json += "],\"Total\":" + "\"" + (test.Length-1).ToString() + "\"" + "}";
+            json += "],\"Total\":" + "\"" + (test.Length).ToString() + "\"" + "}";
             return json;
         }
 

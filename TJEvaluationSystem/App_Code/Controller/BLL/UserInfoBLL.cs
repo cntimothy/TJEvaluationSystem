@@ -19,6 +19,18 @@ namespace BLL
         { }
         static readonly SQLDatabase db = new SQLDatabase();
 
+        //获取被考评人名单
+        //uis:被考评人信息List;e:异常信息;dep:部门
+        //成功返回true,失败返回false
+        static public bool GetEvaluatedUser(ref List<UserInfo> uis, ref string e,string dep="")
+        {
+            string sql = "";    //sql语句
+            if(dep=="")
+                sql = "select * from tb_UserInfo where uiType like '____1%'";   //全部部门
+            else
+                sql = "select * from tb_UserInfo where uiType like '____1%' and uiDepartment='" + dep + "'";  
+            return Select(ref uis, ref e, sql);
+        }
         
          static public bool Insert(UserInfo[] model, ref string e)
          {
