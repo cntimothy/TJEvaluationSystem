@@ -14,7 +14,7 @@ namespace Model
         string etEvaluateID;
         int etAssessTableID;
         int etEvaluationID;
-        int etWeight;
+        string etRelation;
         float etKey;
         float etResponse;
         float etAbility;
@@ -46,10 +46,10 @@ namespace Model
             set { etEvaluationID = value; }
         }
 
-        public int EtWeight
+        public string EtRelation
         {
-            get { return etWeight; }
-            set { etWeight = value; }
+            get { return etRelation; }
+            set { etRelation = value; }
         }
 
         public float EtKey

@@ -37,14 +37,14 @@ namespace BLL
         {
                 
             string sql = "insert into tb_EvaluatorTable values("
-                                + "@etEvaluatedID,@etEvaluateID,@etAssessTableID,@etEvaluationID,@etWeight,@etKey,@etResponse,@etAbility,@etAttitude,@etVeto,@etSum)";
+                                + "@etEvaluatedID,@etEvaluateID,@etAssessTableID,@etEvaluationID,@etRelation,@etKey,@etResponse,@etAbility,@etAttitude,@etVeto,@etSum)";
             SqlParameter[] parameters =
             {
                 new SqlParameter("@etEvaluatedID", SqlDbType.VarChar,10),
                 new SqlParameter("@etEvaluateID",SqlDbType.VarChar,10),
                 new SqlParameter("@etAssessTableID", SqlDbType.Int,4),
                 new SqlParameter("@etEvaluationID", SqlDbType.Int,4),
-                new SqlParameter("@etWeight", SqlDbType.Int,4),
+                new SqlParameter("@etRelation", SqlDbType.VarChar,10),
                 new SqlParameter("@etKey",SqlDbType.Float),
                 new SqlParameter("@etResponse", SqlDbType.Float),
                 new SqlParameter("@etAbility", SqlDbType.Float),
@@ -57,7 +57,7 @@ namespace BLL
             parameters[1].Value = model.EtEvaluateID;
             parameters[2].Value = model.EtAssessTableID;
             parameters[3].Value = model.EtEvaluationID;
-            parameters[4].Value = model.EtWeight;
+            parameters[4].Value = model.EtRelation;
             parameters[5].Value = model.EtKey;
             parameters[6].Value = model.EtResponse;
             parameters[7].Value = model.EtAbility;
@@ -98,7 +98,7 @@ namespace BLL
                     et.EtEvaluateID = (string)table.Rows[i]["etEvaluateID"];
                     et.EtAssessTableID= (int)table.Rows[i]["etAssessTableID"];
                     et.EtEvaluationID = (int)table.Rows[i]["etEvaluationID"];
-                    et.EtWeight = (int)table.Rows[i]["etWeight"];
+                    et.EtRelation = (string)table.Rows[i]["etRelation"];
                     var test = table.Rows[i][4];
                     et.EtKey = (float)Convert.ToDouble(table.Rows[i]["etKey"]);
                     et.EtResponse = (float)Convert.ToDouble(table.Rows[i]["etResponse"]);
@@ -124,7 +124,7 @@ namespace BLL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("update tb_EvaluatorTable set ");
-            strSql.Append("etWeight=@etWeight,");
+            strSql.Append("etRelation=@etRelation,");
             strSql.Append("etKey=@etKey,");
             strSql.Append("etResponse=@etResponse,");
             strSql.Append("etAbility=@etAbility,");
@@ -136,7 +136,7 @@ namespace BLL
             {
                     new SqlParameter("@etEvaluatedID", SqlDbType.VarChar,10),
                     new SqlParameter("@etEvaluateID",SqlDbType.VarChar,10),
-                    new SqlParameter("@etWeight", SqlDbType.Int,4),
+                    new SqlParameter("@etRelation", SqlDbType.VarChar,10),
                     new SqlParameter("@etKey",SqlDbType.Float),
                     new SqlParameter("@etResponse", SqlDbType.Float),
                     new SqlParameter("@etAbility", SqlDbType.Float),
@@ -147,7 +147,7 @@ namespace BLL
                 };
             parameters[0].Value = model.EtEvaluatedID;
             parameters[1].Value = model.EtEvaluateID;
-            parameters[2].Value = model.EtWeight;
+            parameters[2].Value = model.EtRelation;
             parameters[3].Value = model.EtKey;
             parameters[4].Value = model.EtResponse;
             parameters[5].Value = model.EtAbility;

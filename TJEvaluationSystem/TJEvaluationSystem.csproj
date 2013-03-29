@@ -163,6 +163,7 @@
     <Compile Include="App_Code\Controller\BLL\EvaluatorTableBLL.cs" />
     <Compile Include="App_Code\Controller\BLL\MessageBLL.cs" />
     <Compile Include="App_Code\Controller\BLL\PostResponseBookBLL.cs" />
+    <Content Include="App_Code\Controller\BLL\RelationBLL.cs" />
     <Compile Include="App_Code\Controller\BLL\StanderLibBLL.cs" />
     <Compile Include="App_Code\Controller\BLL\UserBLL.cs" />
     <Compile Include="App_Code\Controller\BLL\UserInfoBLL.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="App_Code\Controller\DBUtility\SQLDatabase.cs" />
     <Compile Include="App_Code\Controller\Role\Commondo.cs" />
     <Compile Include="App_Code\Model\AssessTable.cs" />
+    <Content Include="App_Code\Model\Enum.cs" />
     <Compile Include="App_Code\Model\EvaluatedCollectTable.cs" />
     <Compile Include="App_Code\Model\EvaluationHistory.cs" />
     <Compile Include="App_Code\Model\Evaluator.cs" />

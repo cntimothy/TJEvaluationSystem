@@ -17,43 +17,87 @@ namespace BLL
         public EvaluatedCollectTableBLL()
         { }
         static readonly SQLDatabase db = new SQLDatabase();
-        static public bool Insert(EvaluatedCollectTable[] ect, ref string e)
+
+        //计算被考评人的考核结果
+        //id:被考评人id
+        //成功返回true,否则返回false
+        static public bool CountEvaluationResultByID(string id)
         {
-             int count = ect.Length;
-             for (int i = 0; i < count; i++)
-             {
-                 List<EvaluatedCollectTable> model = new List<EvaluatedCollectTable>();
-                 if (Select(ect[i].EctUserID, ref model, ref e))
-                 {
-                     e = "被考核者 " + ect[i].EctUserID + " 的个人考核汇总表已存在";
-                     return false;
-                 }
+            if (id == "")
+                return false;
+            string e = "";
+            //获取考核人总数
+            List <EvaluatorTable> ets =new List <EvaluatorTable>();
+            if(!EvaluatorTableBLL.Select(id,ref ets,ref e))
+                return false;
+            int nums=ets.Count;
+            //获取考核结果
+            DataTable tResult = new DataTable();
+            
+            string sql = "SELECT   etRelation, AVG(etSum) AS AVG FROM tb_EvaluatorTable WHERE (etEvaluatedID = '"+id+"') GROUP BY etRelation";
+            tResult = db.QueryDataTable(sql, ref e);
+            double sum=0; 
+            if (tResult != null && tResult.Rows.Count > 0)
+            {
+                int weight=0;
+                for (int i = 0; i < tResult.Rows.Count; i++)
+                {
+                    string relation=(string)tResult.Rows[i]["etRelation"];
+                    double avg=(double)tResult.Rows[i]["AVG"];
+                    if (tResult.Rows.Count==4)
+                        weight=RelationBLL.GetWeightByRelation(relation,false);
+                    else
+                        weight=RelationBLL.GetWeightByRelation(relation,true);
+                    sum+=avg*weight;
+                }
+            }
+            else 
+                return false;
 
-                 string sql = "insert into tb_EvaluatedCollectTable("
-                                   + "ectUserID,ectScore,ectResult,ectEvaluatorNum,ectPs)"
-                                   + " values(@ectUserID,@ectScore,@ectResult,@ectEvaluatorNum,@ectPs)";
-                 SqlParameter[] parameters =
-                 {
-                     new SqlParameter("@ectUserID", SqlDbType.VarChar,10),
-                     new SqlParameter("@ectScore", SqlDbType.Float),
-                     new SqlParameter("@ectResult", SqlDbType.Float),
-                     new SqlParameter("@ectEvaluatorNum", SqlDbType.Int,4),
-                     new SqlParameter("@ectPs", SqlDbType.NVarChar,int.MaxValue)
-                 };
-                 parameters[0].Value = ect[i].EctUserID;
-                 parameters[1].Value = ect[i].EctScore;
-                 parameters[2].Value = ect[i].EctResult;
-                 parameters[3].Value = ect[i].EctEvaluatorNum;
-                 parameters[4].Value = ect[i].EctPs;
+            EvaluatedCollectTable ect = new EvaluatedCollectTable();
+            ect.EctUserID = id;
+            ect.EctScore = sum;
+            ect.EctResult = sum;
+            ect.EctEvaluatorNum = nums;
+            ect.EctPs = "";
+            if (!Insert(ect, ref e))
+                return false;
+            return true;
+        }
 
-                 string exception = db.InsertExec(sql, parameters);
-                 if (exception != "" && exception != null)
-                 {
-                     e = exception;
-                     return false;
-                 }
-             }
-             return true;
+        static public bool Insert(EvaluatedCollectTable ect, ref string e)
+        {
+            List<EvaluatedCollectTable> model = new List<EvaluatedCollectTable>();
+            if (Select(ect.EctUserID, ref model, ref e))
+            {
+                e = "被考核者 " + ect[i].EctUserID + " 的个人考核汇总表已存在";
+                return false;
+            }
+
+            string sql = "insert into tb_EvaluatedCollectTable("
+                            + "ectUserID,ectScore,ectResult,ectEvaluatorNum,ectPs)"
+                            + " values(@ectUserID,@ectScore,@ectResult,@ectEvaluatorNum,@ectPs)";
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@ectUserID", SqlDbType.VarChar,10),
+                new SqlParameter("@ectScore", SqlDbType.Float),
+                new SqlParameter("@ectResult", SqlDbType.Float),
+                new SqlParameter("@ectEvaluatorNum", SqlDbType.Int,4),
+                new SqlParameter("@ectPs", SqlDbType.NVarChar,int.MaxValue)
+            };
+            parameters[0].Value = ect.EctUserID;
+            parameters[1].Value = ect.EctScore;
+            parameters[2].Value = ect.EctResult;
+            parameters[3].Value = ect.EctEvaluatorNum;
+            parameters[4].Value = ect.EctPs;
+
+            string exception = db.InsertExec(sql, parameters);
+            if (exception != "" && exception != null)
+            {
+                e = exception;
+                return false;
+            }
+            return true;
         }
 
         static public bool Select(string ectUserID, ref List<EvaluatedCollectTable> model, ref string e)

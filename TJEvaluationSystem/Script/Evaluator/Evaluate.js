@@ -340,17 +340,11 @@ function FinishEvaluate() {
         var sum = sum / 100;
         if (vetoScore == -1)
             sum = 0;
-        var weight = 0;
-        if (EvaluateData.Relation == "领导")
-            weight = 60;
-        else if (EvaluateData.Relation == "同事")
-            weight = 20;
-        else
-            weight = 20;
+        //Create json object.
         var data = [{ EtEvaluatedID: EvaluateData.EvaluatedID,
             EtEvaluateID: EvaluateData.UiID,
             EtAssessTableID: Evaluatetable.AtID,
-            EtWeight: weight,
+            EtRelation: EvaluateData.Relation,
             EtKey: keyScore,
             EtResponse: responseScore,
             EtAbility: abilityScore,
