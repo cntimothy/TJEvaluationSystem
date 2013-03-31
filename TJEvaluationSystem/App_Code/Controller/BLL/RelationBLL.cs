@@ -2,7 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using System.Data;
+using System.Data.SqlClient;
+using DBUtility;
+using Model;
+using System.Text;
+/// <summary>
+///RelationBLL 的摘要说明
+/// </summary>
 namespace BLL
 {
     public class RelationBLL
