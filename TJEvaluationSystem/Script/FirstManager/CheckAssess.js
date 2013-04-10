@@ -48,7 +48,7 @@ function ShowAllTables() {
 //        else if (rowdata.AtPass == 1) {
 //            h += "<a href='javascript:SetPassedFalse(" + rowindex + ")'>审核未通过</a> ";
 //        }
-        h += "<a href='javascript:ShowDetail(" + rowindex + ")'>查看</a> ";
+        h += "<a href='javascript:ShowDetail(" + rowindex + ", " + rowdata.AtPass + ")'>查看</a> ";
         return h;
     }
     }],
@@ -75,6 +75,7 @@ function SetPassedTrue() {
         document.getElementById("JsonData2").value = "true";
         document.getElementById("JsonData3").value = rowindex;
         document.getElementById("BSetPassed").click();
+        location = location;
     }
 }
 
@@ -88,6 +89,7 @@ function SetPassedFalse() {
         document.getElementById("JsonData2").value = "false";
         document.getElementById("JsonData3").value = rowindex;
         document.getElementById("BSetPassed").click();
+        location = location;
     }
 }
 
@@ -111,7 +113,15 @@ function SetPassedDone() {
 }
 
 //显示考核表
-function ShowDetail(rowindex) {
+function ShowDetail(rowindex, atPass) {
+    if (atPass == 0) {
+        document.getElementById("pass_button").style.display = "";
+    }
+    else {
+        document.getElementById("sendback_button").style.display = "";
+    }
+    document.getElementById("dao_button").style.display = "";
+
     document.getElementById("RowIndex").value = rowindex;
     var tableData = Manager.getSelectedRow(rowindex);    //取得数据
     if (tableData == null)

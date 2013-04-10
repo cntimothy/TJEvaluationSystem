@@ -206,11 +206,6 @@ namespace BLL
             parameters[2].Value = model.Relation;
             parameters[3].Value = model.Pass;
 
-            if (e != "" && e != null)
-            {
-                return false;
-            }
-
             //查找Evaluator表，如果考评人姓名等于UiID只有一人，就更新userinfo表和user表
             List<Evaluator> evaluators = new List<Evaluator>();
             if (EvaluatorBLL.Select1(ref evaluators, model.UiID, 1, ref e))
@@ -229,31 +224,17 @@ namespace BLL
                 //更新User表，
                 if (model.Pass == 0)
                 {
-                    //List<User> users = new List<User>();
-                    //if (UserBLL.Select(model.UiID, ref users, ref e))
-                    //{
-                    //    User user = new Model.User();
-                    //    user = users.ElementAt(0);
-                    //    user.UType = user.UType.Remove(3, 1).Insert(3, "0");
-
-                    //    if (!UserBLL.Update(user, ref e))
-                    //    {
-                    //        return false;
-                    //    }
-                    //}
                     string UID = model.UiID;
                     UserBLL.Delete(UID, ref e);
                 }
-
-                //更新Evaluator表
-                e = db.QueryExec(strSql.ToString(), parameters);
-                if (e != "" && e != null)
-                {
-                    return false;
-                }
-                else return true;
             }
-            return false;
+            //更新Evaluator表
+            e = db.QueryExec(strSql.ToString(), parameters);
+            if (e != "" && e != null)
+            {
+                return false;
+            }
+            return true;
         }
 
         //更新考评人名单

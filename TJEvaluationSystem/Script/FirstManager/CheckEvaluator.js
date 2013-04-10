@@ -14,6 +14,7 @@ function sendback() {
     if (window.confirm("确认退回？")) {
         document.getElementById("SendBack").click();
     }
+    location = location;
 }
 
 function search() 
@@ -92,7 +93,7 @@ function Check(rowid)
 function showList1()
 {
     load_userinfo();
-    
+
     var s3 = document.getElementById("JsonList").value;
     var UsersData3 = JSON2.parse(s3);
     List = $("#list").ligerGrid({
@@ -106,6 +107,14 @@ function showList1()
         width: '96%'
     });
     $("#box2").css("display", "block");
+    if (document.getElementById("pass").innerHTML == "已通过审核") {
+        document.getElementById("sendback_button").style.display = "";
+    }
+    else if (document.getElementById("pass").innerHTML == "未通过审核") {
+        document.getElementById("pass_button").style.display = "";
+    }
+    document.getElementById("dao_button").style.display = "";
+    $("#list").ligerGetGridManager().loadData()
 }
 
 function pass()
@@ -113,10 +122,10 @@ function pass()
      if (confirm('确认通过？')) 
      {
          document.getElementById("PassList").click();
+         location = location;
      }
  }
 
  function dao() {
      document.getElementById("Dao").click();
-
  }

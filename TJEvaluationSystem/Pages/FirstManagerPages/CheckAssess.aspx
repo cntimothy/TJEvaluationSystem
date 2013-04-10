@@ -19,12 +19,10 @@
     <script src="../../Script/MessageBox.js" type="text/javascript"></script>
     <script src="../../Script/CommonData.js" type="text/javascript"></script>
 </head>
-<body style="padding:5px;">
+<body>
     <form id="form1" runat="server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server">
-    </asp:ScriptManager>
+    <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <div>
-        <div class="l-loading" style="display:block" id="pageloading"></div> 
         <div class="ToolBar">
          <table style="position:relative;left:20px;height:100%">
                 <tr> 
@@ -42,11 +40,11 @@
                    <td style="width:10px;"></td>
                    <td style="padding:1px;"><input type="button" value="获取考评表" id="search_button"  onclick="search()" class="l-button" style="width:150px;height:25px;font-size:15px"/></td>
                    <td style="width:10px;"></td>
-                   <td style="padding:1px;"><input type="button" value="通过" id="pass_button"  onclick="SetPassedTrue()" class="l-button" style="width:100px;height:25px;font-size:15px"/> </td>
+                   <td style="padding:1px;"><input type="button" value="通过" id="pass_button"  onclick="SetPassedTrue()" class="l-button" style="width:100px;height:25px;font-size:15px;display:none"/> </td>
                     <td style="width:10px;"></td>
-                    <td style="padding:1px;"><input type="button" value="退回" id="sendback_button"  onclick="SetPassedFalse()" class="l-button" style="width:100px;height:25px;font-size:15px"/> </td>
+                    <td style="padding:1px;"><input type="button" value="退回" id="sendback_button"  onclick="SetPassedFalse()" class="l-button" style="width:100px;height:25px;font-size:15px;display:none"/> </td>
                     <td style="width:10px;"></td>
-                   <td style="padding:1px;"><input type="button" value="导出excel" id="dao_button"  onclick="dao()" class="l-button" style="width:100px;height:25px;font-size:15px;"/> </td>
+                   <td style="padding:1px;"><input type="button" value="导出excel" id="dao_button"  onclick="dao()" class="l-button" style="width:100px;height:25px;font-size:15px;display:none"/> </td>
                 </tr>
          </table>
      </div>
