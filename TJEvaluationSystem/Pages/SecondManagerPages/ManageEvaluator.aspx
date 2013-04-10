@@ -30,7 +30,7 @@
                           <td style="width:10px;"></td>
                           <td style="padding:1px;"><input type="button" value="获取被考评人名单" id="search_button"  onclick="search()" class="l-button" style="width:130px;height:25px;font-size:15px"/></td>
                           <td style="width:10px;"></td>
-                          <td style="padding:1px;"><input type="button" value="提交" id="submit_button"  onclick="submitList()"  class="l-button" style="width:100px;height:25px;font-size:15px"/> </td>                  
+                          <td style="padding:1px;"><input type="button" value="提交" id="submit_button"  onclick="submitList()"  class="l-button" style="width:100px;height:25px;font-size:15px;display:none"/> </td>                  
                   </tr>
            </table>    
        </div>
@@ -136,6 +136,9 @@
       </span>   
       <span>
             <asp:RadioButton GroupName="Radio" ID="RadioButton3" runat="server" Text="下属" />
+       </span>
+       <span>
+            <asp:RadioButton GroupName="Radio" ID="RadioButton4" runat="server" Text="客户" />
        </span>
       </div>  
      <div id="evaluator" style="margin:0 auto" ></div> 

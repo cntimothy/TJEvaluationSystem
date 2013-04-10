@@ -30,7 +30,7 @@
             <td style="width:10px;"></td>
             <td style="padding:1px;"><input type="button" value="获取被考评人名单" id="search_button"  onclick="search()" class="l-button" style="width:150px;height:25px;font-size:15px"/></td>
             <td style="width:10px;"></td>
-             <td style="padding:1px;"><input type="button" value="提交" id="submit_button"  onclick="submitpost()" class="l-button" style="width:100px;height:25px;font-size:15px"/> </td>                  
+             <td style="padding:1px;"><input type="button" value="提交" id="submit_button"  onclick="submitpost()" class="l-button" style="width:100px;height:25px;font-size:15px;display:none" /> </td>                  
      </tr>
      </table>
           
@@ -195,7 +195,8 @@
                      <asp:TextBox ID="prbWorkOutline" runat="server"  CssClass="textbox1"  TextMode="MultiLine"></asp:TextBox>
                      <br />
                      <asp:Label ID="Label17" runat="server" Text="2.工作内容及工作要求："  CssClass="label1"></asp:Label>
-                     <input type="button" id="Add" value=" + " onclick="addItem()" />
+                     <input type="button" id="Add" value="新增" onclick="addItem()" />
+                     <input type="button" id="Del" value="删除" onclick="delItem()" />
                      <br />
                      
                      <div id="WorkContentRequest">

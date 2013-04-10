@@ -44,8 +44,8 @@ function addItem() {
     var parentDiv = document.getElementById("WorkContentRequest");
     var childDiv = document.createElement("div");
     var count = parentDiv.childNodes.length;
-    childDiv.id = "WorkContentRequestChild" + count;
-    childDiv.innerHTML = "<span class=\"label1\">标题</span><br/>" +
+    childDiv.id = "WorkContentRequestChild" + count; 
+    childDiv.innerHTML = "<span class=\"label1\">" + count + ")标题</span><br/>" +
                         "<input type=\"text\" id=\"Title" + count + "\" class=\"textbox3\"><br/>" +
                         "<span class=\"label1\">具体内容</span><br/>"+
                         "<textarea id=\"Content" + count + "\" class=\"textbox1\" ></textarea><br/>" +
@@ -54,6 +54,14 @@ function addItem() {
                         "<span class=\"label1\">考核要点</span><br/>" +
                         "<textarea id=\"CheckPoint" + count + "\" class=\"textbox1\" ></textarea><br/>";
     parentDiv.appendChild(childDiv);
+}
+
+function delItem() {
+    var parentDiv = document.getElementById("WorkContentRequest");
+    if (window.confirm("确定删除？")) {
+        var length = parentDiv.childNodes.length;
+        parentDiv.removeChild(parentDiv.childNodes[length - 1]);
+    }
 }
 
 function load_userinfo()
@@ -146,8 +154,7 @@ function EditPost() {
     }
 
     var s = document.getElementById("Passed").value;
-    if (s == "1") 
-    {
+    if (s == "1") {
         document.getElementById("prbEmployer").disabled = true;
         document.getElementById("prbLaborUnit").disabled = true;
         document.getElementById("prbLaborDep").disabled = true;
@@ -185,8 +192,8 @@ function EditPost() {
             document.getElementById(checkPointID).disabled = true;
         }
     }
-    else 
-    {
+    else {
+        document.getElementById("submit_button").style.display = ""; //让提交按钮可见
         document.getElementById("prbEmployer").disabled = false;
         document.getElementById("prbLaborUnit").disabled = false;
         document.getElementById("prbLaborDep").disabled = false;

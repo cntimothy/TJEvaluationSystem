@@ -86,7 +86,6 @@
     <Content Include="Pages\MessagePages\New.aspx" />
     <Content Include="Pages\MessagePages\OutBox.aspx" />
     <Content Include="Pages\MessagePages\ShowMessages.aspx" />
-    <Content Include="Pages\SecondManagerPages\MakeEvaluatorTable.aspx" />
     <Content Include="Pages\SecondManagerPages\MakePostBook.aspx" />
     <Content Include="Pages\SecondManagerPages\ManageEvaluator.aspx" />
     <Content Include="Pages\SecondManagerPages\ManageEvaluatorTable.aspx" />
@@ -354,13 +353,6 @@
     </Compile>
     <Compile Include="Pages\MessagePages\ShowMessages.aspx.designer.cs">
       <DependentUpon>ShowMessages.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\SecondManagerPages\MakeEvaluatorTable.aspx.cs">
-      <DependentUpon>MakeEvaluatorTable.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\SecondManagerPages\MakeEvaluatorTable.aspx.designer.cs">
-      <DependentUpon>MakeEvaluatorTable.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\SecondManagerPages\MakePostBook.aspx.cs">
       <DependentUpon>MakePostBook.aspx</DependentUpon>

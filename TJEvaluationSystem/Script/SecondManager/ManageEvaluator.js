@@ -87,7 +87,6 @@ function Make(rowid)
     if (rowdata == null)
         return;
 
-    //document.getElementById("submit_button").disabled = false;
     document.getElementById("UserID").value = rowdata.UiID;
     document.getElementById("SearchUser").click();
 }
@@ -127,7 +126,9 @@ function show_evaluator()
         width: '96%'
     });
     $("#box").css("display", "block");
-
+    document.getElementById("submit_button").style.display = "";
+    var manager = $("#evaluator").ligerGetGridManager();
+    manager.loadData();
 }
 
 function submitList() {
@@ -174,6 +175,8 @@ function showList1() {
         width: '96%'
     });
     $("#box2").css("display", "block");
+    var manager = $("#list").ligerGetGridManager();
+    manager.loadData();
 }
 
 function showList2() {
@@ -201,6 +204,8 @@ function showList2() {
     });
 
     $("#box2").css("display", "block");
+    var manager = $("#list").ligerGetGridManager();
+    manager.loadData();
 }
 
 
