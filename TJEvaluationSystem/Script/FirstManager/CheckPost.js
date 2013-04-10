@@ -105,5 +105,11 @@ function Check(rowid)
 function EditPost() 
 {
     $("#name").css("display", "none");
-    $("#box").css("display", "block");  
+    $("#box").css("display", "block");
+    if (document.getElementById("Passed").value == 1) {
+        document.getElementById("sendback_button").style.display = "";
+    } else if (document.getElementById("Passed").value == 0) {
+        document.getElementById("pass_button").style.display = "";
+    }
+    document.getElementById("dao_button").style.display = "";
 }
