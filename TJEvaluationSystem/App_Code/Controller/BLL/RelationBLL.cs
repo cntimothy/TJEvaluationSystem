@@ -21,47 +21,48 @@ namespace BLL
             {
                 return 0;
             }
+            int returnvalue = 0;
             if (type==true)
             {
                 //
                 switch (r)
                 {
                     case "领导":
-                        return 65;
+                        returnvalue = 65;
                         break;
                     case "同事":
-                        return 15;
+                        returnvalue = 15;
                         break;
                     case "客户":
-                        return 20;
+                        returnvalue = 20;
                         break;
                     default:
-                        return 0;
+                        //
                         break;
                 }
-
             }
             else
             {
                 switch (r)
                 {
                     case "领导":
-                        return 60;
+                        returnvalue = 60;
                         break;
                     case "同事":
-                        return 10;
+                        returnvalue = 10;
                         break;
                     case "客户":
-                        return 25;
+                        returnvalue = 25;
                         break;
                     case "下属":
-                        return 15;
+                        returnvalue = 15;
                         break;
                     default:
-                        return 0;
+                        //
                         break;
                 }
             }
+            return returnvalue;
         }
     }
 }

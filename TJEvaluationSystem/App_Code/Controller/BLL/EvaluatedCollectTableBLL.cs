@@ -70,7 +70,7 @@ namespace BLL
             List<EvaluatedCollectTable> model = new List<EvaluatedCollectTable>();
             if (Select(ect.EctUserID, ref model, ref e))
             {
-                e = "被考核者 " + ect[i].EctUserID + " 的个人考核汇总表已存在";
+                e = "被考核者 " + ect.EctUserID + " 的个人考核汇总表已存在";
                 return false;
             }
 

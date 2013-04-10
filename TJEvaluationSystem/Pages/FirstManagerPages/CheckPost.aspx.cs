@@ -6,7 +6,6 @@ using Model;
 using DBUtility;
 using System.Data;
 using System.IO;
-using DBUtility;
 
 namespace TJEvaluationSystem.Pages.FirstManagerPages
 {
