@@ -345,12 +345,19 @@ function FinishEvaluate() {
             EtEvaluateID: EvaluateData.UiID,
             EtAssessTableID: Evaluatetable.AtID,
             EtRelation: EvaluateData.Relation,
-            EtKey: keyScore,
-            EtResponse: responseScore,
-            EtAbility: abilityScore,
-            EtAttitude: attitudeScore,
-            EtVeto: vetoScore,
-            EtSum: sum
+            EtEvaluationID:0,
+//            EtKey: keyScore,
+//            EtResponse: responseScore,
+//            EtAbility: abilityScore,
+//            EtAttitude: attitudeScore,
+//            EtVeto: vetoScore,
+//            EtSum: sum
+                EtKey: 9.9,
+            EtResponse: 9.9,
+            EtAbility: 9.9,
+            EtAttitude: 9.9,
+            EtVeto: 9.9,
+            EtSum: 9.9
         }];
         document.getElementById("JsonData").value = JSON.stringify(data);
         document.getElementById("BFinishEvaluate").click();

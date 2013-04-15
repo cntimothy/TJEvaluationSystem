@@ -61,7 +61,7 @@ namespace TJEvaluationSystem.Pages.EvaluatorPages
             var json = jser.Serialize(evaluators);
             json = "{\"Rows\":" + json + ",\"Total\":" + evaluators.Count + "}";
             JsonData.Value = json;
-            ClientScript.RegisterStartupScript(this.GetType(), "fun", "ShowAllEavluateUsers();", true);
+            ScriptManager.RegisterStartupScript(BFinishEvaluate,this.GetType(), "fun", "ShowAllEavluateUsers();", true);
         }
 
         //获取岗位责任书和考核表数据
@@ -118,16 +118,15 @@ namespace TJEvaluationSystem.Pages.EvaluatorPages
                 ScriptManager.RegisterStartupScript(BFinishEvaluate, this.GetType(), "error", "f_alert('error','提交失败，请重试');", true);
                 return;
             }
-
-            EvaluatorTable et= JSON.ScriptDeserialize<EvaluatorTable>(data);  //将Json字符串转换为对象
-            if (et==null)
+            EvaluatorTable[] et= JSON.ScriptDeserialize<EvaluatorTable[]>(data);  //将Json字符串转换为对象
+            if (et.Length==0)
             {
                 ScriptManager.RegisterStartupScript(BFinishEvaluate, this.GetType(), "error", "f_alert('error','提交失败，请重试!');", true);
                 return;
             }
-            et.EtEvaluationID = EvaluationID;
+            et[0].EtEvaluationID = EvaluationID;
             string message="";
-            if (!EvaluatorTableBLL.SubmitEvaluateResult(et))
+            if (!EvaluatorTableBLL.SubmitEvaluateResult(et[0]))
             {
                 ScriptManager.RegisterStartupScript(BFinishEvaluate, this.GetType(), "error", "f_alert('error','提交失败，请重试!');", true);
                 return;
