@@ -17,7 +17,8 @@ var indexdata3 =
 ];
 var indexdata4 =
 [
-        { url: "ManageCurrentEvaluation.aspx", text: "管理当前考评" }
+        { url: "ManageCurrentEvaluation.aspx", text: "管理当前考评" },
+        { url: "EvaluationResult.aspx", text: "考评结果" }
 ];
 
 

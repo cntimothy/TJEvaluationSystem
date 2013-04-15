@@ -73,6 +73,7 @@
     <Content Include="Pages\FirstManagerPages\CheckAssess.aspx" />
     <Content Include="Pages\FirstManagerPages\CheckEvaluator.aspx" />
     <Content Include="Pages\FirstManagerPages\CheckPost.aspx" />
+    <Content Include="Pages\FirstManagerPages\EvaluationResult.aspx" />
     <Content Include="Pages\FirstManagerPages\FirstManagerHome.aspx" />
     <Content Include="Pages\FirstManagerPages\MakeEvaluated.aspx" />
     <Content Include="Pages\FirstManagerPages\ManageCurrentEvaluation.aspx" />
@@ -100,6 +101,7 @@
     <Content Include="Pages\SuperManagerPages\UploadUserInfo.aspx" />
     <Content Include="Script\Account\AccountManage.js" />
     <Content Include="Script\Account\ChangePassword.js" />
+    <Content Include="Script\FirstManager\EvaluationResult.js" />
     <Content Include="Script\FirstManager\ManageCurrentEvaluation.js" />
     <Content Include="Script\SuperManager\adduser.js" />
     <Content Include="Script\CommonData.js" />
@@ -260,6 +262,13 @@
     </Compile>
     <Compile Include="Pages\FirstManagerPages\CheckPost.aspx.designer.cs">
       <DependentUpon>CheckPost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\EvaluationResult.aspx.cs">
+      <DependentUpon>EvaluationResult.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\EvaluationResult.aspx.designer.cs">
+      <DependentUpon>EvaluationResult.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\FirstManagerPages\FirstManagerHome.aspx.cs">
       <DependentUpon>FirstManagerHome.aspx</DependentUpon>
