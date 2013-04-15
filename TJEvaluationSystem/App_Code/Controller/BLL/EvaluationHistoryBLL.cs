@@ -23,7 +23,7 @@ namespace BLL
             List<EvaluationHistory> ehs = new List<EvaluationHistory>();
             string e = "";
             string sql = "select * from tb_EvaluationHistory where ehStatus='True'";
-            if (Select(ref ehs, ref e, sql))
+            if (!Select(ref ehs, ref e, sql))
                 return -1;
             if (ehs.Count == 0)
                 return -1;

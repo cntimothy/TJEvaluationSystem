@@ -40,65 +40,90 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             table = userinfo.ListToDataTable();
             return table;
         }
-        protected void Submit_Click(object sender, EventArgs e)
+        protected void BGetEvaluatedList_Click(object sender, EventArgs e)
         {
             DataTable table = new DataTable();
             table = searchSql();
             if (table.Rows.Count <= 0)
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "", "alert('被考评者名单尚未制定！')", true);
+                ScriptManager.RegisterStartupScript(BGetEvaluatedList,this.GetType(), "", "alert('该部门不存在被考评者')", true);
                 return;
             }
             string json = JSON.DataTableToJson(table);
             JsonData.Value = json;
 
-            ClientScript.RegisterStartupScript(this.GetType(), "", "load_userinfo()", true);
+            ScriptManager.RegisterStartupScript(BGetEvaluatedList, this.GetType(), "", "load_userinfo()", true);
             return;
 
         }
 
-        protected void Export_Click(object sender, EventArgs e)
+        //获取详细考评结果
+        protected void BGetDetailResult_Click(object sender, EventArgs e)
         {
-            DataTable table = new DataTable();
-            table = searchSql();
-            table.Columns.Remove("UiType");
-            string filename = fname;
-            string path = Server.MapPath("");
-            path = path + "\\temp.xls";
-            JSON.dataTableToCsv(table, path);
+            string evaluatedID = JsonData.Value;
+            if (evaluatedID == null || evaluatedID == "")
+                return;
+            List<EvaluatorTable> ets = new List<EvaluatorTable>();
+            if (!EvaluatorTableBLL.Select(evaluatedID, ref ets, ref exception))
+            {
+                ScriptManager.RegisterStartupScript(BGetDetailResult, this.GetType(), "", "alert('获取数据失败，请重试！')", true);
+                return;
+            }
+            
+            //生成Json结构字符串
+            string json = "{ \"Rows\":[";
+            for (int i = 0; i < ets.Count; i++)
+            {
+                string id = ets[i].EtEvaluateID;
+                //获取考评人信息
+                List<UserInfo> uis = new List<UserInfo>();
+                if (!UserInfoBLL.Select(ref uis, id, ref exception) || uis.Count==0)
+                {
+                    ScriptManager.RegisterStartupScript(BGetDetailResult, this.GetType(), "", "alert('获取数据失败，请重试！')", true);
+                    return;
+                }
+                //考评者基本信息
+                json += "{";
+                json += "\"UiID\":" + "\"" + uis[0].UiID + "\",";
+                json += "\"UiName\":" + "\"" + uis[0].UiName + "\",";
+                json += "\"UiSex\":" + "\"" + uis[0].UiSex + "\",";
+                json += "\"UiIdentityNum\":" + "\"" + uis[0].UiIdentityNum + "\",";
+                json += "\"UiDepartment\":" + "\"" + uis[0].UiDepartment + "\",";
+                json += "\"UiTelephone\":" + "\"" + uis[0].UiTelephone + "\",";
+                json += "\"UiMobPhone\":" + "\"" + uis[0].UiMobPhone + "\",";
+                json += "\"UiAddress\":" + "\"" + uis[0].UiAddress + "\",";
+                json += "\"UiEmail\":" + "\"" + uis[0].UiEmail + "\",";
+                //考评结果
+                json += "\"EtRelation\":" + "\"" + ets[i].EtRelation + "\",";
+                json += "\"EtKey\":" + "\"" + ets[i].EtKey + "\",";
+                json += "\"EtResponse\":" + "\"" + ets[i].EtResponse + "\",";
+                json += "\"EtAbility\":" + "\"" + ets[i].EtAbility + "\",";
+                json += "\"EtAttitude\":" + "\"" + ets[i].EtAttitude + "\",";
+                json += "\"EtVeto\":" + "\"" + ets[i].EtVeto + "\",";
+                json += "\"EtSum\":" + "\"" + ets[i].EtSum + "\"";
 
-            Response.Clear();
-            Response.Buffer = true;
-            Response.Charset = "utf-8";
-            Response.AppendHeader("Content-Disposition", "attachment;filename=" + filename + ".xls");
-            Response.ContentEncoding = System.Text.Encoding.GetEncoding("utf-8");
+                if (i == ets.Count - 1)
+                {
+                    json += "} ";
+                }
+                else
+                {
+                    json += "}, ";
+                }
+            }
+            json += "],\"Total\":" + "\"" + ets.Count + "\"" + "}";
 
-            Response.ContentType = "application/ms-excel";
-            this.EnableViewState = false;
-            System.IO.StringWriter oStringWriter = new System.IO.StringWriter();
-            System.Web.UI.HtmlTextWriter oHtmlTextWriter = new System.Web.UI.HtmlTextWriter(oStringWriter);
-            oHtmlTextWriter.WriteLine(JsonData.Value);
-            Response.WriteFile(path);
-            Response.End();
-        }
-
-        protected void Delete_Click(object sender, EventArgs e)
-        {
-            exception = "";
-            List<UserInfo> userinfo = new List<UserInfo>();
-            userinfo = JSON.isEfect(UserID.Value);
-            UserInfo deleted = userinfo.ElementAt(0);
-
-            deleted.UiType = deleted.UiType.Remove(4, 1).Insert(4, "0");
-            UserInfoBLL.Update(deleted, ref exception);
-
-            DataTable table = new DataTable();
-            table = searchSql();
-            string json = JSON.DataTableToJson(table);
+            //显示结果
             JsonData.Value = json;
+            ScriptManager.RegisterStartupScript(BGetDetailResult, this.GetType(), "", "ShowDetailResult();", true);
+        }
 
-            ClientScript.RegisterStartupScript(this.GetType(), "", "load_userinfo()", true);
-            return;
+        //获取综合结果
+        protected void BGetResult_Click(object sender, EventArgs e)
+        {
+            string evaluatedID = JsonData.Value;
+            if (evaluatedID == null || evaluatedID == "")
+                return;
         }
     }
 }

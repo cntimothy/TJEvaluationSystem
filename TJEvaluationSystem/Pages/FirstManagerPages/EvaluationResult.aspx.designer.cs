@@ -94,13 +94,13 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages {
         protected global::System.Web.UI.WebControls.Label LDepartment;
         
         /// <summary>
-        /// LTelphone 控件。
+        /// LTelephone 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LTelphone;
+        protected global::System.Web.UI.WebControls.Label LTelephone;
         
         /// <summary>
         /// LPhone 控件。
@@ -139,6 +139,96 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages {
         protected global::System.Web.UI.WebControls.Label LZipcode;
         
         /// <summary>
+        /// LEID 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LEID;
+        
+        /// <summary>
+        /// LEName 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LEName;
+        
+        /// <summary>
+        /// LESex 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LESex;
+        
+        /// <summary>
+        /// LEIdentityNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LEIdentityNum;
+        
+        /// <summary>
+        /// LEDepartment 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LEDepartment;
+        
+        /// <summary>
+        /// LETelephone 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LETelephone;
+        
+        /// <summary>
+        /// LEPhone 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LEPhone;
+        
+        /// <summary>
+        /// LEEmail 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LEEmail;
+        
+        /// <summary>
+        /// LEAddress 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LEAddress;
+        
+        /// <summary>
+        /// LEZipcode 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LEZipcode;
+        
+        /// <summary>
         /// JsonData 控件。
         /// </summary>
         /// <remarks>
@@ -148,31 +238,13 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages {
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden JsonData;
         
         /// <summary>
-        /// Submit 控件。
+        /// BGetEvaluatedList 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Submit;
-        
-        /// <summary>
-        /// Button1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
-        
-        /// <summary>
-        /// Button2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button2;
+        protected global::System.Web.UI.WebControls.Button BGetEvaluatedList;
         
         /// <summary>
         /// UserID 控件。
@@ -182,5 +254,23 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden UserID;
+        
+        /// <summary>
+        /// BGetDetailResult 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BGetDetailResult;
+        
+        /// <summary>
+        /// BGetResult 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BGetResult;
     }
 }

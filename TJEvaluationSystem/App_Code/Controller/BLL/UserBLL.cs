@@ -41,7 +41,7 @@ namespace BLL
                  }
 
                  parameters[0].Value = userinfo.ElementAt(0).UiID;
-                 parameters[1].Value = userinfo.ElementAt(0).UiIdentityNum;
+                 parameters[1].Value = userinfo.ElementAt(0).UiIdentityNum.Substring(11, 6);
                  parameters[2].Value = "00010";
 
                  string exception = db.InsertExec(sql, parameters);
