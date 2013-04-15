@@ -69,13 +69,27 @@ namespace TJEvaluationSystem.Pages.SuperManagerPages
 
                 DataTable table = new DataTable();
                 table = ds.Tables["table1"];
+                //删除空白行
                 foreach (DataRow dr in table.Rows)
                 {
-                    if (dr["UiID"] == null)
+                    //if (dr["UiID"] == null)
+                    if(dr.IsNull("UiId"))
                     {
                         table.Rows.Remove(dr);
                     }
                 }
+                //为空白栏目填入内容
+                //foreach (DataRow dr in table.Rows)
+                //{
+                //    foreach (DataColumn dc in table.Columns)
+                //    {
+                //        if (dr.IsNull(dc))
+                //        {
+                //            dr[dc] = "-";
+                //        }
+                //    }
+                //}
+                //增加UiType栏
                 table.Columns.Add("UiType");
                 foreach (DataRow dr in table.Rows)
                 {

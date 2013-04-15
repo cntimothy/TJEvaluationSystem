@@ -53,9 +53,9 @@ function ShowUserInfo(){
             return h;
         }
          }],
-        usePager: true,pageSize:10 ,
+        usePager: true,pageSize:20,
         data: UsersData,
-        height: '100%',
+        width: '100%',
         onSelectRow: function (rowdata, rowindex) {
             $("#txtrowindex").val(rowindex);
         }

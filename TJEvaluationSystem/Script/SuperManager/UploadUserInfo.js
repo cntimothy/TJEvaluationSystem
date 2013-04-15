@@ -13,7 +13,7 @@ function showUserData(data) {
     document.all("ExcelDate").style.display = 'block';
     manager = $("#maingrid").ligerGrid({
         columns: [
-            { display: '用户名', name: 'UiID', width: 50, align: 'center', editor: { type: 'text'} },
+            { display: '用户名', name: 'UiID', width: 100, align: 'center', editor: { type: 'text'} },
             { display: '姓名', name: 'UiName', width: 60, align: 'center', editor: { type: 'text'} },
             { display: '性别', name: 'UiSex', width: 50, align: 'center',
                 editor: { type: 'select', data: SexData, valueColumnName: 'Sex' }
@@ -43,7 +43,7 @@ function showUserData(data) {
         },
         enabledEdit: true, clickToEdit: false, isScroll: false,
         data: EmployeeData,
-        width: '100%', height: '500'
+        width: '100%',usePager: true,pageSize:20
     });
 }
 
