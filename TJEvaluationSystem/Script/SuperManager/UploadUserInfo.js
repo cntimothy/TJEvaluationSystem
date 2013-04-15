@@ -9,7 +9,7 @@ function showUserData(data) {
         });
     }
     var s = data;
-    var EmployeeData = JSON2.parse(s);
+    EmployeeData = JSON2.parse(s);
     document.all("ExcelDate").style.display = 'block';
     manager = $("#maingrid").ligerGrid({
         columns: [
@@ -43,7 +43,7 @@ function showUserData(data) {
         },
         enabledEdit: true, clickToEdit: false, isScroll: false,
         data: EmployeeData,
-        width: '100%',usePager: true,pageSize:20
+        width: '100%', usePager: false
     });
 }
 
@@ -69,20 +69,22 @@ function deleteRow(rowid) {
     });
 }
 
-//保存到数据库
-function saveToDB() {
-    $.ligerDialog.confirm("确认保存到数据库？", function (yes) {
-        var data = manager.getData();
-        document.getElementById("JsonData").value = JSON.stringify(data);
-        document.getElementById("BSaveData").click();
-    });
-}
+////保存到数据库
+//function saveToDB() {
+//    $.ligerDialog.confirm("确认保存到数据库？", function (yes) {
+//        var data = EmployeeData.getData();
+//        document.getElementById("JsonData").value = JSON.stringify(data);
+//        document.getElementById("BSaveData").click();
+//    });
+//}
 
 //保存到数据库
 function save() {
     $.ligerDialog.confirm("确认保存到数据库？", function (yes) {
-        var data = manager.getData();
-        document.getElementById("JsonData").value = JSON.stringify(data);
+          var data = manager.getData();
+          document.getElementById("JsonData").value = JSON.stringify(data);
+//        var data = EmployeeData;
+//        document.getElementById("JsonData").value = EmployeeData;
         document.getElementById("BSaveData").click();
     });
 }
