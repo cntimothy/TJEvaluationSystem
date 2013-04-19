@@ -48,6 +48,7 @@
          </div>
     <br />
     <%--<asp:label id="name" runat="server" style="position:relative;left:20px;font-size:16px;"></asp:label>--%>
+    <asp:Label ID="Title" runat="server" Text="" style="position:relative;left:20px;font-size:16px;"></asp:Label>
     <br /><br />
     <div id="secondgrid" style="margin:0 auto"></div> 
 
@@ -97,6 +98,14 @@
                </td>
             </tr>
             <tr>
+                <td align="right" class="tableKey">岗位（职务）：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LJob" runat="server" Text=""></asp:Label>
+                    </div>
+               </td>
+            </tr>
+            <tr>
                 <td align="right" class="tableKey">电话：</td>
                 <td align="left" class="tableValue">
                     <div class="ShowData">
@@ -133,6 +142,30 @@
                 <td align="left" class="tableValue">
                     <div class="ShowData">
                         <asp:Label ID="LZipcode" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">经费来源：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LFund" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">派遣性质：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LCharacter" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">派遣公司：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LCompany" runat="server" Text=""></asp:Label>
                     </div>
                 </td>
             </tr>

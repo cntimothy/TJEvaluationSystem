@@ -21,6 +21,34 @@ namespace Model
         string uiAddress;
         string uiZipCode;
         string uiType;
+        string uiJob;
+        string uiFund;
+        string uiCharacter;        
+        string uiCompany;
+
+        public string UiCompany
+        {
+            get { return uiCompany; }
+            set { uiCompany = value; }
+        }
+
+        public string UiCharacter
+        {
+            get { return uiCharacter; }
+            set { uiCharacter = value; }
+        }
+
+        public string UiFund
+        {
+            get { return uiFund; }
+            set { uiFund = value; }
+        }
+
+        public string UiJob
+        {
+            get { return uiJob; }
+            set { uiJob = value; }
+        }
 
         public string UiType
         {

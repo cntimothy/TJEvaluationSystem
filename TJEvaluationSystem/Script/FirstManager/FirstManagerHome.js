@@ -6,7 +6,7 @@
 ];
 var indexdata2=
 [
-    { url: "MakeEvaluated.aspx", text: "制定名单" },
+    { url: "UploadEvaluated.aspx", text: "制定名单" },
     { url: "SelectEvaluated.aspx", text: "查看名单" }
 ];
 var indexdata3 =

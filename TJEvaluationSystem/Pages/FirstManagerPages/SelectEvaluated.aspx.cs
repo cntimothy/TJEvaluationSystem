@@ -34,6 +34,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             {
                 UserInfoBLL.Select(department, type, ref userinfo, ref exception);
             }
+            Title.Text = Department.SelectedItem.ToString() + "被考评人名单:";
 
             DataTable table = new DataTable();
             table = userinfo.ListToDataTable();

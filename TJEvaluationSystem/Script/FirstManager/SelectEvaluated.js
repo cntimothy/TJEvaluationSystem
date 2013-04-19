@@ -15,12 +15,17 @@ function load_userinfo() {
         { display: '性别', name: 'UiSex', width: 50, align: 'center', frozen: true },
         { display: '身份证号', name: 'UiIdentityNum', width: 150, align: 'center', frozen: true },
         { display: '部门', name: 'UiDepartment', width: 50, align: 'center', frozen: true },
+        { display: '岗位（职务）', name: 'UiJob', width: 100, align: 'center', editor: { type: 'text'} },
         { display: '电话', name: 'UiTelephone', width: 100, align: 'center', frozen: true },
         { display: '电子邮件', name: 'UiEmail', width: 100, align: 'center', frozen: true },
         { display: '手机', name: 'UiMobPhone', width: 150, align: 'center', frozen: true },
         { display: '地址', name: 'UiAddress', width: 150, align: 'center', frozen: true },
         { display: '邮政编码', name: 'UiZipCode', width: 50, align: 'center', frozen: true },
         { display: '用户类型', name: 'UiType', width: 50, align: 'center', frozen: true },
+        { display: '经费来源', name: 'UiFund', width: 50, align: 'center', editor: { type: 'text'} },
+        { display: '派遣性质', name: 'UiCharacter', width: 50, align: 'center', editor: { type: 'text'} },
+        { display: '派遣公司', name: 'UiCompany', width: 50, align: 'center', editor: { type: 'text'} },
+        { display: '用户类型', name: 'UiType', width: 50, align: 'center', editor: { type: 'text' }, hide: 1 },
         { display: '', isSort: false, width: 200, render: function (rowdata, rowindex, value) {
             var h = "";
             h += "<a href='javascript:ShowDetail(" + rowindex + ")'>查看详细</a> ";
@@ -61,6 +66,10 @@ function ShowDetail(rowid) {
     document.getElementById('UiAddress').innerText = rowdata.UiAddress;
     document.getElementById('UiZipCode').innerText = rowdata.UiZipCode;
     document.getElementById('UiType').innerText = rowdata.UiType;
+    document.getElementById('UiJob').innerText = rowdata.UiJob;
+    document.getElementById('UiFund').innerText = rowdata.UiFund;
+    document.getElementById('UiCharacter').innerText = rowdata.UiCharacter;
+    document.getElementById('UiCompany').innerText = rowdata.UiCompany;    
 }
 
 

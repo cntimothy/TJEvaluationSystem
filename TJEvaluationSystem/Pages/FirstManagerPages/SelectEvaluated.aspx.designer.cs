@@ -49,6 +49,15 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages {
         protected global::System.Web.UI.WebControls.DropDownList Department;
         
         /// <summary>
+        /// Title 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Title;
+        
+        /// <summary>
         /// LID 控件。
         /// </summary>
         /// <remarks>
@@ -94,6 +103,15 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages {
         protected global::System.Web.UI.WebControls.Label LDepartment;
         
         /// <summary>
+        /// LJob 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LJob;
+        
+        /// <summary>
         /// LTelphone 控件。
         /// </summary>
         /// <remarks>
@@ -137,6 +155,33 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LZipcode;
+        
+        /// <summary>
+        /// LFund 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LFund;
+        
+        /// <summary>
+        /// LCharacter 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LCharacter;
+        
+        /// <summary>
+        /// LCompany 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LCompany;
         
         /// <summary>
         /// JsonData 控件。

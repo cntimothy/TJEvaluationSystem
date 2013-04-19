@@ -74,6 +74,7 @@
     <Content Include="Pages\FirstManagerPages\CheckEvaluator.aspx" />
     <Content Include="Pages\FirstManagerPages\CheckPost.aspx" />
     <Content Include="Pages\FirstManagerPages\EvaluationResult.aspx" />
+    <Content Include="Pages\FirstManagerPages\UploadEvaluatedFrame.aspx" />
     <Content Include="Pages\FirstManagerPages\FirstManagerHome.aspx" />
     <Content Include="Pages\FirstManagerPages\MakeEvaluated.aspx" />
     <Content Include="Pages\FirstManagerPages\ManageCurrentEvaluation.aspx" />
@@ -82,6 +83,7 @@
     <Content Include="Pages\FirstManagerPages\ResetPassword.aspx" />
     <Content Include="Pages\FirstManagerPages\SelectEvaluated.aspx" />
     <Content Include="Pages\FirstManagerPages\SelectSecond.aspx" />
+    <Content Include="Pages\FirstManagerPages\UploadEvaluated.aspx" />
     <Content Include="Pages\Login.aspx" />
     <Content Include="Pages\MessagePages\InBox.aspx" />
     <Content Include="Pages\MessagePages\New.aspx" />
@@ -103,6 +105,7 @@
     <Content Include="Script\Account\ChangePassword.js" />
     <Content Include="Script\FirstManager\EvaluationResult.js" />
     <Content Include="Script\FirstManager\ManageCurrentEvaluation.js" />
+    <Content Include="Script\FirstManager\UploadEvaluated.js" />
     <Content Include="Script\SuperManager\adduser.js" />
     <Content Include="Script\CommonData.js" />
     <Content Include="Script\CommonFunction.js" />
@@ -270,6 +273,13 @@
     <Compile Include="Pages\FirstManagerPages\EvaluationResult.aspx.designer.cs">
       <DependentUpon>EvaluationResult.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\FirstManagerPages\UploadEvaluatedFrame.aspx.cs">
+      <DependentUpon>UploadEvaluatedFrame.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\UploadEvaluatedFrame.aspx.designer.cs">
+      <DependentUpon>UploadEvaluatedFrame.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\FirstManagerPages\FirstManagerHome.aspx.cs">
       <DependentUpon>FirstManagerHome.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -325,6 +335,13 @@
     </Compile>
     <Compile Include="Pages\FirstManagerPages\SelectSecond.aspx.designer.cs">
       <DependentUpon>SelectSecond.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\UploadEvaluated.aspx.cs">
+      <DependentUpon>UploadEvaluated.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\FirstManagerPages\UploadEvaluated.aspx.designer.cs">
+      <DependentUpon>UploadEvaluated.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

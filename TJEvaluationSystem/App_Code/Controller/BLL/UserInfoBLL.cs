@@ -37,41 +37,56 @@ namespace BLL
              int count = model.Length;
              for (int i = 0; i < count; i++)
              {
-                 string sql = "insert into tb_UserInfo values("
-                                   + "@uiID,@uiName,@uiSex,@uiIdentityNum,@uiDepartment,@uiTelephone,@uiEmail,@uiMobPhone,@uiAddress,@uiZipCode,@uiType)";
-                 SqlParameter[] parameters =
-                {
-                    new SqlParameter("@uiID", SqlDbType.VarChar,10),
-                    new SqlParameter("@uiName",SqlDbType.NVarChar,20),
-                    new SqlParameter("@uiSex", SqlDbType.NVarChar,10),
-                    new SqlParameter("@uiIdentityNum", SqlDbType.VarChar,19),
-                    new SqlParameter("@uiDepartment",SqlDbType.NVarChar,50),
-                    new SqlParameter("@uiTelephone", SqlDbType.VarChar,20),
-                    new SqlParameter("@uiEmail", SqlDbType.NVarChar,50),
-                    new SqlParameter("@uiMobPhone", SqlDbType.VarChar,20),
-                    new SqlParameter("@uiAddress",SqlDbType.NVarChar,50),
-                    new SqlParameter("@uiZipCode", SqlDbType.VarChar,50),
-                    new SqlParameter("@uiType", SqlDbType.VarChar,10)
-
-                };
-                 parameters[0].Value = model[i].UiID;
-                 parameters[1].Value = model[i].UiName;
-                 parameters[2].Value = model[i].UiSex;
-                 parameters[3].Value = model[i].UiIdentityNum;
-                 parameters[4].Value = model[i].UiDepartment;
-                 parameters[5].Value = model[i].UiTelephone;
-                 parameters[6].Value = model[i].UiEmail;
-                 parameters[7].Value = model[i].UiMobPhone;
-                 parameters[8].Value = model[i].UiAddress;
-                 parameters[9].Value = model[i].UiZipCode;
-                 parameters[10].Value = model[i].UiType;
-
-                 string uiID = db.InsertExec(sql, parameters);
-                 if (uiID != "" && uiID != null)
+                 List<UserInfo> uistemp = new List<UserInfo>();
+                 if (!Select(ref uistemp, model[i].UiID, ref e))
                  {
-                     e = uiID;
-                     return false;
-                 } 
+                     string sql = "insert into tb_UserInfo values("
+                                       + "@uiID,@uiName,@uiSex,@uiIdentityNum,@uiDepartment,@uiTelephone,@uiEmail,@uiMobPhone,@uiAddress,@uiZipCode,@uiType,@uiJob,@uiFund,@uiCharacter,@uiCompany)";
+                     SqlParameter[] parameters =
+                     {
+                        new SqlParameter("@uiID", SqlDbType.VarChar,10),
+                        new SqlParameter("@uiName",SqlDbType.NVarChar,20),
+                        new SqlParameter("@uiSex", SqlDbType.NVarChar,10),
+                        new SqlParameter("@uiIdentityNum", SqlDbType.VarChar,19),
+                        new SqlParameter("@uiDepartment",SqlDbType.NVarChar,50),
+                        new SqlParameter("@uiTelephone", SqlDbType.VarChar,20),
+                        new SqlParameter("@uiEmail", SqlDbType.NVarChar,50),
+                        new SqlParameter("@uiMobPhone", SqlDbType.VarChar,20),
+                        new SqlParameter("@uiAddress",SqlDbType.NVarChar,50),
+                        new SqlParameter("@uiZipCode", SqlDbType.VarChar,50),
+                        new SqlParameter("@uiType", SqlDbType.VarChar,10),
+                        new SqlParameter("@uiJob", SqlDbType.NVarChar,10),                    
+                        new SqlParameter("@uiFund", SqlDbType.NVarChar,10),
+                        new SqlParameter("@uiCharacter", SqlDbType.NVarChar,10),
+                        new SqlParameter("@uiCompany", SqlDbType.NVarChar,10),
+                         };
+                     parameters[0].Value = model[i].UiID;
+                     parameters[1].Value = model[i].UiName;
+                     parameters[2].Value = model[i].UiSex;
+                     parameters[3].Value = model[i].UiIdentityNum;
+                     parameters[4].Value = model[i].UiDepartment;
+                     parameters[5].Value = model[i].UiTelephone;
+                     parameters[6].Value = model[i].UiEmail;
+                     parameters[7].Value = model[i].UiMobPhone;
+                     parameters[8].Value = model[i].UiAddress;
+                     parameters[9].Value = model[i].UiZipCode;
+                     parameters[10].Value = model[i].UiType;
+                     parameters[11].Value = model[i].UiJob;
+                     parameters[12].Value = model[i].UiFund;
+                     parameters[13].Value = model[i].UiCharacter;
+                     parameters[14].Value = model[i].UiCompany;
+
+                     string uiID = db.InsertExec(sql, parameters);
+                     if (uiID != "" && uiID != null)
+                     {
+                         e = uiID;
+                         return false;
+                     }
+                 }
+                 else
+                 {
+                     Update(model[i], ref e);
+                 }
              }
              return true;
          }
@@ -114,20 +129,25 @@ namespace BLL
                  for (int i = 0; i < table.Rows.Count; i++)
                  {
                      UserInfo userinfo = new UserInfo();
-                     userinfo.UiID = (string)table.Rows[i][0];
-                     userinfo.UiName = (string)table.Rows[i][1];
-                     userinfo.UiSex = (string)table.Rows[i][2];
-                     userinfo.UiIdentityNum = (string)table.Rows[i][3];
-                     userinfo.UiDepartment = (string)table.Rows[i][4];
-                     userinfo.UiTelephone = (string)table.Rows[i][5];
-                     userinfo.UiEmail = (string)table.Rows[i][6];
-                     userinfo.UiMobPhone = (string)table.Rows[i][7];
-                     userinfo.UiAddress = (string)table.Rows[i][8];
-                     userinfo.UiZipCode = (string)table.Rows[i][9];
-                     if (!table.Rows[i][10].Equals(DBNull.Value))
-                     {
-                         userinfo.UiType = (string)table.Rows[i][10];
-                     }
+                     userinfo.UiID = (string)table.Rows[i]["uiID"];
+                     userinfo.UiName = (string)table.Rows[i]["uiName"];
+                     userinfo.UiSex = (string)table.Rows[i]["uiSex"];
+                     userinfo.UiIdentityNum = (string)table.Rows[i]["uiIdentityNum"];
+                     userinfo.UiDepartment = (string)table.Rows[i]["uiDepartment"];
+                     userinfo.UiTelephone = (string)table.Rows[i]["uiTelephone"];
+                     userinfo.UiEmail = (string)table.Rows[i]["uiEmail"];
+                     userinfo.UiMobPhone = (string)table.Rows[i]["uiMobPhone"];
+                     userinfo.UiAddress = (string)table.Rows[i]["uiAddress"];
+                     userinfo.UiZipCode = (string)table.Rows[i]["uiZipCode"];
+                     userinfo.UiType = (string)table.Rows[i]["uiType"];
+                     userinfo.UiJob = (string)table.Rows[i]["uiJob"];
+                     userinfo.UiFund = (string)table.Rows[i]["uiFund"];
+                     userinfo.UiCharacter = (string)table.Rows[i]["uiCharacter"];
+                     userinfo.UiCompany = (string)table.Rows[i]["uiCompany"];
+                     //if (!table.Rows[i][10].Equals(DBNull.Value))
+                     //{
+                     //    userinfo.UiType = (string)table.Rows[i][10];
+                     //}
                      ui.Add(userinfo);
                  }
                  return true;
@@ -155,22 +175,30 @@ namespace BLL
              strSql.Append("uiMobPhone=@uiMobPhone,");
              strSql.Append("uiAddress=@uiAddress,");
              strSql.Append("uiZipCode=@uiZipCode,");
-             strSql.Append("uiType=@uiType");
+             strSql.Append("uiType=@uiType,");
+             strSql.Append("uiJob=@uiJob,");
+             strSql.Append("uiFund=@uiFund,");
+             strSql.Append("uiCharacter=@uiCharacter,");
+             strSql.Append("uiCompany=@uiCompany");
              strSql.Append(" where uiID=@uiID ");
              SqlParameter[] parameters =
-                {
-                    new SqlParameter("@uiID", SqlDbType.VarChar,10),
-                    new SqlParameter("@uiName",SqlDbType.NVarChar,20),
-                    new SqlParameter("@uiSex", SqlDbType.NVarChar,10),
-                    new SqlParameter("@uiIdentityNum", SqlDbType.VarChar,19),
-                    new SqlParameter("@uiDepartment",SqlDbType.NVarChar,50),
-                    new SqlParameter("@uiTelephone", SqlDbType.VarChar,20),
-                    new SqlParameter("@uiEmail", SqlDbType.NVarChar,50),
-                    new SqlParameter("@uiMobPhone", SqlDbType.VarChar,20),
-                    new SqlParameter("@uiAddress",SqlDbType.NVarChar,50),
-                    new SqlParameter("@uiZipCode", SqlDbType.VarChar,50),
-                    new SqlParameter("@uiType", SqlDbType.VarChar,10)
-                };
+            {
+                new SqlParameter("@uiID", SqlDbType.VarChar,10),
+                new SqlParameter("@uiName",SqlDbType.NVarChar,20),
+                new SqlParameter("@uiSex", SqlDbType.NVarChar,10),
+                new SqlParameter("@uiIdentityNum", SqlDbType.VarChar,19),
+                new SqlParameter("@uiDepartment",SqlDbType.NVarChar,50),
+                new SqlParameter("@uiTelephone", SqlDbType.VarChar,20),
+                new SqlParameter("@uiEmail", SqlDbType.NVarChar,50),
+                new SqlParameter("@uiMobPhone", SqlDbType.VarChar,20),
+                new SqlParameter("@uiAddress",SqlDbType.NVarChar,50),
+                new SqlParameter("@uiZipCode", SqlDbType.VarChar,50),
+                new SqlParameter("@uiType", SqlDbType.VarChar,10),
+                new SqlParameter("@uiJob", SqlDbType.NVarChar,10),                    
+                new SqlParameter("@uiFund", SqlDbType.NVarChar,10),
+                new SqlParameter("@uiCharacter", SqlDbType.NVarChar,10),
+                new SqlParameter("@uiCompany", SqlDbType.NVarChar,10),
+            };
              parameters[0].Value = model.UiID;
              parameters[1].Value = model.UiName;
              parameters[2].Value = model.UiSex;
@@ -182,20 +210,17 @@ namespace BLL
              parameters[8].Value = model.UiAddress;
              parameters[9].Value = model.UiZipCode;
              parameters[10].Value = model.UiType;
+             parameters[11].Value = model.UiJob;
+             parameters[12].Value = model.UiFund;
+             parameters[13].Value = model.UiCharacter;
+             parameters[14].Value = model.UiCompany;
 
              e=db.QueryExec(strSql.ToString(), parameters);
              if (e != "" && e != null)
              {
                  return false;
              }
-           /*  if (model.UiType != 4&&model.UiType!=5)
-             {
-                 User[] user=new User[1];
-                 user[0] = new User();
-                 user[0].UID=model.UiID;
-                 user[0].UType=model.UiType;
-                 UserBLL.Insert(user, ref e);
-             }*/
+
              return true;
          }
 
