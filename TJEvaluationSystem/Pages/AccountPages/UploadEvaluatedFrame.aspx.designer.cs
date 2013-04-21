@@ -7,7 +7,7 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace TJEvaluationSystem.Pages.FirstManagerPages {
+namespace TJEvaluationSystem.Pages.AccountPages {
     
     
     public partial class FileUploadPage {

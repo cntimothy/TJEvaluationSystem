@@ -29,11 +29,13 @@ function showUserData(data) {
             { display: '经费来源', name: 'UiFund', width: 50, align: 'center', editor: { type: 'text'} },
             { display: '派遣性质', name: 'UiCharacter', width: 50, align: 'center', editor: { type: 'text'} },
             { display: '派遣公司', name: 'UiCompany', width: 50, align: 'center', editor: { type: 'text'} },
-            { display: '用户类型', name: 'UiType', width: 50, align: 'center', editor: { type: 'text'}, hide: 1 },
+            { display: '用户类型', name: 'UiType', width: 50, align: 'center', editor: { type: 'text' }, hide: 1 },
+            { display: '考评开始时间', name: 'UiStartTime', width: 80, align: 'center', editor: { type: 'text'} },
+            { display: '考评结束时间', name: 'UiStopTime', width: 80, align: 'center', editor: { type: 'text'} },
             { display: '', isSort: false, width: 70, render: function (rowdata, rowindex, value) {
                 var h = "";
                 if (!rowdata._editing) {
-                    h += "<a href='javascript:beginEdit(" + rowindex + ")'>修改</a> ";
+//                    h += "<a href='javascript:beginEdit(" + rowindex + ")'>修改</a> ";
                     h += "<a href='javascript:deleteRow(" + rowindex + ")'>删除</a> ";
                 }
                 else {
@@ -46,7 +48,7 @@ function showUserData(data) {
         onSelectRow: function (rowdata, rowindex) {
             $("#txtrowindex").val(rowindex);
         },
-        enabledEdit: true, clickToEdit: false, isScroll: false,
+        enabledEdit: true, clickToEdit: true, isScroll: false,
         data: EmployeeData,
         width: '100%', usePager: false
     });

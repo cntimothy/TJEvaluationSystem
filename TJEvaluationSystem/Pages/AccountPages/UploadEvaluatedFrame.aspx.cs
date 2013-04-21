@@ -11,7 +11,7 @@ using Model;
 using DBUtility;
 using System.IO;
 
-namespace TJEvaluationSystem.Pages.FirstManagerPages
+namespace TJEvaluationSystem.Pages.AccountPages
 {
     public partial class FileUploadPage : System.Web.UI.Page
     {

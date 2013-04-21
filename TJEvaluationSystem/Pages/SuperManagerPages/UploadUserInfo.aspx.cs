@@ -37,7 +37,7 @@ namespace TJEvaluationSystem.Pages.SuperManagerPages
             else
             {
                 string message="";
-                if(!UserInfoBLL.Insert(userData,ref message))
+                if(!UserInfoBLL.Insert(userData,ref message, false))
                 {
                     //插入失败
                     ScriptManager.RegisterStartupScript(BSaveData, this.GetType(), "error", "SaveFaild();", true);

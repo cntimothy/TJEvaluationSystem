@@ -25,6 +25,20 @@ namespace Model
         string uiFund;
         string uiCharacter;        
         string uiCompany;
+        string uiStartTime;
+        string uiStopTime;
+
+        public string UiStartTime
+        {
+            get { return uiStartTime; }
+            set { uiStartTime = value; }
+        }
+
+        public string UiStopTime
+        {
+            get { return uiStopTime; }
+            set { uiStopTime = value; }
+        }
 
         public string UiCompany
         {
@@ -113,6 +127,25 @@ namespace Model
         {
             get { return uiZipCode; }
             set { uiZipCode = value; }
+        }
+
+        public bool Equals(UserInfo anotherUserInfo)
+        {
+            return this.UiID == anotherUserInfo.UiID
+                && this.UiName == anotherUserInfo.UiName
+                && this.UiSex == anotherUserInfo.UiSex
+                && this.UiIdentityNum == anotherUserInfo.UiIdentityNum
+                && this.UiDepartment == anotherUserInfo.UiDepartment
+                && this.UiTelephone == anotherUserInfo.UiTelephone
+                && this.UiEmail == anotherUserInfo.UiEmail
+                && this.UiMobPhone == anotherUserInfo.UiMobPhone
+                && this.UiAddress == anotherUserInfo.UiAddress
+                && this.UiZipCode == anotherUserInfo.UiZipCode
+                && this.UiType == anotherUserInfo.UiType
+                && this.UiJob == anotherUserInfo.UiJob
+                && this.UiFund == anotherUserInfo.UiFund
+                && this.UiCharacter == anotherUserInfo.UiCharacter
+                && this.UiCompany == anotherUserInfo.UiCompany;
         }
     }
 }

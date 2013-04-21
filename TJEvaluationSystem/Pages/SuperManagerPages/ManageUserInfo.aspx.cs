@@ -35,7 +35,7 @@ namespace TJEvaluationSystem.Pages.SuperManagerPages
             }
             string message="";
             //插入到数据库
-            if (!UserInfoBLL.Insert(user, ref message))
+            if (!UserInfoBLL.Insert(user, ref message, false))
             {
                 //添加失败
                 ScriptManager.RegisterStartupScript(BAddUser,this.GetType(), "error", "f_alert('error','添加人员信息失败，请重试!');", true);

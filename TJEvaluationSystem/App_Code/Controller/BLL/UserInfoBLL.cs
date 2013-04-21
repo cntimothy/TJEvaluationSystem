@@ -32,7 +32,8 @@ namespace BLL
             return Select(ref uis, ref e, sql);
         }
         
-         static public bool Insert(UserInfo[] model, ref string e)
+        //flag:true——考评人， false——被考评人
+         static public bool Insert(UserInfo[] model, ref string e, bool flag)
          {
              int count = model.Length;
              for (int i = 0; i < count; i++)
@@ -41,7 +42,7 @@ namespace BLL
                  if (!Select(ref uistemp, model[i].UiID, ref e))
                  {
                      string sql = "insert into tb_UserInfo values("
-                                       + "@uiID,@uiName,@uiSex,@uiIdentityNum,@uiDepartment,@uiTelephone,@uiEmail,@uiMobPhone,@uiAddress,@uiZipCode,@uiType,@uiJob,@uiFund,@uiCharacter,@uiCompany)";
+                                       + "@uiID,@uiName,@uiSex,@uiIdentityNum,@uiDepartment,@uiTelephone,@uiEmail,@uiMobPhone,@uiAddress,@uiZipCode,@uiType,@uiJob,@uiFund,@uiCharacter,@uiCompany,@uiStartTime,@uiStopTime)";
                      SqlParameter[] parameters =
                      {
                         new SqlParameter("@uiID", SqlDbType.VarChar,10),
@@ -59,6 +60,8 @@ namespace BLL
                         new SqlParameter("@uiFund", SqlDbType.NVarChar,10),
                         new SqlParameter("@uiCharacter", SqlDbType.NVarChar,10),
                         new SqlParameter("@uiCompany", SqlDbType.NVarChar,10),
+                        new SqlParameter("@uiStartTime", SqlDbType.VarChar,10),
+                        new SqlParameter("@uiStopTime", SqlDbType.VarChar,10)
                          };
                      parameters[0].Value = model[i].UiID;
                      parameters[1].Value = model[i].UiName;
@@ -75,6 +78,8 @@ namespace BLL
                      parameters[12].Value = model[i].UiFund;
                      parameters[13].Value = model[i].UiCharacter;
                      parameters[14].Value = model[i].UiCompany;
+                     parameters[15].Value = model[i].UiStartTime;
+                     parameters[16].Value = model[i].UiStopTime;
 
                      string uiID = db.InsertExec(sql, parameters);
                      if (uiID != "" && uiID != null)
@@ -85,7 +90,22 @@ namespace BLL
                  }
                  else
                  {
-                     Update(model[i], ref e);
+                     //Update(model[i], ref e);
+                     if(!uistemp[0].Equals(model[i]))
+                     {
+                         if (uistemp[0].UiType != model[i].UiType)
+                         {
+                             if (flag)
+                             {
+                                 model[i].UiType = uistemp[0].UiType.Remove(3, 1).Insert(3, "1");
+                             }
+                             else
+                             {
+                                 model[i].UiType = uistemp[0].UiType.Remove(4, 1).Insert(4, "1");
+                             }
+                         }
+                         Update(model[i], ref e);
+                     }
                  }
              }
              return true;
@@ -144,10 +164,9 @@ namespace BLL
                      userinfo.UiFund = (string)table.Rows[i]["uiFund"];
                      userinfo.UiCharacter = (string)table.Rows[i]["uiCharacter"];
                      userinfo.UiCompany = (string)table.Rows[i]["uiCompany"];
-                     //if (!table.Rows[i][10].Equals(DBNull.Value))
-                     //{
-                     //    userinfo.UiType = (string)table.Rows[i][10];
-                     //}
+                     userinfo.UiStartTime = (string)table.Rows[i]["uiStartTime"];
+                     userinfo.UiStopTime = (string)table.Rows[i]["uiStopTime"];
+                    
                      ui.Add(userinfo);
                  }
                  return true;
@@ -179,7 +198,9 @@ namespace BLL
              strSql.Append("uiJob=@uiJob,");
              strSql.Append("uiFund=@uiFund,");
              strSql.Append("uiCharacter=@uiCharacter,");
-             strSql.Append("uiCompany=@uiCompany");
+             strSql.Append("uiCompany=@uiCompany,");
+             strSql.Append("uiStartTime=@uiStartTime,");
+             strSql.Append("uiStopTime=@uiStopTime ");
              strSql.Append(" where uiID=@uiID ");
              SqlParameter[] parameters =
             {
@@ -198,6 +219,8 @@ namespace BLL
                 new SqlParameter("@uiFund", SqlDbType.NVarChar,10),
                 new SqlParameter("@uiCharacter", SqlDbType.NVarChar,10),
                 new SqlParameter("@uiCompany", SqlDbType.NVarChar,10),
+                new SqlParameter("@uiStartTime", SqlDbType.VarChar,10),
+                new SqlParameter("@uiStopTime", SqlDbType.VarChar,10)
             };
              parameters[0].Value = model.UiID;
              parameters[1].Value = model.UiName;
@@ -214,6 +237,8 @@ namespace BLL
              parameters[12].Value = model.UiFund;
              parameters[13].Value = model.UiCharacter;
              parameters[14].Value = model.UiCompany;
+             parameters[15].Value = model.UiStartTime;
+             parameters[16].Value = model.UiStopTime;
 
              e=db.QueryExec(strSql.ToString(), parameters);
              if (e != "" && e != null)

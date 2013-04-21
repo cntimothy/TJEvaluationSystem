@@ -109,7 +109,7 @@
                 <td align="right" class="tableKey">电话：</td>
                 <td align="left" class="tableValue">
                     <div class="ShowData">
-                        <asp:Label ID="LTelphone" runat="server" Text=""></asp:Label>
+                        <asp:Label ID="LTelephone" runat="server" Text=""></asp:Label>
                     </div>
                 </td>
             </tr>
@@ -117,7 +117,7 @@
                 <td align="right" class="tableKey">手机：</td>
                 <td align="left" class="tableValue">
                     <div class="ShowData">
-                        <asp:Label ID="LPhone" runat="server" Text=""></asp:Label>
+                        <asp:Label ID="LMobPhone" runat="server" Text=""></asp:Label>
                     </div>
                 </td>
             </tr>
@@ -141,7 +141,7 @@
                 <td align="right" class="tableKey">邮编：</td>
                 <td align="left" class="tableValue">
                     <div class="ShowData">
-                        <asp:Label ID="LZipcode" runat="server" Text=""></asp:Label>
+                        <asp:Label ID="LZipCode" runat="server" Text=""></asp:Label>
                     </div>
                 </td>
             </tr>
@@ -166,6 +166,22 @@
                 <td align="left" class="tableValue">
                     <div class="ShowData">
                         <asp:Label ID="LCompany" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">考评开始时间：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LStartTime" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">考评结束时间：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LStopTime" runat="server" Text=""></asp:Label>
                     </div>
                 </td>
             </tr>

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UploadEvaluated.aspx.cs" Inherits="TJEvaluationSystem.Pages.FirstManagerPages.WebForm1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UploadEvaluated.aspx.cs" Inherits="TJEvaluationSystem.Pages.AccountPages.WebForm1" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -18,7 +18,7 @@
     <script src="../../lib/ligerUI/js/plugins/ligerDateEditor.js" type="text/javascript"></script>
     <script src="../../lib/ligerUI/js/plugins/ligerSpinner.js" type="text/javascript"></script>
     <script src="../../script/commondata.js" type="text/javascript"></script>
-    <script src="../../script/FirstManager/UploadEvaluated.js" type="text/javascript"></script>
+    <script src="../../script/Account/UploadEvaluated.js" type="text/javascript"></script>
     <script src="../../script/messagebox.js" type="text/javascript"></script>
 
 </head>

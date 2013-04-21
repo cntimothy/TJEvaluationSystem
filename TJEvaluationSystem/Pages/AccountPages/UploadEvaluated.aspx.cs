@@ -10,7 +10,7 @@ using BLL;
 using Model;
 using DBUtility;
 
-namespace TJEvaluationSystem.Pages.FirstManagerPages
+namespace TJEvaluationSystem.Pages.AccountPages
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
@@ -37,7 +37,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             else
             {
                 string message="";
-                if(!UserInfoBLL.Insert(userData,ref message))
+                if(!UserInfoBLL.Insert(userData,ref message, false))
                 {
                     //插入失败
                     ScriptManager.RegisterStartupScript(BSaveData, this.GetType(), "error", "SaveFaild();", true);
