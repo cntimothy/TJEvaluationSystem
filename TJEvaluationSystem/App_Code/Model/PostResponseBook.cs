@@ -35,6 +35,13 @@ namespace Model
         string prbWorkEnter;
         string prbPostAssess;
         string prbOthers;
+        string prbComment;
+
+        public string PrbComment
+        {
+            get { return prbComment; }
+            set { prbComment = value; }
+        }
 
         public string PrbUserID
         {

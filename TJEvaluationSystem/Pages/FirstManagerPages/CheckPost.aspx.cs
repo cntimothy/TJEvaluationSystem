@@ -45,10 +45,20 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
 
         protected void Search_Click(object sender, EventArgs e)
         {
+            exception = "";
             System.Data.DataTable table = new System.Data.DataTable();
             table = searchSql();
+            string comment = "";
             if (table == null)
                 return;
+
+            //给table添加prbComment栏
+            table.Columns.Add("prbComment");
+            foreach(DataRow dr in table.Rows)
+            {
+                PostResponseBookBLL.SelectComment(dr["uiID"].ToString(), ref comment, ref exception);
+                dr["prbComment"] = comment;
+            }
 
             string json = JSON.DataTableToJson(table);
             JsonData.Value = json;
@@ -78,6 +88,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                     passYoN.Text = "未通过审核！";
                     Passed.Value = "0";
                 }
+                Comment.Text = "审核意见：" + prb.PrbComment;
                 prbEmployer.Text = prb.PrbEmployer;
                 prbLaborUnit.Text = prb.PrbLaborUnit;
                 prbLaborDep.Text = prb.PrbLaborDep;
@@ -272,6 +283,13 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             string json = JSON.DataTableToJson(table1);
             JsonData.Value = json;
             ClientScript.RegisterStartupScript(this.GetType(), "", "load_userinfo()", true);
+        }
+
+        protected void WriteComment_Click(object sender, EventArgs e)
+        {
+            exception = "";
+            PostResponseBookBLL.UpdateComment(UserID.Value, prbComment.Value, ref exception);
+            Response.Write("<script>alert('已提交意见！')</script>");
         }
     }
 

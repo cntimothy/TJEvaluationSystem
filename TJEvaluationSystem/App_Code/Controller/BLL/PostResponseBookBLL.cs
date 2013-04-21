@@ -32,7 +32,7 @@ namespace BLL
                                   + "@prbCertificate,@prbExperience,@prbSkill,@prbPersonality,"
                                   + "@prbPhyCond,@prbWorkOutline,@prbWorkContntRequest,@prbPower,"
                                   + "@prbResponse,@prbDirectLeader,@prbSubordinate,@prbColleague,"
-                                  + "@prbServices,@prbReleations,@prbWorkEnter,@prbPostAssess,@prbOthers)";
+                                  + "@prbServices,@prbReleations,@prbWorkEnter,@prbPostAssess,@prbOthers,@proComment)";
 
 
                 SqlParameter[] parameters =
@@ -61,7 +61,8 @@ namespace BLL
                 new SqlParameter("@prbReleations", SqlDbType.NVarChar,int.MaxValue), 
                 new SqlParameter("@prbWorkEnter", SqlDbType.NVarChar,int.MaxValue), 
                 new SqlParameter("@prbPostAssess", SqlDbType.NVarChar,int.MaxValue), 
-                new SqlParameter("@prbOthers", SqlDbType.NVarChar,int.MaxValue)
+                new SqlParameter("@prbOthers", SqlDbType.NVarChar,int.MaxValue),
+                new SqlParameter("@prbComment", SqlDbType.NVarChar, 50)
                 
                 };
                 parameters[0].Value = prb[i].PrbUserID;
@@ -89,6 +90,7 @@ namespace BLL
                 parameters[22].Value = prb[i].PrbWorkEnter;
                 parameters[23].Value = prb[i].PrbPostAssess;
                 parameters[24].Value = prb[i].PrbOthers;
+                parameters[25].Value = prb[i].PrbComment;
 
                 string exception = db.InsertExec(sql, parameters);
                 if (exception != "" && exception != null)
@@ -128,6 +130,20 @@ namespace BLL
             else
                 return true;
         }
+        public static bool SelectComment(string prbUserID, ref string comment, ref string e)
+        {
+            string sql = "select prbComment from tb_PostResponseBook where prbUserID ='" + prbUserID + "'";
+            comment = db.QueryValue(sql);
+            if (comment != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
         public static bool Select(ref List<PostResponseBook> model, ref string e,string sql)
         {
             DataTable table = new DataTable();
@@ -137,31 +153,39 @@ namespace BLL
                 for (int i = 0; i < table.Rows.Count; i++)
                 {
                     PostResponseBook prb = new PostResponseBook();
-                    prb.PrbUserID = (string)table.Rows[i][0];
-                    prb.PrbPassed = (Int32)table.Rows[i][1];
-                    prb.PrbEmployer = (string)table.Rows[i][2];
-                    prb.PrbLaborUnit = (string)table.Rows[i][3];
-                    prb.PrbLaborDep = (string)table.Rows[i][4];
-                    prb.PrbPostName = (string)table.Rows[i][5];
-                    prb.PrbPostType = (string)table.Rows[i][6];
-                    prb.PrbEduBg = (string)table.Rows[i][7];
-                    prb.PrbCertificate = (string)table.Rows[i][8];
-                    prb.PrbExperience = (string)table.Rows[i][9];
-                    prb.PrbSkill = (string)table.Rows[i][10];
-                    prb.PrbPersonality = (string)table.Rows[i][11];
-                    prb.PrbPhyCond = (string)table.Rows[i][12];
-                    prb.PrbWorkOutline = (string)table.Rows[i][13];
-                    prb.PrbWorkContntRequest = (string)table.Rows[i][14];
-                    prb.PrbPower = (string)table.Rows[i][15];
-                    prb.PrbResponse = (string)table.Rows[i][16];
-                    prb.PrbDirectLeader = (string)table.Rows[i][17];
-                    prb.PrbSubordinate = (string)table.Rows[i][18];
-                    prb.PrbColleague = (string)table.Rows[i][19];
-                    prb.PrbServices = (string)table.Rows[i][20];
-                    prb.PrbReleations = (string)table.Rows[i][21];
-                    prb.PrbWorkEnter = (string)table.Rows[i][22];
-                    prb.PrbPostAssess = (string)table.Rows[i][23];
-                    prb.PrbOthers = (string)table.Rows[i][24];
+                    prb.PrbUserID = (string)table.Rows[i]["prbUserID"];
+                    prb.PrbPassed = (Int32)table.Rows[i]["prbPassed"];
+                    prb.PrbEmployer = (string)table.Rows[i]["prbEmployer"];
+                    prb.PrbLaborUnit = (string)table.Rows[i]["prbLaborUnit"];
+                    prb.PrbLaborDep = (string)table.Rows[i]["prbLaborDep"];
+                    prb.PrbPostName = (string)table.Rows[i]["prbPostName"];
+                    prb.PrbPostType = (string)table.Rows[i]["prbPostType"];
+                    prb.PrbEduBg = (string)table.Rows[i]["prbEduBg"];
+                    prb.PrbCertificate = (string)table.Rows[i]["prbCertificate"];
+                    prb.PrbExperience = (string)table.Rows[i]["prbExperience"];
+                    prb.PrbSkill = (string)table.Rows[i]["prbSkill"];
+                    prb.PrbPersonality = (string)table.Rows[i]["prbPersonality"];
+                    prb.PrbPhyCond = (string)table.Rows[i]["prbPhyCond"];
+                    prb.PrbWorkOutline = (string)table.Rows[i]["prbWorkOutline"];
+                    prb.PrbWorkContntRequest = (string)table.Rows[i]["prbWorkContntRequest"];
+                    prb.PrbPower = (string)table.Rows[i]["prbPower"];
+                    prb.PrbResponse = (string)table.Rows[i]["prbResponse"];
+                    prb.PrbDirectLeader = (string)table.Rows[i]["prbDirectLeader"];
+                    prb.PrbSubordinate = (string)table.Rows[i]["prbSubordinate"];
+                    prb.PrbColleague = (string)table.Rows[i]["prbColleague"];
+                    prb.PrbServices = (string)table.Rows[i]["prbServices"];
+                    prb.PrbReleations = (string)table.Rows[i]["prbReleations"];
+                    prb.PrbWorkEnter = (string)table.Rows[i]["prbWorkEnter"];
+                    prb.PrbPostAssess = (string)table.Rows[i]["prbPostAssess"];
+                    prb.PrbOthers = (string)table.Rows[i]["prbOthers"];
+                    if (!table.Rows[i].IsNull("prbComment"))
+                    {
+                        prb.PrbComment = (string)table.Rows[i]["prbComment"];
+                    }
+                    else
+                    {
+                        prb.PrbComment = "";
+                    }
 
                     model.Add(prb);
                 }
@@ -200,7 +224,8 @@ namespace BLL
             strSql.Append("prbReleations=@prbReleations,");
             strSql.Append("prbWorkEnter=@prbWorkEnter,");
             strSql.Append("prbPostAssess=@prbPostAssess,");
-            strSql.Append("prbOthers=@prbOthers");
+            strSql.Append("prbOthers=@prbOthers,");
+            strSql.Append("prbComment=@prbComment");
             strSql.Append(" where prbUserID=@prbUserID");
             SqlParameter[] parameters =
                 {
@@ -228,7 +253,8 @@ namespace BLL
                 new SqlParameter("@prbReleations", SqlDbType.NVarChar,int.MaxValue), 
                 new SqlParameter("@prbWorkEnter", SqlDbType.NVarChar,int.MaxValue), 
                 new SqlParameter("@prbPostAssess", SqlDbType.NVarChar,int.MaxValue), 
-                new SqlParameter("@prbOthers", SqlDbType.NVarChar,int.MaxValue)
+                new SqlParameter("@prbOthers", SqlDbType.NVarChar,int.MaxValue),
+                new SqlParameter("@prbComment", SqlDbType.NVarChar,50)
                 
                 };
             parameters[0].Value = model.PrbUserID;
@@ -256,7 +282,29 @@ namespace BLL
             parameters[22].Value = model.PrbWorkEnter;
             parameters[23].Value = model.PrbPostAssess;
             parameters[24].Value = model.PrbOthers;
+            parameters[25].Value = model.PrbComment;
 
+            e = db.QueryExec(strSql.ToString(), parameters);
+            if (e != "" && e != null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public static bool UpdateComment(string prbUserID, string prbComment, ref string e)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("update tb_PostResponseBook set ");
+            strSql.Append("prbComment=@prbComment");
+            strSql.Append(" where prbUserID=@prbUserID");
+            SqlParameter[] parameters =
+                {
+                new SqlParameter("@prbUserID", SqlDbType.VarChar,10),
+                new SqlParameter("@prbComment", SqlDbType.NVarChar,50),
+                };
+            parameters[0].Value = prbUserID;
+            parameters[1].Value = prbComment;
             e = db.QueryExec(strSql.ToString(), parameters);
             if (e != "" && e != null)
             {

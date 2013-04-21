@@ -46,6 +46,8 @@
                     <td style="padding:1px;"><input type="button" value="退回" id="sendback_button"  onclick="sendback()" class="l-button" style="width:100px;height:25px;font-size:15px;display:none"/> </td>
                     <td style="width:10px;"></td>
                    <td style="padding:1px;"><input type="button" value="导出word" id="dao_button"  onclick="dao()" class="l-button" style="width:100px;height:25px;font-size:15px;display:none"/> </td>
+                   <td style="width:10px;"></td>
+                   <td style="padding:1px;"><input type="button" value="意见" id="comment_button"  onclick="comment()" class="l-button" style="width:100px;height:25px;font-size:15px"/> </td>
                 </tr>
          </table>
          </div>         
@@ -185,13 +187,22 @@
                     </div>
                 </td>
             </tr>
+            <tr>
+                <td align="right" class="tableKey">审核意见：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LComment" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
             </table>
         </div>
      </div>
 
     <div id="box"  class="Hidden">
              <p id="head" style="font-size:20px;font-weight:700;text-align:center"> 岗位责任书</p>
-             <asp:Label ID="passYoN" runat="server" Text="" style="font-size:18px;font-weight:500;text-align:center;position:relative;left:480px"></asp:Label>
+             <asp:Label ID="passYoN" runat="server" Text="" style="font-size:18px;font-weight:500;text-align:center;position:relative;left:480px"></asp:Label><br />
+             <asp:Label ID="Comment" runat="server" Text="" style="font-size:18px;font-weight:500;text-align:center;position:relative;left:480px;color:Red"></asp:Label>
              <br /> <br />
              <div id="outline">
                 <table style="position:relative;left:40px;">
@@ -315,11 +326,13 @@
             <input id="UserID" type="hidden" runat="server"/>
             <input id="Passed" type="hidden" runat="server"/>
             <input id="prbWorkContentRequestTemp" type="hidden" runat="server" />
+            <input id="prbComment" type="hidden" runat="server" />
              <asp:Button ID="Search" runat="server" Text="Button" onclick="Search_Click" style="display:none"/>
              <asp:Button ID="SearchPost" runat="server" Text="Button" onclick="SearchPost_Click" />  
              <asp:Button ID="Pass" runat="server" Text="Button" onclick="Submit_Click" style="display:none" />
              <asp:Button ID="SendBack" runat="server" Text="Button" onclick="SendBack_Click" style="display:none" />
              <asp:Button ID="Dao" runat="server" Text="Button" onclick="Dao_Click" style="display:none" />
+             <asp:Button ID="WriteComment" runat="server" Text="Button" onclick="WriteComment_Click" style="display:none" />
     </div>
     </form>
 </body>

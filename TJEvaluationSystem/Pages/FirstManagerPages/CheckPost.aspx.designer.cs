@@ -193,6 +193,15 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages {
         protected global::System.Web.UI.WebControls.Label LStopTime;
         
         /// <summary>
+        /// LComment 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LComment;
+        
+        /// <summary>
         /// passYoN 控件。
         /// </summary>
         /// <remarks>
@@ -200,6 +209,15 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label passYoN;
+        
+        /// <summary>
+        /// Comment 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Comment;
         
         /// <summary>
         /// Label1 控件。
@@ -715,6 +733,15 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages {
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden prbWorkContentRequestTemp;
         
         /// <summary>
+        /// prbComment 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden prbComment;
+        
+        /// <summary>
         /// Search 控件。
         /// </summary>
         /// <remarks>
@@ -758,5 +785,14 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Dao;
+        
+        /// <summary>
+        /// WriteComment 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button WriteComment;
     }
 }

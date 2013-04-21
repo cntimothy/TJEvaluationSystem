@@ -40,22 +40,23 @@ function load_userinfo()
     data = UsersData;
     Evaluated = $("#evaluatedgrid").ligerGrid({
         columns: [
-        { display: '用户名', name: 'UiID', width: 100, align: 'center' },
-        { display: '姓名', name: 'UiName', width: 100, align: 'center' },
-        { display: '性别', name: 'UiSex', width: 80, align: 'center' },
+        { display: '用户名', name: 'UiID', width: 80, align: 'center' },
+        { display: '姓名', name: 'UiName', width: 50, align: 'center' },
+        { display: '性别', name: 'UiSex', width: 30, align: 'center' },
         { display: '身份证号', name: 'UiIdentityNum', width: 100, align: 'center', hide: true },
-        { display: '部门', name: 'UiDepartment', width: 150, align: 'center' },
-        { display: '岗位（职务）', name: 'UiJob', width: 150, align: 'center' },
+        { display: '部门', name: 'UiDepartment', width: 50, align: 'center' },
+        { display: '岗位（职务）', name: 'UiJob', width: 150, align: 'center', hide: true },
         { display: '电话', name: 'UiTelephone', width: 70, align: 'center', hide: true },
         { display: 'Email', name: 'UiEmail', width: 150, align: 'center', hide: true },
-        { display: '手机', name: 'UiMobPhone', width: 120, align: 'center' },
+        { display: '手机', name: 'UiMobPhone', width: 100, align: 'center' },
         { display: '地址', name: 'UiAddress', width: 120, align: 'center', hide: true },
         { display: '邮编', name: 'UiZipCode', width: 0, align: 'lecenterft', hide: true },
-        { display: '经费来源', name: 'UiFund', width: 80, align: 'center' },
-        { display: '派遣性质', name: 'UiCharacter', width: 80, align: 'center' },
-        { display: '派遣公司', name: 'UiCompany', width: 80, align: 'center' },
+        { display: '经费来源', name: 'UiFund', width: 50, align: 'center', hide: true },
+        { display: '派遣性质', name: 'UiCharacter', width: 50, align: 'center' },
+        { display: '派遣公司', name: 'UiCompany', width: 50, align: 'center' },
         { display: '考评开始时间', name: 'UiStartTime', width: 80, align: 'center' },
         { display: '考评结束时间', name: 'UiStopTime', width: 80, align: 'center' },
+        { display: '审核意见', name: 'prbComment', width: 200, align: 'center' },
         { display: '', isSort: false, width: 200, render: function (rowdata, rowindex, value) {
             var h = "";
             h += "<a href='javascript:ShowDetail(" + rowindex + ")'>查看详细</a> ";
@@ -101,6 +102,7 @@ function ShowDetail(rowid)
     document.getElementById('LCompany').innerText = rowdata.UiCompany;
     document.getElementById('LStartTime').innerText = rowdata.UiStartTime;
     document.getElementById('LStopTime').innerText = rowdata.UiStopTime;
+    document.getElementById('LComment').innerText = rowdata.PrbComment;
 }
 
 function Check(rowid)
@@ -124,4 +126,12 @@ function EditPost()
         document.getElementById("pass_button").style.display = "";
     }
     document.getElementById("dao_button").style.display = "";
+}
+
+function comment() {
+    var comment = prompt("请输入审核意见：（最多50字）", "");
+    if (comment) {
+        document.getElementById("prbComment").value = comment;
+        document.getElementById("WriteComment").click();
+    }
 }
