@@ -32,12 +32,12 @@
             <td style="width:10px;"></td>
              <td style="padding:1px;"><input type="button" value="提交" id="submit_button"  onclick="submitpost()" class="l-button" style="width:100px;height:25px;font-size:15px;display:none" /> </td>                  
      </tr>
-     </table>
-          
+     </table>          
     </div>
+    <br />
+    <asp:Label ID="Title" runat="server" Text="" style="position:relative;left:20px;font-size:16px;"></asp:Label>
+    <br /><br />
     <div id="evaluatedgrid" style="margin:0 auto" ></div> 
-    <br />
-    <br />
      <div id="ShowDetailUserInfo" class="Hidden" style="text-align:center" >
      <div class="DetailUserData" style="border:3px solid #a3c0e8;width:500px;margin:0px auto;">
             <table>
@@ -82,18 +82,18 @@
                </td>
             </tr>
             <tr>
+                <td align="right" class="tableKey">岗位（职务）：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LJob" runat="server" Text=""></asp:Label>
+                    </div>
+               </td>
+            </tr>
+            <tr>
                 <td align="right" class="tableKey">电话：</td>
                 <td align="left" class="tableValue">
                     <div class="ShowData">
-                        <asp:Label ID="LTelphone" runat="server" Text=""></asp:Label>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" class="tableKey">手机：</td>
-                <td align="left" class="tableValue">
-                    <div class="ShowData">
-                        <asp:Label ID="LPhone" runat="server" Text=""></asp:Label>
+                        <asp:Label ID="LTelephone" runat="server" Text=""></asp:Label>
                     </div>
                 </td>
             </tr>
@@ -102,6 +102,14 @@
                 <td align="left" class="tableValue">
                     <div class="ShowData">
                         <asp:Label ID="LEmail" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">手机：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LMobPhone" runat="server" Text=""></asp:Label>
                     </div>
                 </td>
             </tr>
@@ -117,7 +125,47 @@
                 <td align="right" class="tableKey">邮编：</td>
                 <td align="left" class="tableValue">
                     <div class="ShowData">
-                        <asp:Label ID="LZipcode" runat="server" Text=""></asp:Label>
+                        <asp:Label ID="LZipCode" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+             <tr>
+                <td align="right" class="tableKey">经费来源：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LFund" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+             <tr>
+                <td align="right" class="tableKey">派遣性质：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LCharacter" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+             <tr>
+                <td align="right" class="tableKey">派遣公司：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LCompany" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+             <tr>
+                <td align="right" class="tableKey">考评开始时间：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LStartTime" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+             <tr>
+                <td align="right" class="tableKey">考评结束时间：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LStopTime" runat="server" Text=""></asp:Label>
                     </div>
                 </td>
             </tr>

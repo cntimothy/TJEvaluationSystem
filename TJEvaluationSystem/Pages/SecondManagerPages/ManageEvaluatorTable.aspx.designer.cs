@@ -31,94 +31,157 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// LUID 控件。
+        /// Title 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LUID;
+        protected global::System.Web.UI.WebControls.Label Title;
         
         /// <summary>
-        /// LUName 控件。
+        /// LID 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LUName;
+        protected global::System.Web.UI.WebControls.Label LID;
         
         /// <summary>
-        /// LUSex 控件。
+        /// Label1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LUSex;
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// LUIdentityNum 控件。
+        /// LSex 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LUIdentityNum;
+        protected global::System.Web.UI.WebControls.Label LSex;
         
         /// <summary>
-        /// LUDepartment 控件。
+        /// LIdentityNum 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LUDepartment;
+        protected global::System.Web.UI.WebControls.Label LIdentityNum;
         
         /// <summary>
-        /// LUTelphone 控件。
+        /// LDepartment 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LUTelphone;
+        protected global::System.Web.UI.WebControls.Label LDepartment;
         
         /// <summary>
-        /// LUPhone 控件。
+        /// LJob 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LUPhone;
+        protected global::System.Web.UI.WebControls.Label LJob;
         
         /// <summary>
-        /// LUEmail 控件。
+        /// LTelephone 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LUEmail;
+        protected global::System.Web.UI.WebControls.Label LTelephone;
         
         /// <summary>
-        /// LUAddress 控件。
+        /// LEmail 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LUAddress;
+        protected global::System.Web.UI.WebControls.Label LEmail;
         
         /// <summary>
-        /// LUZipcode 控件。
+        /// LMobPhone 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LUZipcode;
+        protected global::System.Web.UI.WebControls.Label LMobPhone;
+        
+        /// <summary>
+        /// LAddress 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LAddress;
+        
+        /// <summary>
+        /// LZipCode 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LZipCode;
+        
+        /// <summary>
+        /// LFund 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LFund;
+        
+        /// <summary>
+        /// LCharacter 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LCharacter;
+        
+        /// <summary>
+        /// LCompany 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LCompany;
+        
+        /// <summary>
+        /// LStartTime 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LStartTime;
+        
+        /// <summary>
+        /// LStopTime 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LStopTime;
         
         /// <summary>
         /// LStanderType 控件。

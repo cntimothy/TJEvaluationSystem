@@ -34,7 +34,7 @@ function load_userinfo() {
             return h;
         }
         }],
-        usePager: true, pageSize: 10,
+        usePager: true, pageSize: 20,
         data: UsersData,
         width: '96%'
     });

@@ -67,12 +67,22 @@ function ShowUserList() {
     userData = JSON2.parse(users);
     Evaluated = $("#UserListGrid").ligerGrid({
         columns: [
-        { display: '工号', name: 'UiID', width: 100, align: 'center', frozen: true },
+        { display: '用户名', name: 'UiID', width: 100, align: 'center' },
         { display: '姓名', name: 'UiName', width: 100, align: 'center' },
         { display: '性别', name: 'UiSex', width: 80, align: 'center' },
+        { display: '身份证号', name: 'UiIdentityNum', width: 100, align: 'center', hide: true },
         { display: '部门', name: 'UiDepartment', width: 150, align: 'center' },
+        { display: '岗位（职务）', name: 'UiJob', width: 150, align: 'center' },
+        { display: '电话', name: 'UiTelephone', width: 70, align: 'center', hide: true },
+        { display: 'Email', name: 'UiEmail', width: 150, align: 'center', hide: true },
         { display: '手机', name: 'UiMobPhone', width: 120, align: 'center' },
-        { display: 'Email', name: 'UiEmail', width: 150, align: 'center' },
+        { display: '地址', name: 'UiAddress', width: 120, align: 'center', hide: true },
+        { display: '邮编', name: 'UiZipCode', width: 0, align: 'lecenterft', hide: true },
+        { display: '经费来源', name: 'UiFund', width: 80, align: 'center' },
+        { display: '派遣性质', name: 'UiCharacter', width: 80, align: 'center' },
+        { display: '派遣公司', name: 'UiCompany', width: 80, align: 'center' },
+        { display: '考评开始时间', name: 'UiStartTime', width: 80, align: 'center' },
+        { display: '考评结束时间', name: 'UiStopTime', width: 80, align: 'center' },
         { display: '操作', isSort: false, width: 200, render: function (rowdata, rowindex, value) {
             var h = "";
             h += "<a href='javascript:ShowUserInfo(" + rowindex + ")'>查看用户详细信息</a> ";
@@ -80,9 +90,9 @@ function ShowUserList() {
             return h;
         }
         }],
-        usePager: true, pageSize: 10,
-        data: userData,
-        width: '100%', height: '98%'
+    usePager: true, pageSize: 20,
+    data: userData,
+    width: '96%' 
     });
     $("#pageloading").hide();
 }
@@ -92,16 +102,22 @@ function ShowUserInfo(rowid) {
     var rowdata = Evaluated.getSelectedRow(rowid);    //取得数据  
     if (rowdata == null)
         return;
-    document.getElementById('LUID').innerText = rowdata.UiID;
-    document.getElementById('LUName').innerText = rowdata.UiName;
-    document.getElementById('LUSex').innerText = rowdata.UiSex;
-    document.getElementById('LUIdentityNum').innerText = rowdata.UiIdentityNum;
-    document.getElementById('LUDepartment').innerText = rowdata.UiDepartment;
-    document.getElementById('LUTelphone').innerText = rowdata.UiTelephone;
-    document.getElementById('LUPhone').innerText = rowdata.UiMobPhone;
-    document.getElementById('LUEmail').innerText = rowdata.UiEmail;
-    document.getElementById('LUAddress').innerText = rowdata.UiAddress;
-    document.getElementById('LUZipcode').innerText = rowdata.UiZipCode;
+    document.getElementById('LID').innerText = rowdata.UiID;
+    document.getElementById('LName').innerText = rowdata.UiName;
+    document.getElementById('LSex').innerText = rowdata.UiSex;
+    document.getElementById('LIdentityNum').innerText = rowdata.UiIdentityNum;
+    document.getElementById('LDepartment').innerText = rowdata.UiDepartment;
+    document.getElementById('LJob').innerText = rowdata.UiJob;
+    document.getElementById('LTelephone').innerText = rowdata.UiTelephone;
+    document.getElementById('LEmail').innerText = rowdata.UiEmail;
+    document.getElementById('LMobPhone').innerText = rowdata.UiMobPhone;
+    document.getElementById('LAddress').innerText = rowdata.UiAddress;
+    document.getElementById('LZipCode').innerText = rowdata.UiZipCode;
+    document.getElementById('LFund').innerText = rowdata.UiFund;
+    document.getElementById('LCharacter').innerText = rowdata.UiCharacter;
+    document.getElementById('LCompany').innerText = rowdata.UiCompany;
+    document.getElementById('LStartTime').innerText = rowdata.UiStartTime;
+    document.getElementById('LStopTime').innerText = rowdata.UiStopTime;
     $("#UserList").css("display", "none");
     $("#UserInfo").css("display", "block");
 }

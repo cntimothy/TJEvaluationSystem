@@ -48,6 +48,9 @@
                 </tr>
          </table>
      </div>
+     <br />
+    <asp:Label ID="Title" runat="server" Text="" style="position:relative;left:20px;font-size:16px;"></asp:Label>
+    <br /><br />
         <div id="ShowAllTables" >
             <div id="maingrid" style="margin:0; padding:0;"></div>
         </div>

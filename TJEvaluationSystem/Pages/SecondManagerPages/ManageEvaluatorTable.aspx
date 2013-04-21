@@ -23,22 +23,22 @@
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
     <div class="ToolBar">
-                    <table style="position:relative;left:20px;height:100%">
-                        <tr>
-                        <!--
-                            <td class="tool_bar_td">
-                                <input type="button" class="l-button" value="返回" style="width: 70px;" onclick="BackToUserList();" />
-                            </td>
-                            -->
-                          <td style="width:10px;"></td>
-                          <td style="padding:1px;"><input type="button" value="获取被考评人名单" id="search_button"  onclick="search()" class="l-button" style="width:130px;height:25px;font-size:15px"/></td>
-                          <td style="width:10px;"></td>
-                        </tr>
-                    </table>
-                </div>
+        <table style="position:relative;left:20px;height:100%">
+            <tr>
+            <!--
+                <td class="tool_bar_td">
+                    <input type="button" class="l-button" value="返回" style="width: 70px;" onclick="BackToUserList();" />
+                </td>
+                -->
+                <td style="width:10px;"></td>
+                <td style="padding:1px;"><input type="button" value="获取被考评人名单" id="search_button"  onclick="search()" class="l-button" style="width:130px;height:25px;font-size:15px"/></td>
+                <td style="width:10px;"></td>
+            </tr>
+        </table>
     <div>
-        <div class="l-loading" style="display: block" id="pageloading">
-        </div>
+    <br /><br /><br />
+    <asp:Label ID="Title" runat="server" Text="" style="position:relative;left:20px;font-size:16px;"></asp:Label>
+    <br /><br />
         <div id="ShowUserList" style="height:100%">
             <div id="UserList">
                 <div id="UserListGrid" style="margin: 0; padding: 0;height:100%""></div>
@@ -47,68 +47,136 @@
                 
                 <div id="DetailUserData" style="border:3px solid #a3c0e8;width:500px;margin:0px auto;padding-top:10px;">
                     <table>
-                    <tr>
-                        <td align="right" class="tableKey">工号：</td>
-                        <td align="left" class="tableValue">
-                            <asp:Label ID="LUID" runat="server" Text=""></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right" class="tableKey">姓名：</td>
-                        <td align="left" class="tableValue">
-                            <asp:Label ID="LUName" runat="server" Text=""></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right" class="tableKey">性别：</td>
-                        <td align="left" class="tableValue">
-                            <asp:Label ID="LUSex" runat="server" Text=""></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right" class="tableKey">身份证号：</td>
-                        <td align="left" class="tableValue">
-                            <asp:Label ID="LUIdentityNum" runat="server" Text=""></asp:Label>
-                        </td>
-                    </tr>
-                     <tr>
-                        <td align="right" class="tableKey">部门：</td>
-                        <td align="left" class="tableValue">
-                            <asp:Label ID="LUDepartment" runat="server" Text=""></asp:Label>
-                       </td>
-                    </tr>
-                    <tr>
-                        <td align="right" class="tableKey">电话：</td>
-                        <td align="left" class="tableValue">
-                            <asp:Label ID="LUTelphone" runat="server" Text=""></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right" class="tableKey">手机：</td>
-                        <td align="left" class="tableValue">
-                            <asp:Label ID="LUPhone" runat="server" Text=""></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right" class="tableKey">Email：</td>
-                        <td align="left" class="tableValue">
-                            <asp:Label ID="LUEmail" runat="server" Text=""></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right" class="tableKey">地址：</td>
-                        <td align="left" class="tableValue">
-                            <asp:Label ID="LUAddress" runat="server" Text=""></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right" class="tableKey">邮编：</td>
-                        <td align="left" class="tableValue">
-                            <asp:Label ID="LUZipcode" runat="server" Text=""></asp:Label>
-                        </td>
-                    </tr>
-                    </table>
-                </div>
+            <tr>
+                <td align="right" class="tableKey">用户名：</td>
+                <td align="left" class="tableValue">
+                    <div class="DetailData">
+                        <asp:Label ID="LID" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">姓名：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">性别：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LSex" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">身份证号：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LIdentityNum" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+             <tr>
+                <td align="right" class="tableKey">部门：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LDepartment" runat="server" Text=""></asp:Label>
+                    </div>
+               </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">岗位（职务）：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LJob" runat="server" Text=""></asp:Label>
+                    </div>
+               </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">电话：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LTelephone" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">Email：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LEmail" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">手机：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LMobPhone" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">地址：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LAddress" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">邮编：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LZipCode" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+             <tr>
+                <td align="right" class="tableKey">经费来源：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LFund" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+             <tr>
+                <td align="right" class="tableKey">派遣性质：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LCharacter" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+             <tr>
+                <td align="right" class="tableKey">派遣公司：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LCompany" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+             <tr>
+                <td align="right" class="tableKey">考评开始时间：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LStartTime" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+             <tr>
+                <td align="right" class="tableKey">考评结束时间：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LStopTime" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
+            </table>
+            </div>
              </div>
             </div>
         </div>

@@ -34,6 +34,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             if (ManagerBLL.SelectByID(username, ref manager, ref exception))
             {
                 uiDepart = manager.ElementAt(0).MDepartment;
+                Title.Text = uiDepart + "被考评人名单：";
                 List<UserInfo> Evaluated = new List<UserInfo>();
                 string type = "____1%";
                 bool b=UserInfoBLL.Select(uiDepart, type, ref Evaluated, ref exception);

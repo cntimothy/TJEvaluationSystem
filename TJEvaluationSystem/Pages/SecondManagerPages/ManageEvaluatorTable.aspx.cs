@@ -38,6 +38,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             {
                 //获得部门
                 uiDepart = managers.ElementAt(0).MDepartment;
+                Title.Text = uiDepart + "被考评人名单：";
                 List<UserInfo> Evaluated = new List<UserInfo>();
                 string type = "____1%";
                 //查询被考评名单

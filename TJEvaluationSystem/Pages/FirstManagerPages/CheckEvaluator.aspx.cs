@@ -27,10 +27,12 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             if(department == "0")
             {
                 UserInfoBLL.SelectByType(type, ref userinfo, ref exception);
+                Title.Text = "所有被考评者名单:";
             }
             else
             {
                 UserInfoBLL.Select(department, type, ref userinfo, ref exception);
+                Title.Text = department + "被考评者名单:";
             }
             if (userinfo == null)
                 return null;

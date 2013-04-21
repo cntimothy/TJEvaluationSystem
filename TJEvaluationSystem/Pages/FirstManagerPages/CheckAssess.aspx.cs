@@ -30,10 +30,12 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             if (department == "0")
             {
                 sql1 = "select * from tb_AssessTable ";
+                Title.Text = "所有被考评表:";
             }
             else
             {
                 sql1 = "select * from tb_AssessTable where atDep = '" + department + "'";
+                Title.Text = department + "被考评表:";
             }
             string sql2 = "select * from tb_StanderLib";
             List<AssessTable> at = new List<AssessTable>();

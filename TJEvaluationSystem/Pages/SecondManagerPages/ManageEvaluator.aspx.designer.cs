@@ -31,6 +31,15 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
+        /// Title 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Title;
+        
+        /// <summary>
         /// LID 控件。
         /// </summary>
         /// <remarks>
@@ -76,22 +85,22 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages {
         protected global::System.Web.UI.WebControls.Label LDepartment;
         
         /// <summary>
-        /// LTelphone 控件。
+        /// LJob 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LTelphone;
+        protected global::System.Web.UI.WebControls.Label LJob;
         
         /// <summary>
-        /// LPhone 控件。
+        /// LTelephone 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LPhone;
+        protected global::System.Web.UI.WebControls.Label LTelephone;
         
         /// <summary>
         /// LEmail 控件。
@@ -103,6 +112,15 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages {
         protected global::System.Web.UI.WebControls.Label LEmail;
         
         /// <summary>
+        /// LMobPhone 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LMobPhone;
+        
+        /// <summary>
         /// LAddress 控件。
         /// </summary>
         /// <remarks>
@@ -112,13 +130,58 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages {
         protected global::System.Web.UI.WebControls.Label LAddress;
         
         /// <summary>
-        /// LZipcode 控件。
+        /// LZipCode 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LZipcode;
+        protected global::System.Web.UI.WebControls.Label LZipCode;
+        
+        /// <summary>
+        /// LFund 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LFund;
+        
+        /// <summary>
+        /// LCharacter 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LCharacter;
+        
+        /// <summary>
+        /// LCompany 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LCompany;
+        
+        /// <summary>
+        /// LStartTime 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LStartTime;
+        
+        /// <summary>
+        /// LStopTime 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LStopTime;
         
         /// <summary>
         /// RadioButton1 控件。
