@@ -73,6 +73,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             prbUserID = UserID.Value;
             List<PostResponseBook> post1 = new List<PostResponseBook>();
             exception = "";
+            LUserName.Text = "被考评人姓名：" + UserName.Value;
             if (PostResponseBookBLL.Select(prbUserID, ref post1, ref exception))
             {
                 PostResponseBook prb = new PostResponseBook();
@@ -88,7 +89,14 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                     passYoN.Text = "未通过审核！";
                     Passed.Value = "0";
                 }
-                Comment.Text = "审核意见：" + prb.PrbComment;
+                if (prb.PrbComment != "")
+                {
+                    Comment.Text = "审核意见：" + prb.PrbComment;
+                }
+                else
+                {
+                    Comment.Text = "";
+                }
                 prbEmployer.Text = prb.PrbEmployer;
                 prbLaborUnit.Text = prb.PrbLaborUnit;
                 prbLaborDep.Text = prb.PrbLaborDep;
@@ -117,6 +125,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             else
             {
                 passYoN.Text = "尚未制定！";
+                Comment.Text = "";
                 Passed.Value = "-1";
                 prbEmployer.Text = "";
                 prbLaborUnit.Text = "";
@@ -181,6 +190,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             prb.PrbWorkEnter = prbWorkEnter.Text;
             prb.PrbPostAssess = prbPostAssess.Text;
             prb.PrbOthers = prbOthers.Text;
+            prb.PrbComment = "";
 
             exception = "";
             PostResponseBookBLL.Update(prb, ref exception);
@@ -233,6 +243,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             prb.PrbWorkEnter = prbWorkEnter.Text;
             prb.PrbPostAssess = prbPostAssess.Text;
             prb.PrbOthers = prbOthers.Text;
+            prb.PrbComment = "";
 
             PostResponseBookBLL.Update(prb, ref exception);
 

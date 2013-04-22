@@ -47,7 +47,7 @@
                     <td style="width:10px;"></td>
                    <td style="padding:1px;"><input type="button" value="导出word" id="dao_button"  onclick="dao()" class="l-button" style="width:100px;height:25px;font-size:15px;display:none"/> </td>
                    <td style="width:10px;"></td>
-                   <td style="padding:1px;"><input type="button" value="意见" id="comment_button"  onclick="comment()" class="l-button" style="width:100px;height:25px;font-size:15px"/> </td>
+                   <td style="padding:1px;"><input type="button" value="审核意见" id="comment_button"  onclick="comment()" class="l-button" style="width:100px;height:25px;font-size:15px;display:none"/> </td>
                 </tr>
          </table>
          </div>         
@@ -200,6 +200,7 @@
      </div>
 
     <div id="box"  class="Hidden">
+        <asp:Label ID="LUserName" runat="server" Text="" style="font-size:18px;font-weight:500;text-align:center;position:relative;left:0px"></asp:Label>
              <p id="head" style="font-size:20px;font-weight:700;text-align:center"> 岗位责任书</p>
              <asp:Label ID="passYoN" runat="server" Text="" style="font-size:18px;font-weight:500;text-align:center;position:relative;left:480px"></asp:Label><br />
              <asp:Label ID="Comment" runat="server" Text="" style="font-size:18px;font-weight:500;text-align:center;position:relative;left:480px;color:Red"></asp:Label>
@@ -324,6 +325,7 @@
             <input id="JsonData" type="hidden" runat="server"/>
             <input id="Errors" type="hidden" runat="server"/>
             <input id="UserID" type="hidden" runat="server"/>
+            <input id="UserName" type="hidden" runat="server"/>
             <input id="Passed" type="hidden" runat="server"/>
             <input id="prbWorkContentRequestTemp" type="hidden" runat="server" />
             <input id="prbComment" type="hidden" runat="server" />

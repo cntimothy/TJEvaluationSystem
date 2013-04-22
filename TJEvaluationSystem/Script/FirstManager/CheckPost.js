@@ -107,7 +107,8 @@ function ShowDetail(rowid)
 
 function Check(rowid)
  {
-    var rowdata = Evaluated.getSelectedRow(rowid);    //取得数据
+     var rowdata = Evaluated.getSelectedRow(rowid);    //取得数据
+     document.getElementById("UserName").value = rowdata.UiName;
 
     if (rowdata == null)
         return;
@@ -124,12 +125,14 @@ function EditPost()
         document.getElementById("sendback_button").style.display = "";
     } else if (document.getElementById("Passed").value == 0) {
         document.getElementById("pass_button").style.display = "";
+        document.getElementById("comment_button").style.display = ""; //显示审核意见按钮
     }
     document.getElementById("dao_button").style.display = "";
 }
 
 function comment() {
-    var comment = prompt("请输入审核意见：（最多50字）", "");
+    var oldComment = document.getElementById("Comment").innerHTML.split("：")[1];
+    var comment = prompt("请输入审核意见：（最多50字）", oldComment);
     if (comment) {
         document.getElementById("prbComment").value = comment;
         document.getElementById("WriteComment").click();
