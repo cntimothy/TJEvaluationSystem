@@ -24,7 +24,7 @@ function load_userinfo()
    
     Evaluated = $("#evaluatedgrid").ligerGrid({
         columns: [
-       { display: '用户名', name: 'UiID', width: 80, align: 'center' },
+        { display: '用户名', name: 'UiID', width: 80, align: 'center' },
         { display: '姓名', name: 'UiName', width: 50, align: 'center' },
         { display: '性别', name: 'UiSex', width: 30, align: 'center' },
         { display: '身份证号', name: 'UiIdentityNum', width: 100, align: 'center', hide: true },
@@ -122,18 +122,37 @@ function show_evaluator()
     Evaluator = $("#evaluator").ligerGrid({
         checkbox: true,
         columns: [
-        { display: '用户名', name: 'UiID', width: 100, align: 'center', frozen: true },
-        { display: '姓名', name: 'UiName', width: 100, align: 'center' },
-        { display: '性别', name: 'UiSex', width: 80, align: 'center' },
+        { display: '用户名', name: 'UiID', width: 80, align: 'center', hide: true },
+        { display: '姓名', name: 'UiName', width: 50, align: 'center' },
+        { display: '性别', name: 'UiSex', width: 30, align: 'center' },
         { display: '身份证号', name: 'UiIdentityNum', width: 100, align: 'center', hide: true },
-        { display: '部门', name: 'UiDepartment', width: 150, align: 'center', hide: true },
+        { display: '部门', name: 'UiDepartment', width: 50, align: 'center' },
+        { display: '岗位（职务）', name: 'UiJob', width: 150, align: 'center', hide: true },
         { display: '电话', name: 'UiTelephone', width: 70, align: 'center', hide: true },
-        { display: '手机', name: 'UiMobPhone', width: 120, align: 'center' },
         { display: 'Email', name: 'UiEmail', width: 150, align: 'center' },
+        { display: '手机', name: 'UiMobPhone', width: 100, align: 'center' },
         { display: '地址', name: 'UiAddress', width: 120, align: 'center', hide: true },
-        { display: '邮编', name: 'UiZipCode', width: 100, align: 'center', hide: true }
+        { display: '邮编', name: 'UiZipCode', width: 0, align: 'lecenterft', hide: true },
+        { display: '经费来源', name: 'UiFund', width: 50, align: 'center', hide: true },
+        { display: '派遣性质', name: 'UiCharacter', width: 50, align: 'center', hide: true },
+        { display: '派遣公司', name: 'UiCompany', width: 50, align: 'center', hide: true },
+        { display: '考评开始时间', name: 'UiStartTime', width: 80, align: 'center', hide: true },
+        { display: '考评结束时间', name: 'UiStopTime', width: 80, align: 'center', hide: true },
+        { display: '_关系', name: 'Relation', width: 80, align: 'center', hide: true },
+        { display: '关系', isSort: false, width: 250, render: function (rowdata, rowindex, value) {
+            var h = "";
+            h += '领导';
+            h += '<input type="radio" id="RadioButton1' + rowindex + '" name="' + rowindex + '" value="领导">';
+            h += ' 同事';
+            h += '<input type="radio" id="RadioButton2' + rowindex + '" name="' + rowindex + '" value="同事">';
+            h += ' 下属';
+            h += '<input type="radio" id="RadioButton3' + rowindex + '" name="' + rowindex + '" value="下属">';
+            h += ' 客户';
+            h += '<input type="radio" id="RadioButton4' + rowindex + '" name="' + rowindex + '" value="客户">';
+            return h;
+        }
+        }
         ],
-        usePager: true, pageSize: 10,
         data: UsersData2,
         width: '96%'
     });
@@ -145,26 +164,53 @@ function show_evaluator()
 
 function submitList() {
 
-    var checked = false;
-    allEles = document.getElementsByName("Radio");
-    for(var i=0;i<allEles.length;i++)
-    {
-        checked=checked||allEles[i].checked;
-    }
-    if(!checked)
-    {
-       alert("请选择考评人身份!");
-       return;
-    }
+//    var checked = false;
+//    allEles = document.getElementsByName("Radio");
+//    for(var i=0;i<allEles.length;i++)
+//    {
+//        checked=checked||allEles[i].checked;
+//    }
+//    if(!checked)
+//    {
+//       alert("请选择考评人身份!");
+//       return;
+//    }
     var array = Evaluator.getSelecteds();
     if (array.length<1) 
     { 
          alert("请选择考评人"); 
          return;
     }
-     // alert("提交成功");
-    
-    var selectData= JSON2.stringify(array);
+
+    for (var i = 0; i < array.length; i++) {
+        delete array[i].UiName;
+        delete array[i].UiSex;
+        delete array[i].UiIdentityNum;
+        delete array[i].UiDepartment;
+        delete array[i].UiTelephone;
+        delete array[i].UiEmail;
+        delete array[i].UiMobPhone;
+        delete array[i].UiAddress;
+        delete array[i].UiZipCode;
+        delete array[i].UiType;
+        delete array[i].UiJob;
+        delete array[i].UiFund;
+        delete array[i].UiCharacter;
+        delete array[i].UiCompany;
+        delete array[i].UiStartTime;
+        delete array[i].UiStopTime;   
+    }
+
+     for (var i = 0; i < array.length; i++) {
+         var items = document.getElementsByName(i.toString());
+         for (var j = 0; j < items.length; j++) {
+             if (items[j].checked == true) {
+                 array[i].Relation = items[j].value;
+                 break;
+             }
+         }
+     } 
+    var selectData = JSON2.stringify(array);
     document.getElementById("JsonChose").value = selectData;
     document.getElementById("Button1").click();
 }

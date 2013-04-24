@@ -176,6 +176,7 @@
      <br />
      <br />
      <div id="box"  class="Hidden">
+     <!--
     <div id="role" style="position:relative;left:30px;">
       <span>
             <asp:RadioButton GroupName="Radio" ID="RadioButton1" runat="server"  Text="领导" />
@@ -190,6 +191,7 @@
             <asp:RadioButton GroupName="Radio" ID="RadioButton4" runat="server" Text="客户" />
        </span>
       </div>  
+      -->
      <div id="evaluator" style="margin:0 auto" ></div> 
      </div>
 

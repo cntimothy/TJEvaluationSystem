@@ -69,6 +69,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         {
             exception = "";
             string username = (string)Session["username"];
+            //string username = "admin2";
             string uiDepart = "";
             string evaluatedID = UserID.Value;
             List<Manager> managers = new List<Manager>();
@@ -115,6 +116,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         {
             exception = "";
             string username = (string)Session["username"];
+            //string username = "admin2";
             string evaluatedID = UserID.Value;
 
             List<Evaluator> model = new List<Evaluator>();
@@ -151,20 +153,12 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         {
             exception = "";
             string role = "";
-            if (this.RadioButton1.Checked)
-                role = "领导";//领导
-            else if (this.RadioButton2.Checked)
-                role = "同事";//同事
-            else if (this.RadioButton3.Checked)
-                role = "下属";//下属
-            else if (this.RadioButton4.Checked)
-                role = "客户";//客户
             string strData = JsonChose.Value;
-            List<UserInfo> userData = JSON.ScriptDeserialize<List<UserInfo>>(strData);
+            List<tempui> userData = JSON.ScriptDeserialize<List<tempui>>(strData);
             Evaluator[] model = new Evaluator[userData.Count];
             for (int i = 0; i < userData.Count; i++)
             {
-                UserInfo userinfo = new UserInfo();
+                tempui userinfo = new tempui();
                 userinfo = userData.ElementAt(i);
 
                 model[i] = new Evaluator();
@@ -172,6 +166,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 model[i].EvaluatedID = UserID.Value;
                 model[i].Relation = role;
                 model[i].Pass = 0;
+                model[i].Relation = userinfo.Relation;
                  
             }
 
@@ -243,7 +238,10 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             else
                 Check_User(sender, e);
         }
-        
-        
+        public class tempui
+        {
+            public string UiID;
+            public string Relation;
+        }
     }
 }
