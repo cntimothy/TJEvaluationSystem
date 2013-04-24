@@ -81,6 +81,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 this.pass.Text = "已通过审核";
                 DataTable table = new DataTable();
                 table = model.ListToDataTable();
+                adjustTable(table, ref exception);
                 string json = JSON.DataTableToJson(table);
                 JsonList.Value = json;
                 ClientScript.RegisterStartupScript(this.GetType(), "", "showList1()", true);
@@ -96,6 +97,8 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 }
                 DataTable table = new DataTable();
                 table = model.ListToDataTable();
+
+                adjustTable(table, ref exception);
                 string json = JSON.DataTableToJson(table);
                 JsonList.Value = json;
                 ClientScript.RegisterStartupScript(this.GetType(), "", "showList1()", true);
@@ -271,6 +274,24 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             ec.EcComment = EvaComment.Value;
             EvaluatorCommentBLL.Update(ec, ref exception);
             Response.Write("<script>alert('已提交意见！')</script>");
+        }
+
+        private void adjustTable(DataTable dt, ref string exception)
+        {
+            dt.Columns.Add("EvaluatedName");
+            dt.Columns.Add("EvaluatorName");
+            dt.Columns.Add("EvaluatorDep");
+            List<UserInfo> ui = new List<UserInfo>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                ui.Clear();
+                UserInfoBLL.Select(ref ui, dr["UiID"].ToString(), ref exception);
+                dr["EvaluatorName"] = ui[0].UiName;
+                dr["EvaluatorDep"] = ui[0].UiDepartment;
+                ui.Clear();
+                UserInfoBLL.Select(ref ui, dr["EvaluatedID"].ToString(), ref exception);
+                dr["EvaluatedName"] = ui[0].UiName;
+            }
         }
     }
 }

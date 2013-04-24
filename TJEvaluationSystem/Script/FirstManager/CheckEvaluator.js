@@ -113,8 +113,9 @@ function showList1()
     var UsersData3 = JSON2.parse(s3);
     List = $("#list").ligerGrid({
         columns: [
-        { display: '被考评人', name: 'EvaluatedID', width: 100, align: 'center', frozen: true },
-        { display: '考评人', name: 'UiID', width: 100, align: 'center' },
+        { display: '被考评人姓名', name: 'EvaluatedName', width: 150, align: 'center', frozen: true },
+        { display: '考评人姓名', name: 'EvaluatorName', width: 150, align: 'center' },
+        { display: '考评人部门', name: 'EvaluatorDep', width: 100, align: 'center' },
         { display: '身份', name: 'Relation', width: 80, align: 'center' }
         ],
         usePager: true, pageSize: 10,

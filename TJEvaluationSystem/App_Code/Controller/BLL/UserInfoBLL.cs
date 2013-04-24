@@ -140,6 +140,7 @@ namespace BLL
              string sql = "select * from tb_UserInfo where uiID='" + uiID + "'";
              return Select(ref ui, ref e, sql);
          }
+
          public static bool Select(ref List<UserInfo> ui, ref string e,string sql)
          {
              DataTable table = new DataTable();
