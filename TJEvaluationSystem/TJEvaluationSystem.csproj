@@ -164,6 +164,7 @@
     <Compile Include="App_Code\Controller\BLL\EvaluatedCollectTableBLL.cs" />
     <Compile Include="App_Code\Controller\BLL\EvaluationHistoryBLL.cs" />
     <Compile Include="App_Code\Controller\BLL\EvaluatorBLL.cs" />
+    <Compile Include="App_Code\Controller\BLL\EvaluatorCommentBLL.cs" />
     <Compile Include="App_Code\Controller\BLL\EvaluatorTableBLL.cs" />
     <Compile Include="App_Code\Controller\BLL\MessageBLL.cs" />
     <Compile Include="App_Code\Controller\BLL\PostResponseBookBLL.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="App_Code\Model\EvaluatedCollectTable.cs" />
     <Compile Include="App_Code\Model\EvaluationHistory.cs" />
     <Compile Include="App_Code\Model\Evaluator.cs" />
+    <Compile Include="App_Code\Model\EvaluatorComment.cs" />
     <Compile Include="App_Code\Model\EvaluatorTable.cs" />
     <Compile Include="App_Code\Model\Message.cs" />
     <Compile Include="App_Code\Model\PostResponseBook.cs" />

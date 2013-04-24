@@ -45,6 +45,7 @@ function load_userinfo()
         { display: '派遣公司', name: 'UiCompany', width: 50, align: 'center' },
         { display: '考评开始时间', name: 'UiStartTime', width: 80, align: 'center' },
         { display: '考评结束时间', name: 'UiStopTime', width: 80, align: 'center' },
+        { display: '审核意见', name: 'Comment', width: 200, align: 'left' },
         { display: '', isSort: false, width: 200, render: function (rowdata, rowindex, value) {
             var h = "";
             h += "<a href='javascript:ShowDetail(" + rowindex + ")'>查看详细</a> ";
@@ -90,6 +91,7 @@ function ShowDetail(rowid)
     document.getElementById('LCompany').innerText = rowdata.UiCompany;
     document.getElementById('LStartTime').innerText = rowdata.UiStartTime;
     document.getElementById('LStopTime').innerText = rowdata.UiStopTime;
+    document.getElementById('LComment').innerText = rowdata.Comment;
 }
 
 function Check(rowid) 
@@ -99,6 +101,7 @@ function Check(rowid)
     if (rowdata == null)
         return;
     document.getElementById("UserID").value = rowdata.UiID;
+    document.getElementById("EvaComment").value = rowdata.Comment;
     document.getElementById("CheckUser").click();
 }
 
@@ -124,6 +127,7 @@ function showList1()
     }
     else if (document.getElementById("pass").innerHTML == "未通过审核") {
         document.getElementById("pass_button").style.display = "";
+        document.getElementById("comment_button").style.display = ""; //显示审核意见按钮
     }
     document.getElementById("dao_button").style.display = "";
     $("#list").ligerGetGridManager().loadData()
@@ -140,4 +144,18 @@ function pass()
 
  function dao() {
      document.getElementById("Dao").click();
+ }
+
+ function comment() {
+     var oldComment = document.getElementById("Comment").innerHTML.split("：")[1];
+     if (oldComment) {
+         var comment = prompt("请输入审核意见：（最多50字）", oldComment);
+     }
+     else {
+         var comment = prompt("请输入审核意见：（最多50字）", "");
+     }
+     if (comment) {
+         document.getElementById("EvaComment").value = comment.substring(0, 50);
+         document.getElementById("WriteComment").click();
+     }
  }

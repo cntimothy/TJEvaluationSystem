@@ -50,6 +50,18 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 return;
             }
 
+            //给table添加prbComment栏
+            string exception = "";
+            string comment = "";
+            table.Columns.Add("Comment");
+            foreach (DataRow dr in table.Rows)
+            {
+                if (EvaluatorCommentBLL.SelectComment(dr["uiID"].ToString(), ref comment, ref exception))
+                {
+                    dr["Comment"] = comment;
+                }
+            }
+
             string json = JSON.DataTableToJson(table);
             JsonData.Value = json;
 
@@ -78,6 +90,10 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             if (EvaluatorBLL.Select(ref model, evaluated, 0, ref exception))
             {
                 this.pass.Text = "未通过审核";
+                if (EvaComment.Value != "")
+                {
+                    Comment.Text = "审核意见：" + EvaComment.Value;
+                }
                 DataTable table = new DataTable();
                 table = model.ListToDataTable();
                 string json = JSON.DataTableToJson(table);
@@ -128,6 +144,10 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                         return;
                     }
                 }
+                EvaluatorComment ec = new EvaluatorComment();
+                ec.EcEvaluatedID = evaluated;
+                ec.EcComment = "";
+                EvaluatorCommentBLL.Update(ec, ref exception);
                 this.pass.Text = "已通过审核";
                 ClientScript.RegisterStartupScript(this.GetType(), "", "showList1()", true);
                 return;
@@ -243,6 +263,14 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             Response.End();
         }
 
-        
+        protected void WriteComment_Click(object sender, EventArgs e)
+        {
+            string exception = "";
+            EvaluatorComment ec = new EvaluatorComment();
+            ec.EcEvaluatedID = UserID.Value;
+            ec.EcComment = EvaComment.Value;
+            EvaluatorCommentBLL.Update(ec, ref exception);
+            Response.Write("<script>alert('已提交意见！')</script>");
+        }
     }
 }

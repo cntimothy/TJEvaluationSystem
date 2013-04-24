@@ -38,14 +38,16 @@
                            <asp:ListItem Value="0" >所有部门</asp:ListItem>
                        </asp:DropDownList>
                    </td>
-                   <td style="width:10px;"></td>
-                   <td style="padding:1px;"><input type="button" value="获取被考评人名单" id="search_button"  onclick="search()" class="l-button" style="width:150px;height:25px;font-size:15px"/></td>
-                   <td style="width:10px;"></td>
-                   <td style="padding:1px;"><input type="button" value="通过" id="pass_button"  onclick="pass()" class="l-button" style="width:100px;height:25px;font-size:15px;display:none"/> </td>
+                    <td style="width:10px;"></td>
+                    <td style="padding:1px;"><input type="button" value="获取被考评人名单" id="search_button"  onclick="search()" class="l-button" style="width:150px;height:25px;font-size:15px"/></td>
+                    <td style="width:10px;"></td>
+                    <td style="padding:1px;"><input type="button" value="通过" id="pass_button"  onclick="pass()" class="l-button" style="width:100px;height:25px;font-size:15px;display:none"/> </td>
                     <td style="width:10px;"></td>
                     <td style="padding:1px;"><input type="button" value="退回" id="sendback_button"  onclick="sendback()" class="l-button" style="width:100px;height:25px;font-size:15px;display:none"/> </td>
                     <td style="width:10px;"></td>
-                   <td style="padding:1px;"><input type="button" value="导出excel" id="dao_button"  onclick="dao()" class="l-button" style="width:100px;height:25px;font-size:15px;display:none"/> </td>
+                    <td style="padding:1px;"><input type="button" value="导出excel" id="dao_button"  onclick="dao()" class="l-button" style="width:100px;height:25px;font-size:15px;display:none"/> </td>
+                    <td style="width:10px;"></td>
+                   <td style="padding:1px;"><input type="button" value="审核意见" id="comment_button"  onclick="comment()" class="l-button" style="width:100px;height:25px;font-size:15px;display:none"/> </td>
                 </tr>
          </table>
      </div>
@@ -185,12 +187,21 @@
                     </div>
                 </td>
             </tr>
+            <tr>
+                <td align="right" class="tableKey">审核意见：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LComment" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
             </table>
         </div>
      </div>
      <br /><br />
      <div id="box2"  class="Hidden" style="text-align:center">
          <div><asp:Label ID="pass" runat="server" Text="" style="font-size:18px;font-weight:500;text-align:center;position:relative;"></asp:Label></div>
+         <div><asp:Label ID="Comment" runat="server" Text="" style="font-size:18px;font-weight:500;text-align:center;position:relative;left:0px;color:Red"></asp:Label></div>
          <div id="list" style="margin:0 auto" ></div> 
      </div>
 
@@ -202,11 +213,13 @@
              <input id="Errors" type="hidden" runat="server"/>
              <input id="Chose" type="hidden" runat="server"/>
              <input id="Passed" type="hidden" runat="server"/>
+             <input id="EvaComment" type="hidden" runat="server" />
              <asp:Button ID="Search" runat="server" Text="Button" onclick="Search_Click" style="display:none"/>
              <asp:Button ID="CheckUser" runat="server"  OnClick="Check_User"  />
              <asp:Button ID="PassList" runat="server" Text="Button" onclick="Submit_Click" style="display:none" />
              <asp:Button ID="SendBack" runat="server" Text="Button" onclick="SendBack_Click" style="display:none" />
-             <asp:Button ID="Dao" runat="server" Text="Button" onclick="Dao_Click" style="display:none" />      
+             <asp:Button ID="Dao" runat="server" Text="Button" onclick="Dao_Click" style="display:none" />  
+             <asp:Button ID="WriteComment" runat="server" Text="Button" onclick="WriteComment_Click" style="display:none" />    
     </div>
 
 
