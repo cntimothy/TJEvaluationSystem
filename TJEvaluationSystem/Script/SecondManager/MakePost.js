@@ -87,6 +87,7 @@ function load_userinfo()
         { display: '派遣公司', name: 'UiCompany', width: 50, align: 'center' },
         { display: '考评开始时间', name: 'UiStartTime', width: 80, align: 'center' },
         { display: '考评结束时间', name: 'UiStopTime', width: 80, align: 'center' },
+        { display: '审核意见', name: 'PrbComment', width: 200, align: 'left' },
         { display: '', isSort: false, width: 180, render: function (rowdata, rowindex, value) {
             var h = "";
             h += "<a href='javascript:ShowDetail(" + rowindex + ")'>查看详细</a> ";
@@ -113,6 +114,8 @@ function ShowDetail(rowid)
     //设置显示与隐藏
     $(".ShowData").css("display", "block");
     //设置显示值
+    document.getElementById("Title").style.display = "none"; //不显示“XX被考评人名单”
+
     document.getElementById('LID').innerText = rowdata.UiID;
     document.getElementById('LName').innerText = rowdata.UiName;
     document.getElementById('LSex').innerText = rowdata.UiSex;
@@ -129,6 +132,7 @@ function ShowDetail(rowid)
     document.getElementById('LCompany').innerText = rowdata.UiCompany;
     document.getElementById('LStartTime').innerText = rowdata.UiStartTime;
     document.getElementById('LStopTime').innerText = rowdata.UiStopTime;
+    document.getElementById('LComment').innerText = rowdata.PrbComment;
 }
 
 function Make(rowid) 
@@ -138,12 +142,14 @@ function Make(rowid)
     if (rowdata == null)
         return;
     document.getElementById("UserID").value = rowdata.UiID;
+    document.getElementById("UserName").value = rowdata.UiName;
     document.getElementById("SearchPost").click();
 }
 
 function EditPost() {
     $("#evaluatedgrid").css("display", "none");
     $("#box").css("display", "block");
+    document.getElementById("Title").style.display = "none"; //不显示“XX被考评人名单”
     var str = document.getElementById("prbWorkContentRequest").value;
     if (str != "") {
         var bigPoint = str.split("&");

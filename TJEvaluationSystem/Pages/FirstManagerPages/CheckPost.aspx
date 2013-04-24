@@ -52,7 +52,7 @@
          </table>
          </div>         
          <br />
-         <asp:label id="name" runat="server" style="position:relative;left:20px;font-size:16px;"></asp:label>
+         <asp:label id="Title" runat="server" style="position:relative;left:20px;font-size:16px;display:block"></asp:label>
          <br /><br />
          <div id="evaluatedgrid" style="margin:0 auto" ></div> 
 

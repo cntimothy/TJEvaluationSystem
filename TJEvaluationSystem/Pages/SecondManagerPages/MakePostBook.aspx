@@ -35,7 +35,7 @@
      </table>          
     </div>
     <br />
-    <asp:Label ID="Title" runat="server" Text="" style="position:relative;left:20px;font-size:16px;"></asp:Label>
+    <asp:Label ID="Title" runat="server" Text="" style="position:relative;left:20px;font-size:16px;display:block"></asp:Label>
     <br /><br />
     <div id="evaluatedgrid" style="margin:0 auto" ></div> 
      <div id="ShowDetailUserInfo" class="Hidden" style="text-align:center" >
@@ -169,13 +169,23 @@
                     </div>
                 </td>
             </tr>
+            <tr>
+                <td align="right" class="tableKey">审核意见：</td>
+                <td align="left" class="tableValue">
+                    <div class="ShowData">
+                        <asp:Label ID="LComment" runat="server" Text=""></asp:Label>
+                    </div>
+                </td>
+            </tr>
             </table>
         </div>
      </div>
 
      <div id="box"  class="Hidden">
+     <asp:Label ID="LUserName" runat="server" Text="" style="font-size:18px;font-weight:500;text-align:center;position:relative;left:0px"></asp:Label>
              <p id="head" style="font-size:20px;font-weight:700;text-align:center"> 岗位责任书</p>
              <asp:Label ID="pass" runat="server" Text="" style="font-size:18px;font-weight:500;text-align:center;position:relative;left:480px"></asp:Label>
+             <asp:Label ID="Comment" runat="server" Text="" style="font-size:18px;font-weight:500;text-align:center;position:relative;left:480px;color:Red"></asp:Label>
              <br /> <br />
              <div id="outline">
                 <table style="position:relative;left:40px;">
@@ -301,9 +311,11 @@
             <input id="JsonData" type="hidden" runat="server"/>
             <input id="Errors" type="hidden" runat="server"/>
             <input id="Hidden1" type="hidden" runat="server"/>
-            <input id="UserID" type="hidden" runat="server"/>
+            <input id="UserID" type="hidden" runat="server"/>            
+            <input id="UserName" type="hidden" runat="server"/>
             <input id="Passed" type="hidden" runat="server"/>
             <input id="prbWorkContentRequest" type="hidden" runat="server"/>
+            <input id="prbComment" type="hidden" runat="server" />
             <asp:Button ID="SearchEvaluated" runat="server"  OnClick="Search"  />
             <asp:Button ID="SubmitPost" runat="server"  OnClick="SubmitPost_Click"  />
             <asp:Button ID="SearchPost" runat="server" Text="Button" onclick="SearchPost_Click" />  

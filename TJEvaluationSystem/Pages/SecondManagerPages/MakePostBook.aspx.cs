@@ -42,6 +42,15 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 {
                     DataTable table = new DataTable();
                     table = Evaluated.ListToDataTable();
+
+                    //给table添加prbComment栏
+                    string comment = "";
+                    table.Columns.Add("PrbComment");
+                    foreach (DataRow dr in table.Rows)
+                    {
+                        PostResponseBookBLL.SelectComment(dr["UiID"].ToString(), ref comment, ref exception);
+                        dr["PrbComment"] = comment;
+                    }
                     string json = JSON.DataTableToJson(table);
                     JsonData.Value = json;
                     ClientScript.RegisterStartupScript(this.GetType(), "", "load_userinfo()", true);
@@ -68,6 +77,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         {
             exception = "";
             prbUserID =UserID.Value;
+            LUserName.Text = "被考评人姓名：" + UserName.Value;
             List<PostResponseBook> post = new List<PostResponseBook>();
             if (PostResponseBookBLL.Select(prbUserID, ref post, ref exception))
             {
@@ -84,6 +94,14 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                     pass.Text = "审核未通过！";
                     Passed.Value = "0";
                 }
+                if (prb.PrbComment != "")
+                {
+                    Comment.Text = "审核意见：" + prb.PrbComment;
+                }
+                else
+                {
+                    Comment.Text = "";
+                }
                 prbEmployer.Text = prb.PrbEmployer;
                 prbLaborUnit.Text = prb.PrbLaborUnit;
                 prbLaborDep.Text = prb.PrbLaborDep;
@@ -96,7 +114,6 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 prbPersonality.Text = prb.PrbPersonality;
                 prbPhycond.Text = prb.PrbPhyCond;
                 prbWorkOutline.Text = prb.PrbWorkOutline;
-                //prbWorkContentRequest.Text = prb.PrbWorkContntRequest;
                 prbWorkContentRequest.Value = prb.PrbWorkContntRequest;
                 prbPower.Text = prb.PrbPower;
                 prbResponse.Text = prb.PrbResponse;
@@ -137,6 +154,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 prbWorkEnter.Text = "";
                 prbPostAssess.Text = "";
                 prbOthers.Text = "";
+                Comment.Text = "";
             }
 
             ClientScript.RegisterStartupScript(this.GetType(), "", "EditPost()", true);
@@ -186,6 +204,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             prb.PrbWorkEnter = prbWorkEnter.Text;
             prb.PrbPostAssess = prbPostAssess.Text;
             prb.PrbOthers = prbOthers.Text;
+            prb.PrbComment = "";
 
             List<PostResponseBook> prblist=new List<PostResponseBook>();
             if (PostResponseBookBLL.Select(prb.PrbUserID, ref prblist, ref exception))

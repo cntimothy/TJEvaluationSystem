@@ -175,6 +175,24 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages {
         protected global::System.Web.UI.WebControls.Label LStopTime;
         
         /// <summary>
+        /// LComment 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LComment;
+        
+        /// <summary>
+        /// LUserName 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LUserName;
+        
+        /// <summary>
         /// pass 控件。
         /// </summary>
         /// <remarks>
@@ -182,6 +200,15 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label pass;
+        
+        /// <summary>
+        /// Comment 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Comment;
         
         /// <summary>
         /// Label1 控件。
@@ -679,6 +706,15 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages {
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden UserID;
         
         /// <summary>
+        /// UserName 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden UserName;
+        
+        /// <summary>
         /// Passed 控件。
         /// </summary>
         /// <remarks>
@@ -695,6 +731,15 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden prbWorkContentRequest;
+        
+        /// <summary>
+        /// prbComment 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden prbComment;
         
         /// <summary>
         /// SearchEvaluated 控件。

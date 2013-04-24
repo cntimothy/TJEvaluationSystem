@@ -56,7 +56,7 @@ function load_userinfo()
         { display: '派遣公司', name: 'UiCompany', width: 50, align: 'center' },
         { display: '考评开始时间', name: 'UiStartTime', width: 80, align: 'center' },
         { display: '考评结束时间', name: 'UiStopTime', width: 80, align: 'center' },
-        { display: '审核意见', name: 'prbComment', width: 200, align: 'center' },
+        { display: '审核意见', name: 'PrbComment', width: 200, align: 'left' },
         { display: '', isSort: false, width: 200, render: function (rowdata, rowindex, value) {
             var h = "";
             h += "<a href='javascript:ShowDetail(" + rowindex + ")'>查看详细</a> ";
@@ -86,6 +86,9 @@ function ShowDetail(rowid)
     $(".ShowData").css("display", "block");
     //$(".EditData").css("display", "none");
     //设置显示值
+
+    document.getElementById("Title").style.display = "none"; //不显示“XX被考评人名单”
+
     document.getElementById('LID').innerText = rowdata.UiID;
     document.getElementById('LName').innerText = rowdata.UiName;
     document.getElementById('LSex').innerText = rowdata.UiSex;
@@ -119,8 +122,8 @@ function Check(rowid)
 
 function EditPost() 
 {
-    $("#name").css("display", "none");
     $("#box").css("display", "block");
+    document.getElementById("Title").style.display = "none"; //不显示“XX被考评人名单”
     if (document.getElementById("Passed").value == 1) {
         document.getElementById("sendback_button").style.display = "";
     } else if (document.getElementById("Passed").value == 0) {
@@ -132,9 +135,14 @@ function EditPost()
 
 function comment() {
     var oldComment = document.getElementById("Comment").innerHTML.split("：")[1];
-    var comment = prompt("请输入审核意见：（最多50字）", oldComment);
+    if (oldComment) {
+        var comment = prompt("请输入审核意见：（最多50字）", oldComment);
+    }
+    else {
+        var comment = prompt("请输入审核意见：（最多50字）", "");
+    }
     if (comment) {
-        document.getElementById("prbComment").value = comment;
+        document.getElementById("prbComment").value = comment.subString(0, 50);
         document.getElementById("WriteComment").click();
     }
 }

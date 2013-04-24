@@ -29,12 +29,12 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             if (department == "0")
             {
                 UserInfoBLL.SelectByType(type, ref userinfo, ref exception);
-                name.Text = "所有被考评者名单:";
+                Title.Text = "所有被考评者名单:";
             }
             else
             {
                 UserInfoBLL.Select(department, type, ref userinfo, ref exception);
-                name.Text = department + "被考评者名单:";
+                Title.Text = department + "被考评者名单:";
             }
             if (userinfo == null)
                 return null;
@@ -53,11 +53,11 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 return;
 
             //给table添加prbComment栏
-            table.Columns.Add("prbComment");
+            table.Columns.Add("PrbComment");
             foreach(DataRow dr in table.Rows)
             {
-                PostResponseBookBLL.SelectComment(dr["uiID"].ToString(), ref comment, ref exception);
-                dr["prbComment"] = comment;
+                PostResponseBookBLL.SelectComment(dr["UiID"].ToString(), ref comment, ref exception);
+                dr["PrbComment"] = comment;
             }
 
             string json = JSON.DataTableToJson(table);
