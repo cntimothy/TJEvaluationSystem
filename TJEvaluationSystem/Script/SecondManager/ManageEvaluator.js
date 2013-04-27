@@ -100,6 +100,8 @@ function Make(rowid)
         return;
 
     document.getElementById("UserID").value = rowdata.UiID;
+    document.getElementById("UserName").value = rowdata.UiName;
+
     document.getElementById("SearchUser").click();
 }
 
@@ -157,24 +159,13 @@ function show_evaluator()
         width: '96%'
     });
     $("#box").css("display", "block");
-    document.getElementById("submit_button").style.display = "";
+    document.getElementById("submit_button").style.display = ""; 
     var manager = $("#evaluator").ligerGetGridManager();
     manager.loadData();
+    document.getElementById("LUserName").style.display = "";  //显示被考评人姓名
 }
 
 function submitList() {
-
-//    var checked = false;
-//    allEles = document.getElementsByName("Radio");
-//    for(var i=0;i<allEles.length;i++)
-//    {
-//        checked=checked||allEles[i].checked;
-//    }
-//    if(!checked)
-//    {
-//       alert("请选择考评人身份!");
-//       return;
-//    }
     var array = Evaluator.getSelecteds();
     if (array.length<1) 
     { 
@@ -202,10 +193,14 @@ function submitList() {
     }
 
      for (var i = 0; i < array.length; i++) {
-         var items = document.getElementsByName(i.toString());
-         for (var j = 0; j < items.length; j++) {
-             if (items[j].checked == true) {
-                 array[i].Relation = items[j].value;
+         var buttons = document.getElementsByName(array[i].__index);
+         for (var j = 0; j < buttons.length; j++) {
+             if (buttons[j].checked == true) {
+                 array[i].Relation = buttons[j].value;
+                 break;
+             }
+             if (j == buttons.length) {
+                 alert("请确认所有考评人都选择了身份！");
                  break;
              }
          }
@@ -216,26 +211,27 @@ function submitList() {
 }
 
 
-function showList1() {
-    load_userinfo();
-    $("#box").css("display", "none");
+//function showList1() {
+//    load_userinfo();
+//    $("#box").css("display", "none");
 
-    var s3= document.getElementById("JsonList").value;
-    var UsersData3 = JSON2.parse(s3);
-     List = $("#list").ligerGrid({
-        columns: [
-        { display: '被考评人', name: 'EvaluatedID', width: 100, align: 'center', frozen: true },
-        { display: '考评人', name: 'UiID', width: 100, align: 'center' },
-        { display: '身份', name: 'Relation', width: 80, align: 'center' }
-        ],
-        usePager: true, pageSize: 10,
-        data: UsersData3,
-        width: '96%'
-    });
-    $("#box2").css("display", "block");
-    var manager = $("#list").ligerGetGridManager();
-    manager.loadData();
-}
+//    var s3= document.getElementById("JsonList").value;
+//    var UsersData3 = JSON2.parse(s3);
+//     List = $("#list").ligerGrid({
+//        columns: [
+//        { display: '被考评人姓名', name: 'EvaluatedName', width: 150, align: 'center', frozen: true },
+//        { display: '考评人姓名', name: 'EvaluatorName', width: 150, align: 'center' },
+//        { display: '考评人部门', name: 'EvaluatorDep', width: 100, align: 'center' },
+//        { display: '身份', name: 'Relation', width: 80, align: 'center' }
+//        ],
+//        usePager: true, pageSize: 10,
+//        data: UsersData3,
+//        width: '96%'
+//    });
+//    $("#box2").css("display", "block");
+//    var manager = $("#list").ligerGetGridManager();
+//    manager.loadData();
+//}
 
 function showList2() {
     load_userinfo();
@@ -245,8 +241,9 @@ function showList2() {
     var UsersData3 = JSON2.parse(s3);
     List = $("#list").ligerGrid({
         columns: [
-        { display: '被考评人', name: 'EvaluatedID', width: 100, align: 'center', frozen: true },
-        { display: '考评人', name: 'UiID', width: 100, align: 'center' },
+        { display: '被考评人姓名', name: 'EvaluatedName', width: 150, align: 'center', frozen: true },
+        { display: '考评人姓名', name: 'EvaluatorName', width: 150, align: 'center' },
+        { display: '考评人部门', name: 'EvaluatorDep', width: 100, align: 'center' },
         { display: '身份', name: 'Relation', width: 80, align: 'center' },
          { display: '撤销', isSort: false, width: 40, render: function (rowdata, rowindex, value) 
          {

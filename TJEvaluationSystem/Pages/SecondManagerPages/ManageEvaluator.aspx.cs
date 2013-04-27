@@ -26,8 +26,8 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         private bool searchEvaluated()
         {
             exception = "";
-            string username = (string)Session["username"];
-            //string username = "admin2";
+            //string username = (string)Session["username"];
+            string username = "admin2";
             string uiDepart = "";
 
             List<Manager> managers = new List<Manager>();
@@ -68,8 +68,8 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         private bool searchEvaluator()
         {
             exception = "";
-            string username = (string)Session["username"];
-            //string username = "admin2";
+            //string username = (string)Session["username"];
+            string username = "admin2";
             string uiDepart = "";
             string evaluatedID = UserID.Value;
             List<Manager> managers = new List<Manager>();
@@ -115,9 +115,11 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         protected void Search_User(object sender, EventArgs e)
         {
             exception = "";
-            string username = (string)Session["username"];
-            //string username = "admin2";
+            //string username = (string)Session["username"];
+            string username = "admin2";
             string evaluatedID = UserID.Value;
+
+            LUserName.Text = "被考评人姓名:" + UserName.Value; //显示被考评人姓名
 
             List<Evaluator> model = new List<Evaluator>();
             EvaluatorBLL.Select(ref model, evaluatedID, 1, ref exception);
@@ -201,6 +203,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 this.pass.Text = "审核通过";
                 DataTable table = new DataTable();
                 table = model.ListToDataTable();
+                adjustTable(table, ref exception); //为表格加上用户名显示
                 string json = JSON.DataTableToJson(table);
                 JsonList.Value = json;
                 ClientScript.RegisterStartupScript(this.GetType(), "", "showList1()", true);
@@ -212,6 +215,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 this.pass.Text = "审核未通过";
                 DataTable table = new DataTable();
                 table = model.ListToDataTable();
+                adjustTable(table, ref exception); //为表格加上用户名显示
                 string json = JSON.DataTableToJson(table);
                 JsonList.Value = json;
                 ClientScript.RegisterStartupScript(this.GetType(), "", "showList2()", true);
@@ -238,10 +242,29 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             else
                 Check_User(sender, e);
         }
+
         public class tempui
         {
             public string UiID;
             public string Relation;
+        }
+
+        private void adjustTable(DataTable dt, ref string exception)
+        {
+            dt.Columns.Add("EvaluatedName");
+            dt.Columns.Add("EvaluatorName");
+            dt.Columns.Add("EvaluatorDep");
+            List<UserInfo> ui = new List<UserInfo>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                ui.Clear();
+                UserInfoBLL.Select(ref ui, dr["UiID"].ToString(), ref exception);
+                dr["EvaluatorName"] = ui[0].UiName;
+                dr["EvaluatorDep"] = ui[0].UiDepartment;
+                ui.Clear();
+                UserInfoBLL.Select(ref ui, dr["EvaluatedID"].ToString(), ref exception);
+                dr["EvaluatedName"] = ui[0].UiName;
+            }
         }
     }
 }

@@ -176,25 +176,12 @@
      <br />
      <br />
      <div id="box"  class="Hidden">
-     <!--
-    <div id="role" style="position:relative;left:30px;">
-      <span>
-            <asp:RadioButton GroupName="Radio" ID="RadioButton1" runat="server"  Text="领导" />
-      </span>
-      <span>
-            <asp:RadioButton GroupName="Radio" ID="RadioButton2" runat="server" Text="同事" />
-      </span>   
-      <span>
-            <asp:RadioButton GroupName="Radio" ID="RadioButton3" runat="server" Text="下属" />
-       </span>
-       <span>
-            <asp:RadioButton GroupName="Radio" ID="RadioButton4" runat="server" Text="客户" />
-       </span>
-      </div>  
-      -->
+
+     <div><asp:Label ID="LUserName" runat="server" Text="" style="font-size:18px;font-weight:500;text-align:center;position:relative;display:block"></asp:Label></div><br />
+     
      <div id="evaluator" style="margin:0 auto" ></div> 
      </div>
-
+     
      <div id="box2"  class="Hidden" style="text-align:center">
          <div><asp:Label ID="pass" runat="server" Text="" style="font-size:18px;font-weight:500;text-align:center;position:relative;"></asp:Label></div>
          <div id="list" style="margin:0 auto" ></div> 
@@ -207,7 +194,8 @@
              <input id="ListDelete" type="hidden" runat="server"/>
              <input id="Chose" type="hidden" runat="server"/>
             <input id="Errors" type="hidden" runat="server"/>
-            <input id="UserID" type="hidden" runat="server"/>
+            <input id="UserID" type="hidden" runat="server"/>            
+            <input id="UserName" type="hidden" runat="server"/>
             <input id="Passed" type="hidden" runat="server"/>
             <asp:Button ID="SearchEvaluated" runat="server"  OnClick="Search"  />
             <asp:Button ID="SearchUser" runat="server"  OnClick="Search_User"  />
