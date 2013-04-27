@@ -88,6 +88,7 @@ function load_userinfo()
         { display: '考评开始时间', name: 'UiStartTime', width: 80, align: 'center' },
         { display: '考评结束时间', name: 'UiStopTime', width: 80, align: 'center' },
         { display: '审核意见', name: 'PrbComment', width: 200, align: 'left' },
+        { display: '审核状态', name: 'PrbPassed', width: 80, align: 'center' },
         { display: '', isSort: false, width: 180, render: function (rowdata, rowindex, value) {
             var h = "";
             h += "<a href='javascript:ShowDetail(" + rowindex + ")'>查看详细</a> ";
@@ -231,8 +232,8 @@ function EditPost() {
         document.getElementById("prbServices").disabled = false;
         document.getElementById("prbRelations").disabled = false;
         document.getElementById("prbWorkEnter").disabled = false;
-        document.getElementById("prbPostAssess").disabled = false;
-        document.getElementById("prbOthers").disabled = false;
+        document.getElementById("prbPostAssess").disabled = true;
+        document.getElementById("prbOthers").disabled = true;
         document.getElementById("submit_button").disabled = false;
         document.getElementById("Add").disabled = false;
 

@@ -44,13 +44,15 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                     table = Evaluated.ListToDataTable();
 
                     //给table添加prbComment栏
-                    string comment = "";
-                    table.Columns.Add("PrbComment");
-                    foreach (DataRow dr in table.Rows)
-                    {
-                        PostResponseBookBLL.SelectComment(dr["UiID"].ToString(), ref comment, ref exception);
-                        dr["PrbComment"] = comment;
-                    }
+                    adjustTable(table, ref exception);
+                    int sumCount = 0, unPassCount = 0, passCount = 0, savedCount = 0, unMakeCount = 0;
+
+                    countNumber(table, ref sumCount, ref unPassCount, ref passCount, ref savedCount, ref unMakeCount);//做汇总
+                    Title.Text += "（总人数：" + sumCount + " \\未制作：" + unMakeCount + " \\已保存：" + savedCount + " \\已提交：" + unPassCount + " \\已审核：" + passCount + "）";
+
+                    table.DefaultView.Sort = "PrbPassed desc"; //给table按状态排序
+                    table = table.DefaultView.ToTable();
+
                     string json = JSON.DataTableToJson(table);
                     JsonData.Value = json;
                     ClientScript.RegisterStartupScript(this.GetType(), "", "load_userinfo()", true);
@@ -142,7 +144,6 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 prbPersonality.Text = "";
                 prbPhycond.Text = "";
                 prbWorkOutline.Text = "";
-                //prbWorkContentRequest.Text = "";
                 prbWorkContentRequest.Value = "";
                 prbPower.Text = "";
                 prbResponse.Text = "";
@@ -151,9 +152,11 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 prbColleague.Text = "";
                 prbServices.Text = "";
                 prbRelations.Text = "";
-                prbWorkEnter.Text = "";
-                prbPostAssess.Text = "";
-                prbOthers.Text = "";
+                prbWorkEnter.Text = "办公室内，环境舒适，无职业病危害。";
+                prbPostAssess.Text = "按同济大学派遣员工考核文件的规定执行。";
+                prbOthers.Text = "本岗位责任书自双方签字盖章且经人才中心审核盖章后生效，与劳动合同具有相同效力，双方均应遵照执行。\n" +
+                                 "自本岗位责任书生效之日起，双方之前就受聘人员岗位达成的约定、协议或岗位责任书与本岗位责任书不一致的，以本岗位责任书为准。\n" +
+                                 "本岗位责任书一式四份，人才中心持两份，个人及个人所在部门各持一份。";
                 Comment.Text = "";
             }
 
@@ -219,6 +222,62 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             }
             
             ClientScript.RegisterStartupScript(this.GetType(), "", "load_userinfo()", true);
+        }
+
+        private void adjustTable(DataTable dt, ref string exception)
+        {
+            //给table添加prbComment栏
+            dt.Columns.Add("PrbComment");
+            dt.Columns.Add("PrbPassed");
+            List<PostResponseBook> posts = new List<PostResponseBook>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                //0：已提交 1：已审核 2：已保存 
+                if (PostResponseBookBLL.Select(dr["UiID"].ToString(), ref posts, ref exception))
+                {
+                    dr["PrbComment"] = posts[0].PrbComment;
+                    if (posts[0].PrbPassed.ToString() == "0")
+                    {
+                        dr["PrbPassed"] = "已提交";
+                    }
+                    else if (posts[0].PrbPassed.ToString() == "1")
+                    {
+                        dr["PrbPassed"] = "已审核";
+                    }
+                    else 
+                    {
+                        dr["PrbPassed"] = "已保存";
+                    }
+                }
+                else
+                {
+                    dr["PrbComment"] = "";
+                    dr["PrbPassed"] = "未制作";
+                }
+            }
+        }
+
+        private void countNumber(DataTable dt, ref int sumCount, ref int unPassCount, ref int passCount, ref int savedCount, ref int unMakeCount)
+        {
+            foreach (DataRow dr in dt.Rows)
+            {
+                switch (dr["PrbPassed"].ToString())
+                {
+                    case "已提交":
+                        unPassCount++;
+                        break;
+                    case "已审核":
+                        passCount++;
+                        break;
+                    case "已保存":
+                        savedCount++;
+                        break;
+                    default:
+                        unMakeCount++;
+                        break;
+                }
+                sumCount++;
+            }
         }
     }
 }

@@ -116,6 +116,7 @@ namespace BLL
             else
                 return true;
         }
+
         public static bool Select(string prbUserID, int prbPassed,ref List<PostResponseBook> model, ref string e)
         {
             prbUserID = prbUserID.Trim();
@@ -135,6 +136,20 @@ namespace BLL
             string sql = "select prbComment from tb_PostResponseBook where prbUserID ='" + prbUserID + "'";
             comment = db.QueryValue(sql);
             if (comment != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool SelectPassed(string prbUserID, ref string passed, ref string e)
+        {
+            string sql = "select prbPassed from tb_PostResponseBook where prbUserID ='" + prbUserID + "'";
+            passed = db.QueryValue(sql);
+            if (passed != null)
             {
                 return true;
             }

@@ -56,6 +56,7 @@ function load_userinfo()
         { display: '派遣公司', name: 'UiCompany', width: 50, align: 'center' },
         { display: '考评开始时间', name: 'UiStartTime', width: 80, align: 'center' },
         { display: '考评结束时间', name: 'UiStopTime', width: 80, align: 'center' },
+        { display: '审核状态', name: 'PrbPassed', width: 80, align: 'center' },
         { display: '审核意见', name: 'PrbComment', width: 200, align: 'left' },
         { display: '', isSort: false, width: 200, render: function (rowdata, rowindex, value) {
             var h = "";

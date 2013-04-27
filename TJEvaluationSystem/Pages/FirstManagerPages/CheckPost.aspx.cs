@@ -48,18 +48,18 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             exception = "";
             System.Data.DataTable table = new System.Data.DataTable();
             table = searchSql();
-            string comment = "";
             if (table == null)
                 return;
 
-            //给table添加prbComment栏
-            table.Columns.Add("PrbComment");
-            foreach(DataRow dr in table.Rows)
-            {
-                PostResponseBookBLL.SelectComment(dr["UiID"].ToString(), ref comment, ref exception);
-                dr["PrbComment"] = comment;
-            }
+            adjustTable(table, ref exception); //改table，加栏目
 
+            int sumCount = 0, unPassCount = 0, passCount = 0, unMakeCount = 0;
+
+            countNumber(table, ref sumCount, ref unPassCount, ref passCount, ref unMakeCount);//做汇总
+            Title.Text += "（总人数：" + sumCount + " \\未制作：" + unMakeCount + " \\未审核：" + unPassCount + " \\已审核：" + passCount + "）";
+
+            table.DefaultView.Sort = "PrbPassed desc"; //给table按状态排序
+            table = table.DefaultView.ToTable();
             string json = JSON.DataTableToJson(table);
             JsonData.Value = json;
 
@@ -302,7 +302,58 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             PostResponseBookBLL.UpdateComment(UserID.Value, prbComment.Value, ref exception);
             Response.Write("<script>alert('已提交意见！')</script>");
         }
-    }
 
- 
+        private void adjustTable(DataTable dt, ref string exception)
+        {
+            //给table添加prbComment栏
+            dt.Columns.Add("PrbComment");
+            dt.Columns.Add("PrbPassed");
+            List<PostResponseBook> posts = new List<PostResponseBook>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                if(PostResponseBookBLL.Select(dr["UiID"].ToString(), ref posts, ref exception))
+                {
+                    //0：已提交 1：已审核 2：未制作 
+                    dr["PrbComment"] = posts[0].PrbComment;
+                    if (posts[0].PrbPassed.ToString() == "1")
+                    {
+                        dr["PrbPassed"] = "已审核";
+                    }
+                    else if (posts[0].PrbPassed.ToString() == "0")
+                    {
+                        dr["PrbPassed"] = "未审核";
+                    }
+                    else
+                    {
+                        dr["PrbPassed"] = "未制作";
+                    }
+                }
+                else
+                {
+                    dr["PrbComment"] = "";
+                    dr["PrbPassed"] = "未制作";
+                }
+            }
+        }
+
+        private void countNumber(DataTable dt, ref int sumCount, ref int unPassCount, ref int passCount, ref int unMakeCount)
+        {
+            foreach (DataRow dr in dt.Rows)
+            {
+                switch (dr["PrbPassed"].ToString())
+                {
+                    case "未审核":
+                        unPassCount++;
+                        break;
+                    case "已审核":
+                        passCount++;
+                        break;
+                    default:
+                        unMakeCount++;
+                        break;
+                }
+                sumCount++;
+            }
+        }
+    } 
 }
