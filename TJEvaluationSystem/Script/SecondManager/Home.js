@@ -8,6 +8,11 @@ var indexdata2 =
    { url: "MakePostBook.aspx", text: "管理岗位责任书" }
 ];
 
+var indexdata3 =
+[
+   { url: "../AccountPages/UploadEvaluator.aspx", text: "制定名单" }
+];
+
 var tab = null;
 var accordion = null;
 var tree = null;
@@ -49,6 +54,23 @@ $(function () {
 
     $("#tree2").ligerTree({
         data: indexdata2,
+        checkbox: false,
+        slide: false,
+        nodeWidth: 120,
+        attribute: ['nodename', 'url'],
+        onSelect: function (node) {
+            if (!node.data.url) return;
+            var tabid = $(node.target).attr("tabid");
+            if (!tabid) {
+                tabid = new Date().getTime();
+                $(node.target).attr("tabid", tabid)
+            }
+            f_addTab(tabid, node.data.text, node.data.url);
+        }
+    });
+
+    $("#tree3").ligerTree({
+        data: indexdata3,
         checkbox: false,
         slide: false,
         nodeWidth: 120,

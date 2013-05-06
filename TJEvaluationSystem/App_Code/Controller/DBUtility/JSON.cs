@@ -139,6 +139,20 @@ namespace DBUtility
             return list;
         }
 
+        //Json字符串转List<EvaluatorInfo>
+        public static List<EvaluatorInfo> isEfect1(string json)
+        {
+            MemoryStream stream2 = new MemoryStream();
+            DataContractJsonSerializer ser2 = new DataContractJsonSerializer(typeof(List<EvaluatorInfo>));
+            StreamWriter wr = new StreamWriter(stream2);
+            wr.Write(json);
+            wr.Flush();
+            stream2.Position = 0;
+            Object obj = ser2.ReadObject(stream2);
+            List<EvaluatorInfo> list = (List<EvaluatorInfo>)obj;
+            return list;
+        }
+
         
         
 

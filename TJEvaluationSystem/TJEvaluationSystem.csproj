@@ -68,6 +68,8 @@
     <Content Include="Pages\AccountPages\ManageFirstOrSecond.aspx" />
     <Content Include="Pages\AccountPages\ResetPassword.aspx" />
     <Content Include="Pages\AccountPages\SelectFirstOrSecond.aspx" />
+    <Content Include="Pages\AccountPages\UploadEvaluator.aspx" />
+    <Content Include="Pages\AccountPages\UploadEvaluatorFrame.aspx" />
     <Content Include="Pages\EvaluatorPages\Evaluate.aspx" />
     <Content Include="Pages\EvaluatorPages\EvaluatorHome.aspx" />
     <Content Include="Pages\FirstManagerPages\CheckAssess.aspx" />
@@ -93,6 +95,7 @@
     <Content Include="Pages\SecondManagerPages\ManageEvaluator.aspx" />
     <Content Include="Pages\SecondManagerPages\ManageEvaluatorTable.aspx" />
     <Content Include="Pages\SecondManagerPages\SecondManagerHome.aspx" />
+    <Content Include="Pages\SecondManagerPages\SelectEvaluator.aspx" />
     <Content Include="Pages\SecondManagerPages\WebForm1.aspx" />
     <Content Include="Pages\SecondManagerPages\WebForm2.aspx" />
     <Content Include="Pages\SuperManagerPages\AddUser.aspx" />
@@ -103,9 +106,11 @@
     <Content Include="Pages\SuperManagerPages\UploadUserInfo.aspx" />
     <Content Include="Script\Account\AccountManage.js" />
     <Content Include="Script\Account\ChangePassword.js" />
+    <Content Include="Script\Account\UploadEvaluator.js" />
     <Content Include="Script\FirstManager\EvaluationResult.js" />
     <Content Include="Script\FirstManager\ManageCurrentEvaluation.js" />
     <Content Include="Script\Account\UploadEvaluated.js" />
+    <Content Include="Script\SecondManager\SelectEvaluator.js" />
     <Content Include="Script\SuperManager\adduser.js" />
     <Content Include="Script\CommonData.js" />
     <Content Include="Script\CommonFunction.js" />
@@ -234,6 +239,20 @@
     </Compile>
     <Compile Include="Pages\AccountPages\SelectFirstOrSecond.aspx.designer.cs">
       <DependentUpon>SelectFirstOrSecond.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AccountPages\UploadEvaluator.aspx.cs">
+      <DependentUpon>UploadEvaluator.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\AccountPages\UploadEvaluator.aspx.designer.cs">
+      <DependentUpon>UploadEvaluator.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AccountPages\UploadEvaluatorFrame.aspx.cs">
+      <DependentUpon>UploadEvaluatorFrame.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\AccountPages\UploadEvaluatorFrame.aspx.designer.cs">
+      <DependentUpon>UploadEvaluatorFrame.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\EvaluatorPages\Evaluate.aspx.cs">
       <DependentUpon>Evaluate.aspx</DependentUpon>
@@ -411,6 +430,13 @@
     </Compile>
     <Compile Include="Pages\SecondManagerPages\SecondManagerHome.aspx.designer.cs">
       <DependentUpon>SecondManagerHome.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SecondManagerPages\SelectEvaluator.aspx.cs">
+      <DependentUpon>SelectEvaluator.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\SecondManagerPages\SelectEvaluator.aspx.designer.cs">
+      <DependentUpon>SelectEvaluator.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\SecondManagerPages\WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>

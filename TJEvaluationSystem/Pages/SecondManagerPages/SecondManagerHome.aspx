@@ -35,6 +35,10 @@
              <div title="岗位责任书管理" class="l-scroll">
                 <ul id="tree2" style="margin-top:3px;">
             </div>
+
+            <div title="考评人管理" class="l-scroll">
+                <ul id="tree3" style="margin-top:3px;">
+            </div>
         </div>
 
         <div position="center" id="framecenter"> 

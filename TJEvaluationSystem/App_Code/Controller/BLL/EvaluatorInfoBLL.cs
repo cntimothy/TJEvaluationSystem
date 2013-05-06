@@ -83,9 +83,9 @@ namespace BLL
          }
 
         //根据用户单位选择
-         public static bool SelectByUnit(List<EvaluatorInfo> evi, string evUnit, ref string e)
+         public static bool SelectByDepartment(List<EvaluatorInfo> evi, string evDepartment, ref string e)
          {
-             string sql = "Select * from tb_EvaluatorInfo where evUnit='" + evUnit + "'";
+             string sql = "Select * from tb_EvaluatorInfo where evDepartment='" + evDepartment + "'";
              return Select(evi, ref e, sql);
          }
 
