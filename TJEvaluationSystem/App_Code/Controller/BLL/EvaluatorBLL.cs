@@ -54,6 +54,13 @@ namespace BLL
             return Select(ref model, ref e, sql);
         }
 
+        //根据ID选择
+        public static bool SelectByID(List<Evaluator> model, string EvaluatedID, ref string e)
+        {
+            string sql = "select * from tb_Evaluator where EvaluatedID='" + EvaluatedID + "'";
+            return Select(ref model, ref e, sql);
+        }
+
         public static bool Select(string uiID, int pass, ref List<Evaluator> model, ref string e)
         {
             string sql = "select * from tb_Evaluator where uiID='" + uiID + "' and pass=" + pass;

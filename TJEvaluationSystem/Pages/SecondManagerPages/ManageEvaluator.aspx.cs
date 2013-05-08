@@ -26,8 +26,8 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         private bool searchEvaluated()
         {
             exception = "";
-            //string username = (string)Session["username"];
-            string username = "admin2";
+            string username = (string)Session["username"];
+            //string username = "admin2";
             string uiDepart = "";
 
             List<Manager> managers = new List<Manager>();
@@ -43,9 +43,18 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 {
                     DataTable table = new DataTable();
                     table = Evaluated.ListToDataTable();
+                    //给table增加Comment和Passed栏
+                    adjustTable2(table, ref exception);
+                    int sumCount = 0, unPassCount = 0, passCount = 0, savedCount = 0, unMakeCount = 0;
+
+                    countNumber(table, ref sumCount, ref unPassCount, ref passCount, ref savedCount, ref unMakeCount);//做汇总
+                    Title.Text += "（总人数：" + sumCount + " \\未制作：" + unMakeCount + " \\已保存：" + savedCount + " \\已提交：" + unPassCount + " \\已审核：" + passCount + "）";
+
+                    table.DefaultView.Sort = "Passed desc"; //给table按状态排序
+                    table = table.DefaultView.ToTable();
+
                     string json = JSON.DataTableToJson(table);
                     JsonData.Value = json;
-                    //
                     return true;
 
                 }
@@ -138,16 +147,11 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                     return;
                 }
             }
-            //List<UserInfo> user = new List<UserInfo>();
-
-           
-
         }
 
         protected void Submit(object sender, EventArgs e)
         {
             exception = "";
-            string role = "";
             string strData = JsonChose.Value;
             List<tempui> userData = JSON.ScriptDeserialize<List<tempui>>(strData);
             Evaluator[] model = new Evaluator[userData.Count];
@@ -157,9 +161,8 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 userinfo = userData.ElementAt(i);
 
                 model[i] = new Evaluator();
-                model[i].UiID = userinfo.UiID;
+                model[i].UiID = userinfo.EvID;
                 model[i].EvaluatedID = UserID.Value;
-                model[i].Relation = role;
                 model[i].Pass = 0;
                 model[i].Relation = userinfo.Relation;
                  
@@ -238,7 +241,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
 
         public class tempui
         {
-            public string UiID;
+            public string EvID;
             public string Relation;
         }
 
@@ -246,17 +249,80 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         {
             dt.Columns.Add("EvaluatedName");
             dt.Columns.Add("EvaluatorName");
-            dt.Columns.Add("EvaluatorDep");
+            dt.Columns.Add("EvaluatorUnit");
             List<UserInfo> ui = new List<UserInfo>();
+            List<EvaluatorInfo> evi = new List<EvaluatorInfo>();
             foreach (DataRow dr in dt.Rows)
             {
-                ui.Clear();
-                UserInfoBLL.Select(ref ui, dr["UiID"].ToString(), ref exception);
-                dr["EvaluatorName"] = ui[0].UiName;
-                dr["EvaluatorDep"] = ui[0].UiDepartment;
+                evi.Clear();
+                EvaluatorInfoBLL.Select(evi, dr["UiID"].ToString(), ref exception);
+                dr["EvaluatorName"] = evi[0].EvName;
+                dr["EvaluatorUnit"] = evi[0].EvUnit;
                 ui.Clear();
                 UserInfoBLL.Select(ref ui, dr["EvaluatedID"].ToString(), ref exception);
                 dr["EvaluatedName"] = ui[0].UiName;
+            }
+        }
+
+        private void adjustTable2(DataTable dt, ref string exception)
+        {
+            dt.Columns.Add("Comment");
+            dt.Columns.Add("Passed");
+            List<Evaluator> evaluators = new List<Evaluator>();
+            string comment = "";
+            foreach (DataRow dr in dt.Rows)
+            {
+                if (EvaluatorCommentBLL.SelectComment((string)dr["UiID"], ref comment, ref exception))
+                {
+                    dr["Comment"] = comment;
+                }
+                else
+                {
+                    dr["Comment"] = "";
+                }
+                if (EvaluatorBLL.SelectByID(evaluators, (string)dr["UiID"], ref exception))
+                {
+                    if (evaluators[0].Pass.ToString() == "0")
+                    {
+                        dr["Passed"] = "已提交";
+                    }
+                    else if (evaluators[0].Pass.ToString() == "1")
+                    {
+                        dr["Passed"] = "已审核";
+                    }
+                    else
+                    {
+                        dr["Passed"] = "已保存";
+                    }
+                }
+                else
+                {
+                    dr["Passed"] = "未制作";
+                }
+            }
+        }
+
+        //统计汇总情况
+        private void countNumber(DataTable dt, ref int sumCount, ref int unPassCount, ref int passCount, ref int savedCount, ref int unMakeCount)
+        {
+            foreach (DataRow dr in dt.Rows)
+            {
+                switch (dr["Passed"].ToString())
+                {
+                    case "已提交":
+                        unPassCount++;
+                        break;
+                    case "已审核":
+                        passCount++;
+                        break;
+                    case "已保存":
+                        savedCount++;
+                        break;
+                    default:
+                        unMakeCount++;
+                        break;
+                }
+                sumCount++;
             }
         }
     }

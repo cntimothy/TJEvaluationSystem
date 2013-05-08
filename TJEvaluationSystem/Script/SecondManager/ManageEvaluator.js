@@ -40,6 +40,8 @@ function load_userinfo()
         { display: '派遣公司', name: 'UiCompany', width: 50, align: 'center' },
         { display: '考评开始时间', name: 'UiStartTime', width: 80, align: 'center' },
         { display: '考评结束时间', name: 'UiStopTime', width: 80, align: 'center' },
+        { display: '审核意见', name: 'Comment', width: 200, align: 'left' },
+        { display: '审核状态', name: 'Passed', width: 80, align: 'center' },
         { display: '', isSort: false, width: 200, render: function (rowdata, rowindex, value) {
             var h = "";
             h += "<a href='javascript:ShowDetail(" + rowindex + ")'>查看详细</a> ";
@@ -166,6 +168,7 @@ function submitList() {
          return;
     }
 
+    //删除无用数据
     for (var i = 0; i < array.length; i++) {
         delete array[i].EvName;
         delete array[i].EvSex;
@@ -174,7 +177,7 @@ function submitList() {
         delete array[i].EvEmail;
         delete array[i].EvMobPhone;
         delete array[i].EvAddress;
-        delete array[i].EvZipCode; 
+        delete array[i].EvZipCode;
     }
 
      for (var i = 0; i < array.length; i++) {
@@ -206,7 +209,7 @@ function showList2() {
         columns: [
         { display: '被考评人姓名', name: 'EvaluatedName', width: 150, align: 'center', frozen: true },
         { display: '考评人姓名', name: 'EvaluatorName', width: 150, align: 'center' },
-        { display: '考评人部门', name: 'EvaluatorDep', width: 100, align: 'center' },
+        { display: '考评人部门', name: 'EvaluatorUnit', width: 100, align: 'center' },
         { display: '身份', name: 'Relation', width: 80, align: 'center' },
          { display: '撤销', isSort: false, width: 40, render: function (rowdata, rowindex, value) 
          {
