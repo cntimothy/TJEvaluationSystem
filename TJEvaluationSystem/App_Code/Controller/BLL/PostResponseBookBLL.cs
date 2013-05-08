@@ -32,7 +32,7 @@ namespace BLL
                                   + "@prbCertificate,@prbExperience,@prbSkill,@prbPersonality,"
                                   + "@prbPhyCond,@prbWorkOutline,@prbWorkContntRequest,@prbPower,"
                                   + "@prbResponse,@prbDirectLeader,@prbSubordinate,@prbColleague,"
-                                  + "@prbServices,@prbReleations,@prbWorkEnter,@prbPostAssess,@prbOthers,@proComment)";
+                                  + "@prbServices,@prbReleations,@prbWorkEnter,@prbPostAssess,@prbOthers,@prbComment)";
 
 
                 SqlParameter[] parameters =
