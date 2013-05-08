@@ -31,7 +31,6 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             
             List<EvaluatorInfo> evaluatorinfo = new List<EvaluatorInfo>();
             EvaluatorInfoBLL.SelectByDepartment(evaluatorinfo, department, ref exception);
-            Title.Text = department + "考评人名单:";
 
             DataTable table = new DataTable();
             table = evaluatorinfo.ListToDataTable();

@@ -35,8 +35,7 @@
          </table>
          </div>
     <br />
-    <asp:Label ID="Title" runat="server" Text="" style="position:relative;left:20px;font-size:16px;"></asp:Label>
-    <br /><br />
+    
     <div id="secondgrid" style="margin:0 auto"></div> 
 
         <br />

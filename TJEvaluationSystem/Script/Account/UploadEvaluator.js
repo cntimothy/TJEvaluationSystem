@@ -24,7 +24,7 @@ function showUserData(data) {
             { display: '电话', name: 'EvTelephone', width: 70, align: 'center', editor: { type: 'text'} },
             { display: 'Email', name: 'EvEmail', width: 100, align: 'center', editor: { type: 'text'} },
             { display: '地址', name: 'EvAddress', width: 120, align: 'center', editor: { type: 'text'} },
-            { display: '邮编', name: 'EvZipCode', width: 50, align: 'center', editor: { type: 'text'} },
+            { display: '邮编', name: 'EvZipCode', width: 80, align: 'center', editor: { type: 'text'} },
             { display: '', isSort: false, width: 70, render: function (rowdata, rowindex, value) {
                 var h = "";
                 if (!rowdata._editing) {

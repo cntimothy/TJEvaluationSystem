@@ -10,7 +10,8 @@ var indexdata2 =
 
 var indexdata3 =
 [
-   { url: "../AccountPages/UploadEvaluator.aspx", text: "制定名单" }
+   { url: "../AccountPages/UploadEvaluator.aspx", text: "上传备选名单" },
+    { url: "SelectEvaluator.aspx", text: "查看备选名单" }
 ];
 
 var tab = null;

@@ -101,7 +101,7 @@ namespace BLL
                      evaluatorInfo.EvID = (string)table.Rows[i]["evID"];
                      evaluatorInfo.EvName = (string)table.Rows[i]["evName"];
                      evaluatorInfo.EvSex = (string)table.Rows[i]["evSex"];
-                     evaluatorInfo.EvDepartment = (string)table.Rows[i]["evIdentityNum"];
+                     evaluatorInfo.EvDepartment = (string)table.Rows[i]["evDepartment"];
                      evaluatorInfo.EvMobPhone = (string)table.Rows[i]["evDepartment"];
                      evaluatorInfo.EvTelephone = (string)table.Rows[i]["evTelephone"];
                      evaluatorInfo.EvEmail = (string)table.Rows[i]["evEmail"];
@@ -135,7 +135,7 @@ namespace BLL
              strSql.Append("evEmail=@evEmail,");
              strSql.Append("evAddress=@evAddress,");
              strSql.Append("evZipCode=@evZipCode,");
-             strSql.Append("evUnitt=@evUnit");
+             strSql.Append("evUnit=@evUnit");
              strSql.Append(" where evID=@evID ");
              SqlParameter[] parameters =
             {

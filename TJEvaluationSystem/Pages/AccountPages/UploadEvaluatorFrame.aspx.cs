@@ -89,7 +89,7 @@ namespace TJEvaluationSystem.Pages.AccountPages
                 table.Columns.Add("EvDepartment");
                 foreach (DataRow dr in table.Rows)
                 {
-                    dr["EvDepartment"] = "department";
+                    dr["EvDepartment"] = department;
                 }
 
                 string json = JSON.DataTableToJson(table);

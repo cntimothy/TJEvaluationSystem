@@ -36,7 +36,7 @@
                 <ul id="tree2" style="margin-top:3px;">
             </div>
 
-            <div title="考评人管理" class="l-scroll">
+            <div title="备选考评人管理" class="l-scroll">
                 <ul id="tree3" style="margin-top:3px;">
             </div>
         </div>
