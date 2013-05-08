@@ -59,7 +59,6 @@ namespace BLL
                  }
                  else
                  {
-                     //Update(model[i], ref e);
                      if(!evistemp[0].Equals(model[i]))
                      {
                          Update(model[i], ref e);
@@ -102,7 +101,7 @@ namespace BLL
                      evaluatorInfo.EvName = (string)table.Rows[i]["evName"];
                      evaluatorInfo.EvSex = (string)table.Rows[i]["evSex"];
                      evaluatorInfo.EvDepartment = (string)table.Rows[i]["evDepartment"];
-                     evaluatorInfo.EvMobPhone = (string)table.Rows[i]["evDepartment"];
+                     evaluatorInfo.EvMobPhone = (string)table.Rows[i]["evMobPhone"];
                      evaluatorInfo.EvTelephone = (string)table.Rows[i]["evTelephone"];
                      evaluatorInfo.EvEmail = (string)table.Rows[i]["evEmail"];
                      evaluatorInfo.EvAddress = (string)table.Rows[i]["evAddress"];

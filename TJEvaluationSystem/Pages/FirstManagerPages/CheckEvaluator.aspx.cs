@@ -18,6 +18,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         {
 
         }
+        
         protected DataTable searchSql()
         {
             string exception = "";
@@ -43,6 +44,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
 
         protected void Search_Click(object sender, EventArgs e)
         {
+            string exception = "";
             DataTable table = new DataTable();
             table = searchSql();
             if (table == null)
@@ -50,17 +52,15 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 return;
             }
 
-            //给table添加prbComment栏
-            string exception = "";
-            string comment = "";
-            table.Columns.Add("Comment");
-            foreach (DataRow dr in table.Rows)
-            {
-                if (EvaluatorCommentBLL.SelectComment(dr["uiID"].ToString(), ref comment, ref exception))
-                {
-                    dr["Comment"] = comment;
-                }
-            }
+            //给table添加Comment和Passed栏
+            adjustTable1(table, ref exception);
+            int sumCount = 0, unPassCount = 0, passCount = 0, unMakeCount = 0;
+
+            countNumber(table, ref sumCount, ref unPassCount, ref passCount, ref unMakeCount);//做汇总
+            Title.Text += "（总人数：" + sumCount + " \\未制作：" + unMakeCount + " \\未审核：" + unPassCount + " \\已审核：" + passCount + "）";
+
+            table.DefaultView.Sort = "Passed asc"; //给table按状态排序
+            table = table.DefaultView.ToTable();
 
             string json = JSON.DataTableToJson(table);
             JsonData.Value = json;
@@ -205,22 +205,8 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         {
             string exception = "";
             string evaluated = UserID.Value;
-            if (evaluated.Length <= 0)
-            {
-                Errors.Value = "没有选中考评人名单";
-                this.Chose.Value = "submit";
-                ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
-                return;
-            }
+            
             List<Evaluator> model = new List<Evaluator>();
-
-            if (EvaluatorBLL.Select(ref model, evaluated, 0, ref exception))
-            {
-                Errors.Value = "考评人名单并未通过，待审核";
-                this.Chose.Value = "submit";
-                ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
-                return;
-            }
             if (EvaluatorBLL.Select(ref model, evaluated, 1, ref exception))
             {
                 for (int i = 0; i < model.Count; i++)
@@ -243,7 +229,6 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             this.Chose.Value = "submit";
             ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
         }
-
 
         private void Export(string filename, DataTable table)
         {
@@ -269,10 +254,18 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         protected void WriteComment_Click(object sender, EventArgs e)
         {
             string exception = "";
+
             EvaluatorComment ec = new EvaluatorComment();
             ec.EcEvaluatedID = UserID.Value;
             ec.EcComment = EvaComment.Value;
-            EvaluatorCommentBLL.Update(ec, ref exception);
+            if (EvaluatorCommentBLL.Select(UserID.Value, ref exception))
+            {
+                EvaluatorCommentBLL.Update(ec, ref exception);
+            }
+            else
+            {
+                EvaluatorCommentBLL.Insert(ec, ref exception);
+            }
             Response.Write("<script>alert('已提交意见！')</script>");
         }
 
@@ -280,17 +273,78 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         {
             dt.Columns.Add("EvaluatedName");
             dt.Columns.Add("EvaluatorName");
-            dt.Columns.Add("EvaluatorDep");
+            dt.Columns.Add("EvaluatorUnit");
             List<UserInfo> ui = new List<UserInfo>();
+            List<EvaluatorInfo> evi = new List<EvaluatorInfo>();
             foreach (DataRow dr in dt.Rows)
             {
-                ui.Clear();
-                UserInfoBLL.Select(ref ui, dr["UiID"].ToString(), ref exception);
-                dr["EvaluatorName"] = ui[0].UiName;
-                dr["EvaluatorDep"] = ui[0].UiDepartment;
+                evi.Clear();
+                EvaluatorInfoBLL.Select(evi, dr["UiID"].ToString(), ref exception);
+                dr["EvaluatorName"] = evi[0].EvName;
+                dr["EvaluatorUnit"] = evi[0].EvUnit;
                 ui.Clear();
                 UserInfoBLL.Select(ref ui, dr["EvaluatedID"].ToString(), ref exception);
                 dr["EvaluatedName"] = ui[0].UiName;
+            }
+        }
+
+        private void adjustTable1(DataTable dt, ref string exception)
+        {
+            dt.Columns.Add("Comment");
+            dt.Columns.Add("Passed");
+            List<Evaluator> evaluators = new List<Evaluator>();
+            string comment = "";
+            foreach (DataRow dr in dt.Rows)
+            {
+                if (EvaluatorCommentBLL.SelectComment((string)dr["UiID"], ref comment, ref exception))
+                {
+                    dr["Comment"] = comment;
+                }
+                else
+                {
+                    dr["Comment"] = "";
+                }
+                evaluators.Clear();
+                if (EvaluatorBLL.SelectByID(evaluators, (string)dr["UiID"], ref exception))
+                {
+                    //0：已提交 1：已审核 2：未制作 
+                    if (evaluators[0].Pass.ToString() == "1")
+                    {
+                        dr["Passed"] = "已审核";
+                    }
+                    else if (evaluators[0].Pass.ToString() == "0")
+                    {
+                        dr["Passed"] = "未审核";
+                    }
+                    else
+                    {
+                        dr["Passed"] = "未制作";
+                    }
+                }
+                else
+                {
+                    dr["Passed"] = "未制作";
+                }
+            }
+        }
+
+        private void countNumber(DataTable dt, ref int sumCount, ref int unPassCount, ref int passCount, ref int unMakeCount)
+        {
+            foreach (DataRow dr in dt.Rows)
+            {
+                switch (dr["Passed"].ToString())
+                {
+                    case "未审核":
+                        unPassCount++;
+                        break;
+                    case "已审核":
+                        passCount++;
+                        break;
+                    default:
+                        unMakeCount++;
+                        break;
+                }
+                sumCount++;
             }
         }
     }

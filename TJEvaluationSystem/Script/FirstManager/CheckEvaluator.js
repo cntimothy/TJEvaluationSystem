@@ -45,6 +45,7 @@ function load_userinfo()
         { display: '派遣公司', name: 'UiCompany', width: 50, align: 'center' },
         { display: '考评开始时间', name: 'UiStartTime', width: 80, align: 'center' },
         { display: '考评结束时间', name: 'UiStopTime', width: 80, align: 'center' },
+        { display: '审核状态', name: 'Passed', width: 80, align: 'center' },
         { display: '审核意见', name: 'Comment', width: 200, align: 'left' },
         { display: '', isSort: false, width: 200, render: function (rowdata, rowindex, value) {
             var h = "";
@@ -115,7 +116,7 @@ function showList1()
         columns: [
         { display: '被考评人姓名', name: 'EvaluatedName', width: 150, align: 'center', frozen: true },
         { display: '考评人姓名', name: 'EvaluatorName', width: 150, align: 'center' },
-        { display: '考评人部门', name: 'EvaluatorDep', width: 100, align: 'center' },
+        { display: '考评人部门', name: 'EvaluatorUnit', width: 100, align: 'center' },
         { display: '身份', name: 'Relation', width: 80, align: 'center' }
         ],
         usePager: true, pageSize: 10,

@@ -14,29 +14,31 @@ namespace BLL
     {
         static readonly SQLDatabase db = new SQLDatabase();
 
-        public static bool Insert(EvaluatorComment[] model, ref string e)
+        public static bool Insert(EvaluatorComment model, ref string e)
         {
-
-            int count = model.Length;
-            for (int i = 0; i < count; i++)
-            {
-                string sql = "insert into tb_EvaluatorComment values(@ecEvaluatedID,@ecComment)";
-                SqlParameter[] parameters =
+            string sql = "insert into tb_EvaluatorComment values(@ecEvaluatedID,@ecComment)";
+            SqlParameter[] parameters =
                 {
                     new SqlParameter("@ecEvaluatedID", SqlDbType.VarChar,10),
                     new SqlParameter("@ecComment",SqlDbType.NVarChar,50),
                 };
-                parameters[0].Value = model[i].EcEvaluatedID;
-                parameters[1].Value = model[i].EcComment;
+            parameters[0].Value = model.EcEvaluatedID;
+            parameters[1].Value = model.EcComment;
 
-                string exception = db.InsertExec(sql, parameters);
-                if (exception != "" && exception != null)
-                {
-                    e = exception;
-                    return false;
-                }
+            string exception = db.InsertExec(sql, parameters);
+            if (exception != "" && exception != null)
+            {
+                e = exception;
+                return false;
             }
             return true;
+        }
+
+        public static bool Select(string ecEvaluatedID, ref string e)
+        {
+            List<EvaluatorComment> comments = new List<EvaluatorComment>();
+            string strSql = "select * from tb_EvaluatorComment where ecEvaluatedID = '" + ecEvaluatedID + "'";
+            return Select(ref comments, ref e, strSql);
         }
 
         public static bool Select(ref List<EvaluatorComment> comments, ref string e, string sql)
@@ -67,7 +69,7 @@ namespace BLL
         {
             string strSql = "select ecComment from tb_EvaluatorComment where ecEvaluatedID = '" + ecEvaluatedID + "'";
             comment = db.QueryValue(strSql);
-            if (comment != "")
+            if (comment != null)
             {
                 return true;
             }

@@ -55,9 +55,16 @@ namespace BLL
         }
 
         //根据ID选择
-        public static bool SelectByID(List<Evaluator> model, string EvaluatedID, ref string e)
+        public static bool SelectByID(List<Evaluator> model, string evaluatedID, ref string e)
         {
-            string sql = "select * from tb_Evaluator where EvaluatedID='" + EvaluatedID + "'";
+            string sql = "select * from tb_Evaluator where EvaluatedID='" + evaluatedID + "'";
+            return Select(ref model, ref e, sql);
+        }
+
+        //根据考评人和被考评人的ID选择
+        public static bool SelectByIDs(List<Evaluator> model, string evaluatedID, string evaluatorID, ref string e)
+        {
+            string sql = "select * from tb_Evaluator where evaluatedID='" + evaluatedID + "' and uiID='"+ evaluatorID +"'";
             return Select(ref model, ref e, sql);
         }
 
@@ -117,7 +124,7 @@ namespace BLL
         }
 
 
-        //更新通过,同时要更新User Userinfo
+        //更新通过,同时要更新User
         public static bool Update1(Evaluator model, ref string e)
         {
             StringBuilder strSql = new StringBuilder();
@@ -141,17 +148,6 @@ namespace BLL
             if (e != "" && e != null)
             {
                 return false;
-            }
-
-            //更新Userinfo表
-            List<UserInfo> userinfos = new List<UserInfo>();
-            if (UserInfoBLL.Select(ref userinfos, model.UiID, ref e))
-            {
-                UserInfo ui = new UserInfo();
-                ui = userinfos.ElementAt(0);
-                ui.UiType = ui.UiType.Remove(3, 1).Insert(3, "1");
-                UserInfoBLL.Update(ui, ref e);
-
             }
 
             //更新User表
@@ -213,21 +209,10 @@ namespace BLL
             parameters[2].Value = model.Relation;
             parameters[3].Value = model.Pass;
 
-            //查找Evaluator表，如果考评人姓名等于UiID只有一人，就更新userinfo表和user表
+            //查找Evaluator表，如果考评人姓名等于UiID只有一人，就更新user表
             List<Evaluator> evaluators = new List<Evaluator>();
             if (EvaluatorBLL.Select1(ref evaluators, model.UiID, 1, ref e))
             {
-                //更新Userinfo表
-                List<UserInfo> userinfos = new List<UserInfo>();
-                if (UserInfoBLL.Select(ref userinfos, model.UiID, ref e))
-                {
-                    UserInfo ui = new UserInfo();
-                    ui = userinfos.ElementAt(0);
-                    ui.UiType = ui.UiType.Remove(3, 1).Insert(3, "0");
-                    UserInfoBLL.Update(ui, ref e);
-
-                }
-
                 //更新User表，
                 if (model.Pass == 0)
                 {

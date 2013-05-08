@@ -85,7 +85,6 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             evaluatorinfo = JSON.isEfect1(UserID.Value);
             EvaluatorInfo deleted = evaluatorinfo.ElementAt(0);
 
-            //EvaluatorInfoBLL.Update(deleted, ref exception);
             EvaluatorInfoBLL.Delete(deleted.EvID, ref exception);
 
             DataTable table = new DataTable();

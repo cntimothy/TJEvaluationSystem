@@ -143,7 +143,7 @@ function comment() {
         var comment = prompt("请输入审核意见：（最多50字）", "");
     }
     if (comment) {
-        document.getElementById("prbComment").value = comment.subString(0, 50);
+        document.getElementById("prbComment").value = comment.substring(0, 50);
         document.getElementById("WriteComment").click();
     }
 }

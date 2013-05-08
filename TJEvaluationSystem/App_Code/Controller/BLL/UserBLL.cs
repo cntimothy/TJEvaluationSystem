@@ -34,14 +34,14 @@ namespace BLL
                 };
 
                  //获取身份证号作密码
-                 List<UserInfo> userinfo = new List<UserInfo>();
-                 if (!UserInfoBLL.Select(ref userinfo, model[i].UID, ref e))
+                 List<EvaluatorInfo> evis = new List<EvaluatorInfo>();
+                 if (!EvaluatorInfoBLL.Select(evis, model[i].UID, ref e))
                  {
                      return false;
                  }
 
-                 parameters[0].Value = userinfo.ElementAt(0).UiID;
-                 parameters[1].Value = userinfo.ElementAt(0).UiIdentityNum.Substring(11, 6);
+                 parameters[0].Value = evis.ElementAt(0).EvID;
+                 parameters[1].Value = evis.ElementAt(0).EvMobPhone.Substring(5, 6);
                  parameters[2].Value = "00010";
 
                  string exception = db.InsertExec(sql, parameters);
