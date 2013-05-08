@@ -124,22 +124,15 @@ function show_evaluator()
     Evaluator = $("#evaluator").ligerGrid({
         checkbox: true,
         columns: [
-        { display: '用户名', name: 'UiID', width: 80, align: 'center', hide: true },
-        { display: '姓名', name: 'UiName', width: 50, align: 'center' },
-        { display: '性别', name: 'UiSex', width: 30, align: 'center' },
-        { display: '身份证号', name: 'UiIdentityNum', width: 100, align: 'center', hide: true },
-        { display: '部门', name: 'UiDepartment', width: 50, align: 'center' },
-        { display: '岗位（职务）', name: 'UiJob', width: 150, align: 'center', hide: true },
-        { display: '电话', name: 'UiTelephone', width: 70, align: 'center', hide: true },
-        { display: 'Email', name: 'UiEmail', width: 150, align: 'center' },
-        { display: '手机', name: 'UiMobPhone', width: 100, align: 'center' },
-        { display: '地址', name: 'UiAddress', width: 120, align: 'center', hide: true },
-        { display: '邮编', name: 'UiZipCode', width: 0, align: 'lecenterft', hide: true },
-        { display: '经费来源', name: 'UiFund', width: 50, align: 'center', hide: true },
-        { display: '派遣性质', name: 'UiCharacter', width: 50, align: 'center', hide: true },
-        { display: '派遣公司', name: 'UiCompany', width: 50, align: 'center', hide: true },
-        { display: '考评开始时间', name: 'UiStartTime', width: 80, align: 'center', hide: true },
-        { display: '考评结束时间', name: 'UiStopTime', width: 80, align: 'center', hide: true },
+        { display: '用户名', name: 'EvID', width: 100, align: 'center', hide: true },
+        { display: '姓名', name: 'EvName', width: 80, align: 'center' },
+        { display: '性别', name: 'EvSex', width: 50, align: 'center' },
+        { display: '单位', name: 'EvUnit', width: 50, align: 'center' },
+        { display: '手机', name: 'EvMobPhone', width: 150, align: 'center', hide: true },
+        { display: '电话', name: 'EvTelephone', width: 100, align: 'center', hide: true },
+        { display: '电子邮件', name: 'EvEmail', width: 100, align: 'center', hide: true },
+        { display: '地址', name: 'EvAddress', width: 150, align: 'center', hide: true },
+        { display: '邮政编码', name: 'EvZipCode', width: 50, align: 'center', hide: true },
         { display: '_关系', name: 'Relation', width: 80, align: 'center', hide: true },
         { display: '关系', isSort: false, width: 250, render: function (rowdata, rowindex, value) {
             var h = "";
@@ -174,22 +167,14 @@ function submitList() {
     }
 
     for (var i = 0; i < array.length; i++) {
-        delete array[i].UiName;
-        delete array[i].UiSex;
-        delete array[i].UiIdentityNum;
-        delete array[i].UiDepartment;
-        delete array[i].UiTelephone;
-        delete array[i].UiEmail;
-        delete array[i].UiMobPhone;
-        delete array[i].UiAddress;
-        delete array[i].UiZipCode;
-        delete array[i].UiType;
-        delete array[i].UiJob;
-        delete array[i].UiFund;
-        delete array[i].UiCharacter;
-        delete array[i].UiCompany;
-        delete array[i].UiStartTime;
-        delete array[i].UiStopTime;   
+        delete array[i].EvName;
+        delete array[i].EvSex;
+        delete array[i].EvDepartment;
+        delete array[i].EvTelephone;
+        delete array[i].EvEmail;
+        delete array[i].EvMobPhone;
+        delete array[i].EvAddress;
+        delete array[i].EvZipCode; 
     }
 
      for (var i = 0; i < array.length; i++) {
@@ -210,28 +195,6 @@ function submitList() {
     document.getElementById("Button1").click();
 }
 
-
-//function showList1() {
-//    load_userinfo();
-//    $("#box").css("display", "none");
-
-//    var s3= document.getElementById("JsonList").value;
-//    var UsersData3 = JSON2.parse(s3);
-//     List = $("#list").ligerGrid({
-//        columns: [
-//        { display: '被考评人姓名', name: 'EvaluatedName', width: 150, align: 'center', frozen: true },
-//        { display: '考评人姓名', name: 'EvaluatorName', width: 150, align: 'center' },
-//        { display: '考评人部门', name: 'EvaluatorDep', width: 100, align: 'center' },
-//        { display: '身份', name: 'Relation', width: 80, align: 'center' }
-//        ],
-//        usePager: true, pageSize: 10,
-//        data: UsersData3,
-//        width: '96%'
-//    });
-//    $("#box2").css("display", "block");
-//    var manager = $("#list").ligerGetGridManager();
-//    manager.loadData();
-//}
 
 function showList2() {
     load_userinfo();

@@ -68,29 +68,22 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         private bool searchEvaluator()
         {
             exception = "";
-            //string username = (string)Session["username"];
-            string username = "admin2";
-            string uiDepart = "";
+            string username = (string)Session["username"];
+            //string username = "admin2";
+            string mDepart = "";
             string evaluatedID = UserID.Value;
             List<Manager> managers = new List<Manager>();
 
             if (ManagerBLL.SelectByID(username, ref managers, ref exception))
             {
-                uiDepart = managers.ElementAt(0).MDepartment;
-                List<UserInfo> ui = new List<UserInfo>();
-                UserInfoBLL.SelectByDepartment(uiDepart, ref ui, ref exception);
-                int i = 0;
-                for (; i < ui.Count; i++)
-                {
-                    if (ui.ElementAt(i).UiID == evaluatedID)
-                        break;
-                }
-
-                ui.RemoveAt(i);
-                if (ui.Count <= 0)
+                mDepart = managers.ElementAt(0).MDepartment;
+                List<EvaluatorInfo> evi = new List<EvaluatorInfo>();
+                EvaluatorInfoBLL.SelectByDepartment(evi, mDepart, ref exception);
+                
+                if (evi.Count <= 0)
                     return false;
                 DataTable table = new DataTable();
-                table = ui.ListToDataTable();
+                table = evi.ListToDataTable();
                 string json = JSON.DataTableToJson(table);
                 JsonEvaluator.Value = json;
                 return true;
@@ -115,8 +108,8 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         protected void Search_User(object sender, EventArgs e)
         {
             exception = "";
-            //string username = (string)Session["username"];
-            string username = "admin2";
+            string username = (string)Session["username"];
+            //string username = "admin2";
             string evaluatedID = UserID.Value;
 
             LUserName.Text = "被考评人姓名:" + UserName.Value; //显示被考评人姓名
