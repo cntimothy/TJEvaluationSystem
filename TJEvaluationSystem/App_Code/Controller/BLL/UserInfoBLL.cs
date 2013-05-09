@@ -141,6 +141,26 @@ namespace BLL
              return Select(ref ui, ref e, sql);
          }
 
+        //选择部门
+         public static bool Select(List<string> departments, ref string e)
+         {
+             string strSql = "select distinct uiDepartment from tb_Userinfo";
+             DataTable table = new DataTable();
+             table = db.QueryDataTable(strSql, ref e);
+             if (table != null && table.Rows.Count > 0)
+             {
+                 foreach (DataRow dr in table.Rows)
+                 {
+                     departments.Add((string)dr["uiDepartment"]);
+                 }
+                 return true;
+             }
+             else
+             {
+                 return false;
+             }
+         }
+
          public static bool Select(ref List<UserInfo> ui, ref string e,string sql)
          {
              DataTable table = new DataTable();

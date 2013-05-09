@@ -18,9 +18,10 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         {
             if (!IsPostBack)
             {
+                loadSummary();
             }
-
         }
+
         protected System.Data.DataTable searchSql()
         {
             string department = Department.SelectedValue;
@@ -259,7 +260,6 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             ClientScript.RegisterStartupScript(this.GetType(), "", "load_userinfo()", true);
         }
 
-
         protected void Dao_Click(object sender, EventArgs e)
         {
             List<PostResponseBook> prb = new List<PostResponseBook>();
@@ -354,6 +354,31 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 }
                 sumCount++;
             }
+        }
+
+        private void loadSummary()
+        {
+            exception = "";
+            DataTable dt = new DataTable();
+            dt.Columns.Add("SDepartment");
+            dt.Columns.Add("SUnpass");
+            dt.Columns.Add("SUnmake");
+            dt.Columns.Add("SPass");
+            dt.Columns.Add("SSum");
+            List<string> departments = new List<string>();
+            UserInfoBLL.Select(departments, ref exception);
+            foreach (string depart in departments)
+            {
+                dt.Rows.Add();
+            }
+            if (dt.Rows.Count == 0)
+            {
+                return;
+            }
+            string json = JSON.DataTableToJson(dt);
+            JsonSummary.Value = json;
+
+            ClientScript.RegisterStartupScript(this.GetType(), "", "load_summary()", true);
         }
     } 
 }
