@@ -122,6 +122,21 @@ namespace BLL
              string sql = "select * from tb_UserInfo where uiDepartment='" + uiDepartment + "'";
              return Select(ref ui, ref e, sql);
          }
+
+        //根据部门选择人数
+         public static bool SelectCountByDepartment(string uiDepartment, ref int sum, ref string e)
+         {
+             string sql = "select count(*) from tb_UserInfo where uiDepartment='" + uiDepartment + "'";
+             sum = Convert.ToInt32(db.QueryValue(sql));
+             if (sum != 0)
+             {
+                 return true;
+             }
+             else
+             {
+                 return false;
+             }
+         }
          //根据类型选择
          public static bool SelectByType(string uiType, ref List<UserInfo> ui, ref string e)
          {

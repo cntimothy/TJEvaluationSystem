@@ -360,6 +360,10 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         {
             exception = "";
             DataTable dt = new DataTable();
+            DataRow dr;
+            List<PostSummary> pss = new List<PostSummary>();
+            Dictionary<string, TempSummary> dicSummary = new Dictionary<string, TempSummary>();
+            //初始化table
             dt.Columns.Add("SDepartment");
             dt.Columns.Add("SUnpass");
             dt.Columns.Add("SUnmake");
@@ -369,7 +373,49 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             UserInfoBLL.Select(departments, ref exception);
             foreach (string depart in departments)
             {
-                dt.Rows.Add();
+                dr = dt.NewRow();
+                dr["SDepartment"] = depart;
+                dr["SUnpass"] = 0;
+                dr["SUnmake"] = 0;
+                dr["SPass"] = 0;
+                dr["SSum"] = 0;
+                dt.Rows.Add(dr);
+            }
+
+            //查询数据库，获取汇总
+            if (PostResponseBookBLL.SelectSummary(pss, ref exception))
+            {
+                foreach (PostSummary ps in pss)
+                {
+                    if (!dicSummary.Keys.Contains(ps.Department))
+                    {
+                        dicSummary.Add(ps.Department, new TempSummary());
+                    }
+                    if (ps.Passed == -1)
+                    {
+                        continue;
+                    }
+                    if (ps.Passed == 0)
+                    {
+                        dicSummary[ps.Department].Unpass++;
+                    }
+                    else if (ps.Passed == 1)
+                    {
+                        dicSummary[ps.Department].Pass++;
+                    }
+                    else
+                    {
+                        dicSummary[ps.Department].Unmake++;
+                    }
+                    dicSummary[ps.Department].Sum++;
+                }
+            }
+            foreach (DataRow dr1 in dt.Rows)
+            {
+                dr1["SUnpass"] = dicSummary[(string)dr1["SDepartment"]].Unpass;
+                dr1["SUnmake"] = dicSummary[(string)dr1["SDepartment"]].Unmake;
+                dr1["SPass"] = dicSummary[(string)dr1["SDepartment"]].Pass;
+                dr1["SSum"] = dicSummary[(string)dr1["SDepartment"]].Sum;
             }
             if (dt.Rows.Count == 0)
             {
@@ -380,5 +426,10 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
 
             ClientScript.RegisterStartupScript(this.GetType(), "", "load_summary()", true);
         }
-    } 
+
+        public class TempSummary
+        {
+            public int Unpass, Unmake, Pass, Sum;
+        }
+    }  
 }
