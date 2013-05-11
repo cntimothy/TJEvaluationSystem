@@ -1,143 +1,71 @@
 ﻿
-	 .my_table
-    {
-    	border: 1px solid #a3c0e8;  
-        padding:0;   
-        margin:0 auto;  
-        border-collapse: collapse;
-    }
-    .my_table td
-    {
-    	border: 1px solid #a3c0e8;  
-        font-size:12px;  
-        padding: 3px 3px 3px 3px;
-    }
-    .my_table table
-    {
-        border-top-width: 0px;
-        border-right-width: 0px;
-        border-bottom-width: 0px;
-        border-left-width: 0px;
+.my_table
+{
+    border:none; 
+    padding:0;   
+    margin:0 auto;  
+    border-collapse: collapse;
+}
+.my_table td
+{
+    border: 1px solid #a3c0e8;  
+    font-size:12px;  
+    padding: 3px 3px 3px 3px;
+}
 
-     }
-    .num
-    {
-    	width:30px;
-        text-align:center;
-        background-color:#e8ebee;
-    }
-    .stander_type
-    {
-    	 width:60px;
-         background-color:#e8ebee;   
-    }
-    .contain_table
-    {
-    	border:none;
-    	padding:0px;
-    }
-    .key_stander_type
-    {
-    	width:60px;
-        background-color:#e8ebee;  
-    }
-    .stander_name
-    {
-    	width:100px;
-        text-align:center;
-    }
-    .stander_name_big
-    {
-    	width:166px;
-        text-align:center;
-    }
-    .stander_content
-    {
-    	height:50px;
-    }
-    .veto_stander_content
-    {
-    	width:421px;
-    	height:50px;
-    }
-    .veto_stander_content_edit
-    {
-    	width:421px;
-    	height:50px;
-    	text-align:center;
-        background-color:#eaf2fe;
-        color:Red;
-    }
-    .score_type
-    {
-    	 width:100px;
-    	 height:20px;
-         text-align:center; 
-    }
-    .fun
-    {
-    	width:60px;
-        background-color:#eaf2fe;
-        margin:0px auto;
-        text-align:center;
-    }
-    .stander_name_edit
-    {
-    	width:100px;
-    	height:65px;
-        text-align:center;
-        background-color:#eaf2fe;
-        color:Red;
-    }
-    .stander_name_big_edit
-    {
-    	width:166px;
-    	height:65px;
-        text-align:center;
-        background-color:#eaf2fe;
-        color:Red;
-    }
-    .stander_content_edit
-    {
-    	width:100px;
-    	height:65px;
-        text-align:center;
-        background-color:#eaf2fe;
-        color:Red;
-    }
-    .stander_content_big_edit
-    {
-    	width:421px;
-    	height:65px;
-        text-align:center;
-        background-color:#eaf2fe;
-        color:Red;
-    }
-    .weight
-    {
-    	width:60px;
-        margin:0px auto;
-        text-align:center;
-        border-left:none;
-    }
-    .input_textbox
-    {
-    	width:95%;
-    }
-    .input_textarea
-    {
-    	width:95%;
-    	height:40px;
-    }
-    .score
-    {
-    	width:60px;
-        background-color:#eaf2fe;
-        margin:0px auto;
-        text-align:center;
-        color:Red;
-    }
-    .my_combobox
-    {
-    	width:25px;
-    }
+.td_title
+{
+    font-weight:bold;
+    padding: 3px 3px 3px 3px;
+    background-color:#e8ebee;
+    text-align:center; 
+}
+
+.td_score_type
+{
+    text-align:center;
+    width:120px;
+}
+
+.td_fun
+{
+    width:60px;
+    background-color:#eaf2fe;
+    margin:0px auto;
+    text-align:center;
+}
+
+.td_label_no_content
+{
+    
+}
+
+.td_reminder
+{
+    background-color:#eaf2fe;
+    color:Red;
+}
+
+.td_weight
+{
+    text-align:center;
+}
+
+.my_table th
+{
+    border:none;
+    font-size:14px;   
+}
+
+.score
+{
+    width:60px;
+    background-color:#eaf2fe;
+    margin:0px auto;
+    text-align:center;
+    color:Red;
+}
+.my_combobox
+{
+    width:25px;
+}

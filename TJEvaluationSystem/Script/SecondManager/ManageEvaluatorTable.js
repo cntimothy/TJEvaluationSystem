@@ -1,42 +1,2035 @@
 ﻿//
-var standerLib = null;
-var standerLibVeto = null;
-var responseStanderLib = null;
+var assessTable = null;         //考核表
+var standerLib = null;          //指标库
+var responseStanderLib = null;  //岗位职责
 
-var keyResponse1 = false;
-var keyResponse2 = false;
-var keyResponse3 = false;
-var keyAbility1 = false;
-var keyAbility2 = false;
-var keyAbility3 = false;
-var keyAttitude1 = false;
-var keyAttitude2 = false;
-var keyAttitude3 = false;
-var response1 = false;
-var response2 = false;
-var response3 = false;
-var ability1 = false;
-var ability2 = false;
-var ability3 = false;
-var ability4 = false;
-var attitude1 = false;
-var attitude2 = false;
-var attitude3 = false;
-var attitude4 = false;
-var veto1 = false;
-var veto2 = false;
-var veto3 = false;
-var veto4 = false;
-var veto5 = false;
+var keyResponse1 = null; var keyResponse1Content = null;
+var keyResponse2 = null; var keyResponse2Content = null;
+var keyResponse3 = null; var keyResponse3Content = null;
+var keyResponse4 = null; var keyResponse4Content = null;
+var keyResponse5 = null; var keyResponse5Content = null;
+var keyAbility1 = null;
+var keyAbility2 = null;
+var keyAbility3 = null;
+var keyAbility4 = null;
+var keyAbility5 = null;
+var keyAttitude1 = null;
+var keyAttitude2 = null;
+var keyAttitude3 = null;
+var keyAttitude4 = null;
+var keyAttitude5 = null;
+var response1 = null; var response1Content = null;
+var response2 = null; var response2Content = null;
+var response3 = null; var response3Content = null;
+var response4 = null; var response4Content = null;
+var response5 = null; var response5Content = null;
+var ability1 = null;
+var ability2 = null;
+var ability3 = null;
+var ability4 = null;
+var ability5 = null;
+var attitude1 = null;
+var attitude2 = null;
+var attitude3 = null;
+var attitude4 = null;
+var attitude5 = null;
+var vetoOthers = null;
 
-var manager = null;
-var managerVeto = null;
+var managerStanderLib = null;
 var managerResponse = null;
-var stdType = null;
+var stdType = null;         //指标标识，用于选择指标
 var tableData = null;
 var userData = null;
 var Evaluated = null;
 var UserID = null;
+var minNum = 1;
+
+//制作考核表
+function MakeAssessTable() {
+
+    standerLib = JSON2.parse(document.getElementById("JsonData").value);
+    responseStanderLib = JSON2.parse(document.getElementById("JsonData2").value);
+    if (standerLib == null || standerLib == "" || responseStanderLib == null || responseStanderLib == "") {
+        $.ligerDialog.error('获取数据失败!');
+        return;
+    }
+    ShowStander();
+    ShowResponseStander();
+    //重置考核表
+    ResetAssessTable();
+
+    //设置显示隐藏
+    $("#ShowUserList").css("display", "none");
+    $("#MakeEditAssessTable").css("display", "block");
+    $("#ViewAssessTable").css("display", "none");
+    $("#MakeTableBar").css("display", "block");
+    $("#EditTableBar").css("display", "none");
+}
+
+//保存考核表
+function FinishMakeTable() {
+    var json = GetTableData();
+    var id = UserID;
+    if (json == null || json == "" || id == null || id == "")
+        return;
+    document.getElementById("JsonData").value = JSON.stringify(json);
+    document.getElementById("JsonData2").value = id;
+    document.getElementById("BFinishMakeTable").click();
+}
+
+//保存制作成功
+function SaveMakeTableDone() {
+    $.ligerDialog.success('保存成功!');
+    document.getElementById("BRefresh").click();
+}
+
+//通过指标id查找指标内容
+function GetStanderByID(id, lib) {
+    if (id != null && lib != null) {
+        for (var row in lib) {
+            if (lib[row].SlID == id)
+                return lib[row];
+        }
+    }
+    return null;
+}
+
+//编辑考核表
+function EditAssessTable() {
+    //重置考核表
+    ResetAssessTable();
+    standerLib = JSON2.parse(document.getElementById("JsonData").value);
+    responseStanderLib = JSON2.parse(document.getElementById("JsonData2").value);
+    assessTable = JSON2.parse(document.getElementById("JsonData3").value);
+    if (standerLib == null || standerLib == "" || responseStanderLib == null || responseStanderLib == "" || assessTable == null || assessTable == "") {
+        $.ligerDialog.error('获取数据失败!');
+        return;
+    }
+    ShowStander();
+    ShowResponseStander();
+
+    //显示考核表内容
+    //显示岗位职责指标
+    function ShowResponse(nameID, contentID, str) {
+        if (str != null && str != "") {
+            var strArr = new Array();
+            strArr = str.split('&');
+            $(nameID).html(strArr[0]);
+            $(contentID).html(strArr[1]);
+            return strArr;
+        }
+        return null;
+    }
+    //显示其他指标
+    function ShowSelectStander(stdID, nameID, contentAID, contentBID, contentCID, contentDID) {
+        var std = GetStanderByID(stdID, standerLib.Rows);
+        if (std == null)
+            return null;
+        $(nameID).html(std.SlName);
+        $(contentAID).html(std.SlContentA);
+        $(contentBID).html(std.SlContentB);
+        $(contentCID).html(std.SlContentC);
+        $(contentDID).html(std.SlContentD);
+        stander = stdID;
+        return stdID;
+    }
+    var arrayTemp = ShowResponse('#LKeyResponse1Name', '#LKeyResponse1Content', assessTable.AtKeyResponse1);
+    if (arrayTemp != null) {
+        keyResponse1 = arrayTemp[0];
+        keyResponse1Content = arrayTemp[1];
+    }
+    var arrayTemp = ShowResponse('#LKeyResponse2Name', '#LKeyResponse2Content', assessTable.AtKeyResponse2);
+    if (arrayTemp != null) {
+        keyResponse2 = arrayTemp[0];
+        keyResponse2Content = arrayTemp[1];
+    }
+    var arrayTemp = ShowResponse('#LKeyResponse3Name', '#LKeyResponse3Content', assessTable.AtKeyResponse3);
+    if (arrayTemp != null) {
+        keyResponse3 = arrayTemp[0];
+        keyResponse3Content = arrayTemp[1];
+    }
+    var arrayTemp = ShowResponse('#LKeyResponse4Name', '#LKeyResponse4Content', assessTable.AtKeyResponse4);
+    if (arrayTemp != null) {
+        keyResponse4 = arrayTemp[0];
+        keyResponse4Content = arrayTemp[1];
+    }
+    var arrayTemp = ShowResponse('#LKeyResponse5Name', '#LKeyResponse5Content', assessTable.AtKeyResponse4);
+    if (arrayTemp != null) {
+        keyResponse5 = arrayTemp[0];
+        keyResponse5Content = arrayTemp[1];
+    }
+    keyAbility1 = ShowSelectStander(assessTable.AtKeyAbility1, '#LKeyAbility1Name', '#LKeyAbility1ContentA', '#LKeyAbility1ContentB', '#LKeyAbility1ContentC', '#LKeyAbility1ContentD');
+    keyAbility2 = ShowSelectStander(assessTable.AtKeyAbility2, '#LKeyAbility2Name', '#LKeyAbility2ContentA', '#LKeyAbility2ContentB', '#LKeyAbility2ContentC', '#LKeyAbility2ContentD');
+    keyAbility3 = ShowSelectStander(assessTable.AtKeyAbility3, '#LKeyAbility3Name', '#LKeyAbility3ContentA', '#LKeyAbility3ContentB', '#LKeyAbility3ContentC', '#LKeyAbility3ContentD');
+    keyAbility4 = ShowSelectStander(assessTable.AtKeyAbility4, '#LKeyAbility4Name', '#LKeyAbility4ContentA', '#LKeyAbility4ContentB', '#LKeyAbility4ContentC', '#LKeyAbility4ContentD');
+    keyAbility5 = ShowSelectStander(assessTable.AtKeyAbility5, '#LKeyAbility5Name', '#LKeyAbility5ContentA', '#LKeyAbility5ContentB', '#LKeyAbility5ContentC', '#LKeyAbility5ContentD');
+    keyAttitude1 = ShowSelectStander(assessTable.AtKeyAttitude1, '#LKeyAttitude1Name', '#LKeyAttitude1ContentA', '#LKeyAttitude1ContentB', '#LKeyAttitude1ContentC', '#LKeyAttitude1ContentD');
+    keyAttitude2 = ShowSelectStander(assessTable.AtKeyAttitude2, '#LKeyAttitude2Name', '#LKeyAttitude2ContentA', '#LKeyAttitude2ContentB', '#LKeyAttitude2ContentC', '#LKeyAttitude2ContentD');
+    keyAttitude3 = ShowSelectStander(assessTable.AtKeyAttitude3, '#LKeyAttitude3Name', '#LKeyAttitude3ContentA', '#LKeyAttitude3ContentB', '#LKeyAttitude3ContentC', '#LKeyAttitude3ContentD');
+    keyAttitude4 = ShowSelectStander(assessTable.AtKeyAttitude4, '#LKeyAttitude4Name', '#LKeyAttitude4ContentA', '#LKeyAttitude4ContentB', '#LKeyAttitude4ContentC', '#LKeyAttitude4ContentD');
+    keyAttitude5 = ShowSelectStander(assessTable.AtKeyAttitude5, '#LKeyAttitude5Name', '#LKeyAttitude5ContentA', '#LKeyAttitude5ContentB', '#LKeyAttitude5ContentC', '#LKeyAttitude5ContentD');
+    var arrayTemp = ShowResponse('#LResponse1Name', '#LResponse1Content', assessTable.AtResponse1);
+    if (arrayTemp != null) {
+        response1 = arrayTemp[0];
+        response1Content = arrayTemp[1];
+    }
+    var arrayTemp = ShowResponse('#LResponse2Name', '#LResponse2Content', assessTable.AtResponse2);
+    if (arrayTemp != null) {
+        response2 = arrayTemp[0];
+        response2Content = arrayTemp[1];
+    }
+    var arrayTemp = ShowResponse('#LResponse3Name', '#LResponse3Content', assessTable.AtResponse3);
+    if (arrayTemp != null) {
+        response3 = arrayTemp[0];
+        response3Content = arrayTemp[1];
+    }
+    var arrayTemp = ShowResponse('#LResponse4Name', '#LResponse4Content', assessTable.AtResponse4);
+    if (arrayTemp != null) {
+        response4 = arrayTemp[0];
+        response4Content = arrayTemp[1];
+    }
+    var arrayTemp = ShowResponse('#LResponse5Name', '#LResponse5Content', assessTable.AtResponse5);
+    if (arrayTemp != null) {
+        response5 = arrayTemp[0];
+        response5Content = arrayTemp[1];
+    }
+    ability1 = ShowSelectStander(assessTable.AtAbility1, '#LAbility1Name', '#LAility1ContentA', '#LAbility1ContentB', '#LAbility1ContentC', '#LAbility1ContentD');
+    ability2 = ShowSelectStander(assessTable.AtAbility2, '#LAbility2Name', '#LAbility2ContentA', '#LAbility2ContentB', '#LAbility2ContentC', '#LAbility2ContentD');
+    ability3 = ShowSelectStander(assessTable.AtAbility3, '#LAbility3Name', '#LAbility3ContentA', '#LAbility3ContentB', '#LAbility3ContentC', '#LAbility3ContentD');
+    ability4 = ShowSelectStander(assessTable.AtAbility4, '#LAbility4Name', '#LAbility4ContentA', '#LAbility4ContentB', '#LAbility4ContentC', '#LAbility4ContentD');
+    ability5 = ShowSelectStander(assessTable.AtAbility5, '#LAbility5Name', '#LAbility5ContentA', '#LAbility5ContentB', '#LAbility5ContentC', '#LAbility5ContentD');
+    attitude1 = ShowSelectStander(assessTable.AtAttitude1, '#LAttitude1Name', '#LAttitude1ContentA', '#LAttitude1ContentB', '#LAttitude1ContentC', '#LAttitude1ContentD');
+    attitude2 = ShowSelectStander(assessTable.AtAttitude2, '#LAttitude2Name', '#LAttitude2ContentA', '#LAttitude2ContentB', '#LAttitude2ContentC', '#LAttitude2ContentD');
+    attitude3 = ShowSelectStander(assessTable.AtAttitude3, '#LAttitude3Name', '#LAttitude3ContentA', '#LAttitude3ContentB', '#LAttitude3ContentC', '#LAttitude3ContentD');
+    attitude4 = ShowSelectStander(assessTable.AtAttitude4, '#LAttitude4Name', '#LAttitude4ContentA', '#LAttitude4ContentB', '#LAttitude4ContentC', '#LAttitude4ContentD');
+    attitude5 = ShowSelectStander(assessTable.AtAttitude5, '#LAttitude5Name', '#LAttitude5ContentA', '#LAttitude5ContentB', '#LAttitude5ContentC', '#LAttitude5ContentD');
+    $('#TVetoOthers').html(assessTable.AtVetoOthers);
+
+    //设置显示隐藏
+    $("#ShowUserList").css("display", "none");
+    $("#MakeEditAssessTable").css("display", "block");
+    $("#ViewAssessTable").css("display", "none");
+    $("#MakeTableBar").css("display", "none");
+    $("#EditTableBar").css("display", "block");
+}
+
+//保存考核表
+function FinishEditTable() {
+    var json = GetTableData();
+    var id = UserID;
+    if (json == null || json == "" || id == null || id == "")
+        return;
+    document.getElementById("JsonData").value = JSON.stringify(json);
+    document.getElementById("JsonData2").value = id;
+    document.getElementById("BFinishEditTable").click();
+}
+
+//保存制作成功
+function SaveEditTableDone() {
+    $.ligerDialog.success('保存成功!');
+    document.getElementById("BRefresh").click();
+}
+
+function ViewAssessTable() {
+    //解决ie6,7中setAttribute兼容性
+    dom = (function () {
+        var fixAttr = {
+            tabindex: 'tabIndex',
+            readonly: 'readOnly',
+            'for': 'htmlFor',
+            'class': 'className',
+            maxlength: 'maxLength',
+            cellspacing: 'cellSpacing',
+            cellpadding: 'cellPadding',
+            rowspan: 'rowSpan',
+            colspan: 'colSpan',
+            usemap: 'useMap',
+            frameborder: 'frameBorder',
+            contenteditable: 'contentEditable'
+        },
+            div = document.createElement('div');
+        div.setAttribute('class', 't');
+        var supportSetAttr = div.className === 't';
+        return {
+            setAttr: function (el, name, val) {
+                el.setAttribute(supportSetAttr ? name : (fixAttr[name] || name), val);
+            },
+            getAttr: function (el, name) {
+                return el.getAttribute(supportSetAttr ? name : (fixAttr[name] || name));
+            }
+        }
+    })();
+    //重置考核表
+    ResetAssessTable();
+    standerLib = JSON2.parse(document.getElementById("JsonData").value);
+    assessTable = JSON2.parse(document.getElementById("JsonData3").value);
+    if (standerLib == null || standerLib == "" || assessTable == null || assessTable == "") {
+        $.ligerDialog.error('获取数据失败!');
+        return;
+    }
+
+    //数据转换到数组中
+
+    var keyResponseArray = new Array();
+    if (assessTable.AtKeyResponse1 != null)
+        keyResponseArray.push(assessTable.AtKeyResponse1);
+    if (assessTable.AtKeyResponse2 != null)
+        keyResponseArray.push(assessTable.AtKeyResponse2);
+    if (assessTable.AtKeyResponse3 != null)
+        keyResponseArray.push(assessTable.AtKeyResponse3);
+    if (assessTable.AtKeyResponse4 != null)
+        keyResponseArray.push(assessTable.AtKeyResponse4);
+    if (assessTable.AtKeyResponse5 != null)
+        keyResponseArray.push(assessTable.AtKeyResponse5);
+    if (keyResponseArray.length < minNum) {
+        $.ligerDialog.warn('获取数据失败!');
+        return;
+    }
+
+    var keyAbilityArray = new Array();
+    if (assessTable.AtKeyAbility1 > 0)
+        keyAbilityArray.push(assessTable.AtKeyAbility1);
+    if (assessTable.AtKeyAbility2 > 0)
+        keyAbilityArray.push(assessTable.AtKeyAbility2);
+    if (assessTable.AtKeyAbility3 > 0)
+        keyAbilityArray.push(assessTable.AtKeyAbility3);
+    if (assessTable.AtKeyAbility4 > 0)
+        keyAbilityArray.push(assessTable.AtKeyAbility4);
+    if (assessTable.AtKeyAbility5 > 0)
+        keyAbilityArray.push(assessTable.AtKeyAbility5);
+    if (keyAbilityArray.length < minNum) {
+        $.ligerDialog.warn('获取数据失败!');
+        return;
+    }
+
+    var keyAttitudeArray = new Array();
+    if (assessTable.AtKeyAttitude1 > 0)
+        keyAttitudeArray.push(assessTable.AtKeyAttitude1);
+    if (assessTable.AtKeyAttitude2 > 0)
+        keyAttitudeArray.push(assessTable.AtKeyAttitude2);
+    if (assessTable.AtKeyAttitude3 > 0)
+        keyAttitudeArray.push(assessTable.AtKeyAttitude3);
+    if (assessTable.AtKeyAttitude4 > 0)
+        keyAttitudeArray.push(assessTable.AtKeyAttitude4);
+    if (assessTable.AtKeyAttitude5 > 0)
+        keyAttitudeArray.push(assessTable.AtKeyAttitude5);
+    if (keyAttitudeArray.length < minNum) {
+        $.ligerDialog.warn('获取数据失败!');
+        return;
+    }
+
+    var responseArray = new Array();
+    if (assessTable.AtResponse1 != null)
+        responseArray.push(assessTable.AtResponse1);
+    if (assessTable.AtResponse2 != null)
+        responseArray.push(assessTable.AtResponse2);
+    if (assessTable.AtResponse3 != null)
+        responseArray.push(assessTable.AtResponse3);
+    if (assessTable.AtResponse4 != null)
+        responseArray.push(assessTable.AtResponse4);
+    if (assessTable.AtResponse5 != null)
+        responseArray.push(assessTable.AtResponse5);
+    if (responseArray.length < minNum) {
+        $.ligerDialog.warn('获取数据失败!');
+        return;
+    }
+
+    var abilityArray = new Array();
+    if (assessTable.AtAbility1 > 0)
+        abilityArray.push(assessTable.AtAbility1);
+    if (assessTable.AtAbility2 > 0)
+        abilityArray.push(assessTable.AtAbility2);
+    if (assessTable.AtAbility3 > 0)
+        abilityArray.push(assessTable.AtAbility3);
+    if (assessTable.AtAbility4 > 0)
+        abilityArray.push(assessTable.AtAbility4);
+    if (assessTable.AtAbility5 > 0)
+        abilityArray.push(assessTable.AtAbility5);
+    if (abilityArray.length < minNum) {
+        $.ligerDialog.warn('获取数据失败!');
+        return;
+    }
+
+    var attitudeArray = new Array();
+    if (assessTable.AtAttitude1 > 0)
+        attitudeArray.push(assessTable.AtAttitude1);
+    if (assessTable.AtAttitude2 > 0)
+        attitudeArray.push(assessTable.AtAttitude2);
+    if (assessTable.AtAttitude3 > 0)
+        attitudeArray.push(assessTable.AtAttitude3);
+    if (assessTable.AtAttitude4 > 0)
+        attitudeArray.push(assessTable.AtAttitude4);
+    if (assessTable.AtAttitude5 > 0)
+        attitudeArray.push(assessTable.AtAttitude5);
+    if (attitudeArray.length < minNum) {
+        $.ligerDialog.warn('获取数据失败!');
+        return;
+    }
+
+    var keyStanderNum = keyResponseArray.length + keyAbilityArray.length + keyAttitudeArray.length;
+    var responseStanderNum = responseArray.length;
+    var abilityStanderNum = abilityArray.length;
+    var attitudeStanderNum = attitudeArray.length;
+
+    //生成考核表
+    var table = document.createElement("table"); //创建table 
+    table.className = 'my_table';
+    var tbody = document.createElement("TBODY");
+
+    //列标题
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'colspan', 4);
+    var text = document.createTextNode("指标体系");
+    td.appendChild(text);
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'colspan', 4);
+    var text = document.createTextNode("指标描述及分值");
+    td.appendChild(text);
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    td.setAttribute("width", 60)
+    var text = document.createTextNode("得分");
+    td.appendChild(text);
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    td.setAttribute("width", 50)
+    var text = document.createTextNode("权重");
+    td.appendChild(text);
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+
+    //关键岗位职责指标第一行
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', keyStanderNum * 2);
+    td.setAttribute("width", 20)
+    td.appendChild(document.createTextNode("一"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', keyStanderNum * 2);
+    td.setAttribute("width", 30)
+    td.appendChild(document.createTextNode("关键绩效指标"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', keyResponseArray.length * 2);
+    td.setAttribute("width", 30)
+    td.appendChild(document.createTextNode("关键岗位职责指标"));
+    tr.appendChild(td);
+
+    var tempArray = new Array();
+    tempArray = keyResponseArray[0].split('&');
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'rowspan', 2);
+    td.setAttribute("width", 120);
+    td.appendChild(document.createTextNode(tempArray[0]));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'colspan', 4);
+    td.appendChild(document.createTextNode(tempArray[1]));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_fun';
+    dom.setAttr(td, 'rowspan', 2);
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_weight';
+    dom.setAttr(td, 'rowspan', keyStanderNum * 2);
+    td.appendChild(document.createTextNode("50%"));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("优（90~100）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("良（70~80）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("中（40~60）"));
+    tr.appendChild(td);
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("差（0~30）"));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    //关键岗位职责指标其他行
+    for (var i = 1; i < keyResponseArray.length; i++) {
+        var tempArray = new Array();
+        tempArray = keyResponseArray[i].split('&');
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        dom.setAttr(td, 'rowspan', 2);
+        td.setAttribute("width", 120);
+        td.appendChild(document.createTextNode(tempArray[0]));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        dom.setAttr(td, 'colspan', 4);
+        td.appendChild(document.createTextNode(tempArray[1]));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_fun';
+        dom.setAttr(td, 'rowspan', 2);
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("优（90~100）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("良（70~80）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("中（40~60）"));
+        tr.appendChild(td);
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("差（0~30）"));
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+    }
+
+    //关键岗位胜任能力指标第一行
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', keyAbilityArray.length * 2);
+    td.setAttribute("width", 30)
+    td.appendChild(document.createTextNode("关键岗位胜任能力指标"));
+    tr.appendChild(td);
+
+    var standerTemp = GetStanderByID(keyAbilityArray[0], standerLib.Rows);
+    if (standerTemp == null) {
+        $.ligerDialog.error('获取数据失败!');
+        return;
+    }
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'rowspan',2);
+    td.setAttribute("width", 120);
+    td.appendChild(document.createTextNode(standerTemp.SlName));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentA));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentB));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentC));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentD));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_fun';
+    dom.setAttr(td, 'rowspan', 2);
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("优（90~100）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("良（70~80）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("中（40~60）"));
+    tr.appendChild(td);
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("差（0~30）"));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    //关键岗位胜任能力指标其他行
+    for (var i = 1; i < keyAbilityArray.length; i++) {
+        var standerTemp = GetStanderByID(keyAbilityArray[i], standerLib.Rows);
+        if (standerTemp == null) {
+            $.ligerDialog.error('获取数据失败!');
+            return;
+        }
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        dom.setAttr(td, 'rowspan', 2);
+        td.setAttribute("width", 120);
+        td.appendChild(document.createTextNode(standerTemp.SlName));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentA));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentB));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentC));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentD));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_fun';
+        dom.setAttr(td, 'rowspan', 2);
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("优（90~100）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("良（70~80）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("中（40~60）"));
+        tr.appendChild(td);
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("差（0~30）"));
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+    }
+
+    //关键工作态度指标第一行
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', keyAttitudeArray.length * 2);
+    td.setAttribute("width", 30)
+    td.appendChild(document.createTextNode("关键工作态度指标"));
+    tr.appendChild(td);
+
+    var standerTemp = GetStanderByID(keyAttitudeArray[0], standerLib.Rows);
+    if (standerTemp == null) {
+        $.ligerDialog.error('获取数据失败!');
+        return;
+    }
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'rowspan', 2);
+    td.setAttribute("width", 120);
+    td.appendChild(document.createTextNode(standerTemp.SlName));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentA));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentB));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentC));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentD));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_fun';
+    dom.setAttr(td, 'rowspan', 2);
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("优（90~100）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("良（70~80）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("中（40~60）"));
+    tr.appendChild(td);
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("差（0~30）"));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    //关键工作态度指标其他行
+    for (var i = 1; i < keyAttitudeArray.length; i++) {
+        var standerTemp = GetStanderByID(keyAttitudeArray[i], standerLib.Rows);
+        if (standerTemp == null) {
+            $.ligerDialog.error('获取数据失败!');
+            return;
+        }
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        dom.setAttr(td, 'rowspan', 2);
+        td.setAttribute("width", 120);
+        td.appendChild(document.createTextNode(standerTemp.SlName));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentA));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentB));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentC));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentD));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_fun';
+        dom.setAttr(td, 'rowspan', 2);
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("优（90~100）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("良（70~80）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("中（40~60）"));
+        tr.appendChild(td);
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("差（0~30）"));
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+    }
+
+    //岗位职责指标第一行
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', responseStanderNum * 2);
+    td.setAttribute("width", 20)
+    td.appendChild(document.createTextNode("二"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', responseStanderNum * 2);
+    td.setAttribute("width", 30)
+    td.appendChild(document.createTextNode("岗位职责指标"));
+    tr.appendChild(td);
+
+    var tempArray = new Array();
+    tempArray = responseArray[0].split('&');
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'rowspan', 2);
+    dom.setAttr(td, 'colspan', 2);
+    td.appendChild(document.createTextNode(tempArray[0]));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'colspan', 4);
+    td.appendChild(document.createTextNode(tempArray[1]));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_fun';
+    dom.setAttr(td, 'rowspan', 2);
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_weight';
+    dom.setAttr(td, 'rowspan', responseStanderNum * 2);
+    td.appendChild(document.createTextNode("20%"));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("优（90~100）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("良（70~80）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("中（40~60）"));
+    tr.appendChild(td);
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("差（0~30）"));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    //岗位职责指标其他行
+    for (var i = 1; i < responseArray.length; i++) {
+        var tempArray = new Array();
+        tempArray = responseArray[i].split('&');
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        dom.setAttr(td, 'rowspan', 2);
+        dom.setAttr(td, 'colspan', 2);
+        td.appendChild(document.createTextNode(tempArray[0]));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        dom.setAttr(td, 'colspan', 4);
+        td.appendChild(document.createTextNode(tempArray[1]));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_fun';
+        dom.setAttr(td, 'rowspan', 2);
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("优（90~100）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("良（70~80）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("中（40~60）"));
+        tr.appendChild(td);
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("差（0~30）"));
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+    }
+
+    //岗位胜任能力指标第一行
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', abilityStanderNum * 2);
+    td.setAttribute("width", 20)
+    td.appendChild(document.createTextNode("三"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', abilityStanderNum * 2);
+    td.setAttribute("width", 30)
+    td.appendChild(document.createTextNode("岗位胜任能力指标"));
+    tr.appendChild(td);
+
+    var standerTemp = GetStanderByID(abilityArray[0], standerLib.Rows);
+    if (standerTemp == null) {
+        $.ligerDialog.error('获取数据失败!');
+        return;
+    }
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'rowspan', 2);
+    dom.setAttr(td, 'colspan', 2);
+    td.appendChild(document.createTextNode(standerTemp.SlName));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentA));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentB));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentC));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentD));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_fun';
+    dom.setAttr(td, 'rowspan', 2);
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_weight';
+    dom.setAttr(td, 'rowspan', abilityStanderNum * 2);
+    td.appendChild(document.createTextNode("15%"));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("优（90~100）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("良（70~80）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("中（40~60）"));
+    tr.appendChild(td);
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("差（0~30）"));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    //岗位胜任能力指标其他行
+    for (var i = 1; i < abilityArray.length; i++) {
+        var standerTemp = GetStanderByID(abilityArray[i], standerLib.Rows);
+        if (standerTemp == null) {
+            $.ligerDialog.error('获取数据失败!');
+            return;
+        }
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        dom.setAttr(td, 'rowspan', 2);
+        dom.setAttr(td, 'colspan', 2);
+        td.appendChild(document.createTextNode(standerTemp.SlName));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentA));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentB));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentC));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentD));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_fun';
+        dom.setAttr(td, 'rowspan', 2);
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("优（90~100）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("良（70~80）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("中（40~60）"));
+        tr.appendChild(td);
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("差（0~30）"));
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+    }
+
+    //工作态度指标第一行
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', attitudeStanderNum * 2);
+    td.setAttribute("width", 20)
+    td.appendChild(document.createTextNode("四"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', attitudeStanderNum * 2);
+    td.setAttribute("width", 30)
+    td.appendChild(document.createTextNode("工作态度指标"));
+    tr.appendChild(td);
+
+    var standerTemp = GetStanderByID(attitudeArray[0], standerLib.Rows);
+    if (standerTemp == null) {
+        $.ligerDialog.error('获取数据失败!');
+        return;
+    }
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'rowspan', 2);
+    dom.setAttr(td, 'colspan', 2);
+    td.appendChild(document.createTextNode(standerTemp.SlName));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentA));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentB));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentC));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentD));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_fun';
+    dom.setAttr(td, 'rowspan', 2);
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_weight';
+    dom.setAttr(td, 'rowspan', attitudeStanderNum * 2);
+    td.appendChild(document.createTextNode("15%"));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("优（90~100）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("良（70~80）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("中（40~60）"));
+    tr.appendChild(td);
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("差（0~30）"));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    //工作态度指标其他行
+    for (var i = 1; i < attitudeArray.length; i++) {
+        var standerTemp = GetStanderByID(attitudeArray[i], standerLib.Rows);
+        if (standerTemp == null) {
+            $.ligerDialog.error('获取数据失败!');
+            return;
+        }
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        dom.setAttr(td, 'rowspan', 2);
+        dom.setAttr(td, 'colspan', 2);
+        td.appendChild(document.createTextNode(standerTemp.SlName));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentA));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentB));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentC));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentD));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_fun';
+        dom.setAttr(td, 'rowspan', 2);
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("优（90~100）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("良（70~80）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("中（40~60）"));
+        tr.appendChild(td);
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("差（0~30）"));
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+    }
+
+    //否决指标
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', 6);
+    td.setAttribute("width", 20)
+    td.appendChild(document.createTextNode("五"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', 6);
+    td.setAttribute("width", 30)
+    td.appendChild(document.createTextNode("否决指标"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'rowspan', 5);
+    dom.setAttr(td, 'colspan', 2);
+    td.appendChild(document.createTextNode("严重违反规章制度"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'colspan', 3);
+    td.setAttribute("width", 360);
+    td.appendChild(document.createTextNode("累计旷工3天以上的"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'rowspan', 5);
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("-100或0"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_fun';
+    dom.setAttr(td, 'rowspan', 6);
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_weight';
+    dom.setAttr(td, 'rowspan', 6);
+    td.appendChild(document.createTextNode("100%"));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    var tr = document.createElement("TR");
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'colspan', 3);
+    td.setAttribute("width", 360);
+    td.appendChild(document.createTextNode("严重失职，营私舞弊，给本单位造成3000元以上经济损失或者其它严重后果的<"));
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+
+    var tr = document.createElement("TR");
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'colspan', 3);
+    td.setAttribute("width", 360);
+    td.appendChild(document.createTextNode("同时与其他用人单位建立劳动关系，对完成本单位工作任务造成严重影响，或者经本单位提出，拒不改正的"));
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+
+    var tr = document.createElement("TR");
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'colspan', 3);
+    td.setAttribute("width", 360);
+    td.appendChild(document.createTextNode("违背职业道德，行贿、受贿价值超过3000元以上的"));
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+
+    var tr = document.createElement("TR");
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'colspan', 3);
+    td.setAttribute("width", 360);
+    td.appendChild(document.createTextNode("被依法追究刑事责任的"));
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'colspan', 2);
+    td.setAttribute("width", 120);
+    td.appendChild(document.createTextNode("其它"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'colspan', 4);
+    td.setAttribute("width", 480);
+    td.appendChild(document.createTextNode(assessTable.AtVetoOthers));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    table.appendChild(tbody);
+    var div = document.getElementById("ShowAssessTable");
+    while (div.hasChildNodes()) //当div下还存在子节点时 循环继续
+    {
+        div.removeChild(div.firstChild);
+    }
+    div.appendChild(table);
+
+    //设置显示隐藏
+    $("#ShowUserList").css("display", "none");
+    $("#MakeEditAssessTable").css("display", "none");
+    $("#ViewAssessTable").css("display", "block");
+}
+
+//获取数据
+function GetTableData() {
+    var keyResponse = new Array();
+    if (keyResponse1 != null)
+        keyResponse.push(keyResponse1 + '&' + keyResponse1Content);
+    if (keyResponse2 != null)
+        keyResponse.push(keyResponse2 + '&' + keyResponse2Content);
+    if (keyResponse3 != null)
+        keyResponse.push(keyResponse3 + '&' + keyResponse3Content);
+    if (keyResponse4 != null)
+        keyResponse.push(keyResponse4 + '&' + keyResponse4Content);
+    if (keyResponse5 != null)
+        keyResponse.push(keyResponse5 + '&' + keyResponse5Content);
+    if (keyResponse.length < minNum) {
+        $.ligerDialog.warn('至少选择2项关键岗位职责指标!');
+        return null;
+    }
+    for (var i = keyResponse.length; i < 5; i++) {
+        var temp;
+        keyResponse.push(temp);
+    }
+    var keyAbility = new Array();
+    if (keyAbility1 != null)
+        keyAbility.push(keyAbility1);
+    if (keyAbility2 != null)
+        keyAbility.push(keyAbility2);
+    if (keyAbility3 != null)
+        keyAbility.push(keyAbility3);
+    if (keyAbility4 != null)
+        keyAbility.push(keyAbility4);
+    if (keyAbility5 != null)
+        keyAbility.push(keyAbility5);
+    if (keyAbility.length < minNum) {
+        $.ligerDialog.warn('至少选择2项关键岗位胜任能力指标!');
+        return null;
+    }
+    for (var i = keyAbility.length; i < 5; i++) {
+        var temp;
+        keyAbility.push(temp);
+    }
+    var keyAttitude = new Array();
+    if (keyAttitude1 != null)
+        keyAttitude.push(keyAttitude1);
+    if (keyAttitude2 != null)
+        keyAttitude.push(keyAttitude2);
+    if (keyAttitude3 != null)
+        keyAttitude.push(keyAttitude3);
+    if (keyAttitude4 != null)
+        keyAttitude.push(keyAttitude4);
+    if (keyAttitude5 != null)
+        keyAttitude.push(keyAttitude5);
+    if (keyAttitude.length < minNum) {
+        $.ligerDialog.warn('至少选择2项关键工作态度指标!');
+        return null;
+    }
+    for (var i = keyAttitude.length; i < 5; i++) {
+        var temp;
+        keyAttitude.push(temp);
+    }
+    var response = new Array();
+    if (response1 != null)
+        response.push(response1 + '&' + response1Content);
+    if (response2 != null)
+        response.push(response2 + '&' + response2Content);
+    if (response3 != null)
+        response.push(response3 + '&' + response3Content);
+    if (response4 != null)
+        response.push(response4 + '&' + response4Content);
+    if (response5 != null)
+        response.push(response5 + '&' + response5Content);
+    if (response.length < minNum) {
+        $.ligerDialog.warn('至少选择2项岗位职责指标!');
+        return null;
+    }
+    for (var i = response.length; i < 5; i++) {
+        var temp;
+        response.push(temp);
+    }
+    var ability = new Array();
+    if (ability1 != null)
+        ability.push(ability1);
+    if (ability2 != null)
+        ability.push(ability2);
+    if (ability3 != null)
+        ability.push(ability3);
+    if (ability4 != null)
+        ability.push(ability4);
+    if (ability5 != null)
+        ability.push(ability5);
+    if (ability.length < minNum) {
+        $.ligerDialog.warn('至少选择2项岗位胜任能力指标!');
+        return null;
+    }
+    for (var i = ability.length; i < 5; i++) {
+        var temp;
+        ability.push(temp);
+    }
+    var attitude = new Array();
+    if (attitude1 != null)
+        attitude.push(attitude1);
+    if (attitude2 != null)
+        attitude.push(attitude2);
+    if (attitude3 != null)
+        attitude.push(attitude3);
+    if (attitude4 != null)
+        attitude.push(attitude4);
+    if (attitude5 != null)
+        attitude.push(attitude5);
+    if (attitude.length < minNum) {
+        $.ligerDialog.warn('至少选择2项工作态度指标!');
+        return null;
+    }
+    for (var i = attitude.length; i < 5; i++) {
+        var temp;
+        attitude.push(temp);
+    }
+    var vetoOthers = document.getElementById('TVetoOthers').innerText;
+    var json = [{ AtID: 0,
+        AtKeyResponse1: keyResponse[0], AtKeyResponse2: keyResponse[1], AtKeyResponse3: keyResponse[2], AtKeyResponse4: keyResponse[3], AtKeyResponse5: keyResponse[4],
+        AtKeyAbility1: keyAbility[0], AtKeyAbility2: keyAbility[1], AtKeyAbility3: keyAbility[2], AtKeyAbility4: keyAbility[3], AtKeyAbility5: keyAbility[4],
+        AtKeyAttitude1: keyAttitude[0], AtKeyAttitude2: keyAttitude[1], AtKeyAttitude3: keyAttitude[2], AtKeyAttitude4: keyAttitude[3], AtKeyAttitude5: keyAttitude[4],
+        AtResponse1: response[0], AtResponse2: response[1], AtResponse3: response[2], AtResponse4: response[3], AtResponse5: response[4],
+        AtAbility1: ability[0], AtAbility2: ability[1], AtAbility3: ability[2], AtAbility4: ability[3], AtAbility5: ability[4],
+        AtAttitude1: attitude[0], AtAttitude2: attitude[1], AtAttitude3: attitude[2], AtAttitude4: attitude[3], AtAttitude5: attitude[4],
+        AtVetoOthers: vetoOthers
+    }];
+    return json;
+}
+
+//重置考核表
+function ResetAssessTable() {
+    assessTable = null;         //考核表设空
+    //考核表内部对象设为null;
+    keyResponse1 = null; keyResponse1Content = null;
+    keyResponse2 = null; keyResponse2Content = null;
+    keyResponse3 = null; keyResponse3Content = null;
+    keyResponse4 = null; keyResponse4Content = null;
+    keyResponse5 = null; keyResponse5Content = null;
+    keyAbility1 = null;
+    keyAbility2 = null;
+    keyAbility3 = null;
+    keyAbility4 = null;
+    keyAbility5 = null;
+    keyAttitude1 = null;
+    keyAttitude2 = null;
+    keyAttitude3 = null;
+    keyAttitude4 = null;
+    keyAttitude5 = null;
+    response1 = null; response1Content = null;
+    response2 = null; response2Content = null;
+    response3 = null; response3Content = null;
+    response4 = null; response4Content = null;
+    response5 = null; response5Content = null;
+    ability1 = null;
+    ability2 = null;
+    ability3 = null;
+    ability4 = null;
+    ability5 = null;
+    attitude1 = null;
+    attitude2 = null;
+    attitude3 = null;
+    attitude4 = null;
+    attitude5 = null;
+    vetoOthers = null;
+
+    stdType = null;
+}
+
+//返回到用户列表
+function BackToUserList() {
+    $("#ShowUserList").css("display", "block");
+    $("#MakeEditAssessTable").css("display", "none");
+    $("#ViewAssessTable").css("display", "none");
+    $("#UserList").css("display", "block");
+    $("#UserInfo").css("display", "none");
+}
+
+//选择岗位责任指标
+function SelectResponseStander(std) {
+    if (std == null)
+        return;
+    stdType = std;
+    $("#MakeEditAssessTable").css("display", "none");
+    $("#ResponseLib").css("display", "block");
+    managerResponse.loadData(responseStanderLib);
+}
+
+//返回考核表
+function BackToAssessTable() {
+    $("#MakeEditAssessTable").css("display", "block");
+    $("#ResponseLib").css("display", "none");
+    $("#StanderLib").css("display", "none");
+}
+
+//显示岗位职责指标
+function ShowResponseStander() {
+    managerResponse = $("#GResponseLib").ligerGrid({
+        columns: [
+    { display: '标题', name: 'Title', width: 150, align: 'center' },
+    { display: '具体内容', name: 'Content', width: 220, align: 'center' },
+    { display: '具体要求', name: 'Request', width: 220, align: 'center' },
+    { display: '考核要点', name: 'Point', width: 220, align: 'center' },
+    { display: '', isSort: false, width: 50, render: function (rowdata, rowindex, value) {
+        var h = "";
+        h += "<a href='javascript:SelectResponseRow(" + rowindex + ")'>选择</a> ";
+        return h;
+    }
+    }],
+        usePager: true, pageSize: 10,
+        data: responseStanderLib,
+        width: '100%', height: '100%'
+    });
+}
+
+//选中岗位责任返回
+function SelectResponseRow(rowid) {
+    var rowdata = managerResponse.getSelectedRow(rowid);    //取得数据
+    if (rowdata == null)
+        return;
+    if (CheckResponseSelected(rowdata.Title)) {
+        $.ligerDialog.warn('该指标已选择，请选择其它指标!');
+        return;
+    }
+    var name = 'L' + stdType.toString() + 'Name';
+    var content = 'L' + stdType.toString() + 'Content';
+    document.getElementById(name).innerText = rowdata.Title;
+    document.getElementById(content).innerText = rowdata.Request;
+
+    switch (stdType) {
+        case 'KeyResponse1':
+            keyResponse1 = rowdata.Title; keyResponse1Content = rowdata.Request;
+            break;
+        case 'KeyResponse2':
+            keyResponse2 = rowdata.Title; keyResponse2Content = rowdata.Request;
+            break;
+        case 'KeyResponse3':
+            keyResponse3 = rowdata.Title; keyResponse3Content = rowdata.Request;
+            break;
+        case 'KeyResponse4':
+            keyResponse4 = rowdata.Title; keyResponse4Content = rowdata.Request;
+            break;
+        case 'KeyResponse5':
+            keyResponse5 = rowdata.Title; keyResponse5Content = rowdata.Request;
+            break;
+        case 'Response1':
+            response1 = rowdata.Title; response1Content = rowdata.Request;
+            break;
+        case 'Response2':
+            response2 = rowdata.Title; response2Content = rowdata.Request;
+            break;
+        case 'Response3':
+            response3 = rowdata.Title; response3Content = rowdata.Request;
+            break;
+        case 'Response4':
+            response4 = rowdata.Title; response4Content = rowdata.Request;
+            break;
+        case 'Response5':
+            response5 = rowdata.Title; response5Content = rowdata.Request;
+            break;
+    }
+
+    stdType = null;
+    BackToAssessTable();
+}
+
+//判断责任指标是否已经选择
+function CheckResponseSelected(name) {
+    if (keyResponse1 != null && name == keyResponse1.toString())
+        return true;
+    if (keyResponse2 != null && name == keyResponse2.toString())
+        return true;
+    if (keyResponse3 != null && name == keyResponse3.toString())
+        return true;
+    if (keyResponse4 != null && name == keyResponse4.toString())
+        return true;
+    if (keyResponse5 != null && name == keyResponse5.toString())
+        return true;
+    if (response1 != null && name == response1.toString())
+        return true;
+    if (response2 != null && name == response2.toString())
+        return true;
+    if (response3 != null && name == response3.toString())
+        return true;
+    if (response4 != null && name == response4.toString())
+        return true;
+    if (response5 != null && name == response5.toString())
+        return true;
+    return false;
+}
+
+//显示指标
+function ShowStander() {
+    managerStanderLib = $("#GStanderLib").ligerGrid({
+        columns: [
+    { display: '编号', name: 'SlID', width: 50, align: 'center', frozen: true },
+    { display: '指标类型', name: 'SlType', width: 100, align: 'center' },
+    { display: '指标内容', name: 'SlName', width: 120, align: 'center' },
+    { display: '', name: 'SlContentA', width: 120, align: 'center', hide: true },
+    { display: '', name: 'SlContentB', width: 120, align: 'center', hide: true },
+    { display: '', name: 'SlContentC', width: 120, align: 'center', hide: true },
+    { display: '', name: 'SlContentD', width: 120, align: 'center', hide: true },
+    { display: '', isSort: false, width: 100, render: function (rowdata, rowindex, value) {
+        var h = "";
+        h += "<a href='javascript:ShowDetailStander(" + rowindex + ")'>查看详细</a> ";
+        h += "<a href='javascript:SelectStanderRow(" + rowindex + ")'>选择</a> ";
+        return h;
+    }
+    }],
+        usePager: true, pageSize: 10,
+        data: standerLib,
+        width: '100%', height: '90%'
+    });
+}
+
+function ShowDetailStander(rowid) {
+    var rowdata = managerStanderLib.getSelectedRow(rowid);    //取得数据
+    if (rowdata == null)
+        return;
+    $('#StanderLib').css("display", "none");
+    $('#DetailStanderInfo').css("display", "block");
+    document.getElementById('LStanderType').innerText = rowdata.SlType;
+    document.getElementById('LName').innerText = rowdata.SlName;
+    document.getElementById('LContentA').innerText = rowdata.SlContentA;
+    document.getElementById('LContentB').innerText = rowdata.SlContentB;
+    document.getElementById('LContentC').innerText = rowdata.SlContentC;
+    document.getElementById('LContentD').innerText = rowdata.SlContentD;
+}
+
+//返回指标列表
+function BackToStanderList() {
+    $('#StanderLib').css("display", "block");
+    $('#DetailStanderInfo').css("display", "none");
+}
+
+//查询
+function Search() {
+    manager.options.data = $.extend(true, {}, standerLib);
+    var key = $("#search_content").val();
+    if (key == "请输入查询内容")
+        manager.loadData(standerLib);
+    else
+        manager.loadData(GetWhere(key));
+}
+
+//查询方法
+function GetWhere(key) {
+    if (!manager) return null;
+    var clause = function (rowdata, rowindex) {
+        var type = $("#search_type").val();
+        switch (type) {
+            case '指标类型':
+                return rowdata.SlType.indexOf(key) > -1;
+                break;
+            case '指标':
+                return rowdata.SlName.indexOf(key) > -1;
+                break;
+            default:
+                return rowdata.SlName.indexOf(key) > -1;
+                break;
+        }
+    };
+    return clause;
+}
+
+//选择指标
+function SelectStander(std) {
+    if (std == null)
+        return;
+    stdType = std;
+    $("#MakeEditAssessTable").css("display", "none");
+    $("#StanderLib").css("display", "block");
+    managerStanderLib.loadData(standerLib);
+}
+
+//选中指标返回
+function SelectStanderRow(rowid) {
+    var rowdata = managerStanderLib.getSelectedRow(rowid);    //取得数据
+    if (rowdata == null)
+        return;
+    if (CheckStanderSelected(rowdata.SlID)) {
+        $.ligerDialog.warn('该指标已存在，请选择其它指标!');
+        return;
+    }
+    var name = 'L' + stdType.toString() + 'Name';
+    var contentA = 'L' + stdType.toString() + 'ContentA';
+    var contentB = 'L' + stdType.toString() + 'ContentB';
+    var contentC = 'L' + stdType.toString() + 'ContentC';
+    var contentD = 'L' + stdType.toString() + 'ContentD';
+    document.getElementById(name).innerText = rowdata.SlName;
+    document.getElementById(contentA).innerText = rowdata.SlContentA;
+    document.getElementById(contentB).innerText = rowdata.SlContentB;
+    document.getElementById(contentC).innerText = rowdata.SlContentC;
+    document.getElementById(contentD).innerText = rowdata.SlContentD;
+    switch (stdType) {
+        case 'KeyAbility1':
+            keyAbility1 = rowdata.SlID;
+            break;
+        case 'KeyAbility2':
+            keyAbility2 = rowdata.SlID;
+            break;
+        case 'KeyAbility3':
+            keyAbility3 = rowdata.SlID;
+            break;
+        case 'KeyAbility4':
+            keyAbility4 = rowdata.SlID;
+            break;
+        case 'KeyAbility5':
+            keyAbility5 = rowdata.SlID;
+            break;
+        case 'KeyAttitude1':
+            keyAttitude1 = rowdata.SlID;
+            break;
+        case 'KeyAttitude2':
+            keyAttitude2 = rowdata.SlID;
+            break;
+        case 'KeyAttitude3':
+            keyAttitude3 = rowdata.SlID;
+            break;
+        case 'KeyAttitude4':
+            keyAttitude4 = rowdata.SlID;
+            break;
+        case 'KeyAttitude4':
+            keyAttitude5 = rowdata.SlID;
+            break;
+        case 'Ability1':
+            ability1 = rowdata.SlID;
+            break;
+        case 'Ability2':
+            ability2 = rowdata.SlID;
+            break;
+        case 'Ability3':
+            ability3 = rowdata.SlID;
+            break;
+        case 'Ability4':
+            ability4 = rowdata.SlID;
+            break;
+        case 'Ability5':
+            ability5 = rowdata.SlID;
+            break;
+        case 'Attitude1':
+            attitude1 = rowdata.SlID;
+            break;
+        case 'Attitude2':
+            attitude2 = rowdata.SlID;
+            break;
+        case 'Attitude3':
+            attitude3 = rowdata.SlID;
+            break;
+        case 'Attitude4':
+            attitude4 = rowdata.SlID;
+            break;
+        case 'Attitude5':
+            attitude5 = rowdata.SlID;
+            break;
+        default:
+            break;
+    }
+    stdType = null;
+    BackToAssessTable();
+}
+
+//判断是否选择
+function CheckStanderSelected(id) {
+    if (keyAbility1 != null && keyAbility1 == id)
+        return true;
+    if (keyAbility2 != null && keyAbility2 == id)
+        return true;
+    if (keyAbility3 != null && keyAbility3 == id)
+        return true;
+    if (keyAbility4 != null && keyAbility4 == id)
+        return true;
+    if (keyAbility5 != null && keyAbility5 == id)
+        return true;
+    if (keyAttitude1 != null && keyAttitude1 == id)
+        return true;
+    if (keyAttitude2 != null && keyAttitude2 == id)
+        return true;
+    if (keyAttitude3 != null && keyAttitude3 == id)
+        return true;
+    if (keyAttitude4 != null && keyAttitude4 == id)
+        return true;
+    if (keyAttitude5 != null && keyAttitude5 == id)
+        return true;
+    if (ability1 != null && ability1 == id)
+        return true;
+    if (ability2 != null && ability2 == id)
+        return true;
+    if (ability3 != null && ability3 == id)
+        return true;
+    if (ability4 != null && ability4 == id)
+        return true;
+    if (ability5 != null && ability5 == id)
+        return true;
+    if (attitude1 != null && attitude1 == id)
+        return true;
+    if (attitude2 != null && attitude2 == id)
+        return true;
+    if (attitude3 != null && attitude3 == id)
+        return true;
+    if (attitude4 != null && attitude4 == id)
+        return true;
+    if (attitude5 != null && attitude5 == id)
+        return true;
+    return false;
+}
+
+//删除指标
+function DeleteStander(std) {
+    if (std == null)
+        return;
+    switch (std) {
+        case 'KeyResponse1':
+            keyResponse1 = null; keyResponse1Content = null;
+            document.getElementById('LKeyResponse1Name').innerText = "";
+            document.getElementById('LKeyResponse1Content').innerText = " ";
+            break;
+        case 'KeyResponse2':
+            keyResponse2 = null; keyResponse2Content = null;
+            document.getElementById('LKeyResponse2Name').innerText = "";
+            document.getElementById('LKeyResponse2Content').innerText = " ";
+            break;
+        case 'KeyResponse3':
+            keyResponse3 = null; keyResponse3Content = null;
+            document.getElementById('LKeyResponse3Name').innerText = "";
+            document.getElementById('LKeyResponse3Content').innerText = " ";
+            break;
+        case 'KeyResponse4':
+            keyResponse4 = null; keyResponse4Content = null;
+            document.getElementById('LKeyResponse4Name').innerText = "";
+            document.getElementById('LKeyResponse4Content').innerText = " ";
+            break;
+        case 'KeyResponse5':
+            keyResponse5 = null; keyResponse5Content = null;
+            document.getElementById('LKeyResponse5Name').innerText = "";
+            document.getElementById('LKeyResponse5Content').innerText = " ";
+            break;
+        case 'KeyAbility1':
+            keyAbility1 = null; keyAbility1Content = null;
+            document.getElementById('LKeyAbility1Name').innerText = "";
+            document.getElementById('LKeyAbility1ContentA').innerText = " ";
+            document.getElementById('LKeyAbility1ContentB').innerText = "";
+            document.getElementById('LKeyAbility1ContentC').innerText = "";
+            document.getElementById('LKeyAbility1ContentD').innerText = "";
+            break;
+        case 'KeyAbility2':
+            keyAbility2 = null; keyAbility2Content = null;
+            document.getElementById('LKeyAbility2Name').innerText = "";
+            document.getElementById('LKeyAbility2ContentA').innerText = " ";
+            document.getElementById('LKeyAbility2ContentB').innerText = "";
+            document.getElementById('LKeyAbility2ContentC').innerText = "";
+            document.getElementById('LKeyAbility2ContentD').innerText = "";
+            break;
+        case 'KeyAbility3':
+            keyAbility3 = null; keyAbility3Content = null;
+            document.getElementById('LKeyAbility3Name').innerText = "";
+            document.getElementById('LKeyAbility3ContentA').innerText = " ";
+            document.getElementById('LKeyAbility3ContentB').innerText = "";
+            document.getElementById('LKeyAbility3ContentC').innerText = "";
+            document.getElementById('LKeyAbility3ContentD').innerText = "";
+            break;
+        case 'KeyAbility4':
+            keyAbility4 = null; keyAbility4Content = null;
+            document.getElementById('LKeyAbility4Name').innerText = "";
+            document.getElementById('LKeyAbility4ContentA').innerText = " ";
+            document.getElementById('LKeyAbility4ContentB').innerText = "";
+            document.getElementById('LKeyAbility4ContentC').innerText = "";
+            document.getElementById('LKeyAbility4ContentD').innerText = "";
+            break;
+        case 'KeyAbility5':
+            keyAbility5 = null; keyAbility5Content = null;
+            document.getElementById('LKeyAbility5Name').innerText = "";
+            document.getElementById('LKeyAbility5ContentA').innerText = " ";
+            document.getElementById('LKeyAbility5ContentB').innerText = "";
+            document.getElementById('LKeyAbility5ContentC').innerText = "";
+            document.getElementById('LKeyAbility5ContentD').innerText = "";
+            break;
+        case 'KeyAttitude1':
+            keyAttitude1 = null; keyAttitude1Content = null;
+            document.getElementById('LKeyAttitude1Name').innerText = "";
+            document.getElementById('LKeyAttitude1ContentA').innerText = " ";
+            document.getElementById('LKeyAttitude1ContentB').innerText = "";
+            document.getElementById('LKeyAttitude1ContentC').innerText = "";
+            document.getElementById('LKeyAttitude1ContentD').innerText = "";
+            break;
+        case 'KeyAttitude2':
+            keyAttitude2 = null; keyAttitude2Content = null;
+            document.getElementById('LKeyAttitude2Name').innerText = "";
+            document.getElementById('LKeyAttitude2ContentA').innerText = " ";
+            document.getElementById('LKeyAttitude2ContentB').innerText = "";
+            document.getElementById('LKeyAttitude2ContentC').innerText = "";
+            document.getElementById('LKeyAttitude2ContentD').innerText = "";
+            break;
+        case 'KeyAttitude3':
+            keyAttitude3 = null; keyAttitude3Content = null;
+            document.getElementById('LKeyAttitude3Name').innerText = "";
+            document.getElementById('LKeyAttitude3ContentA').innerText = " ";
+            document.getElementById('LKeyAttitude3ContentB').innerText = "";
+            document.getElementById('LKeyAttitude3ContentC').innerText = "";
+            document.getElementById('LKeyAttitude3ContentD').innerText = "";
+            break;
+        case 'KeyAttitude4':
+            keyAttitude4 = null; keyAttitude4Content = null;
+            document.getElementById('LKeyAttitude4Name').innerText = "";
+            document.getElementById('LKeyAttitude4ContentA').innerText = " ";
+            document.getElementById('LKeyAttitude4ContentB').innerText = "";
+            document.getElementById('LKeyAttitude4ContentC').innerText = "";
+            document.getElementById('LKeyAttitude4ContentD').innerText = "";
+            break;
+        case 'KeyAttitude5':
+            keyAttitude5 = null; keyAttitude5Content = null;
+            document.getElementById('LKeyAttitude5Name').innerText = "";
+            document.getElementById('LKeyAttitude5ContentA').innerText = " ";
+            document.getElementById('LKeyAttitude5ContentB').innerText = "";
+            document.getElementById('LKeyAttitude5ContentC').innerText = "";
+            document.getElementById('LKeyAttitude5ContentD').innerText = "";
+            break;
+        case 'Response1':
+            response1 = null; response1Content = null;
+            document.getElementById('LResponse1Name').innerText = "";
+            document.getElementById('LResponse1Content').innerText = " ";
+            break;
+        case 'Response2':
+            response2 = null; response2Content = null;
+            document.getElementById('LResponse2Name').innerText = "";
+            document.getElementById('LResponse2Content').innerText = " ";
+            break;
+        case 'Response3':
+            response3 = null; response3Content = null;
+            document.getElementById('LResponse3Name').innerText = "";
+            document.getElementById('LResponse3Content').innerText = " ";
+            break;
+        case 'Response4':
+            response4 = null; response4Content = null;
+            document.getElementById('LResponse4Name').innerText = "";
+            document.getElementById('LResponse4Content').innerText = " ";
+            break;
+        case 'Response5':
+            response5 = null; response5Content = null;
+            document.getElementById('LResponse5Name').innerText = "";
+            document.getElementById('LResponse5Content').innerText = " ";
+            break;
+        case 'Ability1':
+            ability1 = null; ability1Content = null;
+            document.getElementById('LAbility1Name').innerText = "";
+            document.getElementById('LAbility1ContentA').innerText = " ";
+            document.getElementById('LAbility1ContentB').innerText = "";
+            document.getElementById('LAbility1ContentC').innerText = "";
+            document.getElementById('LAbility1ContentD').innerText = "";
+            break;
+        case 'Ability2':
+            ability2 = null; ability2Content = null;
+            document.getElementById('LAbility2Name').innerText = "";
+            document.getElementById('LAbility2ContentA').innerText = " ";
+            document.getElementById('LAbility2ContentB').innerText = "";
+            document.getElementById('LAbility2ContentC').innerText = "";
+            document.getElementById('LAbility2ContentD').innerText = "";
+            break;
+        case 'Ability3':
+            ability3 = null; ability3Content = null;
+            document.getElementById('LAbility3Name').innerText = "";
+            document.getElementById('LAbility3ContentA').innerText = " ";
+            document.getElementById('LAbility3ContentB').innerText = "";
+            document.getElementById('LAbility3ContentC').innerText = "";
+            document.getElementById('LAbility3ContentD').innerText = "";
+            break;
+        case 'Ability4':
+            ability4 = null; ability4Content = null;
+            document.getElementById('LAbility4Name').innerText = "";
+            document.getElementById('LAbility4ContentA').innerText = " ";
+            document.getElementById('LAbility4ContentB').innerText = "";
+            document.getElementById('LAbility4ContentC').innerText = "";
+            document.getElementById('LAbility4ContentD').innerText = "";
+            break;
+        case 'Ability5':
+            ability5 = null; ability5Content = null;
+            document.getElementById('LAbility5Name').innerText = "";
+            document.getElementById('LAbility5ContentA').innerText = " ";
+            document.getElementById('LAbility5ContentB').innerText = "";
+            document.getElementById('LAbility5ContentC').innerText = "";
+            document.getElementById('LAbility5ContentD').innerText = "";
+            break;
+        case 'Attitude1':
+            attitude1 = null; attitude1Content = null;
+            document.getElementById('LAttitude1Name').innerText = "";
+            document.getElementById('LAttitude1ContentA').innerText = " ";
+            document.getElementById('LAttitude1ContentB').innerText = "";
+            document.getElementById('LAttitude1ContentC').innerText = "";
+            document.getElementById('LAttitude1ContentD').innerText = "";
+            break;
+        case 'Attitude2':
+            attitude2 = null; attitude2Content = null;
+            document.getElementById('LAttitude2Name').innerText = "";
+            document.getElementById('LAttitude2ContentA').innerText = " ";
+            document.getElementById('LAttitude2ContentB').innerText = "";
+            document.getElementById('LAttitude2ContentC').innerText = "";
+            document.getElementById('LAttitude2ContentD').innerText = "";
+            break;
+        case 'Attitude3':
+            attitude3 = null; attitude3Content = null;
+            document.getElementById('LAttitude3Name').innerText = "";
+            document.getElementById('LAttitude3ContentA').innerText = " ";
+            document.getElementById('LAttitude3ContentB').innerText = "";
+            document.getElementById('LAttitude3ContentC').innerText = "";
+            document.getElementById('LAttitude3ContentD').innerText = "";
+            break;
+        case 'Attitude4':
+            attitude4 = null; attitude4Content = null;
+            document.getElementById('LAttitude4Name').innerText = "";
+            document.getElementById('LAttitude4ContentA').innerText = " ";
+            document.getElementById('LAttitude4ContentB').innerText = "";
+            document.getElementById('LAttitude4ContentC').innerText = "";
+            document.getElementById('LAttitude4ContentD').innerText = "";
+            break;
+        case 'Attitude5':
+            attitude5 = null; attitude5Content = null;
+            document.getElementById('LAttitude5Name').innerText = "";
+            document.getElementById('LAttitude5ContentA').innerText = " ";
+            document.getElementById('LAttitude5ContentB').innerText = "";
+            document.getElementById('LAttitude5ContentC').innerText = "";
+            document.getElementById('LAttitude5ContentD').innerText = "";
+            break;
+    }
+}
 
 //初始化
 $(function () {
@@ -58,7 +2051,7 @@ function search() {
 //显示被考评名单
 function ShowUserList() {
     var users = document.getElementById("JsonData").value;
-    if (users == null || users == "" ) {
+    if (users == null || users == "") {
         $.ligerDialog.warn('获取被考评人员数据失败!');
         return;
     }
@@ -85,14 +2078,18 @@ function ShowUserList() {
         { display: '考评结束时间', name: 'UiStopTime', width: 80, align: 'center' },
         { display: '操作', isSort: false, width: 200, render: function (rowdata, rowindex, value) {
             var h = "";
+            if (rowdata == null)
+                return;
+
             h += "<a href='javascript:ShowUserInfo(" + rowindex + ")'>查看用户详细信息</a> ";
             h += "<a href='javascript:ViewEvaluateTable(" + rowindex + ")'>查看考核表</a> ";
             return h;
         }
         }],
-    usePager: true, pageSize: 20,
-    data: userData,
-    width: '96%' 
+        usePager: true, pageSize: 20,
+        data: userData,
+        width: '96%',
+        height: '98%'
     });
     $("#pageloading").hide();
 }
@@ -131,1565 +2128,4 @@ function ViewEvaluateTable(rowid) {
     UserID = rowdata.UiID;
     document.getElementById("JsonData").value = rowdata.UiID;
     document.getElementById("BGetEvaluateTable").click();
-}
-
-//显示考核表
-function ShowTable() {
-    var lib1 = document.getElementById("JsonData").value;
-    var lib2 = document.getElementById("JsonData2").value;
-    var lib3 = document.getElementById("JsonData4").value;
-    if (lib1 == null || lib1 == "" || lib2 == null || lib2 == "" || lib3 == null || lib3 == "")
-    {
-        $.ligerDialog.warn('获取指标库数据失败!');
-        return;
-    }
-    ShowStander();
-    ShowVetoStander();
-    ShowResponseStander();
-    standerLib = JSON2.parse(lib1);
-    standerLibVeto = JSON2.parse(lib2);  
-
-    var data=document.getElementById("JsonData3").value;
-    if (data == null || data == "") {
-        //创建考核表
-        $('#TrNoTable').css("display", "block");
-        $('#TrViewTable').css("display", "none");
-        $.ligerDialog.warn('不存在考核表，请创建!');
-    }
-    else {
-        //查看考核表
-        $('#TrNoTable').css("display", "none");
-        $('#TrViewTable').css("display", "block");
-        tableData = JSON2.parse(data);
-        ViewEvaluatorTable();
-    }
-    $("#ShowUserList").css("display", "none");
-    $("#ShowEvaluateTable").css("display", "block");
-    $(".ToolBar").css("display", "block");
-
-}
-
-function BackToUserList() {
-    $("#ShowUserList").css("display", "block");
-    $("#ShowEvaluateTable").css("display", "none");
-    $("#UserList").css("display", "block");
-    $("#UserInfo").css("display", "none");
-}
-
-//显示考核表
-function ViewEvaluatorTable() {
-    if (tableData == null)
-        return;
-    var passed = tableData.AtPass;
-    if (passed == 0) {
-        //未审核
-        $('#LPassed').html("未审核!");
-        $('#EditTableButton').css('display', 'block');
-    }
-    else if (passed == 1) {
-        //未审核
-        $('#LPassed').html("审核已通过!");
-        $('#EditTableButton').css('display', 'none');
-    }
-    else {
-        //审核未通过
-        $('#LPassed').html("审核未通过!");
-        $('#EditTableButton').css('display', 'block');
-    }
-    $('#EvaluatorTable').css('display', 'block');
-    $('.EditTable').css('display', 'none');
-    $('.ViewTable').css('display', 'none');
-    $('.fun').css('display', 'none');
-    $('.score').css('display', 'none');
-    $('.EditTableWeight').css('display', 'none');
-    $('.ViewTableWeight').css('display', 'block');
-    InitEvaluatorTable();
-    //显示岗位职责指标
-    function ShowResponse(trID, nameID, contentID, str, showClass, editClass) {
-        if (str != null&&str!="") {
-            var strArr = new Array();
-            strArr = str.split('&');
-            $(nameID).html(strArr[0]);
-            $(contentID).html(strArr[1]);
-            $(trID).css("display", "block");
-            return true;
-        }
-        return false;
-    }
-    function getStanderByID(id,lib)
-    {
-        if(id!=null&&lib!=null)
-        {
-            for(var row in lib)
-            {
-                if(lib[row].SlID==id)
-                    return lib[row];
-            }
-        }
-        return null;
-    }
-    //显示否决指标
-    function ShowVeto(trID, stdID, contentID,numID) {
-        var std = getStanderByID(stdID, standerLibVeto.Rows);
-        if (std == null)
-            return false ;
-        $(contentID).html(std.SlContentA);
-        $(numID).val(std.SlID);
-        $(trID).css("display", "block");
-        return true;
-    }
-    //显示其他指标
-    function ShowOther(trID, stdID, nameID,
-                        contentAID, contentBID, contentCID, contentDID, numID) {
-        var std=getStanderByID(stdID,standerLib.Rows);
-        if(std==null)
-            return false;
-        $(nameID).html(std.SlName);
-        $(contentAID).html(std.SlContentA);
-        $(contentBID).html(std.SlContentB);
-        $(contentCID).html(std.SlContentC);
-        $(contentDID).html(std.SlContentD);
-        $(numID).val(std.SlID);
-        $(trID).css("display", "block");
-        return true;
-    }
-    if (ShowResponse('#KeyResponse1', '#LKeyResponse1Name', '#LKeyResponse1Content',
-                tableData.AtKeyResponse1, '.ShowKeyResponse1', '.EditKeyResponse1'))
-        keyResponse1 = true;
-    if(ShowResponse('#KeyResponse2', '#LKeyResponse2Name', '#LKeyResponse2Content',
-                tableData.AtKeyResponse2, '.ShowKeyResponse2', '.EditKeyResponse2'))
-        keyResponse2 = true;
-    if(ShowResponse('#KeyResponse3', '#LKeyResponse3Name', '#LKeyResponse3Content',
-                tableData.AtKeyResponse3, '.ShowKeyResponse3', '.EditKeyResponse3'))
-        keyResponse3 = true;
-    if (ShowOther('#KeyAbility1', tableData.AtKeyAbility1, '#LKeyAbility1Name',
-              '#LKeyAbility1ContentA', '#LKeyAbility1ContentB', '#LKeyAbility1ContentC', '#LKeyAbility1ContentD', '#KeyAbility1Num'))
-        keyAbility1 = true;
-    if(ShowOther('#KeyAbility2', tableData.AtKeyAbility2, '#LKeyAbility2Name',
-              '#LKeyAbility2ContentA', '#LKeyAbility2ContentB', '#LKeyAbility2ContentC', '#LKeyAbility2ContentD', '#KeyAbility1Num'))
-        keyAbility2 = true;
-    if(ShowOther('#KeyAbility3', tableData.AtKeyAbility3, '#LKeyAbility3Name',
-              '#LKeyAbility3ContentA', '#LKeyAbility3ContentB', '#LKeyAbility3ContentC', '#LKeyAbility3ContentD', '#KeyAbility1Num'))
-        keyAbility3 = true;
-    if(ShowOther('#KeyAttitude1', tableData.AtKeyAttitude1, '#LKeyAttitude1Name',
-              '#LKeyAttitude1ContentA', '#LKeyAttitude1ContentB', '#LKeyAttitude1ContentC', '#LKeyAttitude1ContentD', '#KeyAttitude1Num'))
-        keyAttitude1 = true;
-    if(ShowOther('#KeyAttitude2', tableData.AtKeyAttitude2, '#LKeyAttitude2Name',
-              '#LKeyAttitude2ContentA', '#LKeyAttitude2ContentB', '#LKeyAttitude2ContentC', '#LKeyAttitude2ContentD', '#KeyAttitude2Num'))
-        keyAttitude2 = true;
-    if(ShowOther('#KeyAttitude3', tableData.AtKeyAttitude3, '#LKeyAttitude3Name',
-              '#LKeyAttitude3ContentA', '#LKeyAttitude3ContentB', '#LKeyAttitude3ContentC', '#LKeyAttitude3ContentD', '#KeyAttitude3Num'))
-        keyAttitude3 = true;
-    if (ShowResponse('#Response1', '#LResponse1Name', '#LResponse1Content',
-                tableData.AtResponse1, '.ShowResponse1', '.EditResponse1'))
-        response1 = true;
-    if(ShowResponse('#Response2', '#LResponse2Name', '#LResponse2Content',
-                tableData.AtResponse2, '.ShowResponse2', '.EditResponse2'))
-        response2 = true;
-    if(ShowResponse('#Response3', '#LResponse3Name', '#LResponse3Content',
-                tableData.AtResponse3, '.ShowResponse3', '.EditResponse3'))
-        response3 = true;
-    if (ShowOther('#Ability1', tableData.AtAbility1, '#LAbility1Name',
-              '#LAbility1ContentA', '#LAbility1ContentB', '#LAbility1ContentC', '#LAbility1ContentD', '#Ability1Num'))
-        ability1 = true;
-    if(ShowOther('#Ability2', tableData.AtAbility2, '#LAbility2Name',
-              '#LAbility2ContentA', '#LAbility2ContentB', '#LAbility2ContentC', '#LAbility3ContentD', '#Ability2Num'))
-        ability2 = true;
-    if(ShowOther('#Ability3', tableData.AtAbility3, '#LAbility3Name',
-              '#LAbility3ContentA', '#LAbility3ContentB', '#LAbility3ContentC', '#LAbility3ContentD', '#Ability3Num'))
-        ability3 = true;
-    if(ShowOther('#Ability4', tableData.AtAbility4, '#LAbility4Name',
-              '#LAbility4ContentA', '#LAbility4ContentB', '#LAbility4ContentC', '#LAbility4ContentD', '#Ability4Num'))
-        ability4 = true;
-    if (ShowOther('#Attitude1', tableData.AtAttitude1, '#LAttitude1Name',
-              '#LAttitude1ContentA', '#LAttitude1ContentB', '#LAttitude1ContentC', '#LAttitude1ContentD', '#Attitude1Num'))
-        attitude1 = true;
-    if(ShowOther('#Attitude2', tableData.AtAttitude2, '#LAttitude2Name',
-              '#LAttitude2ContentA', '#LAttitude2ContentB', '#LAttitude2ContentC', '#LAttitude2ContentD', '#Attitude2Num'))
-        attitude2 = true;
-    if(ShowOther('#Attitude3', tableData.AtAttitude3, '#LAttitude3Name',
-              '#LAttitude3ContentA', '#LAttitude3ContentB', '#LAttitude3ContentC', '#LAttitude3ContentD', '#Attitude3Num'))
-        attitude3 = true;
-    if(ShowOther('#Attitude4', tableData.AtAttitude4, '#LAttitude4Name',
-              '#LAttitude4ContentA', '#LAttitude4ContentB', '#LAttitude4ContentC', '#LAttitude4ContentD', '#Attitude4Num'))
-        attitude4 = true;
-    if (ShowVeto('#Veto1', tableData.AtVeto1, '#LVeto1Content', '#Veto1Num'))
-        veto1 = true;
-    if (ShowVeto('#Veto2', tableData.AtVeto2, '#LVeto2Content', '#Veto2Num'))
-        veto2 = true;
-    if (ShowVeto('#Veto3', tableData.AtVeto3, '#LVeto3Content', '#Veto3Num'))
-        veto3 = true;
-    if (ShowVeto('#Veto4', tableData.AtVeto4, '#LVeto4Content', '#Veto4Num'))
-        veto4 = true;
-    if(ShowVeto('#Veto5', tableData.AtVeto5, '#LVeto5Content', '#Veto5Num'))
-        veto5 = true;
-    $('#KeyWeightView').html(tableData.AtKeyWeight);
-    $('#ResponseWeightView').html(tableData.AtResponseWeight);
-    $('#AbilityWeightView').html(tableData.AtAbilityWeight);
-    $('#AttitudeWeightView').html(tableData.AtAttitudeWeight);
-}
-//开始编辑
-function EditEvaluatorTable() {
-    $('#ShowTableBar').css("display", "none");
-    $('#EditTableBar').css('display', 'block');
-    $('#TrMakeTable').css('display', 'none');
-    $('#TrEditTable').css('display', 'block');
-    $('.EditTable').css('display', 'block');
-    $('.fun').css('display', 'block');
-    $('.EditTableWeight').css('display', 'block');
-    $('.ViewTableWeight').css('display', 'none');
-    $('#KeyWeightEdit').val(tableData.AtKeyWeight);
-    $('#ResponseWeightEdit').val(tableData.AtResponseWeight);
-    $('#AbilityWeightEdit').val(tableData.AtAbilityWeight);
-    $('#AttitudeWeightEdit').val(tableData.AtAttitudeWeight);
-}
-
-//保存考核表
-function FinishEditTable() {
-    var json = GetTableData();
-    if (json == null||tableData==null)
-        return;
-    json[0].AtID = tableData.AtID;
-    document.getElementById("JsonData").value = JSON.stringify(json);
-    document.getElementById("BFinishEditTable").click();
-}
-
-//保存编辑成功
-function SaveEditTableDone() {
-    $('#ShowTableBar').css("display", "block");
-    $('#EditTableBar').css('display', 'none');
-    $('#TrNoTable').css("display", "none");
-    $('#TrViewTable').css("display", "block");
-    var data = document.getElementById("JsonData").value;
-    tableData = JSON2.parse(data)[0];
-    ViewEvaluatorTable();
-}
-
-//取消编辑
-function CancelEdit() {
-    $('#ShowTableBar').css("display", "block");
-    $('#EditTableBar').css('display', 'none');
-    ViewEvaluatorTable();
-}
-
-//重置考核表
-function ResetTable() {
-    InitEvaluatorTable();
-    $('.EditTable').css('display', 'block');
-    $('.ViewTable').css('display', 'none');
-    $('#KeyWeightEdit').val("");
-    $('#ResponseWeightEdit').val("");
-    $('#AbilityWeightEdit').val("");
-    $('#AttitudeWeightEdit').val("");
-}
-
-
-//制作考核表
-function MakeEvaluatorTable() {
-    if (standerLib == null || standerLibVeto == null || responseStanderLib==null) {
-        document.getElementById('BGetStanderLib').click();
-    }
-    StartMakeEvaluatorTable();
-}
-
-
-
-//开始制作考核表
-function StartMakeEvaluatorTable() {
-    InitEvaluatorTable();
-    $('#EvaluatorTable').css('display', 'block');
-    $('#ShowTableBar').css('display', 'none');
-    $('#EditTableBar').css('display', 'block');
-    $('#TrMakeTable').css('display', 'block');
-    $('#TrEditTable').css('display', 'none');
-    $('.EditTable').css('display', 'block');
-    $('.ViewTable').css('display', 'none');
-    $('.score').css('display', 'none');
-}
-
-//初始化考核表
-function InitEvaluatorTable() {
-    keyResponse1 = false;
-    keyResponse2 = false;
-    keyResponse3 = false;
-    keyAbility1 = false;
-    keyAbility2 = false;
-    keyAbility3 = false;
-    keyAttitude1 = false;
-    keyAttitude2 = false;
-    keyAttitude3 = false;
-    response1 = false;
-    response2 = false;
-    response3 = false;
-    ability1 = false;
-    ability2 = false;
-    ability3 = false;
-    ability4 = false;
-    attitude1 = false;
-    attitude2 = false;
-    attitude3 = false;
-    attitude4 = false;
-    veto1 = false;
-    veto2 = false;
-    veto3 = false;
-    veto4 = false;
-    veto5 = false;
-    var keyWeight = false;
-    var responseWeight = false;
-    var abilityWeight = false;
-    var attitudeWeight = false;
-    stdType = null;
-
-    $('.InputData').val("");
-    $('.SelectNameData').html("请选择指标！");
-    $('.SelectContentData').html("");
-    
-}
-function GetTableData() {
-    if (keyResponse1 == false && keyResponse2 == false && keyResponse3 == false) {
-        $.ligerDialog.warn('请选择关键岗位职责指标!');
-        return null;
-    }
-    if (keyAbility1 == false && keyAbility2 == false && keyAbility3 == false) {
-        $.ligerDialog.warn('请选择关键岗位胜任能力指标!');
-        return null;
-    }
-    if (keyAttitude1 == false && keyAttitude2 == false && keyAttitude3 == false) {
-        $.ligerDialog.warn('请选择关键工作态度指标!');
-        return null;
-    }
-    if (response1 == false && response2 == false && response3 == false) {
-        $.ligerDialog.warn('请添加岗位职责指标!');
-        return null;
-    }
-    if (ability1 == false && ability2 == false && ability3 == false && ability4 == false) {
-        $.ligerDialog.warn('请选择岗位胜任能力指标!');
-        return null;
-    }
-    if (attitude1 == false && attitude2 == false && attitude3 == false && attitude4 == false) {
-        $.ligerDialog.warn('请选择工作态度指标!');
-        return null;
-    }
-    if (veto1 == false && veto2 == false && veto3 == false && veto4 == false && veto5 == false) {
-        $.ligerDialog.warn('请选择否决指标!');
-        return null;
-    }
-    var keyStdWeight = parseInt($('#KeyWeightEdit').val());
-    var responseStdWeight = parseInt($('#ResponseWeightEdit').val());
-    var abilityStdWeight = parseInt($('#AbilityWeightEdit').val());
-    var attitudeStdWeight = parseInt($('#AttitudeWeightEdit').val());
-    if (keyStdWeight == null || responseStdWeight == null || abilityStdWeight == null || attitudeStdWeight == null) {
-        $.ligerDialog.warn('请输入权值!');
-        return null;
-    }
-    if (keyStdWeight + responseStdWeight + abilityStdWeight + attitudeStdWeight != 100) {
-        $.ligerDialog.warn('权值和不等于100!');
-        return null;
-    }
-    //    if (keyWeight == false && responseWeight == false && abilityWeight == false && attitudeWeight == false) {
-    //        $.ligerDialog.warn('请输入权值!');
-    //        return;
-    //    }
-    var keyResponse1Stander;
-    if (keyResponse1 == true) {
-        keyResponse1Stander = $('#LKeyResponse1Name').html() + '&' + $('#LKeyResponse1Content').html();
-    }
-    var keyResponse2Stander;
-    if (keyResponse2 == true) {
-        keyResponse2Stander = $('#LKeyResponse2Name').html() + '&' + $('#LKeyResponse2Content').html();
-    }
-    var keyResponse3Stander;
-    if (keyResponse3 == true) {
-        keyResponse3Stander = $('#LKeyResponse3Name').html() + '&' + $('#LKeyResponse3Content').html();
-    }
-    var keyAbility1Stander;
-    if (keyAbility1 == true) {
-        keyAbility1Stander = parseInt($('#KeyAbility1Num').val());
-    }
-    var keyAbility2Stander;
-    if (keyAbility2 == true) {
-        keyAbility2Stander = parseInt($('#KeyAbility2Num').val());
-    }
-    var keyAbility3Stander;
-    if (keyAbility3 == true) {
-        keyAbility3Stander = parseInt($('#KeyAbility3Num').val());
-    }
-    var keyAttitude1Stander;
-    if (keyAttitude1 == true) {
-        keyAttitude1Stander = parseInt($('#KeyAttitude1Num').val());
-    }
-    var keyAttitude2Stander;
-    if (keyAttitude2 == true) {
-        keyAttitude2Stander = parseInt($('#KeyAttitude2Num').val());
-    }
-    var keyAttitude3Stander;
-    if (keyAttitude3 == true) {
-        keyAttitude3Stander = parseInt($('#KeyAttitude3Num').val());
-    }
-    var response1Stander;
-    if (response1 == true) {
-        response1Stander = $('#LResponse1Name').html() + '&' + $('#LResponse1Content').html();
-    }
-    var response2Stander;
-    if (response2 == true) {
-        response2Stander = $('#LResponse2Name').html() + '&' + $('#LResponse2Content').html();
-    }
-    var response3Stander;
-    if (response3 == true) {
-        response3Stander = $('#LResponse3Name').html() + '&' + $('#LResponse3Content').html();
-    }
-    var ability1Stander;
-    if (ability1 == true) {
-        ability1Stander = parseInt($('#Ability1Num').val());
-    }
-    var ability2Stander;
-    if (ability2 == true) {
-        ability2Stander = parseInt($('#Ability2Num').val());
-    }
-    var ability3Stander;
-    if (ability3 == true) {
-        ability3Stander = parseInt($('#Ability3Num').val());
-    }
-    var ability4Stander;
-    if (ability4 == true) {
-        ability4Stander = parseInt($('#Ability4Num').val());
-    }
-    var attitude1Stander;
-    if (attitude1 == true) {
-        attitude1Stander = parseInt($('#Attitude1Num').val());
-    }
-    var attitude2Stander;
-    if (attitude2 == true) {
-        attitude2Stander = parseInt($('#Attitude2Num').val());
-    }
-    var attitude3Stander;
-    if (attitude3 == true) {
-        attitude3Stander = parseInt($('#Attitude3Num').val());
-    }
-    var attitude4Stander;
-    if (attitude4 == true) {
-        attitude4Stander = parseInt($('#Attitude4Num').val());
-    }
-    var veto1Stander;
-    if (veto1 == true) {
-        veto1Stander = parseInt($('#Veto1Num').val());
-    }
-    var veto2Stander;
-    if (veto2 == true) {
-        veto2Stander = parseInt($('#Veto2Num').val());
-    }
-    var veto3Stander;
-    if (veto3 == true) {
-        veto3Stander = parseInt($('#Veto3Num').val());
-    }
-    var veto4Stander;
-    if (veto4 == true) {
-        veto4Stander = parseInt($('#Veto4Num').val());
-    }
-    var veto5Stander;
-    if (veto5 == true) {
-        veto5Stander = parseInt($('#Veto5Num').val());
-    }
-    var json = [{ AtID: 0,
-        AtKeyResponse1: keyResponse1Stander, AtKeyResponse2: keyResponse2Stander, AtKeyResponse3: keyResponse3Stander,
-        AtKeyAbility1: keyAbility1Stander, AtKeyAbility2: keyAbility2Stander, AtKeyAbility3: keyAbility3Stander,
-        AtKeyAttitude1: keyAttitude1Stander, AtKeyAttitude2: keyAttitude2Stander, AtKeyAttitude3: keyAttitude3Stander,
-        AtResponse1: response1Stander, AtResponse2: response2Stander, AtResponse3: response3Stander,
-        AtAbility1: ability1Stander, AtAbility2: ability2Stander, AtAbility3: ability3Stander, AtAbility4: ability4Stander,
-        AtAttitude1: attitude1Stander, AtAbility2: attitude2Stander, AtAbility3: attitude3Stander, AtAbility4: attitude4Stander,
-        AtVeto1: veto1Stander, AtVeto2: veto2Stander, AtVeto3: veto3Stander, AtVeto4: veto4Stander, AtVeto5: veto5Stander,
-        AtKeyWeight: keyStdWeight, AtResponseWeight: responseStdWeight, AtAbilityWeight: abilityStdWeight, AtAttitudeWeight: attitudeStdWeight
-    }];
-    return json;
-}
-
-//保存考核表
-function FinishMakeTable() {
-    var json=GetTableData();
-    var id=UserID;
-    if(json==null||json==""||id==null||id=="")
-        return;
-    document.getElementById("JsonData").value = JSON.stringify(json);
-    document.getElementById("JsonData2").value = id;
-    document.getElementById("BFinishMakeTable").click();
-}
-
-//保存制作成功
-function SaveMakeTableDone() {
-    $('#ShowTableBar').css("display", "block");
-    $('#EditTableBar').css('display', 'none');
-    $('#TrNoTable').css("display", "none");
-    $('#TrViewTable').css("display", "block");
-    var data = document.getElementById("JsonData").value;
-    tableData = JSON2.parse(data)[0];
-    ViewEvaluatorTable();
-}
-
-//选择指标
-function SelectStander(std) {
-    if (std == null)
-        return;
-    stdType = std;
-    $("#EvaluatorTable").css("display", "none");
-    $("#SelectStander").css("display", "block");
-    $('#EditTableBar').css('display', 'none');
-    $('#StanderInfoBar').css('display', 'block');
-    $('#VetoStanderInfoBar').css('display', 'none');
-    $('#StanderInfo').css('display', 'block');
-    $('#VetoStanderInfo').css('display', 'none');
-    $('#ResponseStanderInfo').css('display', 'none');
-    $('#DetailStanderInfo').css('display', 'none');
-    manager.loadData(standerLib);
-}
-
-//选择否决指标
-function SelectVetoStander(std) {
-    if (std == null)
-        return;
-    stdType = std;
-    $("#EvaluatorTable").css("display", "none");
-    $("#SelectStander").css("display", "block");
-    $('#EditTableBar').css('display', 'none');
-    $('#VetoStanderInfoBar').css('display', 'block');
-    $('#StanderInfoBar').css('display', 'none');
-    $('#StanderInfo').css('display', 'none');
-    $('#VetoStanderInfo').css('display', 'block');
-    $('#ResponseStanderInfo').css('display', 'none');
-    $('#DetailStanderInfo').css('display', 'none');
-    managerVeto.loadData(standerLibVeto);
-}
-
-//选择岗位责任指标
-function SelectResponseStander(std) {
-    if (std == null)
-        return;
-    stdType = std;
-    $("#EvaluatorTable").css("display", "none");
-    $("#SelectStander").css("display", "block");
-    $('#EditTableBar').css('display', 'none');
-    $('#VetoStanderInfoBar').css('display', 'block');
-    $('#StanderInfoBar').css('display', 'none');
-    $('#StanderInfo').css('display', 'none');
-    $('#VetoStanderInfo').css('display', 'none');
-    $('#ResponseStanderInfo').css('display', 'block');
-    $('#DetailStanderInfo').css('display', 'none');
-    managerVeto.loadData(standerLibVeto);
-}
-
-//返回考核表
-function BackToTable() {
-    $("#EvaluatorTable").css("display", "block");
-    $("#SelectStander").css("display", "none");
-    $('#EditTableBar').css('display', 'block');
-    $('#StanderInfoBar').css('display', 'none');
-    $('#VetoStanderInfoBar').css('display', 'none');
-}
-
-//显示指标
-function ShowStander() {
-    var s = document.getElementById("JsonData").value;
-    if (s == null || s == "")
-        return;
-    standerLib = JSON2.parse(s);
-    manager = $("#maingrid4").ligerGrid({
-        columns: [
-    { display: '编号', name: 'SlID', width: 50, align: 'center', frozen: true },
-    { display: '指标类型', name: 'SlType', width: 100, align: 'center' },
-    { display: '指标内容', name: 'SlName', width: 120, align: 'center' },
-    { display: '', name: 'SlContentA', width: 120, align: 'center', hide: true },
-    { display: '', name: 'SlContentB', width: 120, align: 'center', hide: true },
-    { display: '', name: 'SlContentC', width: 120, align: 'center', hide: true },
-    { display: '', name: 'SlContentD', width: 120, align: 'center', hide: true },
-    { display: '', isSort: false, width: 100, render: function (rowdata, rowindex, value) {
-        var h = "";
-        h += "<a href='javascript:ShowDetail(" + rowindex + ")'>查看详细</a> ";
-        h += "<a href='javascript:SelectRow(" + rowindex + ")'>选择</a> ";
-        return h;
-    }
-    }],
-    usePager: true, pageSize: 10,
-    data: standerLib,
-    width: '100%', height: '90%'
-    });
-}
-
-//查询
-function Search() {
-    manager.options.data = $.extend(true, {}, standerLib);
-    var key = $("#search_content").val();
-    if (key == "请输入查询内容")
-        manager.loadData(standerLib);
-    else
-        manager.loadData(GetWhere(key));
-}
-
-//查询方法
-function GetWhere(key) {
-    if (!manager) return null;
-    var clause = function (rowdata, rowindex) {
-        var type = $("#search_type").val();
-        switch (type) {
-            case '指标类型':
-                return rowdata.SlType.indexOf(key) > -1;
-                break;
-            case '指标':
-                return rowdata.SlName.indexOf(key) > -1;
-                break;
-            default:
-                return rowdata.SlName.indexOf(key) > -1;
-                break;
-        }
-    };
-    return clause;
-}
-
-//显示指标
-function ShowVetoStander() {
-    var s = document.getElementById("JsonData2").value;
-    if (s == null || s == "")
-        return;
-    standerLibVeto = JSON2.parse(s);
-    managerVeto = $("#maingrid5").ligerGrid({
-        columns: [
-    { display: '编号', name: 'SlID', width: 50, align: 'center', frozen: true },
-    { display: '指标类型', name: 'SlType', width: 100, align: 'center' },
-    { display: '指标内容', name: 'SlName', width: 120, align: 'center' },
-    { display: '', name: 'SlContentA', width: 400, align: 'center'},
-    { display: '', isSort: false, width: 50, render: function (rowdata, rowindex, value) {
-        var h = "";
-        h += "<a href='javascript:SelectVetoRow(" + rowindex + ")'>选择</a> ";
-        return h;
-    }
-    }],
-    usePager: true, pageSize: 10,
-    data: standerLibVeto,
-    width: '100%', height: '90%'
-    });
-}
-
-//显示岗位职责指标
-function ShowResponseStander() {
-    var s = document.getElementById("JsonData4").value;
-    if (s == null || s == "")
-        return;
-    responseStanderLib = JSON2.parse(s);
-    managerResponse = $("#maingrid6").ligerGrid({
-        columns: [
-    { display: '标题', name: 'Title', width: 150, align: 'center' },
-    { display: '具体内容', name: 'Content', width: 220, align: 'center' },
-    { display: '具体要求', name: 'Request', width: 220, align: 'center' },
-    { display: '考核要点', name: 'Point', width: 220, align: 'center' },
-    { display: '', isSort: false, width: 50, render: function (rowdata, rowindex, value) {
-        var h = "";
-        h += "<a href='javascript:SelectResponseRow(" + rowindex + ")'>选择</a> ";
-        return h;
-    }
-    }],
-    usePager: true, pageSize: 10,
-    data: responseStanderLib,
-    width: '100%', height: '90%'
-    });
-}
-
-//查看详细
-function ShowDetail(rowid) {
-    var rowdata = manager.getSelectedRow(rowid);    //取得数据
-    if (rowdata == null)
-        return;
-    //
-    $("#DetailStanderInfo").css("display", "block");
-    $("#StanderInfo").css("display", "none");
-    $('#StanderInfoBar').css('display', 'none');
-    $('#DetailStanderInfoBar').css('display', 'block');
-    //设置显示值
-    var type = rowdata.SlType;
-    document.getElementById('LStanderType').innerText = rowdata.SlType;
-    document.getElementById('LName').innerText = rowdata.SlName;
-    if (type == "否决指标") {
-        $(".VetoStander").css("display", "block");
-        $(".NormalStander").css("display", "none");
-        document.getElementById('LContent').innerText = rowdata.SlContentA;
-    }
-    else {
-        $(".VetoStander").css("display", "none");
-        $(".NormalStander").css("display", "block");
-        document.getElementById('LContentA').innerText = rowdata.SlContentA;
-        document.getElementById('LContentB').innerText = rowdata.SlContentB;
-        document.getElementById('LContentC').innerText = rowdata.SlContentC;
-        document.getElementById('LContentD').innerText = rowdata.SlContentD;
-    }
-}
-
-//返回指标列表
-function BackToStanderList() {
-    $("#DetailStanderInfo").css("display", "none");
-    $("#StanderInfo").css("display", "block");
-    $('#StanderInfoBar').css('display', 'block');
-    $('#DetailStanderInfoBar').css('display', 'none');
-}
-
-//添加关键责任
-function AddKeyResponse() {
-    var name = document.getElementById('LKeyResponseName').innerText;
-    var content = document.getElementById('LKeyResponseContent').innerText; 
-
-    if (name == "" || content == "") {
-        $.ligerDialog.warn('请选择指标!');
-        return;
-    }
-
-    if (keyResponse1 == false) {
-        $('#LKeyResponse1Name').html(name);
-        $('#LKeyResponse1Content').html(content);
-        document.getElementById("KeyResponse1").style.display = "block";
-        keyResponse1 = true;
-    }
-    else if (keyResponse2 == false) {
-        document.getElementById("LKeyResponse2Name").innerText = name;
-        document.getElementById("LKeyResponse2Content").innerText = content;
-        document.getElementById("KeyResponse2").style.display = "block";
-        keyResponse2 = true;
-    }
-    else if (keyResponse3 == false) {
-        document.getElementById("LKeyResponse3Name").innerText = name;
-        document.getElementById("LKeyResponse3Content").innerText = content;
-        document.getElementById("KeyResponse3").style.display = "block";
-        keyResponse3 = true;
-    }
-    else {
-        document.getElementById("KeyResponse").style.display = "none";
-    }
-    if (keyResponse1 == true && keyResponse2 == true && keyResponse3 == true)
-        document.getElementById("KeyResponse").style.display = "none";
-    document.getElementById("LKeyResponseName").innerText = "";
-    document.getElementById("LKeyResponseContent").innerText = "";
-}
-
-//删除关键责任1
-function DeleteKeyResponse1() {
-    document.getElementById("KeyResponse1").style.display = "none";
-    keyResponse1 = false;
-    document.getElementById("KeyResponse").style.display = "block";
-}
-
-function DeleteKeyResponse2() {
-    document.getElementById("KeyResponse2").style.display = "none";
-    keyResponse2 = false;
-    document.getElementById("KeyResponse").style.display = "block";
-}
-
-function DeleteKeyResponse3() {
-    document.getElementById("KeyResponse3").style.display = "none";
-    keyResponse3 = false;
-    document.getElementById("KeyResponse").style.display = "block";
-}
-
-//判断是否选择
-function CheckSelected(id) {
-    if (keyAbility1 == true && document.getElementById("KeyAbility1Num").value == id)
-        return true;
-    if (keyAbility2 == true && document.getElementById("KeyAbility2Num").value == id)
-        return true;
-    if (keyAbility3 == true && document.getElementById("KeyAbility3Num").value == id)
-        return true;
-    if (keyAttitude1 == true && document.getElementById("KeyAttitude1Num").value == id)
-        return true;
-    if (keyAttitude2 == true && document.getElementById("KeyAttitude2Num").value == id)
-        return true;
-    if (keyAttitude3 == true && document.getElementById("KeyAttitude3Num").value == id)
-        return true;
-    if (ability1 == true && document.getElementById("Ability1Num").value == id)
-        return true;
-    if (ability2 == true && document.getElementById("Ability2Num").value == id)
-        return true;
-    if (ability3 == true && document.getElementById("Ability3Num").value == id)
-        return true;
-    if (ability4 == true && document.getElementById("Ability4Num").value == id)
-        return true;
-    if (attitude1 == true && document.getElementById("Attitude1Num").value == id)
-        return true;
-    if (attitude2 == true && document.getElementById("Attitude2Num").value == id)
-        return true;
-    if (attitude3 == true && document.getElementById("Attitude3Num").value == id)
-        return true;
-    if (attitude4 == true && document.getElementById("Attitude4Num").value == id)
-        return true;
-    if (veto1 == true && document.getElementById("Veto1Num").value == id)
-        return true;
-    if (veto2 == true && document.getElementById("Veto2Num").value == id)
-        return true;
-    if (veto3 == true && document.getElementById("Veto3Num").value == id)
-        return true;
-    if (veto4 == true && document.getElementById("Veto4Num").value == id)
-        return true;
-    if (veto5 == true && document.getElementById("Veto5Num").value == id)
-        return true;
-    return false;
-}
-
-//选中指标返回
-function SelectRow(rowid) {
-    var rowdata = manager.getSelectedRow(rowid);    //取得数据
-    if (rowdata == null)
-        return;
-    if (CheckSelected(rowdata.SlID)) {
-        $.ligerDialog.warn('该指标已存在，请选择其它指标!');
-        return;
-    }
-    switch (stdType) {
-        case 'KeyAbility':
-            document.getElementById('KeyAbilityNum').value = rowdata.SlID;
-            document.getElementById('LKeyAbilityName').innerText = rowdata.SlName;
-            document.getElementById('LKeyAbilityContentA').innerText = rowdata.SlContentA;
-            document.getElementById('LKeyAbilityContentB').innerText = rowdata.SlContentB;
-            document.getElementById('LKeyAbilityContentC').innerText = rowdata.SlContentC;
-            document.getElementById('LKeyAbilityContentD').innerText = rowdata.SlContentD;
-            break;
-        case 'KeyAbility1':
-            document.getElementById('KeyAbility1Num').value = rowdata.SlID;
-            document.getElementById('LKeyAbility1Name').innerText = rowdata.SlName;
-            document.getElementById('LKeyAbility1ContentA').innerText = rowdata.SlContentA;
-            document.getElementById('LKeyAbility1ContentB').innerText = rowdata.SlContentB;
-            document.getElementById('LKeyAbility1ContentC').innerText = rowdata.SlContentC;
-            document.getElementById('LKeyAbility1ContentD').innerText = rowdata.SlContentD;
-            break;
-        case 'KeyAbility2':
-            document.getElementById('KeyAbility2Num').value = rowdata.SlID;
-            document.getElementById('LKeyAbility2Name').innerText = rowdata.SlName;
-            document.getElementById('LKeyAbility2ContentA').innerText = rowdata.SlContentA;
-            document.getElementById('LKeyAbility2ContentB').innerText = rowdata.SlContentB;
-            document.getElementById('LKeyAbility2ContentC').innerText = rowdata.SlContentC;
-            document.getElementById('LKeyAbility2ContentD').innerText = rowdata.SlContentD;
-            break;
-        case 'KeyAbility3':
-            document.getElementById('KeyAbility3Num').value = rowdata.SlID;
-            document.getElementById('LKeyAbility3Name').innerText = rowdata.SlName;
-            document.getElementById('LKeyAbility3ContentA').innerText = rowdata.SlContentA;
-            document.getElementById('LKeyAbility3ContentB').innerText = rowdata.SlContentB;
-            document.getElementById('LKeyAbility3ContentC').innerText = rowdata.SlContentC;
-            document.getElementById('LKeyAbility3ContentD').innerText = rowdata.SlContentD;
-            break;
-        case 'KeyAttitude':
-            document.getElementById('KeyAttitudeNum').value = rowdata.SlID;
-            document.getElementById('LKeyAttitudeName').innerText = rowdata.SlName;
-            document.getElementById('LKeyAttitudeContentA').innerText = rowdata.SlContentA;
-            document.getElementById('LKeyAttitudeContentB').innerText = rowdata.SlContentB;
-            document.getElementById('LKeyAttitudeContentC').innerText = rowdata.SlContentC;
-            document.getElementById('LKeyAttitudeContentD').innerText = rowdata.SlContentD;
-            break;
-        case 'KeyAttitude1':
-            document.getElementById('KeyAttitude1Num').value = rowdata.SlID;
-            document.getElementById('LKeyAttitude1Name').innerText = rowdata.SlName;
-            document.getElementById('LKeyAttitude1ContentA').innerText = rowdata.SlContentA;
-            document.getElementById('LKeyAttitude1ContentB').innerText = rowdata.SlContentB;
-            document.getElementById('LKeyAttitude1ContentC').innerText = rowdata.SlContentC;
-            document.getElementById('LKeyAttitude1ContentD').innerText = rowdata.SlContentD;
-            break;
-        case 'KeyAttitude2':
-            document.getElementById('KeyAttitude2Num').value = rowdata.SlID;
-            document.getElementById('LKeyAttitude2Name').innerText = rowdata.SlName;
-            document.getElementById('LKeyAttitude2ContentA').innerText = rowdata.SlContentA;
-            document.getElementById('LKeyAttitude2ContentB').innerText = rowdata.SlContentB;
-            document.getElementById('LKeyAttitude2ContentC').innerText = rowdata.SlContentC;
-            document.getElementById('LKeyAttitude2ContentD').innerText = rowdata.SlContentD;
-            break;
-        case 'KeyAttitude3':
-            document.getElementById('KeyAttitude3Num').value = rowdata.SlID;
-            document.getElementById('LKeyAttitude3Name').innerText = rowdata.SlName;
-            document.getElementById('LKeyAttitude3ContentA').innerText = rowdata.SlContentA;
-            document.getElementById('LKeyAttitude3ContentB').innerText = rowdata.SlContentB;
-            document.getElementById('LKeyAttitude3ContentC').innerText = rowdata.SlContentC;
-            document.getElementById('LKeyAttitude3ContentD').innerText = rowdata.SlContentD;
-            break;
-        case 'Ability':
-            document.getElementById('AbilityNum').value = rowdata.SlID;
-            document.getElementById('LAbilityName').innerText = rowdata.SlName;
-            document.getElementById('LAbilityContentA').innerText = rowdata.SlContentA;
-            document.getElementById('LAbilityContentB').innerText = rowdata.SlContentB;
-            document.getElementById('LAbilityContentC').innerText = rowdata.SlContentC;
-            document.getElementById('LAbilityContentD').innerText = rowdata.SlContentD;
-            break;
-        case 'Ability1':
-            document.getElementById('Ability1Num').value = rowdata.SlID;
-            document.getElementById('LAbility1Name').innerText = rowdata.SlName;
-            document.getElementById('LAbility1ContentA').innerText = rowdata.SlContentA;
-            document.getElementById('LAbility1ContentB').innerText = rowdata.SlContentB;
-            document.getElementById('LAbility1ContentC').innerText = rowdata.SlContentC;
-            document.getElementById('LAbility1ContentD').innerText = rowdata.SlContentD;
-            break;
-        case 'Ability2':
-            document.getElementById('Ability2Num').value = rowdata.SlID;
-            document.getElementById('LAbility2Name').innerText = rowdata.SlName;
-            document.getElementById('LAbility2ContentA').innerText = rowdata.SlContentA;
-            document.getElementById('LAbility2ContentB').innerText = rowdata.SlContentB;
-            document.getElementById('LAbility2ContentC').innerText = rowdata.SlContentC;
-            document.getElementById('LAbility2ContentD').innerText = rowdata.SlContentD;
-            break;
-        case 'Ability3':
-            document.getElementById('Ability3Num').value = rowdata.SlID;
-            document.getElementById('LAbility3Name').innerText = rowdata.SlName;
-            document.getElementById('LAbility3ContentA').innerText = rowdata.SlContentA;
-            document.getElementById('LAbility3ContentB').innerText = rowdata.SlContentB;
-            document.getElementById('LAbility3ContentC').innerText = rowdata.SlContentC;
-            document.getElementById('LAbility3ContentD').innerText = rowdata.SlContentD;
-            break;
-        case 'Ability4':
-            document.getElementById('Ability4Num').value = rowdata.SlID;
-            document.getElementById('LAbility4Name').innerText = rowdata.SlName;
-            document.getElementById('LAbility4ContentA').innerText = rowdata.SlContentA;
-            document.getElementById('LAbility4ContentB').innerText = rowdata.SlContentB;
-            document.getElementById('LAbility4ContentC').innerText = rowdata.SlContentC;
-            document.getElementById('LAbility4ContentD').innerText = rowdata.SlContentD;
-            break;
-        case 'Attitude':
-            document.getElementById('AttitudeNum').value = rowdata.SlID;
-            document.getElementById('LAttitudeName').innerText = rowdata.SlName;
-            document.getElementById('LAttitudeContentA').innerText = rowdata.SlContentA;
-            document.getElementById('LAttitudeContentB').innerText = rowdata.SlContentB;
-            document.getElementById('LAttitudeContentC').innerText = rowdata.SlContentC;
-            document.getElementById('LAttitudeContentD').innerText = rowdata.SlContentD;
-            break;
-        case 'Attitude1':
-            document.getElementById('Attitude1Num').value = rowdata.SlID;
-            document.getElementById('LAttitude1Name').innerText = rowdata.SlName;
-            document.getElementById('LAttitude1ContentA').innerText = rowdata.SlContentA;
-            document.getElementById('LAttitude1ContentB').innerText = rowdata.SlContentB;
-            document.getElementById('LAttitude1ContentC').innerText = rowdata.SlContentC;
-            document.getElementById('LAttitude1ContentD').innerText = rowdata.SlContentD;
-            break;
-        case 'Attitude2':
-            document.getElementById('Attitude2Num').value = rowdata.SlID;
-            document.getElementById('LAttitude2Name').innerText = rowdata.SlName;
-            document.getElementById('LAttitude2ContentA').innerText = rowdata.SlContentA;
-            document.getElementById('LAttitude2ContentB').innerText = rowdata.SlContentB;
-            document.getElementById('LAttitude2ContentC').innerText = rowdata.SlContentC;
-            document.getElementById('LAttitude2ContentD').innerText = rowdata.SlContentD;
-            break;
-        case 'Attitude3':
-            document.getElementById('Attitude3Num').value = rowdata.SlID;
-            document.getElementById('LAttitude3Name').innerText = rowdata.SlName;
-            document.getElementById('LAttitude3ContentA').innerText = rowdata.SlContentA;
-            document.getElementById('LAttitude3ContentB').innerText = rowdata.SlContentB;
-            document.getElementById('LAttitude3ContentC').innerText = rowdata.SlContentC;
-            document.getElementById('LAttitude3ContentD').innerText = rowdata.SlContentD;
-            break;
-        case 'Attitude4':
-            document.getElementById('Attitude4Num').value = rowdata.SlID;
-            document.getElementById('LAttitude4Name').innerText = rowdata.SlName;
-            document.getElementById('LAttitude4ContentA').innerText = rowdata.SlContentA;
-            document.getElementById('LAttitude4ContentB').innerText = rowdata.SlContentB;
-            document.getElementById('LAttitude4ContentC').innerText = rowdata.SlContentC;
-            document.getElementById('LAttitude4ContentD').innerText = rowdata.SlContentD;
-            break;
-        
-        default:
-            break;
-    }
-    stdType = null;
-    BackToTable();
-}
-
-//选中否决指标返回
-function SelectVetoRow(rowid) {
-    var rowdata = managerVeto.getSelectedRow(rowid);    //取得数据
-    if (rowdata == null)
-        return;
-    if (CheckSelected(rowdata.SlID)) {
-        $.ligerDialog.warn('该指标已存在，请选择其它指标!');
-        return;
-    }
-    switch (stdType) {
-        case 'Veto':
-            document.getElementById('VetoNum').value = rowdata.SlID;
-            document.getElementById('LVetoContent').innerText = rowdata.SlContentA;
-            break;
-        case 'Veto1':
-            document.getElementById('Veto1Num').value = rowdata.SlID;
-            document.getElementById('LVeto1Content').innerText = rowdata.SlContentA;
-            break;
-        case 'Veto2':
-            document.getElementById('Veto2Num').value = rowdata.SlID;
-            document.getElementById('LVeto2Content').innerText = rowdata.SlContentA;
-            break;
-        case 'Veto3':
-            document.getElementById('Veto3Num').value = rowdata.SlID;
-            document.getElementById('LVeto3Content').innerText = rowdata.SlContentA;
-        case 'Veto4':
-            document.getElementById('Veto4Num').value = rowdata.SlID;
-            document.getElementById('LVeto4Content').innerText = rowdata.SlContentA;
-            break;
-        case 'Veto5':
-            document.getElementById('Veto5Num').value = rowdata.SlID;
-            document.getElementById('LVeto5Content').innerText = rowdata.SlContentA;
-            break;
-        default:
-            break;
-    }
-    stdType = null;
-    BackToTable();
-}
-
-//判断责任指标是否已经选择
-function CheckResponseSelected(name) {
-    if (keyResponse1 == true && document.getElementById("LKeyResponse1Name").innerText == name)
-        return true;
-    if (keyResponse2 == true && document.getElementById("LKeyResponse2Name").innerText == name)
-        return true;
-    if (keyResponse3 == true && document.getElementById("LKeyResponse3Name").innerText == name)
-        return true;
-    if (response1 == true && document.getElementById("LResponse1Name").innerText == name)
-        return true;
-    if (response2 == true && document.getElementById("LResponse2Name").innerText == name)
-        return true;
-    if (response3 == true && document.getElementById("LResponse3Name").innerText == name)
-        return true;
-    return false;
-}
-
-//选中岗位责任返回
-function SelectResponseRow(rowid) {
-    var rowdata = managerResponse.getSelectedRow(rowid);    //取得数据
-    if (rowdata == null)
-        return;
-    if (CheckResponseSelected(rowdata.Title)) {
-        $.ligerDialog.warn('该指标已存在，请选择其它指标!');
-        return;
-    }
-    switch (stdType) {
-        case 'KeyResponse':
-            document.getElementById('LKeyResponseName').innerText = rowdata.Title;
-            document.getElementById('LKeyResponseContent').innerText = rowdata.Request;
-            break;
-        case 'KeyResponse1':
-            document.getElementById('LKeyResponse1Name').innerText = rowdata.Title;
-            document.getElementById('LKeyResponse1Content').innerText = rowdata.Request;
-            break;
-        case 'KeyResponse2':
-            document.getElementById('LKeyResponse2Name').innerText = rowdata.Title;
-            document.getElementById('LKeyResponse2Content').innerText = rowdata.Request;
-            break;
-        case 'KeyResponse3':
-            document.getElementById('LKeyResponse3Name').innerText = rowdata.Title;
-            document.getElementById('LKeyResponse3Content').innerText = rowdata.Request;
-            break;
-        case 'Response':
-            document.getElementById('LResponseName').innerText = rowdata.Title;
-            document.getElementById('LResponseContent').innerText = rowdata.Request;
-            break;
-        case 'Response1':
-            document.getElementById('LResponse1Name').innerText = rowdata.Title;
-            document.getElementById('LResponse1Content').innerText = rowdata.Request;
-            break;
-        case 'Response2':
-            document.getElementById('LResponse2Name').innerText = rowdata.Title;
-            document.getElementById('LResponse2Content').innerText = rowdata.Request;
-            break;
-        case 'Response3':
-            document.getElementById('LResponse3Name').innerText = rowdata.Title;
-            document.getElementById('LResponse3Content').innerText = rowdata.Request;
-            break;
-        default:
-            break;
-    }
-    stdType = null;
-    BackToTable();
-}
-
-//添加关键能力
-function AddKeyAbility() {
-    var id = document.getElementById('KeyAbilityNum').value;
-    var name = document.getElementById('LKeyAbilityName').innerText;
-    var contentA = document.getElementById('LKeyAbilityContentA').innerText;
-    var contentB = document.getElementById('LKeyAbilityContentB').innerText;
-    var contentC = document.getElementById('LKeyAbilityContentC').innerText;
-    var contentD = document.getElementById('LKeyAbilityContentD').innerText;
-    if (id == "" || name == "" || contentA == "" || contentB == "" || contentC == "" || contentD == "") {
-        $.ligerDialog.warn('请选择指标!');
-        return;
-    }
-    if (CheckSelected(id)) {
-        $.ligerDialog.warn('该指标已存在，请选择其它指标!');
-        return;
-    }
-
-    if (keyAbility1 == false) {
-        document.getElementById('KeyAbility1Num').value = id;
-        document.getElementById('LKeyAbility1Name').innerText = name;
-        document.getElementById('LKeyAbility1ContentA').innerText = contentA;
-        document.getElementById('LKeyAbility1ContentB').innerText = contentB;
-        document.getElementById('LKeyAbility1ContentC').innerText = contentC;
-        document.getElementById('LKeyAbility1ContentD').innerText = contentD;
-        document.getElementById("KeyAbility1").style.display = "block";
-        keyAbility1 = true;
-    }
-    else if (keyAbility2 == false) {
-        document.getElementById('KeyAbility2Num').value = id;
-        document.getElementById('LKeyAbility2Name').innerText = name;
-        document.getElementById('LKeyAbility2ContentA').innerText = contentA;
-        document.getElementById('LKeyAbility2ContentB').innerText = contentB;
-        document.getElementById('LKeyAbility2ContentC').innerText = contentC;
-        document.getElementById('LKeyAbility2ContentD').innerText = contentD;
-        document.getElementById("KeyAbility2").style.display = "block";
-        keyAbility2 = true;
-    }
-    else if (keyAbility3 == false) {
-        document.getElementById('KeyAbility3Num').value = id;
-        document.getElementById('LKeyAbility3Name').innerText = name;
-        document.getElementById('LKeyAbility3ContentA').innerText = contentA;
-        document.getElementById('LKeyAbility3ContentB').innerText = contentB;
-        document.getElementById('LKeyAbility3ContentC').innerText = contentC;
-        document.getElementById('LKeyAbility3ContentD').innerText = contentD;
-        document.getElementById("KeyAbility3").style.display = "block";
-        keyAbility3 = true;
-    }
-    else {
-        document.getElementById("KeyAbility").style.display = "none";
-    }
-    if (keyAbility1 && keyAbility2 && keyAbility3)
-        document.getElementById("KeyAbility").style.display = "none";
-    document.getElementById('KeyAbilityNum').value = "";
-    document.getElementById('LKeyAbilityName').innerText = "请选择指标";
-    document.getElementById('LKeyAbilityContentA').innerText = "";
-    document.getElementById('LKeyAbilityContentB').innerText = "";
-    document.getElementById('LKeyAbilityContentC').innerText = "";
-    document.getElementById('LKeyAbilityContentD').innerText = "";
-}
-
-//删除关键能力1
-function DeleteKeyAbility1() {
-    document.getElementById("KeyAbility1").style.display = "none";
-    keyAbility1 = false;
-    document.getElementById("KeyAbility").style.display = "block";
-}
-
-//删除关键能力2
-function DeleteKeyAbility2() {
-    document.getElementById("KeyAbility2").style.display = "none";
-    keyAbility2 = false;
-    document.getElementById("KeyAbility").style.display = "block";
-}
-
-//删除关键能力3
-function DeleteKeyAbility3() {
-    document.getElementById("KeyAbility3").style.display = "none";
-    keyAbility3 = false;
-    document.getElementById("KeyAbility").style.display = "block";
-}
-
-//添加关键态度
-function AddKeyAttitude() {
-    var id = document.getElementById('KeyAttitudeNum').value;
-    var name = document.getElementById('LKeyAttitudeName').innerText;
-    var contentA = document.getElementById('LKeyAttitudeContentA').innerText;
-    var contentB = document.getElementById('LKeyAttitudeContentB').innerText;
-    var contentC = document.getElementById('LKeyAttitudeContentC').innerText;
-    var contentD = document.getElementById('LKeyAttitudeContentD').innerText;
-    if (id == "" || name == "" || contentA == "" || contentB == "" || contentC == "" || contentD == "") {
-        $.ligerDialog.warn('请选择指标!');
-        return;
-    }
-    if (CheckSelected(id)) {
-        $.ligerDialog.warn('该指标已存在，请选择其它指标!');
-        return;
-    }
-    if (keyAttitude1 == false) {
-        document.getElementById('KeyAttitude1Num').value = id;
-        document.getElementById('LKeyAttitude1Name').innerText = name;
-        document.getElementById('LKeyAttitude1ContentA').innerText = contentA;
-        document.getElementById('LKeyAttitude1ContentB').innerText = contentB;
-        document.getElementById('LKeyAttitude1ContentC').innerText = contentC;
-        document.getElementById('LKeyAttitude1ContentD').innerText = contentD;
-        document.getElementById("KeyAttitude1").style.display = "block";
-        keyAttitude1 = true;
-    }
-    else if (keyAttitude2 == false) {
-        document.getElementById('KeyAttitude2Num').value = id;
-        document.getElementById('LKeyAttitude2Name').innerText = name;
-        document.getElementById('LKeyAttitude2ContentA').innerText = contentA;
-        document.getElementById('LKeyAttitude2ContentB').innerText = contentB;
-        document.getElementById('LKeyAttitude2ContentC').innerText = contentC;
-        document.getElementById('LKeyAttitude2ContentD').innerText = contentD;
-        document.getElementById("KeyAttitude2").style.display = "block";
-        keyAttitude2 = true;
-    }
-    else if (keyAttitude3 == false) {
-        document.getElementById('KeyAttitude3Num').value = id;
-        document.getElementById('LKeyAttitude3Name').innerText = name;
-        document.getElementById('LKeyAttitude3ContentA').innerText = contentA;
-        document.getElementById('LKeyAttitude3ContentB').innerText = contentB;
-        document.getElementById('LKeyAttitude3ContentC').innerText = contentC;
-        document.getElementById('LKeyAttitude3ContentD').innerText = contentD;
-        document.getElementById("KeyAttitude3").style.display = "block";
-        keyAttitude3 = true;
-    }
-    else {
-        document.getElementById("KeyAttitude").style.display = "none";
-    }
-    if (keyAttitude1 && keyAttitude2 && keyAttitude3)
-        document.getElementById("KeyAttitude").style.display = "none";
-    document.getElementById('KeyAttitudeNum').value = "";
-    document.getElementById('LKeyAttitudeName').innerText = "请选择指标";
-    document.getElementById('LKeyAttitudeContentA').innerText = "";
-    document.getElementById('LKeyAttitudeContentB').innerText = "";
-    document.getElementById('LKeyAttitudeContentC').innerText = "";
-    document.getElementById('LKeyAttitudeContentD').innerText = "";
-}
-
-//删除关键态度1
-function DeleteKeyAttitude1() {
-    document.getElementById("KeyAttitude1").style.display = "none";
-    keyAttitude1 = false;
-    document.getElementById("KeyAttitude").style.display = "block";
-}
-
-//删除关键态度2
-function DeleteKeyAttitude2() {
-    document.getElementById("KeyAttitude2").style.display = "none";
-    keyAttitude2 = false;
-    document.getElementById("KeyAttitude").style.display = "block";
-}
-
-//删除关键态度3
-function DeleteKeyAttitude3() {
-    document.getElementById("KeyAttitude3").style.display = "none";
-    keyAttitude3 = false;
-    document.getElementById("KeyAttitude").style.display = "block";
-}
-
-//添加责任
-function AddResponse() {
-    var name = document.getElementById('LResponseName').innerText;
-    var content = document.getElementById('LResponseContent').innerText;
-
-    if (name == "" || content == "") {
-        $.ligerDialog.warn('请选择指标!');
-        return;
-    }
-
-    if (response1 == false) {
-        document.getElementById("LResponse1Name").innerText = name;
-        document.getElementById("LResponse1Content").innerText = content;
-        document.getElementById("Response1").style.display = "block";
-        response1 = true;
-    }
-    else if (response2 == false) {
-        document.getElementById("LResponse2Name").innerText = name;
-        document.getElementById("LResponse2Content").innerText = content;
-        document.getElementById("Response2").style.display = "block";
-        response2 = true;
-    }
-    else if (response3 == false) {
-        document.getElementById("LResponse3Name").innerText = name;
-        document.getElementById("LResponse3Content").innerText = content;
-        document.getElementById("Response3").style.display = "block";
-        response3 = true;
-    }
-    else {
-        document.getElementById("Response").style.display = "none";
-    }
-    if (response1 && response2 && response3)
-        document.getElementById("Response").style.display = "none";
-    document.getElementById("LResponseName").innerText = "";
-    document.getElementById("LResponseContent").innerText = "";
-}
-
-//删除责任1
-function DeleteResponse1() {
-    document.getElementById("Response1").style.display = "none";
-    response1 = false;
-    document.getElementById("Response").style.display = "block";
-}
-
-//删除责任2
-function DeleteResponse2() {
-    document.getElementById("Response2").style.display = "none";
-    response2 = false;
-    document.getElementById("Response").style.display = "block";
-}
-
-//删除责任3
-function DeleteResponse3() {
-    document.getElementById("Response3").style.display = "none";
-    response3 = false;
-    document.getElementById("Response").style.display = "block";
-}
-
-//添加能力
-function AddAbility() {
-    var id = document.getElementById('AbilityNum').value;
-    var name = document.getElementById('LAbilityName').innerText;
-    var contentA = document.getElementById('LAbilityContentA').innerText;
-    var contentB = document.getElementById('LAbilityContentB').innerText;
-    var contentC = document.getElementById('LAbilityContentC').innerText;
-    var contentD = document.getElementById('LAbilityContentD').innerText;
-    if (id == "" || name == "" || contentA == "" || contentB == "" || contentC == "" || contentD == "") {
-        $.ligerDialog.warn('请选择指标!');
-        return;
-    }
-    if (CheckSelected(id)) {
-        $.ligerDialog.warn('该指标已存在，请选择其它指标!');
-        return;
-    }
-    if (ability1 == false) {
-        document.getElementById('Ability1Num').value = id;
-        document.getElementById('LAbility1Name').innerText = name;
-        document.getElementById('LAbility1ContentA').innerText = contentA;
-        document.getElementById('LAbility1ContentB').innerText = contentB;
-        document.getElementById('LAbility1ContentC').innerText = contentC;
-        document.getElementById('LAbility1ContentD').innerText = contentD;
-        document.getElementById("Ability1").style.display = "block";
-        ability1 = true;
-    }
-    else if (ability2 == false) {
-        document.getElementById('Ability2Num').value = id;
-        document.getElementById('LAbility2Name').innerText = name;
-        document.getElementById('LAbility2ContentA').innerText = contentA;
-        document.getElementById('LAbility2ContentB').innerText = contentB;
-        document.getElementById('LAbility2ContentC').innerText = contentC;
-        document.getElementById('LAbility2ContentD').innerText = contentD;
-        document.getElementById("Ability2").style.display = "block";
-        ability2 = true;
-    }
-    else if (ability3 == false) {
-        document.getElementById('Ability3Num').value = id;
-        document.getElementById('LAbility3Name').innerText = name;
-        document.getElementById('LAbility3ContentA').innerText = contentA;
-        document.getElementById('LAbility3ContentB').innerText = contentB;
-        document.getElementById('LAbility3ContentC').innerText = contentC;
-        document.getElementById('LAbility3ContentD').innerText = contentD;
-        document.getElementById("Ability3").style.display = "block";
-        ability3 = true;
-    }
-    else if (ability4 == false) {
-        document.getElementById('Ability4Num').value = id;
-        document.getElementById('LAbility4Name').innerText = name;
-        document.getElementById('LAbility4ContentA').innerText = contentA;
-        document.getElementById('LAbility4ContentB').innerText = contentB;
-        document.getElementById('LAbility4ContentC').innerText = contentC;
-        document.getElementById('LAbility4ContentD').innerText = contentD;
-        document.getElementById("Ability4").style.display = "block";
-        ability4 = true;
-    }
-    else {
-        document.getElementById("Ability").style.display = "none";
-    }
-    if (ability1 && ability2 && ability3 && ability4)
-        document.getElementById("Ability").style.display = "none";
-    document.getElementById('AbilityNum').value = "";
-    document.getElementById('LAbilityName').innerText = "请选择指标";
-    document.getElementById('LAbilityContentA').innerText = "";
-    document.getElementById('LAbilityContentB').innerText = "";
-    document.getElementById('LAbilityContentC').innerText = "";
-    document.getElementById('LAbilityContentD').innerText = "";
-}
-
-//删除能力1
-function DeleteAbility1() {
-    document.getElementById("Ability1").style.display = "none";
-    ability1 = false;
-    document.getElementById("Ability").style.display = "block";
-}
-
-//删除能力2
-function DeleteAbility2() {
-    document.getElementById("Ability2").style.display = "none";
-    ability2 = false;
-    document.getElementById("Ability").style.display = "block";
-}
-
-//删除能力3
-function DeleteAbility3() {
-    document.getElementById("Ability3").style.display = "none";
-    ability3 = false;
-    document.getElementById("Ability").style.display = "block";
-}
-
-//删除能力4
-function DeleteAbility4() {
-    document.getElementById("Ability4").style.display = "none";
-    ability4 = false;
-    document.getElementById("Ability").style.display = "block";
-}
-
-//添加态度
-function AddAttitude() {
-    var id = document.getElementById('AttitudeNum').value;
-    var name = document.getElementById('LAttitudeName').innerText;
-    var contentA = document.getElementById('LAttitudeContentA').innerText;
-    var contentB = document.getElementById('LAttitudeContentB').innerText;
-    var contentC = document.getElementById('LAttitudeContentC').innerText;
-    var contentD = document.getElementById('LAttitudeContentD').innerText;
-    if (id == "" || name == "" || contentA == "" || contentB == "" || contentC == "" || contentD == "") {
-        $.ligerDialog.warn('请选择指标!');
-        return;
-    }
-    if (CheckSelected(id)) {
-        $.ligerDialog.warn('该指标已存在，请选择其它指标!');
-        return;
-    }
-    if (attitude1 == false) {
-        document.getElementById('Attitude1Num').value = id;
-        document.getElementById('LAttitude1Name').innerText = name;
-        document.getElementById('LAttitude1ContentA').innerText = contentA;
-        document.getElementById('LAttitude1ContentB').innerText = contentB;
-        document.getElementById('LAttitude1ContentC').innerText = contentC;
-        document.getElementById('LAttitude1ContentD').innerText = contentD;
-        document.getElementById("Attitude1").style.display = "block";
-        attitude1 = true;
-    }
-    else if (attitude2 == false) {
-        document.getElementById('Attitude2Num').value = id;
-        document.getElementById('LAttitude2Name').innerText = name;
-        document.getElementById('LAttitude2ContentA').innerText = contentA;
-        document.getElementById('LAttitude2ContentB').innerText = contentB;
-        document.getElementById('LAttitude2ContentC').innerText = contentC;
-        document.getElementById('LAttitude2ContentD').innerText = contentD;
-        document.getElementById("Attitude2").style.display = "block";
-        attitude2 = true;
-    }
-    else if (attitude3 == false) {
-        document.getElementById('Attitude3Num').value = id;
-        document.getElementById('LAttitude3Name').innerText = name;
-        document.getElementById('LAttitude3ContentA').innerText = contentA;
-        document.getElementById('LAttitude3ContentB').innerText = contentB;
-        document.getElementById('LAttitude3ContentC').innerText = contentC;
-        document.getElementById('LAttitude3ContentD').innerText = contentD;
-        document.getElementById("Attitude3").style.display = "block";
-        attitude3 = true;
-    }
-    else if (attitude4 == false) {
-        document.getElementById('Attitude4Num').value = id;
-        document.getElementById('LAttitude4Name').innerText = name;
-        document.getElementById('LAttitude4ContentA').innerText = contentA;
-        document.getElementById('LAttitude4ContentB').innerText = contentB;
-        document.getElementById('LAttitude4ContentC').innerText = contentC;
-        document.getElementById('LAttitude4ContentD').innerText = contentD;
-        document.getElementById("Attitude4").style.display = "block";
-        attitude4 = true;
-    }
-    else {
-        document.getElementById("Ability").style.display = "none";
-    }
-    if (attitude1 && attitude2 && attitude3 && attitude4)
-        document.getElementById("Attitude").style.display = "none";
-    document.getElementById('AttitudeNum').value = "";
-    document.getElementById('LAttitudeName').innerText = "请选择指标";
-    document.getElementById('LAttitudeContentA').innerText = "";
-    document.getElementById('LAttitudeContentB').innerText = "";
-    document.getElementById('LAttitudeContentC').innerText = "";
-    document.getElementById('LAttitudeContentD').innerText = "";
-}
-
-//删除能力1
-function DeleteAttitude1() {
-    document.getElementById("Attitude1").style.display = "none";
-    attitude1 = false;
-    document.getElementById("Attitude").style.display = "block";
-}
-
-//删除能力2
-function DeleteAttitude2() {
-    document.getElementById("Attitude2").style.display = "none";
-    attitude2 = false;
-    document.getElementById("Attitude").style.display = "block";
-}
-
-//删除能力3
-function DeleteAttitude3() {
-    document.getElementById("Attitude3").style.display = "none";
-    attitude3 = false;
-    document.getElementById("Attitude").style.display = "block";
-}
-
-//删除能力4
-function DeleteAttitude3() {
-    document.getElementById("Attitude3").style.display = "none";
-    attitude3 = false;
-    document.getElementById("Attitude").style.display = "block";
-}
-
-//添加否决指标
-function AddVeto() {
-    var id = document.getElementById('VetoNum').value;
-    var content = document.getElementById('LVetoContent').innerText;
-    if (id == "" || content == "") {
-        $.ligerDialog.warn('请选择指标!');
-        return;
-    }
-    if (CheckSelected(id)) {
-        $.ligerDialog.warn('该指标已存在，请选择其它指标!');
-        return;
-    }
-    if (veto1 == false) {
-        document.getElementById('Veto1Num').value = id;
-        document.getElementById('LVeto1Content').innerText = content;
-        document.getElementById("Veto1").style.display = "block";
-        veto1 = true;
-    }
-    else if (veto2 == false) {
-        document.getElementById('Veto2Num').value = id;
-        document.getElementById('LVeto2Content').innerText = content;
-        document.getElementById("Veto2").style.display = "block";
-        veto2 = true;
-    }
-    else if (veto3 == false) {
-        document.getElementById('Veto3Num').value = id;
-        document.getElementById('LVeto3Content').innerText = content;
-        document.getElementById("Veto3").style.display = "block";
-        veto3 = true;
-    }
-    else if (veto4 == false) {
-        document.getElementById('Veto4Num').value = id;
-        document.getElementById('LVeto4Content').innerText = content;
-        document.getElementById("Veto4").style.display = "block";
-        veto4 = true;
-    }
-    else if (veto5 == false) {
-        document.getElementById('Veto5Num').value = id;
-        document.getElementById('LVeto5Content').innerText = content;
-        document.getElementById("Veto5").style.display = "block";
-        veto5 = true;
-    }
-    else {
-        document.getElementById("Veto").style.display = "none";
-    }
-    if (veto1 && veto2 && veto3 && veto4 && veto5)
-        document.getElementById("Veto").style.display = "none";
-    document.getElementById('VetoNum').value = "";
-    document.getElementById('LVetoContent').innerText = "请选择指标";
-}
-
-//删除否决1
-function DeleteVeto1() {
-    document.getElementById("Veto1").style.display = "none";
-    veto1 = false;
-    document.getElementById("Veto").style.display = "block";
-}
-
-//删除否决2
-function DeleteVeto2() {
-    document.getElementById("Veto2").style.display = "none";
-    veto2 = false;
-    document.getElementById("Veto").style.display = "block";
-}
-
-//删除否决3
-function DeleteVeto3() {
-    document.getElementById("Veto3").style.display = "none";
-    veto3 = false;
-    document.getElementById("Veto").style.display = "block";
-}
-
-//删除否决4
-function DeleteVeto4() {
-    document.getElementById("Veto4").style.display = "none";
-    veto4 = false;
-    document.getElementById("Veto").style.display = "block";
-}
-
-//删除否决5
-function DeleteVeto5() {
-    document.getElementById("Veto5").style.display = "none";
-    veto5 = false;
-    document.getElementById("Veto").style.display = "block";
 }

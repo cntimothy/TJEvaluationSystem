@@ -10,7 +10,6 @@ namespace Model
 {
     public class AssessTable
     {
-        int atID;
         string atUserID;
         string atDep;
         DateTime atDate;
@@ -18,39 +17,39 @@ namespace Model
         string atKeyResponse1;
         string atKeyResponse2;
         string atKeyResponse3;
+        string atKeyResponse4;
+        string atKeyResponse5;
         int atKeyAbility1;
         int atKeyAbility2;
         int atKeyAbility3;
+        int atKeyAbility4;
+        int atKeyAbility5;
         int atKeyAttitude1;
         int atKeyAttitude2;
         int atKeyAttitude3;
+        int atKeyAttitude4;
+        int atKeyAttitude5;
         string atResponse1;
         string atResponse2;
         string atResponse3;
+        string atResponse4;
+        string atResponse5;
         int atAbility1;
         int atAbility2;
         int atAbility3;
         int atAbility4;
+        int atAbility5;
         int atAttitude1;
         int atAttitude2;
         int atAttitude3;
         int atAttitude4;
+        int atAttitude5;
         int atVeto1;
         int atVeto2;
         int atVeto3;
         int atVeto4;
         int atVeto5;
         string atVetoOthers;
-        int atKeyWeight;
-        int atResponseWeight;
-        int atAbilityWeight;
-        int atAttitudeWeight;
-
-        public int AtID
-        {
-            get { return atID; }
-            set { atID = value; }
-        }
 
         public string AtUserID
         {
@@ -94,6 +93,18 @@ namespace Model
             set { atKeyResponse3 = value; }
         }
 
+        public string AtKeyResponse4
+        {
+            get { return atKeyResponse4; }
+            set { atKeyResponse4 = value; }
+        }
+
+        public string AtKeyResponse5
+        {
+            get { return atKeyResponse5; }
+            set { atKeyResponse5 = value; }
+        }
+
         public int AtKeyAbility1
         {
             get { return atKeyAbility1; }
@@ -110,6 +121,18 @@ namespace Model
         {
             get { return atKeyAbility3; }
             set { atKeyAbility3 = value; }
+        }
+
+        public int AtKeyAbility4
+        {
+            get { return atKeyAbility4; }
+            set { atKeyAbility4 = value; }
+        }
+
+        public int AtKeyAbility5
+        {
+            get { return atKeyAbility5; }
+            set { atKeyAbility5 = value; }
         }
 
         public int AtKeyAttitude1
@@ -130,6 +153,19 @@ namespace Model
             set { atKeyAttitude3 = value; }
         }
 
+        public int AtKeyAttitude4
+        {
+            get { return atKeyAttitude4; }
+            set { atKeyAttitude4 = value; }
+        }
+
+        public int AtKeyAttitude5
+        {
+            get { return atKeyAttitude5; }
+            set { atKeyAttitude5 = value; }
+        }
+
+
         public string AtResponse1
         {
             get { return atResponse1; }
@@ -146,6 +182,18 @@ namespace Model
         {
             get { return atResponse3; }
             set { atResponse3 = value; }
+        }
+
+        public string AtResponse4
+        {
+            get { return atResponse4; }
+            set { atResponse4 = value; }
+        }
+
+        public string AtResponse5
+        {
+            get { return atResponse5; }
+            set { atResponse5 = value; }
         }
 
         public int AtAbility1
@@ -172,6 +220,12 @@ namespace Model
             set { atAbility4 = value; }
         }
 
+        public int AtAbility5
+        {
+            get { return atAbility5; }
+            set { atAbility5 = value; }
+        }
+
         public int AtAttitude1
         {
             get { return atAttitude1; }
@@ -194,6 +248,12 @@ namespace Model
         {
             get { return atAttitude4; }
             set { atAttitude4 = value; }
+        }
+
+        public int AtAttitude5
+        {
+            get { return atAttitude5; }
+            set { atAttitude5 = value; }
         }
 
         public int AtVeto1
@@ -232,28 +292,5 @@ namespace Model
             set { atVetoOthers = value; }
         }
 
-        public int AtKeyWeight
-        {
-            get { return atKeyWeight; }
-            set { atKeyWeight = value; }
-        }
-
-        public int AtResponseWeight
-        {
-            get { return atResponseWeight; }
-            set { atResponseWeight = value; }
-        }
-
-        public int AtAbilityWeight
-        {
-            get { return atAbilityWeight; }
-            set { atAbilityWeight = value; }
-        }
-
-        public int AtAttitudeWeight
-        {
-            get { return atAttitudeWeight; }
-            set { atAttitudeWeight = value; }
-        }
     }
 }

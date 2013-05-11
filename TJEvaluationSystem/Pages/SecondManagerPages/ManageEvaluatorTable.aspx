@@ -3,7 +3,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
     <title></title>
     <link href="../../Style/EvaluatorTable.css" rel="stylesheet" type="text/css" />
     <link href="../../Style/common.css" rel="stylesheet" type="text/css" />
@@ -22,25 +22,26 @@
     <form id="form1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
-    <div class="ToolBar">
-        <table style="position:relative;left:20px;height:100%">
-            <tr>
-            <!--
-                <td class="tool_bar_td">
-                    <input type="button" class="l-button" value="返回" style="width: 70px;" onclick="BackToUserList();" />
-                </td>
-                -->
-                <td style="width:10px;"></td>
-                <td style="padding:1px;"><input type="button" value="获取被考评人名单" id="search_button"  onclick="search()" class="l-button" style="width:130px;height:25px;font-size:15px"/></td>
-                <td style="width:10px;"></td>
-            </tr>
-        </table>
-    <div>
-    <br /><br /><br />
-    <asp:Label ID="Title" runat="server" Text="" style="position:relative;left:20px;font-size:16px;"></asp:Label>
-    <br /><br />
+
         <div id="ShowUserList" style="height:100%">
+            <div class="ToolBar">
+                <table style="position:relative;left:20px;height:100%">
+                    <tr>
+                    <!--
+                        <td class="tool_bar_td">
+                            <input type="button" class="l-button" value="返回" style="width: 70px;" onclick="BackToUserList();" />
+                        </td>
+                        -->
+                        <td style="width:10px;"></td>
+                        <td style="padding:1px;"><input type="button" value="获取被考评人名单" id="search_button"  onclick="search()" class="l-button" style="width:130px;height:25px;font-size:15px"/></td>
+                        <td style="width:10px;"></td>
+                    </tr>
+                </table>
+            </div>
             <div id="UserList">
+                <br /><br />
+                <asp:Label ID="Title" runat="server" Text="" style="position:relative;left:20px;font-size:16px;"></asp:Label>
+                <br /><br />
                 <div id="UserListGrid" style="margin: 0; padding: 0;height:100%""></div>
             </div>
             <div id="UserInfo" class="Hidden" style="text-align:center">
@@ -178,6 +179,778 @@
             </table>
             </div>
              </div>
+        </div>
+        <div id="MakeEditAssessTable" class="Hidden">
+            <div class="ToolBar">
+                <div id="MakeTableBar">
+                    <table class="tool_bar_table">
+                    <tr>
+                        <td class="tool_bar_td">
+                            <input type="button" class="l-button" value="保存考核表" style="width: 70px;" onclick="FinishMakeTable();" />
+                        </td>
+                        <td class="tool_bar_td ">
+                            <input type="button" class="l-button" value="重置考核表" style="width: 70px;" onclick="ResetTable();" />
+                        </td>
+                        <td class="tool_bar_td">
+                            <input type="button" class="l-button" value="返回" style="width: 70px;" onclick="BackToUserList();" />
+                        </td>
+                    </tr>
+                    </table>
+                </div>
+                <div id="EditTableBar">
+                    <table class="tool_bar_table">
+                    <tr>
+                        <td class="tool_bar_td">
+                            <input type="button" class="l-button" value="保存考核表" style="width: 70px;" onclick="FinishEditTable();" />
+                        </td>
+                        <td class="tool_bar_td ">
+                            <input type="button" class="l-button" value="重置考核表" style="width: 70px;" onclick="ResetTable();" />
+                        </td>
+                        <td class="tool_bar_td">
+                            <input type="button" class="l-button" value="返回" style="width: 70px;" onclick="BackToUserList();" />
+                        </td>
+                    </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="AssessTable" style="padding-top: 5px;">
+                <table id="MainTable" class="my_table">
+                <tr>
+                    <th colspan="10">
+                        被考核人姓名：岗位名称：用工部门：用工单位：<br/>
+                        考核时间段：
+                    </th>
+                </tr>
+                <tr>
+                    <td colspan="4" class="td_title">指标体系</td>
+                    <td colspan="4" class="td_title">指标描述及分值</td>
+                    <td class="td_title" style="width:60px;">操作</td>
+                    <td class="td_title" style="width:50px;">权重</td>
+                </tr>
+            
+                <tr>
+                    <td rowspan="33" class="td_title" style="width:20px;">一</td>
+                    <td rowspan="33" class="td_title" style="width:30px;">关键绩效指标</td>
+                    <td rowspan="11" class="td_title" style="width:30px;">关键岗位职责指标</td>
+                    <td colspan="6" class="td_reminder">点击选择按钮选择关键岗位职责指标，要求最少2项，最多5项</td>
+                    <td rowspan="33" class="td_weight">50%</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" style="width:120px;"><label id="LKeyResponse1Name" class="td_label_no_content";></label></td>
+                    <td colspan="4"><label id="LKeyResponse1Content" class="td_label_no_content";>&nbsp</label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectResponseStander('KeyResponse1')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('KeyResponse1')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr class="KeyResponse">
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><label id="LKeyResponse2Name" class="td_label_no_content";></label></td>
+                    <td colspan="4"><label id="LKeyResponse2Content" class="td_label_no_content";>&nbsp</label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectResponseStander('KeyResponse2')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('KeyResponse2')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><label id="LKeyResponse3Name" class="td_label_no_content";></label></td>
+                    <td colspan="4"><label id="LKeyResponse3Content" class="td_label_no_content";>&nbsp</label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectResponseStander('KeyResponse3')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('KeyResponse3')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr> 
+                <tr>
+                    <td rowspan="2"><label id="LKeyResponse4Name" class="td_label_no_content";></label></td>
+                    <td colspan="4"><label id="LKeyResponse4Content" class="td_label_no_content";>&nbsp</label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectResponseStander('KeyResponse4')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('KeyResponse4')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr> 
+                <tr>
+                    <td rowspan="2"><label id="LKeyResponse5Name" class="td_label_no_content";></label></td>
+                    <td colspan="4"><label id="LKeyResponse5Content" class="td_label_no_content";>&nbsp</label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectResponseStander('KeyResponse5')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('KeyResponse5')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+
+
+                <tr>
+                    <td rowspan="11" class="td_title" style="width:30px;">关键岗位胜任能力指标</td>
+                    <td colspan="6" class="td_reminder">点击选择按钮选择关键岗位胜任能力指标，要求最少2项，最多5项</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><label id="LKeyAbility1Name" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAbility1ContentA" class="td_label_no_content";>&nbsp</label></td>
+                    <td><label id="LKeyAbility1ContentB" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAbility1ContentC" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAbility1ContentD" class="td_label_no_content";></label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectStander('KeyAbility1')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('KeyAbility1')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><label id="LKeyAbility2Name" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAbility2ContentA" class="td_label_no_content";>&nbsp</label></td>
+                    <td><label id="LKeyAbility2ContentB" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAbility2ContentC" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAbility2ContentD" class="td_label_no_content";></label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectStander('KeyAbility2')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('KeyAbility2')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><label id="LKeyAbility3Name" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAbility3ContentA" class="td_label_no_content";>&nbsp</label></td>
+                    <td><label id="LKeyAbility3ContentB" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAbility3ContentC" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAbility3ContentD" class="td_label_no_content";></label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectStander('KeyAbility3')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('KeyAbility3')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><label id="LKeyAbility4Name" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAbility4ContentA" class="td_label_no_content";>&nbsp</label></td>
+                    <td><label id="LKeyAbility4ContentB" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAbility4ContentC" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAbility4ContentD" class="td_label_no_content";></label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectStander('KeyAbility4')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('KeyAbility4')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><label id="LKeyAbility5Name" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAbility5ContentA" class="td_label_no_content";>&nbsp</label></td>
+                    <td><label id="LKeyAbility5ContentB" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAbility5ContentC" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAbility5ContentD" class="td_label_no_content";></label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectStander('KeyAbility5')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('KeyAbility5')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+            
+
+                <tr>
+                    <td rowspan="11" class="td_title" style="width:30px;">关键工作态度指标</td>
+                    <td colspan="6" class="td_reminder">点击选择按钮选择关键工作态度指标，要求最少2项，最多5项</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><label id="LKeyAttitude1Name" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAttitude1ContentA" class="td_label_no_content";>&nbsp</label></td>
+                    <td><label id="LKeyAttitude1ContentB" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAttitude1ContentC" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAttitude1ContentD" class="td_label_no_content";></label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectStander('KeyAttitude1')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('KeyAttitude1')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><label id="LKeyAttitude2Name" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAttitude2ContentA" class="td_label_no_content";>&nbsp</label></td>
+                    <td><label id="LKeyAttitude2ContentB" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAttitude2ContentC" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAttitude2ContentD" class="td_label_no_content";></label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectStander('KeyAttitude2')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('KeyAttitude2')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><label id="LKeyAttitude3Name" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAttitude3ContentA" class="td_label_no_content";>&nbsp</label></td>
+                    <td><label id="LKeyAttitude3ContentB" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAttitude3ContentC" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAttitude3ContentD" class="td_label_no_content";></label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectStander('KeyAttitude3')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('KeyAttitude3')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><label id="LKeyAttitude4Name" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAttitude4ContentA" class="td_label_no_content";>&nbsp</label></td>
+                    <td><label id="LKeyAttitude4ContentB" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAttitude4ContentC" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAttitude4ContentD" class="td_label_no_content";></label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectStander('KeyAttitude4')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('KeyAttitude4')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><label id="LKeyAttitude5Name" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAttitude5ContentA" class="td_label_no_content";>&nbsp</label></td>
+                    <td><label id="LKeyAttitude5ContentB" class="td_label_no_content";>&nbsp</label></td>
+                    <td><label id="LKeyAttitude5ContentC" class="td_label_no_content";></label></td>
+                    <td><label id="LKeyAttitude5ContentD" class="td_label_no_content";></label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectResponseStander('KeyAttitude5')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('KeyAttitude5')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+                <tr>
+                    <td rowspan="11" class="td_title" style="width:20px;">二</td>
+                    <td rowspan="11" class="td_title" style="width:30px;">岗位职责指标</td>
+                    <td colspan="7" class="td_reminder">点击选择按钮选择岗位职责指标，要求最少2项，最多5项</td>
+                    <td rowspan="11" class="td_weight">20%</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" colspan="2" style="width:120px;"><label id="LResponse1Name" class="td_label_no_content";></label></td>
+                    <td colspan="4"><label id="LResponse1Content" class="td_label_no_content";>&nbsp</label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectResponseStander('Response1')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('Response1')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" colspan="2" style="width:120px;"><label id="LResponse2Name" class="td_label_no_content";></label></td>
+                    <td colspan="4"><label id="LResponse2Content" class="td_label_no_content";>&nbsp</label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectResponseStander('Response2')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('Response2')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" colspan="2" style="width:120px;"><label id="LResponse3Name" class="td_label_no_content";></label></td>
+                    <td colspan="4"><label id="LResponse3Content" class="td_label_no_content";>&nbsp</label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectResponseStander('Response3')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('Response3')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr> 
+                <tr>
+                    <td rowspan="2" colspan="2" style="width:120px;"><label id="LResponse4Name" class="td_label_no_content";></label></td>
+                    <td colspan="4"><label id="LResponse4Content" class="td_label_no_content";>&nbsp</label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectResponseStander('Response4')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('Response4')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr> 
+                <tr>
+                    <td rowspan="2" colspan="2" style="width:120px;"><label id="LResponse5Name" class="td_label_no_content";></label></td>
+                    <td colspan="4"><label id="LResponse5Content" class="td_label_no_content";>&nbsp</label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectResponseStander('Response5')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('Response5')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+            
+            
+                <tr>
+                    <td rowspan="11" class="td_title" style="width:20px;">三</td>
+                    <td rowspan="11" class="td_title" style="width:30px;">岗位胜任能力指标</td>
+                    <td colspan="7" class="td_reminder">点击选择按钮选择岗位胜任能力指标，要求最少2项，最多5项</td>
+                    <td rowspan="11" class="td_weight">15%</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" colspan="2" style="width:120px;"><label id="LAbility1Name" class="td_label_no_content";></label></td>
+                    <td><label id="LAbility1ContentA" class="td_label_no_content";>&nbsp</label></td>
+                    <td><label id="LAbility1ContentB" class="td_label_no_content";></label></td>
+                    <td><label id="LAbility1ContentC" class="td_label_no_content";></label></td>
+                    <td><label id="LAbility1ContentD" class="td_label_no_content";></label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectStander('Ability1')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('Ability1')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" colspan="2" style="width:120px;"><label id="LAbility2Name" class="td_label_no_content";></label></td>
+                    <td><label id="LAbility2ContentA" class="td_label_no_content";>&nbsp</label></td>
+                    <td><label id="LAbility2ContentB" class="td_label_no_content";></label></td>
+                    <td><label id="LAbility2ContentC" class="td_label_no_content";></label></td>
+                    <td><label id="LAbility2ContentD" class="td_label_no_content";></label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectStander('Ability2')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('Ability2')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" colspan="2" style="width:120px;"><label id="LAbility3Name" class="td_label_no_content";></label></td>
+                    <td><label id="LAbility3ContentA" class="td_label_no_content";>&nbsp</label></td>
+                    <td><label id="LAbility3ContentB" class="td_label_no_content";></label></td>
+                    <td><label id="LAbility3ContentC" class="td_label_no_content";></label></td>
+                    <td><label id="LAbility3ContentD" class="td_label_no_content";></label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectStander('Ability3')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('Ability3')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" colspan="2" style="width:120px;"><label id="LAbility4Name" class="td_label_no_content";></label></td>
+                    <td><label id="LAbility4ContentA" class="td_label_no_content";>&nbsp</label></td>
+                    <td><label id="LAbility4ContentB" class="td_label_no_content";></label></td>
+                    <td><label id="LAbility4ContentC" class="td_label_no_content";></label></td>
+                    <td><label id="LAbility4ContentD" class="td_label_no_content";></label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectStander('Ability4')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('Ability4')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" colspan="2" style="width:120px;"><label id="LAbility5Name" class="td_label_no_content";></label></td>
+                    <td><label id="LAbility5ContentA" class="td_label_no_content";>&nbsp</label></td>
+                    <td><label id="LAbility5ContentB" class="td_label_no_content";></label></td>
+                    <td><label id="LAbility5ContentC" class="td_label_no_content";></label></td>
+                    <td><label id="LAbility5ContentD" class="td_label_no_content";></label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectStander('Ability5')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('Ability5')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+            
+            
+                <tr>
+                    <td rowspan="11" class="td_title" style="width:20px;">四</td>
+                    <td rowspan="11" class="td_title" style="width:30px;">工作态度指标</td>
+                    <td colspan="7" class="td_reminder">点击选择按钮选择工作态度指标，要求最少2项，最多5项</td>
+                    <td rowspan="11" class="td_weight">15%</td>
+                </tr>          
+                <tr>
+                    <td rowspan="2" colspan="2" style="width:120px;"><label id="LAttitude1Name" class="td_label_no_content";></label></td>
+                    <td><label id="LAttitude1ContentA" class="td_label_no_content";>&nbsp</label></td>
+                    <td><label id="LAttitude1ContentB" class="td_label_no_content";></label></td>
+                    <td><label id="LAttitude1ContentC" class="td_label_no_content";></label></td>
+                    <td><label id="LAttitude1ContentD" class="td_label_no_content";></label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectStander('Attitude1')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('Attitude1')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" colspan="2" style="width:120px;"><label id="LAttitude2Name" class="td_label_no_content";></label></td>
+                    <td><label id="LAttitude2ContentA" class="td_label_no_content";>&nbsp</label></td>
+                    <td><label id="LAttitude2ContentB" class="td_label_no_content";></label></td>
+                    <td><label id="LAttitude2ContentC" class="td_label_no_content";></label></td>
+                    <td><label id="LAttitude2ContentD" class="td_label_no_content";></label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectStander('Attitude2')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('Attitude2')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" colspan="2" style="width:120px;"><label id="LAttitude3Name" class="td_label_no_content";></label></td>
+                    <td><label id="LAttitude3ContentA" class="td_label_no_content";>&nbsp</label></td>
+                    <td><label id="LAttitude3ContentB" class="td_label_no_content";></label></td>
+                    <td><label id="LAttitude3ContentC" class="td_label_no_content";></label></td>
+                    <td><label id="LAttitude3ContentD" class="td_label_no_content";></label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectStander('Attitude3')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('Attitude3')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" colspan="2" style="width:120px;"><label id="LAttitude4Name" class="td_label_no_content";></label></td>
+                    <td><label id="LAttitude4ContentA" class="td_label_no_content";>&nbsp</label></td>
+                    <td><label id="LAttitude4ContentB" class="td_label_no_content";></label></td>
+                    <td><label id="LAttitude4ContentC" class="td_label_no_content";></label></td>
+                    <td><label id="LAttitude4ContentD" class="td_label_no_content";></label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectStander('Attitude4')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('Attitude4')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" colspan="2" style="width:120px;"><label id="LAttitude5Name" class="td_label_no_content";></label></td>
+                    <td><label id="LAttitude5ContentA" class="td_label_no_content";>&nbsp</label></td>
+                    <td><label id="LAttitude5ContentB" class="td_label_no_content";></label></td>
+                    <td><label id="LAttitude5ContentC" class="td_label_no_content";></label></td>
+                    <td><label id="LAttitude5ContentD" class="td_label_no_content";></label></td>
+                    <td rowspan="2" class="td_fun">
+                        <input type="button" value="选择" onclick="SelectStander('Attitude5')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                        <input type="button" value="删除" onclick="DeleteStander('Attitude5')" class="l-button" style="width: 60px;
+                            height: 20px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_score_type">优（9~10）</td>
+                    <td class="td_score_type">良（7~8）</td>
+                    <td class="td_score_type">中（4~6）</td>
+                    <td class="td_score_type">差（0~3）</td>
+                </tr>
+                <tr>
+                    <td rowspan="7" class="td_title" style="width:20px;">五</td>
+                    <td rowspan="7" class="td_title" style="width:30px;">否决指标</td>
+                    <td colspan="7" class="td_reminder">如需要补充否决指标，请在其它项中输入！</td>
+                    <td rowspan="7" class="td_weight">100%</td>
+                </tr>
+                <tr>
+                    <td rowspan="5" colspan="2" style="width:120px;text-align:center">严重违反规章制度</td>
+                    <td colspan="3" style="width:360px;">累计旷工3天以上的</td>
+                    <td rowspan="5" class="td_score_type">-10或0</td>
+                    <td rowspan="6" class="td_fun"></td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="width:360px;">严重失职，营私舞弊，给本单位造成3000元以上经济损失或者其它严重后果的</td>
+                </tr> 
+                <tr>
+                    <td colspan="3" style="width:360px;">同时与其他用人单位建立劳动关系，对完成本单位工作任务造成严重影响，或者经本单位提出，拒不改正的</td>
+                </tr> 
+                <tr>
+                    <td colspan="3" style="width:360px;">违背职业道德，行贿、受贿价值超过3000元以上的</td>
+                </tr> 
+                <tr>
+                    <td colspan="3" style="width:360px;">被依法追究刑事责任的</td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="width:120px;text-align:center">其它</td>
+                    <td colspan="4" style="width:480px;"><textarea id="TVetoOthers" style="height:40px;width:100%"></textarea></td>
+                </tr>  
+            </table>
+        </div>
+        </div>
+        <div id="ViewAssessTable" class="Hidden">
+            <div class="ToolBar">
+                <table class="tool_bar_table">
+                <tr>
+                    <td class="tool_bar_td">
+                        <input type="button" class="l-button" value="返回" style="width: 70px;" onclick="BackToUserList();" />
+                    </td>
+                </tr>
+                </table>
+            </div>
+            <div id="ShowAssessTable">
+            </div>
+        </div>
+        <div id="ResponseLib" class="Hidden">
+            <div class="ToolBar">
+                <table class="tool_bar_table">
+                <tr>
+                    <td class="tool_bar_td">
+                        <input type="button" value="返回" onclick="BackToAssessTable()" class="l-button" style="width: 70px" />
+                    </td>
+                </tr>
+                </table>
+            </div>           
+            <div id="GResponseLib" style="margin: 0; padding: 0;"></div>
+        </div>
+        <div id="StanderLib" class="Hidden">
+            <div class="ToolBar">
+                <table class="tool_bar_table">
+                <tr>
+                    <td class="tool_bar_td">
+                        <input type="button" value="返回" onclick="BackToAssessTable()" class="l-button" style="width: 70px" />
+                    </td>
+                </tr>
+                </table>
+            </div>           
+            <div id="GStanderLib" style="margin: 0; padding: 0;"></div>
+        </div>
+        <div id="DetailStanderInfo" class="Hidden">
+            <div class="ToolBar">
+                <table class="tool_bar_table">
+                    <tr>
+                        <td class="tool_bar_td">
+                            <input type="button" value="返回" onclick="BackToStanderList()" class="l-button" style="width: 70px" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="StanderDetail" style="border: 3px solid #a3c0e8; width: 500px; margin: 0px auto;">
+                <table style="border: none">
+                    <tr>
+                        <td align="right" class="tableKey">
+                            指标类型：
+                        </td>
+                        <td align="left" class="tableValue">
+                            <asp:Label ID="LStanderType" runat="server" Text=""></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="tableKey">
+                            指标名称：
+                        </td>
+                        <td align="left" class="tableValue">
+                            <asp:Label ID="LName" runat="server" Text=""></asp:Label>
+                        </td>
+                    </tr>
+                    <tr class="NormalStander">
+                        <td align="right" class="tableKey">
+                            指标描述：
+                        </td>
+                    </tr>
+                    <tr class="NormalStander">
+                        <td align="right" class="tableKey">
+                            优：
+                        </td>
+                        <td align="left" class="tableValue">
+                            <asp:Label ID="LContentA" runat="server" Text=""></asp:Label>
+                        </td>
+                    </tr>
+                    <tr class="NormalStander">
+                        <td align="right" class="tableKey">
+                            良：
+                        </td>
+                        <td align="left" class="tableValue">
+                            <asp:Label ID="LContentB" runat="server" Text=""></asp:Label>
+                        </td>
+                    </tr>
+                    <tr class="NormalStander">
+                        <td align="right" class="tableKey">
+                            中：
+                        </td>
+                        <td align="left" class="tableValue">
+                            <asp:Label ID="LContentC" runat="server" Text=""></asp:Label>
+                        </td>
+                    </tr>
+                    <tr class="NormalStander">
+                        <td align="right" class="tableKey">
+                            差：
+                        </td>
+                        <td align="left" class="tableValue">
+                            <asp:Label ID="LContentD" runat="server" Text=""></asp:Label>
+                        </td>
+                    </tr>
+                    <tr class="VetoStander Hidden">
+                        <td align="right" class="tableKey">
+                            指标描述：
+                        </td>
+                        <td align="left" class="tableValue">
+                            <asp:Label ID="LContent" runat="server" Text=""></asp:Label>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div id="ShowEvaluateTable" class="Hidden">
@@ -202,33 +975,6 @@
                         </td>
                         <td class="tool_bar_td">
                             <input type="button" class="l-button" value="返回" style="width: 70px;" onclick="BackToUserList();" />
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div id="EditTableBar" class="Hidden">
-                <table class="tool_bar_table">
-                    <tr id="TrMakeTable">
-                        <td class="tool_bar_td">
-                            <input type="button" class="l-button" value="保存考核表" style="width: 70px;" onclick="FinishMakeTable();" />
-                        </td>
-                        <td class="tool_bar_td ">
-                            <input type="button" class="l-button" value="重置考核表" style="width: 70px;" onclick="ResetTable();" />
-
-                        </td>
-                        <td class="tool_bar_td">
-                            <input type="button" class="l-button" value="返回" style="width: 70px;" onclick="BackToUserList();" />
-                        </td>
-                    </tr>
-                    <tr id="TrEditTable">
-                        <td class="tool_bar_td">
-                            <input type="button" class="l-button" value="保存考核表" style="width: 70px;" onclick="FinishEditTable();" />
-                        </td>
-                        <td class="tool_bar_td ">
-                            <input type="button" class="l-button" value="重置考核表" style="width: 70px;" onclick="ResetTable();" />
-                        </td>
-                        <td class="tool_bar_td ">
-                            <input type="button" class="l-button" value="取消" style="width: 70px;" onclick="CancelEdit();" />
                         </td>
                     </tr>
                 </table>
@@ -262,1607 +1008,9 @@
                     </tr>
                 </table>
             </div>
-            <div id="DetailStanderInfoBar" class="Hidden">
-                <table class="tool_bar_table">
-                    <tr>
-                        <td class="tool_bar_td">
-                            <input type="button" value="返回" onclick="BackToStanderList()" class="l-button" style="width: 70px" />
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            
         </div>
-        <div id="EvaluatorTable" style="padding-top: 5px; display: none;">
-            <table id="MainTable" class="my_table">
-                <tr id="KeyStander">
-                    <td class="num">
-                        一
-                    </td>
-                    <td class="stander_type">
-                        关键绩效指标
-                    </td>
-                    <td style="border: none; padding: 0px">
-                        <table class="my_table" frame="void">
-                            <tr>
-                                <%--关键岗位职责--%>
-                                <td class="key_stander_type" style="border-top: none; border-left: none">
-                                    关键岗位职责指标
-                                </td>
-                                <td style="border-top: none; border-right: none; padding: 0px">
-                                    <table class="my_table" frame="void">
-                                        <tr id="KeyResponse1" class="ViewTable">
-                                            <td class="stander_name" style="border-top: none; border-left: none;">
-                                                <label id="LKeyResponse1Name" class="my_lable"></label>
-                                            </td>
-                                            <td style="border-top: none; padding: 0px">
-                                                <table class="my_table" frame="void">
-                                                    <tr>
-                                                        <td colspan="4" class="stander_content" style="border-top: none; border-left: none;
-                                                            border-right: none;">
-                                                            <label id="LKeyResponse1Content" class="my_lable"></label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="score_type" style="border-left: none; border-bottom: none;">
-                                                            优（9~10）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none;">
-                                                            良（7~8）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none;">
-                                                            中（4~6）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; border-right: none;">
-                                                            差（0~3）
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                            <td class="fun" style="border-top: none; border-right: none;">
-                                                <input type="button" value="重新选择" onclick="SelectResponseStander('KeyResponse1')" class="l-button" style="width: 60px;
-                                                    height: 20px;" />
-                                                <input type="button" value="删除" onclick="DeleteKeyResponse1()" class="l-button" style="width: 60px;
-                                                    height: 20px;" />
-                                            </td>
-                                            <td class="score" style="border-top: none; border-right: none;">
-                                                <div class="ShowScore">
-                                                    <label id="LKeyResponse1Score" class="my_lable">
-                                                    </label>
-                                                </div>
-                                                <div class="EditScore">
-                                                    <input type="text" id="CBKeyResponse1Score" class="my_combobox" /></div>
-                                            </td>
-                                        </tr>
-                                        <tr id="KeyResponse2" class="ViewTable">
-                                            <td class="stander_name" style="border-top: none; border-left: none;">
-                                                <label id="LKeyResponse2Name" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td style="border-top: none; padding: 0px">
-                                                <table class="my_table" frame="void">
-                                                    <tr>
-                                                        <td colspan="4" class="stander_content" style="border-left: none; border-right: none;
-                                                            border-top: none;">
-                                                            <label id="LKeyResponse2Content" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="score_type" style="border-left: none; border-bottom: none;">
-                                                            优（9~10）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none;">
-                                                            良（7~8）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none;">
-                                                            中（4~6）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; border-right: none;">
-                                                            差（0~3）
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                            <td class="fun" style="border-top: none; border-right: none;">
-                                                <input type="button" value="重新选择" onclick="SelectResponseStander('KeyResponse2')" class="l-button" style="width: 60px;
-                                                    height: 20px;" />
-                                                <input type="button" value="删除" onclick="DeleteKeyResponse2()" class="l-button" style="width: 60px;
-                                                    height: 20px;" />
-                                            </td>
-                                            <td class="score" style="border-top: none; border-right: none;">
-                                                <div class="ShowScore">
-                                                    <label id="LKeyResponse2Score" class="my_lable">
-                                                    </label>
-                                                </div>
-                                                <div class="EditScore">
-                                                    <input type="text" id="CBKeyResponse2Score" class="my_combobox" /></div>
-                                            </td>
-                                        </tr>
-                                        <tr id="KeyResponse3" class="ViewTable">
-                                            <td class="stander_name" style="border-top: none; border-left: none;">
-                                                <label id="LKeyResponse3Name" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td style="border-top: none; padding: 0px">
-                                                <table class="my_table" frame="void">
-                                                    <tr>
-                                                        <td colspan="4" class="stander_content" style="border-left: none; border-right: none;
-                                                            border-top: none;">
-                                                            <label id="LKeyResponse3Content" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="score_type" style="border-left: none; border-bottom: none;">
-                                                            优（9~10）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none;">
-                                                            良（7~8）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none;">
-                                                            中（4~6）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; border-right: none;">
-                                                            差（0~3）
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                            <td class="fun" style="border-top: none; border-right: none;">
-                                                <input type="button" value="重新选择" onclick="SelectResponseStander('KeyResponse3')" class="l-button" style="width: 60px;
-                                                    height: 20px;" />
-                                                <input type="button" value="删除" onclick="DeleteKeyResponse3()" class="l-button" style="width: 60px;
-                                                    height: 20px;" />
-                                            </td>
-                                            <td class="score" style="border-top: none; border-right: none;">
-                                                <div class="ShowScore">
-                                                    <label id="LKeyResponse3Score" class="my_lable">
-                                                    </label>
-                                                </div>
-                                                <div class="EditScore">
-                                                    <input type="text" id="CBKeyResponse3Score" class="my_combobox" /></div>
-                                            </td>
-                                        </tr>
-                                        <tr id="KeyResponse" class="EditTable">
-                                            <td class="stander_name_edit" style="border-top: none; border-bottom: none; border-left: none">
-                                                岗位内容：<br />
-                                                <label id="LKeyResponseName" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content_big_edit" style="border-top: none; border-bottom: none;">
-                                                岗位要求:<br />
-                                                <label id="LKeyResponseContent" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="fun" style="border-top: none; border-bottom: none; border-right: none">
-                                                <input type="button" value="选择" onclick="SelectResponseStander('KeyResponse')" class="l-button" style="width: 60px;
-                                                    height: 22px;" />
-                                                <input type="button" value="添加" onclick="AddKeyResponse()" class="l-button" style="width: 60px;
-                                                    height: 22px;" />
-                                            </td>
-                                            <td class="score" style="border-top: none; border-right: none;">
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <%--关键岗位胜任能力指标--%>
-                                <td class="key_stander_type" style="border-top: none; border-left: none">
-                                    关键岗位胜任能力指标
-                                </td>
-                                <td style="border-left: none; border-right: none; padding: 0px">
-                                    <table class="my_table" frame="void">
-                                        <tr id="KeyAbility1" class="ViewTable">
-                                            <td class="stander_name" style="border-top: none; border-left: none;">
-                                                <input type="hidden" id="KeyAbility1Num" />
-                                                <label id="LKeyAbility1Name" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td style="border-top: none; padding: 0px">
-                                                <table class="my_table" frame="void">
-                                                    <tr>
-                                                        <td class="stander_content" style="border-top: none; border-left: none;">
-                                                            <label id="LKeyAbility1ContentA" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content" style="border-top: none;">
-                                                            <label id="LKeyAbility1ContentB" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content" style="border-top: none;">
-                                                            <label id="LKeyAbility1ContentC" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content" style="border-top: none; border-right: none;">
-                                                            <label id="LKeyAbility1ContentD" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="score_type" style="border-left: none; border-bottom: none; width: 100px;">
-                                                            优（9~10）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; width: 100px;">
-                                                            良（7~8）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; width: 100px;">
-                                                            中（4~6）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; border-right: none; width: 100px;">
-                                                            差（0~3）
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                            <td class="fun" style="border-top: none; border-right: none;">
-                                                <input type="button" value="重新选择" onclick="SelectStander('KeyAbility1')" class="l-button"
-                                                    style="width: 60px; height: 20px;" />
-                                                <input type="button" value="删除" onclick="DeleteKeyAbility1()" class="l-button" style="width: 60px;
-                                                    height: 20px;" />
-                                            </td>
-                                            <td class="score" style="border-top: none; border-right: none;">
-                                                <div class="ShowScore">
-                                                    <label id="LKeyAbility1Score" class="my_lable">
-                                                    </label>
-                                                </div>
-                                                <div class="EditScore">
-                                                    <input type="text" id="CBKeyAbility1Score" class="my_combobox" /></div>
-                                            </td>
-                                        </tr>
-                                        <tr id="KeyAbility2" class="ViewTable">
-                                            <td class="stander_name" style="border-left: none; border-top: none;">
-                                                <input type="hidden" id="KeyAbility2Num" />
-                                                <label id="LKeyAbility2Name" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td style="border-top: none; padding: 0px">
-                                                <table class="my_table" frame="void">
-                                                    <tr>
-                                                        <td class="stander_content" style="border-top: none; border-left: none;">
-                                                            <label id="LKeyAbility2ContentA" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content" style="border-top: none;">
-                                                            <label id="LKeyAbility2ContentB" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content" style="border-top: none;">
-                                                            <label id="LKeyAbility2ContentC" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content" style="border-top: none; border-right: none;">
-                                                            <label id="LKeyAbility2ContentD" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="score_type" style="border-left: none; border-bottom: none; width: 100px;">
-                                                            优（9~10）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; width: 100px;">
-                                                            良（7~8）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; width: 100px;">
-                                                            中（4~6）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; border-right: none; width: 100px;">
-                                                            差（0~3）
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                            <td class="fun" style="border-top: none; border-right: none;">
-                                                <input type="button" value="重新选择" onclick="SelectStander('KeyAbility2')" class="l-button"
-                                                    style="width: 60px; height: 20px;" />
-                                                <input type="button" value="删除" onclick="DeleteKeyAbility2()" class="l-button" style="width: 60px;
-                                                    height: 20px;" />
-                                            </td>
-                                            <td class="score" style="border-top: none; border-right: none;">
-                                                <div class="ShowScore">
-                                                    <label id="LKeyAbility2Score" class="my_lable">
-                                                    </label>
-                                                </div>
-                                                <div class="EditScore">
-                                                    <input type="text" id="CBKeyAbility2Score" class="my_combobox" /></div>
-                                            </td>
-                                        </tr>
-                                        <tr id="KeyAbility3" class="ViewTable">
-                                            <td class="stander_name" style="border-left: none; border-top: none;">
-                                                <input type="hidden" id="KeyAbility3Num" />
-                                                <label id="LKeyAbility3Name" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td style="border-top: none; padding: 0px">
-                                                <table class="my_table" frame="void">
-                                                    <tr>
-                                                        <td class="stander_content" style="border-top: none; border-left: none;">
-                                                            <label id="LKeyAbility3ContentA" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content" style="border-top: none;">
-                                                            <label id="LKeyAbility3ContentB" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content" style="border-top: none;">
-                                                            <label id="LKeyAbility3ContentC" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content" style="border-top: none; border-right: none;">
-                                                            <label id="LKeyAbility3ContentD" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="score_type" style="border-left: none; border-bottom: none; width: 100px;">
-                                                            优（9~10）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; width: 100px;">
-                                                            良（7~8）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; width: 100px;">
-                                                            中（4~6）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; border-right: none; width: 100px;">
-                                                            差（0~3）
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                            <td class="fun" style="border-top: none; border-right: none;">
-                                                <input type="button" value="重新选择" onclick="SelectStander('KeyAbility3')" class="l-button"
-                                                    style="width: 60px; height: 20px;" />
-                                                <input type="button" value="删除" onclick="DeleteKeyAbility3()" class="l-button" style="width: 60px;
-                                                    height: 20px;" />
-                                            </td>
-                                            <td class="score" style="border-top: none; border-right: none;">
-                                                <div class="ShowScore">
-                                                    <label id="LKeyAbility3Score" class="my_lable">
-                                                    </label>
-                                                </div>
-                                                <div class="EditScore">
-                                                    <input type="text" id="CBKeyAbility3Score" class="my_combobox" /></div>
-                                            </td>
-                                        </tr>
-                                        <tr id="KeyAbility" class="EditTable">
-                                            <td class="stander_name_edit" style="border-left: none; border-bottom: none;">
-                                                <input type="hidden" id="KeyAbilityNum" />
-                                                <label id="LKeyAbilityName" class="my_lable">
-                                                    请选择指标！</label>
-                                            </td>
-                                            <td style="border-bottom: none; padding: 0px">
-                                                <table class="my_table" frame="void">
-                                                    <tr>
-                                                        <td class="stander_content_edit" style="border-top: none; border-left: none;">
-                                                            <label id="LKeyAbilityContentA" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content_edit" style="border-top: none;">
-                                                            <label id="LKeyAbilityContentB" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content_edit" style="border-top: none;">
-                                                            <label id="LKeyAbilityContentC" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content_edit" style="border-top: none; border-right: none;">
-                                                            <label id="LKeyAbilityContentD" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="score_type" style="border-left: none; border-bottom: none; width: 100px;">
-                                                            优（9~10）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; width: 100px;">
-                                                            良（7~8）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; width: 100px;">
-                                                            中（4~6）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; border-right: none; width: 100px;">
-                                                            差（0~3）
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                            <td class="fun" style="border: none;">
-                                                <input type="button" value="选择指标" onclick="SelectStander('KeyAbility')" class="l-button"
-                                                    style="width: 60px; height: 20px;" />
-                                                <input type="button" value="添加" onclick="AddKeyAbility()" class="l-button" style="width: 60px;
-                                                    height: 20px;" />
-                                            </td>
-                                            <td class="score" style="border-top: none; border-right: none;">
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <%--关键工作态度指标--%>
-                                <td class="key_stander_type" style="border-top: none; border-bottom: none; border-left: none">
-                                    关键工作态度指标
-                                </td>
-                                <td style="border-left: none; border-right: none; border-bottom: none; padding: 0px">
-                                    <table class="my_table" frame="void">
-                                        <tr id="KeyAttitude1" class="ViewTable">
-                                            <td class="stander_name" style="border-top: none; border-left: none;">
-                                                <input type="hidden" id="KeyAttitude1Num" />
-                                                <label id="LKeyAttitude1Name" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td style="border-top: none; padding: 0px">
-                                                <table class="my_table" frame="void">
-                                                    <tr>
-                                                        <td class="stander_content" style="border-top: none; border-left: none;">
-                                                            <label id="LKeyAttitude1ContentA" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content" style="border-top: none;">
-                                                            <label id="LKeyAttitude1ContentB" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content" style="border-top: none;">
-                                                            <label id="LKeyAttitude1ContentC" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content" style="border-top: none; border-right: none;">
-                                                            <label id="LKeyAttitude1ContentD" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="score_type" style="border-left: none; border-bottom: none; width: 100px;">
-                                                            优（9~10）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; width: 100px;">
-                                                            良（7~8）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; width: 100px;">
-                                                            中（4~6）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; border-right: none; width: 100px;">
-                                                            差（0~3）
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                            <td class="fun" style="border-top: none; border-right: none;">
-                                                <input type="button" value="重新选择" onclick="SelectStander('KeyAttitude1')" class="l-button"
-                                                    style="width: 60px; height: 20px;" />
-                                                <input type="button" value="删除" onclick="DeleteKeyAttitude1()" class="l-button" style="width: 60px;
-                                                    height: 20px;" />
-                                            </td>
-                                            <td class="score" style="border-top: none; border-right: none;">
-                                                <div class="ShowScore">
-                                                    <label id="LKeyAttitude1Score" class="my_lable">
-                                                    </label>
-                                                </div>
-                                                <div class="EditScore">
-                                                    <input type="text" id="CBKeyAttitude1Score" class="my_combobox" /></div>
-                                            </td>
-                                        </tr>
-                                        <tr id="KeyAttitude2" class="ViewTable">
-                                            <td class="stander_name" style="border-left: none; border-top: none;">
-                                                <input type="hidden" id="KeyAttitude2Num" />
-                                                <label id="LKeyAttitude2Name" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td style="border-top: none; padding: 0px">
-                                                <table class="my_table" frame="void">
-                                                    <tr>
-                                                        <td class="stander_content" style="border-top: none; border-left: none;">
-                                                            <label id="LKeyAttitude2ContentA" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content" style="border-top: none;">
-                                                            <label id="LKeyAttitude2ContentB" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content" style="border-top: none;">
-                                                            <label id="LKeyAttitude2ContentC" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content" style="border-top: none; border-right: none;">
-                                                            <label id="LKeyAttitude2ContentD" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="score_type" style="border-left: none; border-bottom: none; width: 100px;">
-                                                            优（9~10）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; width: 100px;">
-                                                            良（7~8）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; width: 100px;">
-                                                            中（4~6）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; border-right: none; width: 100px;">
-                                                            差（0~3）
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                            <td class="fun" style="border-top: none; border-right: none;">
-                                                <input type="button" value="重新选择" onclick="SelectStander('KeyAttitude2')" class="l-button"
-                                                    style="width: 60px; height: 20px;" />
-                                                <input type="button" value="删除" onclick="DeleteKeyAttitude2()" class="l-button" style="width: 60px;
-                                                    height: 20px;" />
-                                            </td>
-                                            <td class="score" style="border-top: none; border-right: none;">
-                                                <div class="ShowScore">
-                                                    <label id="LKeyAttitude2Score" class="my_lable">
-                                                    </label>
-                                                </div>
-                                                <div class="EditScore">
-                                                    <input type="text" id="CBKeyAttitude2Score" class="my_combobox" /></div>
-                                            </td>
-                                        </tr>
-                                        <tr id="KeyAttitude3" class="ViewTable">
-                                            <td class="stander_name" style="border-left: none; border-top: none;">
-                                                <input type="hidden" id="KeyAttitude3Num" />
-                                                <label id="LKeyAttitude3Name" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td style="border-top: none; padding: 0px">
-                                                <table class="my_table" frame="void">
-                                                    <tr>
-                                                        <td class="stander_content" style="border-top: none; border-left: none;">
-                                                            <label id="LKeyAttitude3ContentA" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content" style="border-top: none;">
-                                                            <label id="LKeyAttitude3ContentB" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content" style="border-top: none;">
-                                                            <label id="LKeyAttitude3ContentC" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content" style="border-top: none; border-right: none;">
-                                                            <label id="LKeyAttitude3ContentD" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="score_type" style="border-left: none; border-bottom: none; width: 100px;">
-                                                            优（9~10）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; width: 100px;">
-                                                            良（7~8）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; width: 100px;">
-                                                            中（4~6）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; border-right: none; width: 100px;">
-                                                            差（0~3）
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                            <td class="fun" style="border-top: none; border-right: none;">
-                                                <input type="button" value="重新选择" onclick="SelectStander('KeyAttitude3')" class="l-button"
-                                                    style="width: 60px; height: 20px;" />
-                                                <input type="button" value="删除" onclick="DeleteKeyAttitude3()" class="l-button" style="width: 60px;
-                                                    height: 20px;" />
-                                            </td>
-                                            <td class="score" style="border-top: none; border-right: none;">
-                                                <div class="ShowScore">
-                                                    <label id="LKeyAttitude3Score" class="my_lable">
-                                                    </label>
-                                                </div>
-                                                <div class="EditScore">
-                                                    <input type="text" id="CBKeyAttitude3Score" class="my_combobox" /></div>
-                                            </td>
-                                        </tr>
-                                        <tr id="KeyAttitude" class="EditTable">
-                                            <td class="stander_name_edit" style="border-left: none; border-top: none; border-bottom: none;">
-                                                <input type="hidden" id="KeyAttitudeNum" />
-                                                <label id="LKeyAttitudeName" class="my_lable">
-                                                    请选择指标！</label>
-                                            </td>
-                                            <td style="border-top: none; border-bottom: none; padding: 0px">
-                                                <table class="my_table" frame="void">
-                                                    <tr>
-                                                        <td class="stander_content_edit" style="border-top: none; border-left: none;">
-                                                            <label id="LKeyAttitudeContentA" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content_edit" style="border-top: none;">
-                                                            <label id="LKeyAttitudeContentB" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content_edit" style="border-top: none;">
-                                                            <label id="LKeyAttitudeContentC" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                        <td class="stander_content_edit" style="border-top: none; border-right: none;">
-                                                            <label id="LKeyAttitudeContentD" class="my_lable">
-                                                            </label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="score_type" style="border-left: none; border-bottom: none; width: 100px;">
-                                                            优（9~10）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; width: 100px;">
-                                                            良（7~8）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; width: 100px;">
-                                                            中（4~6）
-                                                        </td>
-                                                        <td class="score_type" style="border-bottom: none; border-right: none; width: 100px;">
-                                                            差（0~3）
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                            <td class="fun" style="border: none;">
-                                                <input type="button" value="选择指标" onclick="SelectStander('KeyAttitude')" class="l-button"
-                                                    style="width: 60px; height: 20px;" />
-                                                <input type="button" value="添加" onclick="AddKeyAttitude()" class="l-button" style="width: 60px;
-                                                    height: 20px;" />
-                                            </td>
-                                            <td class="score" style="border-top: none; border-right: none;">
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td class="weight">
-                        <div class="EditTableWeight" style="color: Red;">
-                            权重:<br />
-                            <input type="text" id="KeyWeightEdit" style="width: 20px;" onkeyup="this.value=this.value.replace(/\D/g,'')"
-                                onafterpaste="this.value=this.value.replace(/\D/g,'')" />
-                        </div>
-                        <div class="ViewTableWeight">
-                            <label id="KeyWeightView" class="my_lable">
-                            </label>
-                            %
-                        </div>
-                    </td>
-                </tr>
-                <tr id="ResponseStnder">
-                    <td class="num">
-                        二
-                    </td>
-                    <td class="stander_type">
-                        岗位职责指标
-                    </td>
-                    <td style="padding: 0px">
-                        <table class="my_table" frame="void">
-                            <tr id="Response1" class="ViewTable">
-                                <td class="stander_name_big" style="border-top: none; border-left: none;">
-                                    <label id="LResponse1Name" class="my_lable">
-                                    </label>
-                                </td>
-                                <td style="border-top: none; padding: 0px">
-                                    <table class="my_table" frame="void">
-                                        <tr>
-                                            <td colspan="4" class="stander_content" style="border-top: none; border-left: none;
-                                                border-right: none;">
-                                                <label id="LResponse1Content" class="my_lable">
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="score_type" style="border-bottom: none; border-left: none;">
-                                                优（9~10）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                良（7~8）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                中（4~6）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none; border-right: none;">
-                                                差（0~3）
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td class="fun" style="border-top: none; border-right: none;">
-                                    <input type="button" value="重新选择" onclick="SelectResponseStander('Response1')" class="l-button" style="width: 60px;
-                                        height: 20px;" />
-                                    <input type="button" value="删除" onclick="DeleteResponse1()" class="l-button" style="width: 60px;
-                                        height: 20px;" />
-                                </td>
-                                <td class="score" style="border-top: none; border-right: none;">
-                                    <div class="ShowScore">
-                                        <label id="LResponse1Score" class="my_lable">
-                                        </label>
-                                    </div>
-                                    <div class="EditScore">
-                                        <input type="text" id="CBResponse1Score" class="my_combobox" /></div>
-                                </td>
-                            </tr>
-                            <tr id="Response2" class="ViewTable">
-                                <td class="stander_name_big" style="border-top: none; border-left: none;">
-                                    <label id="LResponse2Name" class="my_lable">
-                                    </label>
-                                </td>
-                                <td style="border-top: none; padding: 0px">
-                                    <table class="my_table" frame="void">
-                                        <tr>
-                                            <td colspan="4" class="stander_content" style="border-top: none; border-left: none;
-                                                border-right: none;">
-                                                <label id="LResponse2Content" class="my_lable">
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="score_type" style="border-bottom: none; border-left: none;">
-                                                优（9~10）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                良（7~8）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                中（4~6）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none; border-right: none;">
-                                                差（0~3）
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td class="fun" style="border-top: none; border-right: none;">
-                                    <input type="button" value="重新选择" onclick="SelectResponseStander('Response2')" class="l-button" style="width: 60px;
-                                        height: 20px;" />
-                                    <input type="button" value="删除" onclick="DeleteResponse2()" class="l-button" style="width: 60px;
-                                        height: 20px;" />
-                                </td>
-                                <td class="score" style="border-top: none; border-right: none;">
-                                    <div class="ShowScore">
-                                        <label id="LResponse2Score" class="my_lable">
-                                        </label>
-                                    </div>
-                                    <div class="EditScore">
-                                        <input type="text" id="CBResponse2Score" class="my_combobox" /></div>
-                                </td>
-                            </tr>
-                            <tr id="Response3" class="ViewTable">
-                                <td class="stander_name_big" style="border-bottom: none; border-left: none;">
-                                    <label id="LResponse3Name" class="my_lable">
-                                    </label>
-                                </td>
-                                <td style="border-bottom: none; padding: 0px">
-                                    <table class="my_table" frame="void">
-                                        <tr>
-                                            <td colspan="4" class="stander_content" style="border: none;">
-                                                <label id="LResponse3Content" class="my_lable">
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="score_type" style="border-bottom: none; border-left: none;">
-                                                优（9~10）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                良（7~8）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                中（4~6）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none; border-right: none;">
-                                                差（0~3）
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td class="fun" style="border-bottom: none; border-right: none;">
-                                    <input type="button" value="重新选择" onclick="SelectResponseStander('Response3')" class="l-button" style="width: 60px;
-                                        height: 20px;" />
-                                    <input type="button" value="删除" onclick="DeleteResponse3()" class="l-button" style="width: 60px;
-                                        height: 20px;" />
-                                </td>
-                                <td class="score" style="border-top: none; border-right: none;">
-                                    <div class="ShowScore">
-                                        <label id="LResponse3Score" class="my_lable">
-                                        </label>
-                                    </div>
-                                    <div class="EditScore">
-                                        <input type="text" id="CBResponse3Score" class="my_combobox" /></div>
-                                </td>
-                            </tr>
-                            <tr id="Response" class="EditTable">
-                                <td class="stander_name_big_edit" style="border-top: none; border-bottom: none; border-left: none">
-                                    岗位内容：<br />
-                                    <label id="LResponseName" class="my_lable">
-                                    </label>
-                                </td>
-                                <td class="stander_content_big_edit" style="border-top: none; border-bottom: none;">
-                                    岗位要求:<br />
-                                    <label id="LResponseContent" class="my_lable">
-                                    </label>
-                                </td>
-                                <td class="fun" style="border-top: none; border-bottom: none; border-right: none">
-                                    <input type="button" value="选择" onclick="SelectResponseStander('Response')" class="l-button" style="width: 60px;
-                                        height: 20px;" />
-                                    <input type="button" value="添加" onclick="AddResponse()" class="l-button" style="width: 60px;
-                                        height: 22px;" />
-                                </td>
-                                <td class="score" style="border-top: none; border-right: none;">
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td class="weight">
-                        <div class="EditTableWeight" style="color: Red;">
-                            权重:<br />
-                            <input type="text" id="ResponseWeightEdit" style="width: 20px;" onkeyup="this.value=this.value.replace(/\D/g,'')"
-                                onafterpaste="this.value=this.value.replace(/\D/g,'')" />
-                        </div>
-                        <div class="ViewTableWeight">
-                            <label id="ResponseWeightView" class="my_lable">
-                            </label>
-                            %
-                        </div>
-                    </td>
-                </tr>
-                <tr id="AbilityStander">
-                    <td class="num">
-                        三
-                    </td>
-                    <td class="stander_type">
-                        岗位胜任能力指标
-                    </td>
-                    <td style="padding: 0px">
-                        <table class="my_table" frame="void">
-                            <tr id="Ability1" class="ViewTable">
-                                <td class="stander_name_big" style="border-top: none; border-left: none;">
-                                    <input type="hidden" id="Ability1Num" />
-                                    <label id="LAbility1Name" class="my_lable">
-                                    </label>
-                                </td>
-                                <td style="border-top: none; padding: 0px;">
-                                    <table class="my_table" frame="void">
-                                        <tr>
-                                            <td class="stander_content" style="border-top: none; border-left: none;">
-                                                <label id="LAbility1ContentA" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none;">
-                                                <label id="LAbility1ContentB" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none;">
-                                                <label id="LAbility1ContentC" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none; border-right: none;">
-                                                <label id="LAbility1ContentD" class="my_lable">
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="score_type" style="border-bottom: none; border-left: none;">
-                                                优（9~10）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                良（7~8）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                中（4~6）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none; border-right: none;">
-                                                差（0~3）
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td class="fun" style="border-top: none; border-right: none;">
-                                    <input type="button" value="重新选择" onclick="SelectStander('Ability1')" class="l-button"
-                                        style="width: 60px; height: 20px;" />
-                                    <input type="button" value="删除" onclick="DeleteAbility1()" class="l-button" style="width: 60px;
-                                        height: 20px;" />
-                                </td>
-                                <td class="score" style="border-top: none; border-right: none;">
-                                    <div class="ShowScore">
-                                        <label id="LAbility1Score" class="my_lable">
-                                        </label>
-                                    </div>
-                                    <div class="EditScore">
-                                        <input type="text" id="CBAbility1Score" class="my_combobox" /></div>
-                                </td>
-                            </tr>
-                            <tr id="Ability2" class="ViewTable">
-                                <td class="stander_name_big" style="border-top: none; border-left: none;">
-                                    <input type="hidden" id="Ability2Num" />
-                                    <label id="LAbility2Name" class="my_lable">
-                                    </label>
-                                </td>
-                                <td style="border-top: none; padding: 0px;">
-                                    <table class="my_table" frame="void">
-                                        <tr>
-                                            <td class="stander_content" style="border-top: none; border-left: none;">
-                                                <label id="LAbility2ContentA" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none;">
-                                                <label id="LAbility2ContentB" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none;">
-                                                <label id="LAbility2ContentC" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none; border-right: none;">
-                                                <label id="LAbility2ContentD" class="my_lable">
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="score_type" style="border-bottom: none; border-left: none;">
-                                                优（9~10）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                良（7~8）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                中（4~6）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none; border-right: none;">
-                                                差（0~3）
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td class="fun" style="border-top: none; border-right: none;">
-                                    <input type="button" value="重新选择" onclick="SelectStander('Ability2')" class="l-button"
-                                        style="width: 60px; height: 20px;" />
-                                    <input type="button" value="删除" onclick="DeleteAbility2()" class="l-button" style="width: 60px;
-                                        height: 20px;" />
-                                </td>
-                                <td class="score" style="border-top: none; border-right: none;">
-                                    <div class="ShowScore">
-                                        <label id="LAbility2Score" class="my_lable">
-                                        </label>
-                                    </div>
-                                    <div class="EditScore">
-                                        <input type="text" id="BCAbility2Score" class="my_combobox" /></div>
-                                </td>
-                            </tr>
-                            <tr id="Ability3" class="ViewTable">
-                                <td class="stander_name_big" style="border-top: none; border-left: none;">
-                                    <input type="hidden" id="Ability3Num" />
-                                    <label id="LAbility3Name" class="my_lable">
-                                    </label>
-                                </td>
-                                <td style="border-top: none; padding: 0px;">
-                                    <table class="my_table" frame="void">
-                                        <tr>
-                                            <td class="stander_content" style="border-top: none; border-left: none;">
-                                                <label id="LAbility3ContentA" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none;">
-                                                <label id="LAbility3ContentB" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none;">
-                                                <label id="LAbility3ContentC" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none; border-right: none;">
-                                                <label id="LAbility3ContentD" class="my_lable">
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="score_type" style="border-bottom: none; border-left: none;">
-                                                优（9~10）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                良（7~8）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                中（4~6）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none; border-right: none;">
-                                                差（0~3）
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td class="fun" style="border-top: none; border-right: none;">
-                                    <input type="button" value="重新选择" onclick="SelectStander('Ability3')" class="l-button"
-                                        style="width: 60px; height: 20px;" />
-                                    <input type="button" value="删除" onclick="DeleteAbility3()" class="l-button" style="width: 60px;
-                                        height: 20px;" />
-                                </td>
-                                <td class="score" style="border-top: none; border-right: none;">
-                                    <div class="ShowScore">
-                                        <label id="LAbility3Score" class="my_lable">
-                                        </label>
-                                    </div>
-                                    <div class="EditScore">
-                                        <input type="text" id="CBAbility3Score" class="my_combobox" /></div>
-                                </td>
-                            </tr>
-                            <tr id="Ability4" class="ViewTable">
-                                <td class="stander_name_big" style="border-top: none; border-left: none;">
-                                    <input type="hidden" id="Ability4Num" />
-                                    <label id="LAbility4Name" class="my_lable">
-                                    </label>
-                                </td>
-                                <td style="border-top: none; padding: 0px;">
-                                    <table class="my_table" frame="void">
-                                        <tr>
-                                            <td class="stander_content" style="border-top: none; border-left: none;">
-                                                <label id="LAbility4ContentA" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none;">
-                                                <label id="LAbility4ContentB" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none;">
-                                                <label id="LAbility4ContentC" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none; border-right: none;">
-                                                <label id="LAbility4ContentD" class="my_lable">
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="score_type" style="border-bottom: none; border-left: none;">
-                                                优（9~10）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                良（7~8）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                中（4~6）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none; border-right: none;">
-                                                差（0~3）
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td class="fun" style="border-top: none; border-right: none;">
-                                    <input type="button" value="重新选择" onclick="SelectStander('Ability4')" class="l-button"
-                                        style="width: 60px; height: 20px;" />
-                                    <input type="button" value="删除" onclick="DeleteAbility4()" class="l-button" style="width: 60px;
-                                        height: 20px;" />
-                                </td>
-                                <td class="score" style="border-top: none; border-right: none;">
-                                    <div class="ShowScore">
-                                        <label id="LAbility4Score" class="my_lable">
-                                        </label>
-                                    </div>
-                                    <div class="EditScore">
-                                        <input type="text" id="CBAbility4Score" class="my_combobox" /></div>
-                                </td>
-                            </tr>
-                            <tr id="Ability" class="EditTable">
-                                <td class="stander_name_big_edit" style="border-top: none; border-bottom: none; border-left: none;">
-                                    <input type="hidden" id="AbilityNum" />
-                                    <label id="LAbilityName" class="my_lable">
-                                        请选择指标！</label>
-                                </td>
-                                <td style="border-top: none; border-bottom: none; padding: 0px">
-                                    <table class="my_table" frame="void">
-                                        <tr>
-                                            <td class="stander_content_edit" style="border-top: none; border-left: none;">
-                                                <label id="LAbilityContentA" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content_edit" style="border-top: none;">
-                                                <label id="LAbilityContentB" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content_edit" style="border-top: none;">
-                                                <label id="LAbilityContentC" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content_edit" style="border-top: none; border-right: none;">
-                                                <label id="LAbilityContentD" class="my_lable">
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="score_type" style="border-bottom: none; border-left: none;">
-                                                优（9~10）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                良（7~8）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                中（4~6）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none; border-right: none;">
-                                                差（0~3）
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td class="fun" style="border-top: none; border-bottom: none; border-right: none;">
-                                    <input type="button" value="选择指标" onclick="SelectStander('Ability')" class="l-button"
-                                        style="width: 60px; height: 20px;" />
-                                    <input type="button" value="添加" onclick="AddAbility()" class="l-button" style="width: 60px;
-                                        height: 20px;" />
-                                </td>
-                                <td class="score" style="border-top: none; border-right: none;">
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td class="weight">
-                        <div class="EditTableWeight" style="color: Red;">
-                            权重:<br />
-                            <input type="text" id="AbilityWeightEdit" style="width: 20px;" onkeyup="this.value=this.value.replace(/\D/g,'')"
-                                onafterpaste="this.value=this.value.replace(/\D/g,'')" />
-                        </div>
-                        <div class="ViewTableWeight">
-                            <label id="AbilityWeightView" class="my_lable">
-                            </label>
-                            %
-                        </div>
-                    </td>
-                </tr>
-                <tr id="AttitudeStander">
-                    <td class="num">
-                        四
-                    </td>
-                    <td class="stander_type">
-                        工作态度指标
-                    </td>
-                    <td style="padding: 0px">
-                        <table class="my_table" frame="void">
-                            <tr id="Attitude1" class="ViewTable">
-                                <td class="stander_name_big" style="border-top: none; border-left: none;">
-                                    <input type="hidden" id="Attitude1Num" />
-                                    <label id="LAttitude1Name" class="my_lable">
-                                    </label>
-                                </td>
-                                <td style="border-top: none; padding: 0px;">
-                                    <table class="my_table" frame="void">
-                                        <tr>
-                                            <td class="stander_content" style="border-top: none; border-left: none;">
-                                                <label id="LAttitude1ContentA" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none;">
-                                                <label id="LAttitude1ContentB" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none;">
-                                                <label id="LAttitude1ContentC" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none; border-right: none;">
-                                                <label id="LAttitude1ContentD" class="my_lable">
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="score_type" style="border-bottom: none; border-left: none;">
-                                                优（9~10）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                良（7~8）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                中（4~6）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none; border-right: none;">
-                                                差（0~3）
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td class="fun" style="border-top: none; border-right: none;">
-                                    <input type="button" value="重新选择" onclick="SelectStander('Attitude1')" class="l-button"
-                                        style="width: 60px; height: 20px;" />
-                                    <input type="button" value="删除" onclick="DeleteAttitude1()" class="l-button" style="width: 60px;
-                                        height: 20px;" />
-                                </td>
-                                <td class="score" style="border-top: none; border-right: none;">
-                                    <div class="ShowScore">
-                                        <label id="LAttitude1Score" class="my_lable">
-                                        </label>
-                                    </div>
-                                    <div class="EditScore">
-                                        <input type="text" id="CBAttitude1Score" class="my_combobox" /></div>
-                                </td>
-                            </tr>
-                            <tr id="Attitude2" class="ViewTable">
-                                <td class="stander_name_big" style="border-top: none; border-left: none;">
-                                    <input type="hidden" id="Attitude2Num" />
-                                    <label id="LAttitude2Name" class="my_lable">
-                                    </label>
-                                </td>
-                                <td style="border-top: none; padding: 0px;">
-                                    <table class="my_table" frame="void">
-                                        <tr>
-                                            <td class="stander_content" style="border-top: none; border-left: none;">
-                                                <label id="LAttitude2ContentA" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none;">
-                                                <label id="LAttitude2ContentB" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none;">
-                                                <label id="LAttitude2ContentC" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none; border-right: none;">
-                                                <label id="LAttitude2ContentD" class="my_lable">
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="score_type" style="border-bottom: none; border-left: none;">
-                                                优（9~10）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                良（7~8）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                中（4~6）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none; border-right: none;">
-                                                差（0~3）
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td class="fun" style="border-top: none; border-right: none;">
-                                    <input type="button" value="重新选择" onclick="SelectStander('Attitude2')" class="l-button"
-                                        style="width: 60px; height: 20px;" />
-                                    <input type="button" value="删除" onclick="DeleteAttitude2()" class="l-button" style="width: 60px;
-                                        height: 20px;" />
-                                </td>
-                                <td class="score" style="border-top: none; border-right: none;">
-                                    <div class="ShowScore">
-                                        <label id="LAttitude2Score" class="my_lable">
-                                        </label>
-                                    </div>
-                                    <div class="EditScore">
-                                        <input type="text" id="CBAttitude2Score" class="my_combobox" /></div>
-                                </td>
-                            </tr>
-                            <tr id="Attitude3" class="ViewTable">
-                                <td class="stander_name_big" style="border-top: none; border-left: none;">
-                                    <input type="hidden" id="Attitude3Num" />
-                                    <label id="LAttitude3Name" class="my_lable">
-                                    </label>
-                                </td>
-                                <td style="border-top: none; padding: 0px;">
-                                    <table class="my_table" frame="void">
-                                        <tr>
-                                            <td class="stander_content" style="border-top: none; border-left: none;">
-                                                <label id="LAttitude3ContentA" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none;">
-                                                <label id="LAttitude3ContentB" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none;">
-                                                <label id="LAttitude3ContentC" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none; border-right: none;">
-                                                <label id="LAttitude3ContentD" class="my_lable">
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="score_type" style="border-bottom: none; border-left: none;">
-                                                优（9~10）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                良（7~8）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                中（4~6）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none; border-right: none;">
-                                                差（0~3）
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td class="fun" style="border-top: none; border-right: none;">
-                                    <input type="button" value="重新选择" onclick="SelectStander('Attitude3')" class="l-button"
-                                        style="width: 60px; height: 20px;" />
-                                    <input type="button" value="删除" onclick="DeleteAttitude3()" class="l-button" style="width: 60px;
-                                        height: 20px;" />
-                                </td>
-                                <td class="score" style="border-top: none; border-right: none;">
-                                    <div class="ShowScore">
-                                        <label id="LAttitude3Score" class="my_lable">
-                                        </label>
-                                    </div>
-                                    <div class="EditScore">
-                                        <input type="text" id="CBAttitude3Score" class="my_combobox" /></div>
-                                </td>
-                            </tr>
-                            <tr id="Attitude4" class="ViewTable">
-                                <td class="stander_name_big" style="border-top: none; border-left: none;">
-                                    <input type="hidden" id="Attitude4Num" />
-                                    <label id="LAttitude4Name" class="my_lable">
-                                    </label>
-                                </td>
-                                <td style="border-top: none; padding: 0px;">
-                                    <table class="my_table" frame="void">
-                                        <tr>
-                                            <td class="stander_content" style="border-top: none; border-left: none;">
-                                                <label id="LAttitude4ContentA" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none;">
-                                                <label id="LAttitude4ContentB" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none;">
-                                                <label id="LAttitude4ContentC" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content" style="border-top: none; border-right: none;">
-                                                <label id="LAttitude4ContentD" class="my_lable">
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="score_type" style="border-bottom: none; border-left: none;">
-                                                优（9~10）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                良（7~8）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                中（4~6）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none; border-right: none;">
-                                                差（0~3）
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td class="fun" style="border-top: none; border-right: none;">
-                                    <input type="button" value="重新选择" onclick="SelectStander('Attitude4')" class="l-button"
-                                        style="width: 60px; height: 20px;" />
-                                    <input type="button" value="删除" onclick="DeleteAttitude4()" class="l-button" style="width: 60px;
-                                        height: 20px;" />
-                                </td>
-                                <td class="score" style="border-top: none; border-right: none;">
-                                    <div class="ShowScore">
-                                        <label id="LAttitude4Score" class="my_lable">
-                                        </label>
-                                    </div>
-                                    <div class="EditScore">
-                                        <input type="text" id="CBAttitude4Score" class="my_combobox" /></div>
-                                </td>
-                            </tr>
-                            <tr id="Attitude" class="EditTable">
-                                <td class="stander_name_big_edit" style="border-top: none; border-bottom: none; border-left: none;">
-                                    <input type="hidden" id="AttitudeNum" />
-                                    <label id="LAttitudeName" class="my_lable">
-                                        请选择指标！</label>
-                                </td>
-                                <td style="border-top: none; border-bottom: none; padding: 0px">
-                                    <table class="my_table" frame="void">
-                                        <tr>
-                                            <td class="stander_content_edit" style="border-top: none; border-left: none;">
-                                                <label id="LAttitudeContentA" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content_edit" style="border-top: none;">
-                                                <label id="LAttitudeContentB" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content_edit" style="border-top: none;">
-                                                <label id="LAttitudeContentC" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="stander_content_edit" style="border-top: none; border-right: none;">
-                                                <label id="LAttitudeContentD" class="my_lable">
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="score_type" style="border-bottom: none; border-left: none;">
-                                                优（9~10）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                良（7~8）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none;">
-                                                中（4~6）
-                                            </td>
-                                            <td class="score_type" style="border-bottom: none; border-right: none;">
-                                                差（0~3）
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td class="fun" style="border-top: none; border-bottom: none; border-right: none;">
-                                    <input type="button" value="选择指标" onclick="SelectStander('Attitude')" class="l-button"
-                                        style="width: 60px; height: 20px;" />
-                                    <input type="button" value="添加" onclick="AddAttitude()" class="l-button" style="width: 60px;
-                                        height: 20px;" />
-                                </td>
-                                <td class="score" style="border-top: none; border-right: none;">
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td class="weight">
-                        <div class="EditTableWeight" style="color: Red;">
-                            权重:<br />
-                            <input type="text" id="AttitudeWeightEdit" style="width: 20px;" onkeyup="this.value=this.value.replace(/\D/g,'')"
-                                onafterpaste="this.value=this.value.replace(/\D/g,'')" />
-                        </div>
-                        <div class="ViewTableWeight">
-                            <label id="AttitudeWeightView" class="my_lable">
-                            </label>
-                            %
-                        </div>
-                    </td>
-                </tr>
-                <tr id="VetoStander">
-                    <td class="num">
-                        五
-                    </td>
-                    <td class="stander_type">
-                        否决指标
-                    </td>
-                    <td style="padding: 0px">
-                        <table class="my_table" frame="void">
-                            <tr>
-                                <td class="stander_name_big" style="border-top: none; border-left: none;">
-                                    违反规章制度
-                                </td>
-                                <td style="border: none; padding: 0px;">
-                                    <table class="my_table" frame="void">
-                                        <tr id="Veto1" class="ViewTable">
-                                            <td class="veto_stander_content" style="border-top: none; border-left: none; height: 45px;">
-                                                <input type="hidden" id="Veto1Num" />
-                                                <label id="LVeto1Content" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="fun" style="border-top: none; border-right: none;">
-                                                <input type="button" value="重新选择" onclick="SelectVetoStander('Veto1')" class="l-button"
-                                                    style="width: 60px; height: 20px;" />
-                                                <input type="button" value="删除" onclick="DeleteVeto1()" class="l-button" style="width: 60px;
-                                                    height: 20px;" />
-                                            </td>
-                                            <td class="score" style="border-top: none; border-right: none;">
-                                                <div class="ShowScore">
-                                                    <label id="LVeto1Score" class="my_lable">
-                                                    </label>
-                                                </div>
-                                                <div class="EditScore">
-                                                    <input type="text" id="CBVeto1Score" class="my_combobox" /></div>
-                                            </td>
-                                        </tr>
-                                        <tr id="Veto2" class="ViewTable">
-                                            <td class="veto_stander_content" style="border-top: none; border-left: none; height: 45px;">
-                                                <input type="hidden" id="Veto2Num" />
-                                                <label id="LVeto2Content" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="fun" style="border-top: none; border-right: none;">
-                                                <input type="button" value="重新选择" onclick="SelectVetoStander('Veto2')" class="l-button"
-                                                    style="width: 60px; height: 20px;" />
-                                                <input type="button" value="删除" onclick="DeleteVeto2()" class="l-button" style="width: 60px;
-                                                    height: 20px;" />
-                                            </td>
-                                            <td class="score" style="border-top: none; border-right: none;">
-                                                <div class="ShowScore">
-                                                    <label id="LVeto2Score" class="my_lable">
-                                                    </label>
-                                                </div>
-                                                <div class="EditScore">
-                                                    <input type="text" id="CBVeto2Score" class="my_combobox" /></div>
-                                            </td>
-                                        </tr>
-                                        <tr id="Veto3" class="ViewTable">
-                                            <td class="veto_stander_content" style="border-top: none; border-left: none; height: 45px;">
-                                                <input type="hidden" id="Veto3Num" />
-                                                <label id="LVeto3Content" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="fun" style="border-top: none; border-right: none;">
-                                                <input type="button" value="重新选择" onclick="SelectVetoStander('Veto3')" class="l-button"
-                                                    style="width: 60px; height: 20px;" />
-                                                <input type="button" value="删除" onclick="DeleteVeto3()" class="l-button" style="width: 60px;
-                                                    height: 20px;" />
-                                            </td>
-                                            <td class="score" style="border-top: none; border-right: none;">
-                                                <div class="ShowScore">
-                                                    <label id="LVeto3Score" class="my_lable">
-                                                    </label>
-                                                </div>
-                                                <div class="EditScore">
-                                                    <input type="text" id="CBVeto3Score" class="my_combobox" /></div>
-                                            </td>
-                                        </tr>
-                                        <tr id="Veto4" class="ViewTable">
-                                            <td class="veto_stander_content" style="border-top: none; border-left: none; height: 45px;">
-                                                <input type="hidden" id="Veto4Num" />
-                                                <label id="LVeto4Content" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="fun" style="border-top: none; border-right: none;">
-                                                <input type="button" value="重新选择" onclick="SelectVetoStander('Veto4')" class="l-button"
-                                                    style="width: 60px; height: 20px;" />
-                                                <input type="button" value="删除" onclick="DeleteVeto4()" class="l-button" style="width: 60px;
-                                                    height: 20px;" />
-                                            </td>
-                                            <td class="score" style="border-top: none; border-right: none;">
-                                                <div class="ShowScore">
-                                                    <label id="LVeto4Score" class="my_lable">
-                                                    </label>
-                                                </div>
-                                                <div class="EditScore">
-                                                    <input type="text" id="CBVeto4Score" class="my_combobox" /></div>
-                                            </td>
-                                        </tr>
-                                        <tr id="Veto5" class="ViewTable">
-                                            <td class="veto_stander_content" style="border-top: none; border-left: none; height: 45px;">
-                                                <input type="hidden" id="Veto5Num" />
-                                                <label id="LVeto5Content" class="my_lable">
-                                                </label>
-                                            </td>
-                                            <td class="fun" style="border-top: none; border-right: none;">
-                                                <input type="button" value="重新选择" onclick="SelectVetoStander('Veto5')" class="l-button"
-                                                    style="width: 60px; height: 20px;" />
-                                                <input type="button" value="删除" onclick="DeleteVeto5()" class="l-button" style="width: 60px;
-                                                    height: 20px;" />
-                                            </td>
-                                            <td class="score" style="border-top: none; border-right: none;">
-                                                <div class="ShowScore">
-                                                    <label id="LVeto5Score" class="my_lable">
-                                                    </label>
-                                                </div>
-                                                <div class="EditScore">
-                                                    <input type="text" id="CBVeto5Score" class="my_combobox" /></div>
-                                            </td>
-                                        </tr>
-                                        <tr id="Veto" class="EditTable">
-                                            <td class="veto_stander_content_edit" style="border-bottom: none; border-top: none;
-                                                border-left: none; height: 45px;">
-                                                <input type="hidden" id="VetoNum" />
-                                                <label id="LVetoContent" class="my_lable">
-                                                    请选择指标！</label>
-                                            </td>
-                                            <td class="fun" style="border-bottom: none; border-top: none; border-right: none;">
-                                                <input type="button" value="选择" onclick="SelectVetoStander('Veto')" class="l-button"
-                                                    style="width: 60px; height: 20px;" />
-                                                <input type="button" value="添加" onclick="AddVeto()" class="l-button" style="width: 60px;
-                                                    height: 20px;" />
-                                            </td>
-                                            <td class="score" style="border-top: none; border-right: none;">
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="stander_name_big" style="border-bottom: none; border-left: none;">
-                                    其它
-                                </td>
-                                <td style="border-bottom: none; border-right: none;">
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td class="weight">
-                        100%
-                    </td>
-                </tr>
-            </table>
-        </div>
+        
         <div id="SelectStander" class="Hidden">
             <div id="StanderInfo">
                 <div id="maingrid4" style="margin: 0; padding: 0;">
@@ -1876,73 +1024,7 @@
                 <div id="maingrid6" style="margin: 0; padding: 0;">
                 </div>
             </div>
-            <div id="DetailStanderInfo" class="Hidden">
-                <div id="StanderDetail" style="border: 3px solid #a3c0e8; width: 500px; margin: 0px auto;">
-                    <table style="border: none">
-                        <tr>
-                            <td align="right" class="tableKey">
-                                指标类型：
-                            </td>
-                            <td align="left" class="tableValue">
-                                <asp:Label ID="LStanderType" runat="server" Text=""></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right" class="tableKey">
-                                指标名称：
-                            </td>
-                            <td align="left" class="tableValue">
-                                <asp:Label ID="LName" runat="server" Text=""></asp:Label>
-                            </td>
-                        </tr>
-                        <tr class="NormalStander">
-                            <td align="right" class="tableKey">
-                                指标描述：
-                            </td>
-                        </tr>
-                        <tr class="NormalStander">
-                            <td align="right" class="tableKey">
-                                优：
-                            </td>
-                            <td align="left" class="tableValue">
-                                <asp:Label ID="LContentA" runat="server" Text=""></asp:Label>
-                            </td>
-                        </tr>
-                        <tr class="NormalStander">
-                            <td align="right" class="tableKey">
-                                良：
-                            </td>
-                            <td align="left" class="tableValue">
-                                <asp:Label ID="LContentB" runat="server" Text=""></asp:Label>
-                            </td>
-                        </tr>
-                        <tr class="NormalStander">
-                            <td align="right" class="tableKey">
-                                中：
-                            </td>
-                            <td align="left" class="tableValue">
-                                <asp:Label ID="LContentC" runat="server" Text=""></asp:Label>
-                            </td>
-                        </tr>
-                        <tr class="NormalStander">
-                            <td align="right" class="tableKey">
-                                差：
-                            </td>
-                            <td align="left" class="tableValue">
-                                <asp:Label ID="LContentD" runat="server" Text=""></asp:Label>
-                            </td>
-                        </tr>
-                        <tr class="VetoStander Hidden">
-                            <td align="right" class="tableKey">
-                                指标描述：
-                            </td>
-                            <td align="left" class="tableValue">
-                                <asp:Label ID="LContent" runat="server" Text=""></asp:Label>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+            
         </div>
         </div>
         <div class="Hidden">
