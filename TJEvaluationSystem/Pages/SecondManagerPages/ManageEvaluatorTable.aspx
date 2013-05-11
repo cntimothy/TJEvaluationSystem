@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <title></title>
+    <title>管理考评表</title>
     <link href="../../Style/EvaluatorTable.css" rel="stylesheet" type="text/css" />
     <link href="../../Style/common.css" rel="stylesheet" type="text/css" />
     <link href="../../lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css" />
@@ -18,36 +18,29 @@
     <script src="../../Script/SecondManager/ManageEvaluatorTable.js" type="text/javascript"></script>
     <script src="../../Script/MessageBox.js" type="text/javascript"></script>
 </head>
-<body style="padding: 5px;">
+<body>
     <form id="form1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
-
-        <div id="ShowUserList" style="height:100%">
-            <div class="ToolBar">
-                <table style="position:relative;left:20px;height:100%">
-                    <tr>
-                    <!--
-                        <td class="tool_bar_td">
-                            <input type="button" class="l-button" value="返回" style="width: 70px;" onclick="BackToUserList();" />
-                        </td>
-                        -->
-                        <td style="width:10px;"></td>
-                        <td style="padding:1px;"><input type="button" value="获取被考评人名单" id="search_button"  onclick="search()" class="l-button" style="width:130px;height:25px;font-size:15px"/></td>
-                        <td style="width:10px;"></td>
-                    </tr>
-                </table>
-            </div>
-            <div id="UserList">
-                <br /><br />
-                <asp:Label ID="Title" runat="server" Text="" style="position:relative;left:20px;font-size:16px;"></asp:Label>
-                <br /><br />
-                <div id="UserListGrid" style="margin: 0; padding: 0;height:100%""></div>
-            </div>
-            <div id="UserInfo" class="Hidden" style="text-align:center">
-                
-                <div id="DetailUserData" style="border:3px solid #a3c0e8;width:500px;margin:0px auto;padding-top:10px;">
-                    <table>
+    <div class="ToolBar">
+     <table style="position:relative;left:20px;height:100%">
+     <tr>
+            <td style="width:10px;"></td>
+            <td style="padding:1px;"><input type="button" value="获取被考评人名单" id="search_button"  onclick="search()" class="l-button" style="width:150px;height:25px;font-size:15px"/></td>
+            <td style="width:10px;"></td>
+            <td style="padding:1px;"><input type="button" value="提交" id="submit_button"  onclick="submitpost()" class="l-button" style="width:100px;height:25px;font-size:15px;display:none" /> </td>                  
+     </tr>
+     </table>          
+    </div>
+    <div id="TitleDiv">
+    <br />
+    <asp:Label ID="Title" runat="server" Text="" style="position:relative;left:20px;font-size:16px;display:block"></asp:Label>
+    <br />
+    </div>
+    <div id="evaluatedgrid" style="margin:0 auto" ></div> 
+     <div id="ShowDetailUserInfo" class="Hidden" style="text-align:center" >
+     <div class="DetailUserData" style="border:3px solid #a3c0e8;width:500px;margin:0px auto;">
+            <table>
             <tr>
                 <td align="right" class="tableKey">用户名：</td>
                 <td align="left" class="tableValue">
@@ -60,7 +53,7 @@
                 <td align="right" class="tableKey">姓名：</td>
                 <td align="left" class="tableValue">
                     <div class="ShowData">
-                        <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
+                        <asp:Label ID="LName1" runat="server" Text=""></asp:Label>
                     </div>
                 </td>
             </tr>
@@ -177,7 +170,6 @@
                 </td>
             </tr>
             </table>
-            </div>
              </div>
         </div>
         <div id="MakeEditAssessTable" class="Hidden">
@@ -1032,7 +1024,8 @@
         </div>
         <div class="Hidden">
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                <ContentTemplate>
+                <ContentTemplate>                
+                    <input id="Errors" type="hidden" runat="server"/>
                     <input id="JsonData" type="hidden" runat="server" />
                     <input id="JsonData2" type="hidden" runat="server" />
                     <input id="JsonData3" type="hidden" runat="server" />
@@ -1040,11 +1033,12 @@
                     <asp:Button ID="BGetStanderLib" runat="server" Text="Button" OnClick="BGetStanderLib_Click" />
                     <asp:Button ID="BFinishMakeTable" runat="server" Text="" OnClick="BFinishMakeTable_Click" />
                     <asp:Button ID="BFinishEditTable" runat="server" Text="" OnClick="BFinishEditTable_Click" />
-                    <asp:Button ID="BGetEvaluateTable" runat="server" Text="" OnClick="BGetEvaluateTable_Click"/>
+                    <asp:Button ID="BGetEvaluateTable" runat="server" Text="" OnClick="BGetEvaluateTable_Click"/>   
                 </ContentTemplate>
             </asp:UpdatePanel>
             <asp:Button ID="BRefresh" runat="server" Text="" OnClick="BRefresh_Click" />
-            <asp:Button ID="SearchEvaluated" runat="server"  OnClick="LoadUserList"  />
+            <asp:Button ID="SearchEvaluated" runat="server"  OnClick="LoadUserList"  />                 
+            <asp:Button ID="SearchEvaluated1" runat="server"  OnClick="Search"  />
         </div>
     </form>
 </body>

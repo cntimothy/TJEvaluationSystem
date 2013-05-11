@@ -24,13 +24,15 @@
 </head>
 <body>
     <form id="form1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
     <div class="ToolBar">
      <table style="position:relative;left:20px;height:100%">
      <tr>
             <td style="width:10px;"></td>
             <td style="padding:1px;"><input type="button" value="获取被考评人名单" id="search_button"  onclick="search()" class="l-button" style="width:150px;height:25px;font-size:15px"/></td>
             <td style="width:10px;"></td>
-             <td style="padding:1px;"><input type="button" value="提交" id="submit_button"  onclick="submitpost()" class="l-button" style="width:100px;height:25px;font-size:15px;display:none" /> </td>                  
+            <td style="padding:1px;"><input type="button" value="提交" id="submit_button"  onclick="submitpost()" class="l-button" style="width:100px;height:25px;font-size:15px;display:none" /> </td>                  
      </tr>
      </table>          
     </div>

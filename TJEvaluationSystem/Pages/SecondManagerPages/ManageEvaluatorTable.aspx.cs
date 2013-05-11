@@ -26,6 +26,57 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
 
         }
 
+        protected void Search(object sender, EventArgs e)
+        {
+            string username = (string)Session["username"];
+            //string username = "admin2";
+            string uiDepart = "";
+            List<Manager> manager = new List<Manager>();
+            exception = "";
+            if (ManagerBLL.SelectByID(username, ref manager, ref exception))
+            {
+                uiDepart = manager.ElementAt(0).MDepartment;
+                Title.Text = uiDepart + "被考评人名单：";
+                List<UserInfo> Evaluated = new List<UserInfo>();
+                string type = "____1%";
+                bool b = UserInfoBLL.Select(uiDepart, type, ref Evaluated, ref exception);
+                if (b)
+                {
+                    DataTable table = new DataTable();
+                    table = Evaluated.ListToDataTable();
+
+                    //给table添加prbComment栏
+                    adjustTable(table, ref exception);
+                    int sumCount = 0, unPassCount = 0, passCount = 0, savedCount = 0, unMakeCount = 0;
+
+                    countNumber(table, ref sumCount, ref unPassCount, ref passCount, ref savedCount, ref unMakeCount);//做汇总
+                    Title.Text += "（总人数：" + sumCount + " \\未制作：" + unMakeCount + " \\已保存：" + savedCount + " \\已提交：" + unPassCount + " \\已审核：" + passCount + "）";
+
+                    table.DefaultView.Sort = "Passed asc"; //给table按状态排序
+                    table = table.DefaultView.ToTable();
+
+                    string json = JSON.DataTableToJson(table);
+                    JsonData.Value = json;
+                    ClientScript.RegisterStartupScript(this.GetType(), "", "load_userinfo()", true);
+                    return;
+
+                }
+
+                else
+                {
+                    Errors.Value = "本部门尚无被考评人！";
+                    ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
+                    return;
+                }
+            }
+            else
+            {
+                Errors.Value = "您无此操作权限！";
+                ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
+                return;
+            }
+        }
+
         //导入被考核人员名单
         protected void LoadUserList(object sender, EventArgs e)
         {
@@ -84,25 +135,39 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
 
         }
 
-        //增加passed
         private void adjustTable(DataTable dt, ref string exception)
         {
+            //给table添加prbComment栏
+            dt.Columns.Add("Comment");
             dt.Columns.Add("Passed");
-            List<Evaluator> evaluators = new List<Evaluator>();
+            AssessTable assessTable = new AssessTable();
             foreach (DataRow dr in dt.Rows)
             {
-                int status = AssessTableBLL.GetAssessTableStatus((string)dr["UiID"]);
-                if(status==0)
-                    dr["Passed"] = "已提交";
-                else if(status==1)
-                    dr["Passed"] = "已审核";
-                else if(status==-1)
+                //0：已提交 1：已审核 2：已保存 
+                if (AssessTableBLL.Select((string)dr["UiID"], ref assessTable, ref exception))
+                {
+                    dr["Comment"] = assessTable.AtComment;
+                    if (assessTable.AtPass.ToString() == "0")
+                    {
+                        dr["Passed"] = "已提交";
+                    }
+                    else if (assessTable.AtPass.ToString() == "1")
+                    {
+                        dr["Passed"] = "已审核";
+                    }
+                    else
+                    {
+                        dr["Passed"] = "已保存";
+                    }
+                }
+                else
+                {
+                    dr["Comment"] = "";
                     dr["Passed"] = "未制作";
+                }
             }
         }
 
-
-        //统计汇总情况
         private void countNumber(DataTable dt, ref int sumCount, ref int unPassCount, ref int passCount, ref int savedCount, ref int unMakeCount)
         {
             foreach (DataRow dr in dt.Rows)
@@ -313,6 +378,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 ScriptManager.RegisterStartupScript(BFinishMakeTable, this.GetType(), "success", "SaveMakeTableDone();", true);
             }
         }
+        
         //编辑考核表完成
         protected void BFinishEditTable_Click(object sender, EventArgs e)
         {
@@ -385,14 +451,14 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             //获取考核表
             //LoadEvaluatorTable(data);
 
-
+            //-1:未制作 0：未通过 1：已通过审核 2：已保存
             int status = AssessTableBLL.GetAssessTableStatus(userID);
             if (status == -1)
             {
                 //获取岗位职责
                 if (!LoadResponseStander(userID))
                 {
-                    ScriptManager.RegisterStartupScript(BGetEvaluateTable, this.GetType(), "fun", "f_alert('error','获取岗位责任书数据失败，请重试！');", true);
+                    ScriptManager.RegisterStartupScript(BGetEvaluateTable, this.GetType(), "fun", "f_alert('error','岗位责任书尚未制定，不能制定考核表！');", true);
                     return;
                 }
                 JsonData.Value = standerLib;
@@ -404,7 +470,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 //获取岗位职责
                 if (!LoadResponseStander(userID))
                 {
-                    ScriptManager.RegisterStartupScript(BGetEvaluateTable, this.GetType(), "fun", "f_alert('error','获取岗位责任书数据失败，请重试！');", true);
+                    ScriptManager.RegisterStartupScript(BGetEvaluateTable, this.GetType(), "fun", "f_alert('error','岗位责任书尚未制定，不能制定考核表！');", true);
                     return;
                 }
                 //获取考核表

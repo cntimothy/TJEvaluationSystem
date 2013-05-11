@@ -232,6 +232,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             List<PostResponseBook> posts = new List<PostResponseBook>();
             foreach (DataRow dr in dt.Rows)
             {
+                posts.Clear();
                 //0：已提交 1：已审核 2：已保存 
                 if (PostResponseBookBLL.Select(dr["UiID"].ToString(), ref posts, ref exception))
                 {

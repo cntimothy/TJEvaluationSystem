@@ -133,7 +133,6 @@
     <Content Include="Script\Message\OutBox.js" />
     <Content Include="Script\Message\ShowMessages.js" />
     <Content Include="Script\SecondManager\Home.js" />
-    <Content Include="Script\SecondManager\MakeEvaluatorTable.js" />
     <Content Include="Script\SecondManager\MakePost.js" />
     <Content Include="Script\SecondManager\ManageEvaluator.js" />
     <Content Include="Script\SecondManager\ManageEvaluatorTable.js" />

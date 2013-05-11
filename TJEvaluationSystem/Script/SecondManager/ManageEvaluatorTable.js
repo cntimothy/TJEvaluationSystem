@@ -44,6 +44,78 @@ var Evaluated = null;
 var minNum = 1;
 var selectUser = null;  //选择的被考评人信息
 
+function search() {
+    document.getElementById("SearchEvaluated1").click();
+}
+
+function load_userinfo() {
+    var s = document.getElementById("JsonData").value;
+    var UsersData = JSON2.parse(s);
+    data = UsersData;
+    Evaluated = $("#evaluatedgrid").ligerGrid({
+        columns: [
+        { display: '用户名', name: 'UiID', width: 80, align: 'center' },
+        { display: '姓名', name: 'UiName', width: 50, align: 'center' },
+        { display: '性别', name: 'UiSex', width: 30, align: 'center' },
+        { display: '身份证号', name: 'UiIdentityNum', width: 100, align: 'center', hide: true },
+        { display: '部门', name: 'UiDepartment', width: 50, align: 'center' },
+        { display: '岗位（职务）', name: 'UiJob', width: 150, align: 'center', hide: true },
+        { display: '电话', name: 'UiTelephone', width: 70, align: 'center', hide: true },
+        { display: 'Email', name: 'UiEmail', width: 150, align: 'center', hide: true },
+        { display: '手机', name: 'UiMobPhone', width: 100, align: 'center' },
+        { display: '地址', name: 'UiAddress', width: 120, align: 'center', hide: true },
+        { display: '邮编', name: 'UiZipCode', width: 0, align: 'lecenterft', hide: true },
+        { display: '经费来源', name: 'UiFund', width: 50, align: 'center', hide: true },
+        { display: '派遣性质', name: 'UiCharacter', width: 50, align: 'center' },
+        { display: '派遣公司', name: 'UiCompany', width: 50, align: 'center' },
+        { display: '考评开始时间', name: 'UiStartTime', width: 80, align: 'center' },
+        { display: '考评结束时间', name: 'UiStopTime', width: 80, align: 'center' },
+        { display: '审核意见', name: 'Comment', width: 200, align: 'left' },
+        { display: '审核状态', name: 'Passed', width: 80, align: 'center' },
+        { display: '', isSort: false, width: 180, render: function (rowdata, rowindex, value) {
+            var h = "";
+            h += "<a href='javascript:ShowDetail(" + rowindex + ")'>查看详细</a> ";
+            h += "<a href='javascript:ViewEvaluateTable(" + rowindex + ")'>制作考核表</a> ";
+            return h;
+        }
+        }],
+        usePager: true, pageSize: 20,
+        data: UsersData,
+        width: '96%'
+    });
+}
+
+function ShowDetail(rowid) {
+    var rowdata = Evaluated.getSelectedRow(rowid);    //取得数据  
+    if (rowdata == null)
+        return;
+    DetailData = rowdata;
+
+    $("#evaluatedgrid").css("display", "none");
+    $("#ShowDetailUserInfo").css("display", "block");
+    $(".DetailData").css("display", "block");
+    //设置显示与隐藏
+    $(".ShowData").css("display", "block");
+    //设置显示值
+    document.getElementById("Title").style.display = "none"; //不显示“XX被考评人名单”
+
+    document.getElementById('LID').innerText = rowdata.UiID;
+    document.getElementById('LName1').innerText = rowdata.UiName;
+    document.getElementById('LSex').innerText = rowdata.UiSex;
+    document.getElementById('LIdentityNum').innerText = rowdata.UiIdentityNum;
+    document.getElementById('LDepartment').innerText = rowdata.UiDepartment;
+    document.getElementById('LJob').innerText = rowdata.UiJob;
+    document.getElementById('LTelephone').innerText = rowdata.UiTelephone;
+    document.getElementById('LEmail').innerText = rowdata.UiEmail;
+    document.getElementById('LMobPhone').innerText = rowdata.UiMobPhone;
+    document.getElementById('LAddress').innerText = rowdata.UiAddress;
+    document.getElementById('LZipCode').innerText = rowdata.UiZipCode;
+    document.getElementById('LFund').innerText = rowdata.UiFund;
+    document.getElementById('LCharacter').innerText = rowdata.UiCharacter;
+    document.getElementById('LCompany').innerText = rowdata.UiCompany;
+    document.getElementById('LStartTime').innerText = rowdata.UiStartTime;
+    document.getElementById('LStopTime').innerText = rowdata.UiStopTime;
+}
 
 //制作考核表
 function MakeAssessTable() {
@@ -67,11 +139,12 @@ function MakeAssessTable() {
     document.getElementById('LMETime').innerText = selectUser.UiStartTime + " - " + selectUser.UiStopTime;
 
     //设置显示隐藏
-    $("#ShowUserList").css("display", "none");
+    $("#evaluatedgrid").css("display", "none");
     $("#MakeEditAssessTable").css("display", "block");
     $("#ViewAssessTable").css("display", "none");
     $("#MakeTableBar").css("display", "block");
     $("#EditTableBar").css("display", "none");
+    document.getElementById("TitleDiv").style.display = "none";
 }
 
 //保存考核表
@@ -219,6 +292,8 @@ function EditAssessTable() {
     $("#ViewAssessTable").css("display", "none");
     $("#MakeTableBar").css("display", "none");
     $("#EditTableBar").css("display", "block");
+    $("#evaluatedgrid").css("display", "none");
+    document.getElementById("TitleDiv").style.display = "none";
 }
 
 //保存考核表
@@ -1310,9 +1385,11 @@ function ViewAssessTable() {
     div.appendChild(table);
 
     //设置显示隐藏
+    $("#evaluatedgrid").css("display", "none");
     $("#ShowUserList").css("display", "none");
     $("#MakeEditAssessTable").css("display", "none");
     $("#ViewAssessTable").css("display", "block");
+    document.getElementById("TitleDiv").style.display = "none";
 }
 
 //获取数据
@@ -2052,81 +2129,81 @@ $(function () {
     $("#search_content").ligerTextBox({ nullText: '请输入查询内容' });
 });
 
-function search() {
-    document.getElementById("SearchEvaluated").click();
-}
+//function search() {
+//    document.getElementById("SearchEvaluated1").click();
+//}
 
-//显示被考评名单
-function ShowUserList() {
-    var users = document.getElementById("JsonData").value;
-    if (users == null || users == "") {
-        $.ligerDialog.warn('获取被考评人员数据失败!');
-        return;
-    }
+////显示被考评名单
+//function ShowUserList() {
+//    var users = document.getElementById("JsonData").value;
+//    if (users == null || users == "") {
+//        $.ligerDialog.warn('获取被考评人员数据失败!');
+//        return;
+//    }
 
-    //显示被考评人
-    userData = JSON2.parse(users);
-    Evaluated = $("#UserListGrid").ligerGrid({
-        columns: [
-        { display: '用户名', name: 'UiID', width: 80, align: 'center' },
-        { display: '姓名', name: 'UiName', width: 50, align: 'center' },
-        { display: '性别', name: 'UiSex', width: 30, align: 'center' },
-        { display: '身份证号', name: 'UiIdentityNum', width: 100, align: 'center', hide: true },
-        { display: '部门', name: 'UiDepartment', width: 50, align: 'center' },
-        { display: '岗位（职务）', name: 'UiJob', width: 150, align: 'center', hide: true },
-        { display: '电话', name: 'UiTelephone', width: 70, align: 'center', hide: true },
-        { display: 'Email', name: 'UiEmail', width: 150, align: 'center', hide: true },
-        { display: '手机', name: 'UiMobPhone', width: 100, align: 'center' },
-        { display: '地址', name: 'UiAddress', width: 120, align: 'center', hide: true },
-        { display: '邮编', name: 'UiZipCode', width: 0, align: 'lecenterft', hide: true },
-        { display: '经费来源', name: 'UiFund', width: 50, align: 'center', hide: true },
-        { display: '派遣性质', name: 'UiCharacter', width: 50, align: 'center' },
-        { display: '派遣公司', name: 'UiCompany', width: 50, align: 'center' },
-        { display: '考评开始时间', name: 'UiStartTime', width: 80, align: 'center' },
-        { display: '考评结束时间', name: 'UiStopTime', width: 80, align: 'center' },
-        { display: '审核状态', name: 'Passed', width: 80, align: 'center' },
-        { display: '操作', isSort: false, width: 200, render: function (rowdata, rowindex, value) {
-            var h = "";
-            if (rowdata == null)
-                return;
+//    //显示被考评人
+//    userData = JSON2.parse(users);
+//    Evaluated = $("#UserListGrid").ligerGrid({
+//        columns: [
+//        { display: '用户名', name: 'UiID', width: 80, align: 'center' },
+//        { display: '姓名', name: 'UiName', width: 50, align: 'center' },
+//        { display: '性别', name: 'UiSex', width: 30, align: 'center' },
+//        { display: '身份证号', name: 'UiIdentityNum', width: 100, align: 'center', hide: true },
+//        { display: '部门', name: 'UiDepartment', width: 50, align: 'center' },
+//        { display: '岗位（职务）', name: 'UiJob', width: 150, align: 'center', hide: true },
+//        { display: '电话', name: 'UiTelephone', width: 70, align: 'center', hide: true },
+//        { display: 'Email', name: 'UiEmail', width: 150, align: 'center', hide: true },
+//        { display: '手机', name: 'UiMobPhone', width: 100, align: 'center' },
+//        { display: '地址', name: 'UiAddress', width: 120, align: 'center', hide: true },
+//        { display: '邮编', name: 'UiZipCode', width: 0, align: 'lecenterft', hide: true },
+//        { display: '经费来源', name: 'UiFund', width: 50, align: 'center', hide: true },
+//        { display: '派遣性质', name: 'UiCharacter', width: 50, align: 'center' },
+//        { display: '派遣公司', name: 'UiCompany', width: 50, align: 'center' },
+//        { display: '考评开始时间', name: 'UiStartTime', width: 80, align: 'center' },
+//        { display: '考评结束时间', name: 'UiStopTime', width: 80, align: 'center' },
+//        { display: '审核状态', name: 'Passed', width: 80, align: 'center' },
+//        { display: '操作', isSort: false, width: 200, render: function (rowdata, rowindex, value) {
+//            var h = "";
+//            if (rowdata == null)
+//                return;
 
-            h += "<a href='javascript:ShowUserInfo(" + rowindex + ")'>查看用户详细信息</a> ";
-            h += "<a href='javascript:ViewEvaluateTable(" + rowindex + ")'>查看考核表</a> ";
-            return h;
-        }
-        }],
-        usePager: true, pageSize: 20,
-        data: userData,
-        width: '96%',
-        height: '98%'
-    });
-    $("#pageloading").hide();
-}
+//            h += "<a href='javascript:ShowUserInfo(" + rowindex + ")'>查看用户详细信息</a> ";
+//            h += "<a href='javascript:ViewEvaluateTable(" + rowindex + ")'>查看考核表</a> ";
+//            return h;
+//        }
+//        }],
+//        usePager: true, pageSize: 20,
+//        data: userData,
+//        width: '96%',
+//        height: '98%'
+//    });
+//    $("#pageloading").hide();
+//}
 
-//查看用户详细信息
-function ShowUserInfo(rowid) {
-    var rowdata = Evaluated.getSelectedRow(rowid);    //取得数据  
-    if (rowdata == null)
-        return;
-    document.getElementById('LID').innerText = rowdata.UiID;
-    document.getElementById('LName').innerText = rowdata.UiName;
-    document.getElementById('LSex').innerText = rowdata.UiSex;
-    document.getElementById('LIdentityNum').innerText = rowdata.UiIdentityNum;
-    document.getElementById('LDepartment').innerText = rowdata.UiDepartment;
-    document.getElementById('LJob').innerText = rowdata.UiJob;
-    document.getElementById('LTelephone').innerText = rowdata.UiTelephone;
-    document.getElementById('LEmail').innerText = rowdata.UiEmail;
-    document.getElementById('LMobPhone').innerText = rowdata.UiMobPhone;
-    document.getElementById('LAddress').innerText = rowdata.UiAddress;
-    document.getElementById('LZipCode').innerText = rowdata.UiZipCode;
-    document.getElementById('LFund').innerText = rowdata.UiFund;
-    document.getElementById('LCharacter').innerText = rowdata.UiCharacter;
-    document.getElementById('LCompany').innerText = rowdata.UiCompany;
-    document.getElementById('LStartTime').innerText = rowdata.UiStartTime;
-    document.getElementById('LStopTime').innerText = rowdata.UiStopTime;
-    $("#UserList").css("display", "none");
-    $("#UserInfo").css("display", "block");
-}
+////查看用户详细信息
+//function ShowUserInfo(rowid) {
+//    var rowdata = Evaluated.getSelectedRow(rowid);    //取得数据  
+//    if (rowdata == null)
+//        return;
+//    document.getElementById('LID').innerText = rowdata.UiID;
+//    document.getElementById('LName').innerText = rowdata.UiName;
+//    document.getElementById('LSex').innerText = rowdata.UiSex;
+//    document.getElementById('LIdentityNum').innerText = rowdata.UiIdentityNum;
+//    document.getElementById('LDepartment').innerText = rowdata.UiDepartment;
+//    document.getElementById('LJob').innerText = rowdata.UiJob;
+//    document.getElementById('LTelephone').innerText = rowdata.UiTelephone;
+//    document.getElementById('LEmail').innerText = rowdata.UiEmail;
+//    document.getElementById('LMobPhone').innerText = rowdata.UiMobPhone;
+//    document.getElementById('LAddress').innerText = rowdata.UiAddress;
+//    document.getElementById('LZipCode').innerText = rowdata.UiZipCode;
+//    document.getElementById('LFund').innerText = rowdata.UiFund;
+//    document.getElementById('LCharacter').innerText = rowdata.UiCharacter;
+//    document.getElementById('LCompany').innerText = rowdata.UiCompany;
+//    document.getElementById('LStartTime').innerText = rowdata.UiStartTime;
+//    document.getElementById('LStopTime').innerText = rowdata.UiStopTime;
+//    $("#UserList").css("display", "none");
+//    $("#UserInfo").css("display", "block");
+//}
 
 //查看考核表
 function ViewEvaluateTable(rowid) {
