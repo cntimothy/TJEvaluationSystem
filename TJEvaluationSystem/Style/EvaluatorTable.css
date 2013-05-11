@@ -57,11 +57,9 @@
     font-size:14px;   
 }
 
-.score
+.td_score
 {
-    width:60px;
-    background-color:#eaf2fe;
-    margin:0px auto;
+    width:58px;
     text-align:center;
     color:Red;
 }
