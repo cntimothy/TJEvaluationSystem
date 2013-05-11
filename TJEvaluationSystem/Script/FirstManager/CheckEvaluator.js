@@ -22,6 +22,23 @@ function search()
     document.getElementById("Search").click();
 }
 
+function load_summary() {
+    var s = document.getElementById("JsonSummary").value;
+    var summary = JSON2.parse(s);
+    data = summary;
+    Evaluated = $("#summarygrid").ligerGrid({
+        columns: [
+        { display: '部门', name: 'SDepartment', width: 120, align: 'center' },
+        { display: '未审核', name: 'SUnpass', width: 100, align: 'center' },
+        { display: '未制作', name: 'SUnmake', width: 100, align: 'center' },
+        { display: '已审核', name: 'SPass', width: 100, align: 'center' },
+        { display: '总数', name: 'SSum', width: 100, align: 'center'}],
+        usePager: true, pageSize: 20,
+        data: summary,
+        width: '96%'
+    });
+}
+
 function load_userinfo() 
 {
     var s = document.getElementById("JsonData").value;

@@ -16,7 +16,10 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                loadSummary();
+            }
         }
         
         protected DataTable searchSql()
@@ -346,6 +349,78 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 }
                 sumCount++;
             }
+        }
+        
+        private void loadSummary()
+        {
+            string exception = "";
+            DataTable dt = new DataTable();
+            DataRow dr;
+            List<Summary> ss = new List<Summary>();
+            Dictionary<string, TempSummary> dicSummary = new Dictionary<string, TempSummary>();
+            //初始化table
+            dt.Columns.Add("SDepartment");
+            dt.Columns.Add("SUnpass");
+            dt.Columns.Add("SUnmake");
+            dt.Columns.Add("SPass");
+            dt.Columns.Add("SSum");
+            List<string> departments = new List<string>();
+            UserInfoBLL.Select(departments, ref exception);
+            foreach (string depart in departments)
+            {
+                dr = dt.NewRow();
+                dr["SDepartment"] = depart;
+                dr["SUnpass"] = 0;
+                dr["SUnmake"] = 0;
+                dr["SPass"] = 0;
+                dr["SSum"] = 0;
+                dt.Rows.Add(dr);
+            }
+
+            //查询数据库，获取汇总
+            if (EvaluatorBLL.SelectSummary(ss, ref exception))
+            {
+                foreach (Summary s in ss)
+                {
+                    if (!dicSummary.Keys.Contains(s.Department))
+                    {
+                        dicSummary.Add(s.Department, new TempSummary());
+                    }
+                    if (s.Passed == 0)
+                    {
+                        dicSummary[s.Department].Unpass++;
+                    }
+                    else if (s.Passed == 1)
+                    {
+                        dicSummary[s.Department].Pass++;
+                    }
+                    else
+                    {
+                        dicSummary[s.Department].Unmake++;
+                    }
+                    dicSummary[s.Department].Sum++;
+                }
+            }
+            foreach (DataRow dr1 in dt.Rows)
+            {
+                dr1["SUnpass"] = dicSummary[(string)dr1["SDepartment"]].Unpass;
+                dr1["SUnmake"] = dicSummary[(string)dr1["SDepartment"]].Unmake;
+                dr1["SPass"] = dicSummary[(string)dr1["SDepartment"]].Pass;
+                dr1["SSum"] = dicSummary[(string)dr1["SDepartment"]].Sum;
+            }
+            if (dt.Rows.Count == 0)
+            {
+                return;
+            }
+            string json = JSON.DataTableToJson(dt);
+            JsonSummary.Value = json;
+
+            ClientScript.RegisterStartupScript(this.GetType(), "", "load_summary()", true);
+        }
+
+        public class TempSummary
+        {
+            public int Unpass, Unmake, Pass, Sum;
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Model
 {
-    public class PostSummary
+    public class Summary
     {
         string department;
         int passed;
