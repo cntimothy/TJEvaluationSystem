@@ -41,8 +41,9 @@ var stdType = null;         //指标标识，用于选择指标
 var tableData = null;
 var userData = null;
 var Evaluated = null;
-var UserID = null;
 var minNum = 1;
+var selectUser = null;  //选择的被考评人信息
+
 
 //制作考核表
 function MakeAssessTable() {
@@ -58,6 +59,13 @@ function MakeAssessTable() {
     //重置考核表
     ResetAssessTable();
 
+    //显示表头
+    document.getElementById('LMEEvaluatdName').innerText = selectUser.UiName;
+    document.getElementById('LMEJobName').innerText = selectUser.UiJob;
+    document.getElementById('LMEDep').innerText = selectUser.UiDepartment;
+    document.getElementById('LMEUnit').innerText = selectUser.UiCompany;
+    document.getElementById('LMETime').innerText = selectUser.UiStartTime + " - " + selectUser.UiStopTime;
+
     //设置显示隐藏
     $("#ShowUserList").css("display", "none");
     $("#MakeEditAssessTable").css("display", "block");
@@ -69,7 +77,7 @@ function MakeAssessTable() {
 //保存考核表
 function FinishMakeTable() {
     var json = GetTableData();
-    var id = UserID;
+    var id = selectUser.UiID;
     if (json == null || json == "" || id == null || id == "")
         return;
     document.getElementById("JsonData").value = JSON.stringify(json);
@@ -216,7 +224,7 @@ function EditAssessTable() {
 //保存考核表
 function FinishEditTable() {
     var json = GetTableData();
-    var id = UserID;
+    var id = selectUser.UiID;
     if (json == null || json == "" || id == null || id == "")
         return;
     document.getElementById("JsonData").value = JSON.stringify(json);
@@ -2076,6 +2084,7 @@ function ShowUserList() {
         { display: '派遣公司', name: 'UiCompany', width: 50, align: 'center' },
         { display: '考评开始时间', name: 'UiStartTime', width: 80, align: 'center' },
         { display: '考评结束时间', name: 'UiStopTime', width: 80, align: 'center' },
+        { display: '审核状态', name: 'Passed', width: 80, align: 'center' },
         { display: '操作', isSort: false, width: 200, render: function (rowdata, rowindex, value) {
             var h = "";
             if (rowdata == null)
@@ -2125,7 +2134,7 @@ function ViewEvaluateTable(rowid) {
     if (rowdata == null)
         return;
     //查找考核表
-    UserID = rowdata.UiID;
+    selectUser = rowdata;
     document.getElementById("JsonData").value = rowdata.UiID;
     document.getElementById("BGetEvaluateTable").click();
 }

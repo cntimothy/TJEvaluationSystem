@@ -214,13 +214,15 @@
                 </div>
             </div>
             <div id="AssessTable" style="padding-top: 5px;">
+                <div id="TableHeader">
+                    被考核人姓名：<label id="LMEEvaluatdName"></label>&nbsp&nbsp&nbsp&nbsp
+                    岗位名称：<label id="LMEJobName"></label>&nbsp&nbsp&nbsp&nbsp
+                    用工部门：<label id="LMEDep"></label>&nbsp&nbsp&nbsp&nbsp
+                    用工单位：<label id="LMEUnit"></label>&nbsp&nbsp&nbsp&nbsp
+                    <br/>
+                    考核时间段：<label id="LMETime"></label>
+                </div>
                 <table id="MainTable" class="my_table">
-                <tr>
-                    <th colspan="10">
-                        被考核人姓名：岗位名称：用工部门：用工单位：<br/>
-                        考核时间段：
-                    </th>
-                </tr>
                 <tr>
                     <td colspan="4" class="td_title">指标体系</td>
                     <td colspan="4" class="td_title">指标描述及分值</td>
@@ -851,6 +853,7 @@
                 </table>
             </div>
             <div id="ShowAssessTable">
+            
             </div>
         </div>
         <div id="ResponseLib" class="Hidden">

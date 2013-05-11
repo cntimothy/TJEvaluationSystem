@@ -1,7 +1,8 @@
 ﻿
-var StanderLib = null;
+var standerLib = null;
 var AssessTables = null;
 var Manager = null;
+var minNum = 1;
 //初始化
 //$(function () {
 //    $("#DepType").ligerComboBox({
@@ -23,7 +24,7 @@ function ShowAllTables() {
     if (data == null || data == ""||data2 == null || data2 == "")
         return;
     AssessTables = JSON2.parse(data);
-    StanderLib = JSON2.parse(data2);
+    standerLib = JSON2.parse(data2);
     Manager = $("#maingrid").ligerGrid({
         columns: [
     { display: '编号', name: 'AtID', width: 50, align: 'center', frozen: true },
@@ -112,7 +113,17 @@ function SetPassedDone() {
     Manager.loadData(AssessTables);
 }
 
-//显示考核表
+//通过指标id查找指标内容
+function GetStanderByID(id, lib) {
+    if (id != null && lib != null) {
+        for (var row in lib) {
+            if (lib[row].SlID == id)
+                return lib[row];
+        }
+    }
+    return null;
+}
+
 function ShowDetail(rowindex, atPass) {
     if (atPass == 0) {
         document.getElementById("pass_button").style.display = "";
@@ -123,136 +134,1074 @@ function ShowDetail(rowindex, atPass) {
     document.getElementById("dao_button").style.display = "";
 
     document.getElementById("RowIndex").value = rowindex;
-    var tableData = Manager.getSelectedRow(rowindex);    //取得数据
-    if (tableData == null)
+    var assessTable = Manager.getSelectedRow(rowindex);    //取得数据
+    if (assessTable == null)
         return;
-    $('#TrShowAllTables').css('display', 'none');
-    $('#TrShowTableInfo').css('display', 'block');
-    $('#ShowAllTables').css('display', 'none');
-    $('#ShowTableInfo').css('display', 'block');
-    $('.ViewTable').css('display', 'none');
-    $('.score').css('display', 'none');
-    //显示岗位职责指标
-    function ShowResponse(trID, nameID, contentID, str, showClass, editClass) {
-        if (str != null && str != "") {
-            var strArr = new Array();
-            strArr = str.split('&');
-            $(nameID).html(strArr[0]);
-            $(contentID).html(strArr[1]);
-            $(trID).css("display", "block");
-            return true;
-        }
-        return false;
-    }
-    function getStanderByID(id, lib) {
-        if (id != null && lib != null) {
-            for (var row in lib) {
-                if (lib[row].SlID == id)
-                    return lib[row];
+    //解决ie6,7中setAttribute兼容性
+    dom = (function () {
+        var fixAttr = {
+            tabindex: 'tabIndex',
+            readonly: 'readOnly',
+            'for': 'htmlFor',
+            'class': 'className',
+            maxlength: 'maxLength',
+            cellspacing: 'cellSpacing',
+            cellpadding: 'cellPadding',
+            rowspan: 'rowSpan',
+            colspan: 'colSpan',
+            usemap: 'useMap',
+            frameborder: 'frameBorder',
+            contenteditable: 'contentEditable'
+        },
+        div = document.createElement('div');
+        div.setAttribute('class', 't');
+        var supportSetAttr = div.className === 't';
+        return {
+            setAttr: function (el, name, val) {
+                el.setAttribute(supportSetAttr ? name : (fixAttr[name] || name), val);
+            },
+            getAttr: function (el, name) {
+                return el.getAttribute(supportSetAttr ? name : (fixAttr[name] || name));
             }
         }
-        return null;
-    }
-    //显示否决指标
-    function ShowVeto(trID, stdID, contentID, numID) {
-        var std = getStanderByID(stdID, StanderLib);
-        if (std == null)
-            return false;
-        $(contentID).html(std.SlContentA);
-        $(numID).val(std.SlID);
-        $(trID).css("display", "block");
-        return true;
-    }
-    //显示其他指标
-    function ShowOther(trID, stdID, nameID,
-                        contentAID, contentBID, contentCID, contentDID, numID) {
-        var std = getStanderByID(stdID, StanderLib);
-        if (std == null)
-            return false;
-        $(nameID).html(std.SlName);
-        $(contentAID).html(std.SlContentA);
-        $(contentBID).html(std.SlContentB);
-        $(contentCID).html(std.SlContentC);
-        $(contentDID).html(std.SlContentD);
-        $(numID).val(std.SlID);
-        $(trID).css("display", "block");
-        return true;
-    }
-    if (ShowResponse('#KeyResponse1', '#LKeyResponse1Name', '#LKeyResponse1Content',
-                tableData.AtKeyResponse1, '.ShowKeyResponse1', '.EditKeyResponse1'))
-        keyResponse1 = true;
-    if (ShowResponse('#KeyResponse2', '#LKeyResponse2Name', '#LKeyResponse2Content',
-                tableData.AtKeyResponse2, '.ShowKeyResponse2', '.EditKeyResponse2'))
-        keyResponse2 = true;
-    if (ShowResponse('#KeyResponse3', '#LKeyResponse3Name', '#LKeyResponse3Content',
-                tableData.AtKeyResponse3, '.ShowKeyResponse3', '.EditKeyResponse3'))
-        keyResponse3 = true;
-    if (ShowOther('#KeyAbility1', tableData.AtKeyAbility1, '#LKeyAbility1Name',
-              '#LKeyAbility1ContentA', '#LKeyAbility1ContentB', '#LKeyAbility1ContentC', '#LKeyAbility1ContentD', '#KeyAbility1Num'))
-        keyAbility1 = true;
-    if (ShowOther('#KeyAbility2', tableData.AtKeyAbility2, '#LKeyAbility2Name',
-              '#LKeyAbility2ContentA', '#LKeyAbility2ContentB', '#LKeyAbility2ContentC', '#LKeyAbility2ContentD', '#KeyAbility1Num'))
-        keyAbility2 = true;
-    if (ShowOther('#KeyAbility3', tableData.AtKeyAbility3, '#LKeyAbility3Name',
-              '#LKeyAbility3ContentA', '#LKeyAbility3ContentB', '#LKeyAbility3ContentC', '#LKeyAbility3ContentD', '#KeyAbility1Num'))
-        keyAbility3 = true;
-    if (ShowOther('#KeyAttitude1', tableData.AtKeyAttitude1, '#LKeyAttitude1Name',
-              '#LKeyAttitude1ContentA', '#LKeyAttitude1ContentB', '#LKeyAttitude1ContentC', '#LKeyAttitude1ContentD', '#KeyAttitude1Num'))
-        keyAttitude1 = true;
-    if (ShowOther('#KeyAttitude2', tableData.AtKeyAttitude2, '#LKeyAttitude2Name',
-              '#LKeyAttitude2ContentA', '#LKeyAttitude2ContentB', '#LKeyAttitude2ContentC', '#LKeyAttitude2ContentD', '#KeyAttitude2Num'))
-        keyAttitude2 = true;
-    if (ShowOther('#KeyAttitude3', tableData.AtKeyAttitude3, '#LKeyAttitude3Name',
-              '#LKeyAttitude3ContentA', '#LKeyAttitude3ContentB', '#LKeyAttitude3ContentC', '#LKeyAttitude3ContentD', '#KeyAttitude3Num'))
-        keyAttitude3 = true;
-    if (ShowResponse('#Response1', '#LResponse1Name', '#LResponse1Content',
-                tableData.AtResponse1, '.ShowResponse1', '.EditResponse1'))
-        response1 = true;
-    if (ShowResponse('#Response2', '#LResponse2Name', '#LResponse2Content',
-                tableData.AtResponse2, '.ShowResponse2', '.EditResponse2'))
-        response2 = true;
-    if (ShowResponse('#Response3', '#LResponse3Name', '#LResponse3Content',
-                tableData.AtResponse3, '.ShowResponse3', '.EditResponse3'))
-        response3 = true;
-    if (ShowOther('#Ability1', tableData.AtAbility1, '#LAbility1Name',
-              '#LAbility1ContentA', '#LAbility1ContentB', '#LAbility1ContentC', '#LAbility1ContentD', '#Ability1Num'))
-        ability1 = true;
-    if (ShowOther('#Ability2', tableData.AtAbility2, '#LAbility2Name',
-              '#LAbility2ContentA', '#LAbility2ContentB', '#LAbility2ContentC', '#LAbility3ContentD', '#Ability2Num'))
-        ability2 = true;
-    if (ShowOther('#Ability3', tableData.AtAbility3, '#LAbility3Name',
-              '#LAbility3ContentA', '#LAbility3ContentB', '#LAbility3ContentC', '#LAbility3ContentD', '#Ability3Num'))
-        ability3 = true;
-    if (ShowOther('#Ability4', tableData.AtAbility4, '#LAbility4Name',
-              '#LAbility4ContentA', '#LAbility4ContentB', '#LAbility4ContentC', '#LAbility4ContentD', '#Ability4Num'))
-        ability4 = true;
-    if (ShowOther('#Attitude1', tableData.AtAttitude1, '#LAttitude1Name',
-              '#LAttitude1ContentA', '#LAttitude1ContentB', '#LAttitude1ContentC', '#LAttitude1ContentD', '#Attitude1Num'))
-        attitude1 = true;
-    if (ShowOther('#Attitude2', tableData.AtAttitude2, '#LAttitude2Name',
-              '#LAttitude2ContentA', '#LAttitude2ContentB', '#LAttitude2ContentC', '#LAttitude2ContentD', '#Attitude2Num'))
-        attitude2 = true;
-    if (ShowOther('#Attitude3', tableData.AtAttitude3, '#LAttitude3Name',
-              '#LAttitude3ContentA', '#LAttitude3ContentB', '#LAttitude3ContentC', '#LAttitude3ContentD', '#Attitude3Num'))
-        attitude3 = true;
-    if (ShowOther('#Attitude4', tableData.AtAttitude4, '#LAttitude4Name',
-              '#LAttitude4ContentA', '#LAttitude4ContentB', '#LAttitude4ContentC', '#LAttitude4ContentD', '#Attitude4Num'))
-        attitude4 = true;
-    if (ShowVeto('#Veto1', tableData.AtVeto1, '#LVeto1Content', '#Veto1Num'))
-        veto1 = true;
-    if (ShowVeto('#Veto2', tableData.AtVeto2, '#LVeto2Content', '#Veto2Num'))
-        veto2 = true;
-    if (ShowVeto('#Veto3', tableData.AtVeto3, '#LVeto3Content', '#Veto3Num'))
-        veto3 = true;
-    if (ShowVeto('#Veto4', tableData.AtVeto4, '#LVeto4Content', '#Veto4Num'))
-        veto4 = true;
-    if (ShowVeto('#Veto5', tableData.AtVeto5, '#LVeto5Content', '#Veto5Num'))
-        veto5 = true;
-    $('#KeyWeightView').html(tableData.AtKeyWeight);
-    $('#ResponseWeightView').html(tableData.AtResponseWeight);
-    $('#AbilityWeightView').html(tableData.AtAbilityWeight);
-    $('#AttitudeWeightView').html(tableData.AtAttitudeWeight);
+    })();
 
+    //数据转换到数组中
+
+    var keyResponseArray = new Array();
+    if (assessTable.AtKeyResponse1 != null)
+        keyResponseArray.push(assessTable.AtKeyResponse1);
+    if (assessTable.AtKeyResponse2 != null)
+        keyResponseArray.push(assessTable.AtKeyResponse2);
+    if (assessTable.AtKeyResponse3 != null)
+        keyResponseArray.push(assessTable.AtKeyResponse3);
+    if (assessTable.AtKeyResponse4 != null)
+        keyResponseArray.push(assessTable.AtKeyResponse4);
+    if (assessTable.AtKeyResponse5 != null)
+        keyResponseArray.push(assessTable.AtKeyResponse5);
+    if (keyResponseArray.length < minNum) {
+        $.ligerDialog.warn('获取数据失败!');
+        return;
+    }
+
+    var keyAbilityArray = new Array();
+    if (assessTable.AtKeyAbility1 > 0)
+        keyAbilityArray.push(assessTable.AtKeyAbility1);
+    if (assessTable.AtKeyAbility2 > 0)
+        keyAbilityArray.push(assessTable.AtKeyAbility2);
+    if (assessTable.AtKeyAbility3 > 0)
+        keyAbilityArray.push(assessTable.AtKeyAbility3);
+    if (assessTable.AtKeyAbility4 > 0)
+        keyAbilityArray.push(assessTable.AtKeyAbility4);
+    if (assessTable.AtKeyAbility5 > 0)
+        keyAbilityArray.push(assessTable.AtKeyAbility5);
+    if (keyAbilityArray.length < minNum) {
+        $.ligerDialog.warn('获取数据失败!');
+        return;
+    }
+
+    var keyAttitudeArray = new Array();
+    if (assessTable.AtKeyAttitude1 > 0)
+        keyAttitudeArray.push(assessTable.AtKeyAttitude1);
+    if (assessTable.AtKeyAttitude2 > 0)
+        keyAttitudeArray.push(assessTable.AtKeyAttitude2);
+    if (assessTable.AtKeyAttitude3 > 0)
+        keyAttitudeArray.push(assessTable.AtKeyAttitude3);
+    if (assessTable.AtKeyAttitude4 > 0)
+        keyAttitudeArray.push(assessTable.AtKeyAttitude4);
+    if (assessTable.AtKeyAttitude5 > 0)
+        keyAttitudeArray.push(assessTable.AtKeyAttitude5);
+    if (keyAttitudeArray.length < minNum) {
+        $.ligerDialog.warn('获取数据失败!');
+        return;
+    }
+
+    var responseArray = new Array();
+    if (assessTable.AtResponse1 != null)
+        responseArray.push(assessTable.AtResponse1);
+    if (assessTable.AtResponse2 != null)
+        responseArray.push(assessTable.AtResponse2);
+    if (assessTable.AtResponse3 != null)
+        responseArray.push(assessTable.AtResponse3);
+    if (assessTable.AtResponse4 != null)
+        responseArray.push(assessTable.AtResponse4);
+    if (assessTable.AtResponse5 != null)
+        responseArray.push(assessTable.AtResponse5);
+    if (responseArray.length < minNum) {
+        $.ligerDialog.warn('获取数据失败!');
+        return;
+    }
+
+    var abilityArray = new Array();
+    if (assessTable.AtAbility1 > 0)
+        abilityArray.push(assessTable.AtAbility1);
+    if (assessTable.AtAbility2 > 0)
+        abilityArray.push(assessTable.AtAbility2);
+    if (assessTable.AtAbility3 > 0)
+        abilityArray.push(assessTable.AtAbility3);
+    if (assessTable.AtAbility4 > 0)
+        abilityArray.push(assessTable.AtAbility4);
+    if (assessTable.AtAbility5 > 0)
+        abilityArray.push(assessTable.AtAbility5);
+    if (abilityArray.length < minNum) {
+        $.ligerDialog.warn('获取数据失败!');
+        return;
+    }
+
+    var attitudeArray = new Array();
+    if (assessTable.AtAttitude1 > 0)
+        attitudeArray.push(assessTable.AtAttitude1);
+    if (assessTable.AtAttitude2 > 0)
+        attitudeArray.push(assessTable.AtAttitude2);
+    if (assessTable.AtAttitude3 > 0)
+        attitudeArray.push(assessTable.AtAttitude3);
+    if (assessTable.AtAttitude4 > 0)
+        attitudeArray.push(assessTable.AtAttitude4);
+    if (assessTable.AtAttitude5 > 0)
+        attitudeArray.push(assessTable.AtAttitude5);
+    if (attitudeArray.length < minNum) {
+        $.ligerDialog.warn('获取数据失败!');
+        return;
+    }
+
+    var keyStanderNum = keyResponseArray.length + keyAbilityArray.length + keyAttitudeArray.length;
+    var responseStanderNum = responseArray.length;
+    var abilityStanderNum = abilityArray.length;
+    var attitudeStanderNum = attitudeArray.length;
+
+    //生成考核表
+    var table = document.createElement("table"); //创建table 
+    table.className = 'my_table';
+    var tbody = document.createElement("TBODY");
+
+    //列标题
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'colspan', 4);
+    var text = document.createTextNode("指标体系");
+    td.appendChild(text);
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'colspan', 4);
+    var text = document.createTextNode("指标描述及分值");
+    td.appendChild(text);
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    td.setAttribute("width", 60)
+    var text = document.createTextNode("得分");
+    td.appendChild(text);
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    td.setAttribute("width", 50)
+    var text = document.createTextNode("权重");
+    td.appendChild(text);
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+
+    //关键岗位职责指标第一行
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', keyStanderNum * 2);
+    td.setAttribute("width", 20)
+    td.appendChild(document.createTextNode("一"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', keyStanderNum * 2);
+    td.setAttribute("width", 30)
+    td.appendChild(document.createTextNode("关键绩效指标"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', keyResponseArray.length * 2);
+    td.setAttribute("width", 30)
+    td.appendChild(document.createTextNode("关键岗位职责指标"));
+    tr.appendChild(td);
+
+    var tempArray = new Array();
+    tempArray = keyResponseArray[0].split('&');
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'rowspan', 2);
+    td.setAttribute("width", 120);
+    td.appendChild(document.createTextNode(tempArray[0]));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'colspan', 4);
+    td.appendChild(document.createTextNode(tempArray[1]));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_fun';
+    dom.setAttr(td, 'rowspan', 2);
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_weight';
+    dom.setAttr(td, 'rowspan', keyStanderNum * 2);
+    td.appendChild(document.createTextNode("50%"));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("优（90~100）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("良（70~80）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("中（40~60）"));
+    tr.appendChild(td);
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("差（0~30）"));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    //关键岗位职责指标其他行
+    for (var i = 1; i < keyResponseArray.length; i++) {
+        var tempArray = new Array();
+        tempArray = keyResponseArray[i].split('&');
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        dom.setAttr(td, 'rowspan', 2);
+        td.setAttribute("width", 120);
+        td.appendChild(document.createTextNode(tempArray[0]));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        dom.setAttr(td, 'colspan', 4);
+        td.appendChild(document.createTextNode(tempArray[1]));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_fun';
+        dom.setAttr(td, 'rowspan', 2);
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("优（90~100）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("良（70~80）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("中（40~60）"));
+        tr.appendChild(td);
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("差（0~30）"));
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+    }
+
+    //关键岗位胜任能力指标第一行
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', keyAbilityArray.length * 2);
+    td.setAttribute("width", 30)
+    td.appendChild(document.createTextNode("关键岗位胜任能力指标"));
+    tr.appendChild(td);
+
+    var standerTemp = GetStanderByID(keyAbilityArray[0], standerLib);
+    if (standerTemp == null) {
+        $.ligerDialog.error('获取数据失败!');
+        return;
+    }
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'rowspan', 2);
+    td.setAttribute("width", 120);
+    td.appendChild(document.createTextNode(standerTemp.SlName));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentA));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentB));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentC));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentD));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_fun';
+    dom.setAttr(td, 'rowspan', 2);
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("优（90~100）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("良（70~80）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("中（40~60）"));
+    tr.appendChild(td);
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("差（0~30）"));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    //关键岗位胜任能力指标其他行
+    for (var i = 1; i < keyAbilityArray.length; i++) {
+        var standerTemp = GetStanderByID(keyAbilityArray[i], standerLib);
+        if (standerTemp == null) {
+            $.ligerDialog.error('获取数据失败!');
+            return;
+        }
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        dom.setAttr(td, 'rowspan', 2);
+        td.setAttribute("width", 120);
+        td.appendChild(document.createTextNode(standerTemp.SlName));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentA));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentB));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentC));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentD));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_fun';
+        dom.setAttr(td, 'rowspan', 2);
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("优（90~100）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("良（70~80）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("中（40~60）"));
+        tr.appendChild(td);
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("差（0~30）"));
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+    }
+
+    //关键工作态度指标第一行
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', keyAttitudeArray.length * 2);
+    td.setAttribute("width", 30)
+    td.appendChild(document.createTextNode("关键工作态度指标"));
+    tr.appendChild(td);
+
+    var standerTemp = GetStanderByID(keyAttitudeArray[0], standerLib);
+    if (standerTemp == null) {
+        $.ligerDialog.error('获取数据失败!');
+        return;
+    }
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'rowspan', 2);
+    td.setAttribute("width", 120);
+    td.appendChild(document.createTextNode(standerTemp.SlName));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentA));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentB));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentC));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentD));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_fun';
+    dom.setAttr(td, 'rowspan', 2);
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("优（90~100）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("良（70~80）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("中（40~60）"));
+    tr.appendChild(td);
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("差（0~30）"));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    //关键工作态度指标其他行
+    for (var i = 1; i < keyAttitudeArray.length; i++) {
+        var standerTemp = GetStanderByID(keyAttitudeArray[i], standerLib);
+        if (standerTemp == null) {
+            $.ligerDialog.error('获取数据失败!');
+            return;
+        }
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        dom.setAttr(td, 'rowspan', 2);
+        td.setAttribute("width", 120);
+        td.appendChild(document.createTextNode(standerTemp.SlName));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentA));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentB));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentC));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentD));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_fun';
+        dom.setAttr(td, 'rowspan', 2);
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("优（90~100）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("良（70~80）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("中（40~60）"));
+        tr.appendChild(td);
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("差（0~30）"));
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+    }
+
+    //岗位职责指标第一行
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', responseStanderNum * 2);
+    td.setAttribute("width", 20)
+    td.appendChild(document.createTextNode("二"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', responseStanderNum * 2);
+    td.setAttribute("width", 30)
+    td.appendChild(document.createTextNode("岗位职责指标"));
+    tr.appendChild(td);
+
+    var tempArray = new Array();
+    tempArray = responseArray[0].split('&');
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'rowspan', 2);
+    dom.setAttr(td, 'colspan', 2);
+    td.appendChild(document.createTextNode(tempArray[0]));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'colspan', 4);
+    td.appendChild(document.createTextNode(tempArray[1]));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_fun';
+    dom.setAttr(td, 'rowspan', 2);
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_weight';
+    dom.setAttr(td, 'rowspan', responseStanderNum * 2);
+    td.appendChild(document.createTextNode("20%"));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("优（90~100）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("良（70~80）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("中（40~60）"));
+    tr.appendChild(td);
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("差（0~30）"));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    //岗位职责指标其他行
+    for (var i = 1; i < responseArray.length; i++) {
+        var tempArray = new Array();
+        tempArray = responseArray[i].split('&');
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        dom.setAttr(td, 'rowspan', 2);
+        dom.setAttr(td, 'colspan', 2);
+        td.appendChild(document.createTextNode(tempArray[0]));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        dom.setAttr(td, 'colspan', 4);
+        td.appendChild(document.createTextNode(tempArray[1]));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_fun';
+        dom.setAttr(td, 'rowspan', 2);
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("优（90~100）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("良（70~80）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("中（40~60）"));
+        tr.appendChild(td);
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("差（0~30）"));
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+    }
+
+    //岗位胜任能力指标第一行
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', abilityStanderNum * 2);
+    td.setAttribute("width", 20)
+    td.appendChild(document.createTextNode("三"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', abilityStanderNum * 2);
+    td.setAttribute("width", 30)
+    td.appendChild(document.createTextNode("岗位胜任能力指标"));
+    tr.appendChild(td);
+
+    var standerTemp = GetStanderByID(abilityArray[0], standerLib);
+    if (standerTemp == null) {
+        $.ligerDialog.error('获取数据失败!');
+        return;
+    }
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'rowspan', 2);
+    dom.setAttr(td, 'colspan', 2);
+    td.appendChild(document.createTextNode(standerTemp.SlName));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentA));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentB));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentC));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentD));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_fun';
+    dom.setAttr(td, 'rowspan', 2);
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_weight';
+    dom.setAttr(td, 'rowspan', abilityStanderNum * 2);
+    td.appendChild(document.createTextNode("15%"));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("优（90~100）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("良（70~80）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("中（40~60）"));
+    tr.appendChild(td);
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("差（0~30）"));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    //岗位胜任能力指标其他行
+    for (var i = 1; i < abilityArray.length; i++) {
+        var standerTemp = GetStanderByID(abilityArray[i], standerLib);
+        if (standerTemp == null) {
+            $.ligerDialog.error('获取数据失败!');
+            return;
+        }
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        dom.setAttr(td, 'rowspan', 2);
+        dom.setAttr(td, 'colspan', 2);
+        td.appendChild(document.createTextNode(standerTemp.SlName));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentA));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentB));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentC));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentD));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_fun';
+        dom.setAttr(td, 'rowspan', 2);
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("优（90~100）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("良（70~80）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("中（40~60）"));
+        tr.appendChild(td);
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("差（0~30）"));
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+    }
+
+    //工作态度指标第一行
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', attitudeStanderNum * 2);
+    td.setAttribute("width", 20)
+    td.appendChild(document.createTextNode("四"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', attitudeStanderNum * 2);
+    td.setAttribute("width", 30)
+    td.appendChild(document.createTextNode("工作态度指标"));
+    tr.appendChild(td);
+
+    var standerTemp = GetStanderByID(attitudeArray[0], standerLib);
+    if (standerTemp == null) {
+        $.ligerDialog.error('获取数据失败!');
+        return;
+    }
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'rowspan', 2);
+    dom.setAttr(td, 'colspan', 2);
+    td.appendChild(document.createTextNode(standerTemp.SlName));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentA));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentB));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentC));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.appendChild(document.createTextNode(standerTemp.SlContentD));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_fun';
+    dom.setAttr(td, 'rowspan', 2);
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_weight';
+    dom.setAttr(td, 'rowspan', attitudeStanderNum * 2);
+    td.appendChild(document.createTextNode("15%"));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("优（90~100）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("良（70~80）"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("中（40~60）"));
+    tr.appendChild(td);
+    var td = document.createElement("TD");
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("差（0~30）"));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    //工作态度指标其他行
+    for (var i = 1; i < attitudeArray.length; i++) {
+        var standerTemp = GetStanderByID(attitudeArray[i], standerLib);
+        if (standerTemp == null) {
+            $.ligerDialog.error('获取数据失败!');
+            return;
+        }
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        dom.setAttr(td, 'rowspan', 2);
+        dom.setAttr(td, 'colspan', 2);
+        td.appendChild(document.createTextNode(standerTemp.SlName));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentA));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentB));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentC));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.appendChild(document.createTextNode(standerTemp.SlContentD));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_fun';
+        dom.setAttr(td, 'rowspan', 2);
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+
+        var tr = document.createElement("TR");
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("优（90~100）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("良（70~80）"));
+        tr.appendChild(td);
+
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("中（40~60）"));
+        tr.appendChild(td);
+        var td = document.createElement("TD");
+        td.className = 'td_score_type';
+        td.appendChild(document.createTextNode("差（0~30）"));
+        tr.appendChild(td);
+
+        tbody.appendChild(tr);
+    }
+
+    //否决指标
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', 6);
+    td.setAttribute("width", 20)
+    td.appendChild(document.createTextNode("五"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_title';
+    dom.setAttr(td, 'rowspan', 6);
+    td.setAttribute("width", 30)
+    td.appendChild(document.createTextNode("否决指标"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'rowspan', 5);
+    dom.setAttr(td, 'colspan', 2);
+    td.appendChild(document.createTextNode("严重违反规章制度"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'colspan', 3);
+    td.setAttribute("width", 360);
+    td.appendChild(document.createTextNode("累计旷工3天以上的"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'rowspan', 5);
+    td.className = 'td_score_type';
+    td.appendChild(document.createTextNode("-100或0"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_fun';
+    dom.setAttr(td, 'rowspan', 6);
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    td.className = 'td_weight';
+    dom.setAttr(td, 'rowspan', 6);
+    td.appendChild(document.createTextNode("100%"));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    var tr = document.createElement("TR");
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'colspan', 3);
+    td.setAttribute("width", 360);
+    td.appendChild(document.createTextNode("严重失职，营私舞弊，给本单位造成3000元以上经济损失或者其它严重后果的<"));
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+
+    var tr = document.createElement("TR");
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'colspan', 3);
+    td.setAttribute("width", 360);
+    td.appendChild(document.createTextNode("同时与其他用人单位建立劳动关系，对完成本单位工作任务造成严重影响，或者经本单位提出，拒不改正的"));
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+
+    var tr = document.createElement("TR");
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'colspan', 3);
+    td.setAttribute("width", 360);
+    td.appendChild(document.createTextNode("违背职业道德，行贿、受贿价值超过3000元以上的"));
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+
+    var tr = document.createElement("TR");
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'colspan', 3);
+    td.setAttribute("width", 360);
+    td.appendChild(document.createTextNode("被依法追究刑事责任的"));
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+
+    var tr = document.createElement("TR");
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'colspan', 2);
+    td.setAttribute("width", 120);
+    td.appendChild(document.createTextNode("其它"));
+    tr.appendChild(td);
+
+    var td = document.createElement("TD");
+    dom.setAttr(td, 'colspan', 4);
+    td.setAttribute("width", 480);
+    td.appendChild(document.createTextNode(assessTable.AtVetoOthers));
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+
+    table.appendChild(tbody);
+    var div = document.getElementById("AssessTable");
+    while (div.hasChildNodes()) //当div下还存在子节点时 循环继续
+    {
+        div.removeChild(div.firstChild);
+    }
+    div.appendChild(table);
+
+    //设置显示隐藏
+    $('#ShowAllTables').css('display', 'none');
+    $('#ShowTableInfo').css('display', 'block');
 }
 
 //返回

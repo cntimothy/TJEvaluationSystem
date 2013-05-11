@@ -49,10 +49,22 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                     //获取名单，在前台显示
                     DataTable table = new DataTable();
                     table = Evaluated.ListToDataTable();
+
+                    //给table增加Passed栏
+                    adjustTable(table, ref exception);
+                    int sumCount = 0, unPassCount = 0, passCount = 0, savedCount = 0, unMakeCount = 0;
+
+                    countNumber(table, ref sumCount, ref unPassCount, ref passCount, ref savedCount, ref unMakeCount);//做汇总
+                    Title.Text += "（总人数：" + sumCount + " \\未制作：" + unMakeCount + " \\已保存：" + savedCount + " \\已提交：" + unPassCount + " \\已审核：" + passCount + "）";
+
+                    table.DefaultView.Sort = "Passed desc"; //给table按状态排序
+                    table = table.DefaultView.ToTable();
+
                     string json = JSON.DataTableToJson(table);
                     JsonData.Value = json;
                     ClientScript.RegisterStartupScript(this.GetType(), "", "ShowUserList()", true);
                     return;
+                   
 
                 }
 
@@ -70,6 +82,48 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 return;
             }
 
+        }
+
+        //增加passed
+        private void adjustTable(DataTable dt, ref string exception)
+        {
+            dt.Columns.Add("Passed");
+            List<Evaluator> evaluators = new List<Evaluator>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                int status = AssessTableBLL.GetAssessTableStatus((string)dr["UiID"]);
+                if(status==0)
+                    dr["Passed"] = "已提交";
+                else if(status==1)
+                    dr["Passed"] = "已审核";
+                else if(status==-1)
+                    dr["Passed"] = "未制作";
+            }
+        }
+
+
+        //统计汇总情况
+        private void countNumber(DataTable dt, ref int sumCount, ref int unPassCount, ref int passCount, ref int savedCount, ref int unMakeCount)
+        {
+            foreach (DataRow dr in dt.Rows)
+            {
+                switch (dr["Passed"].ToString())
+                {
+                    case "已提交":
+                        unPassCount++;
+                        break;
+                    case "已审核":
+                        passCount++;
+                        break;
+                    case "已保存":
+                        savedCount++;
+                        break;
+                    default:
+                        unMakeCount++;
+                        break;
+                }
+                sumCount++;
+            }
         }
 
         //导入考核表
