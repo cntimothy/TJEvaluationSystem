@@ -391,10 +391,6 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                     {
                         dicSummary.Add(ps.Department, new TempSummary());
                     }
-                    if (ps.Passed == -1)
-                    {
-                        continue;
-                    }
                     if (ps.Passed == 0)
                     {
                         dicSummary[ps.Department].Unpass++;
