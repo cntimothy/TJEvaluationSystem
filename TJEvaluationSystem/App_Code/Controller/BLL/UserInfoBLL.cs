@@ -122,6 +122,21 @@ namespace BLL
              string sql = "select * from tb_UserInfo where uiDepartment='" + uiDepartment + "'";
              return Select(ref ui, ref e, sql);
          }
+
+        //根据部门选择人数
+         public static bool SelectCountByDepartment(string uiDepartment, ref int sum, ref string e)
+         {
+             string sql = "select count(*) from tb_UserInfo where uiDepartment='" + uiDepartment + "'";
+             sum = Convert.ToInt32(db.QueryValue(sql));
+             if (sum != 0)
+             {
+                 return true;
+             }
+             else
+             {
+                 return false;
+             }
+         }
          //根据类型选择
          public static bool SelectByType(string uiType, ref List<UserInfo> ui, ref string e)
          {
@@ -139,6 +154,26 @@ namespace BLL
          {
              string sql = "select * from tb_UserInfo where uiID='" + uiID + "'";
              return Select(ref ui, ref e, sql);
+         }
+
+        //选择部门
+         public static bool Select(List<string> departments, ref string e)
+         {
+             string strSql = "select distinct uiDepartment from tb_Userinfo";
+             DataTable table = new DataTable();
+             table = db.QueryDataTable(strSql, ref e);
+             if (table != null && table.Rows.Count > 0)
+             {
+                 foreach (DataRow dr in table.Rows)
+                 {
+                     departments.Add((string)dr["uiDepartment"]);
+                 }
+                 return true;
+             }
+             else
+             {
+                 return false;
+             }
          }
 
          public static bool Select(ref List<UserInfo> ui, ref string e,string sql)

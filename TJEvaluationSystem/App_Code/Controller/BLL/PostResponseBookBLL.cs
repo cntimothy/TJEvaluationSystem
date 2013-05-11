@@ -131,6 +131,7 @@ namespace BLL
             else
                 return true;
         }
+        
         public static bool SelectComment(string prbUserID, ref string comment, ref string e)
         {
             string sql = "select prbComment from tb_PostResponseBook where prbUserID ='" + prbUserID + "'";
@@ -343,6 +344,34 @@ namespace BLL
                 return false;
             }
             return true;
+        }
+
+        public static bool SelectSummary(List<PostSummary> postSummarys, ref string e)
+        {
+            string strSql = "select tb_UserInfo.uiDepartment AS department, tb_PostResponseBook.prbPassed AS passed from tb_UserInfo left outer join tb_PostResponseBook on tb_UserInfo.uiID = tb_PostResponseBook.prbUserID order by passed desc";
+            DataTable table = new DataTable();
+            table = db.QueryDataTable(strSql, ref e);
+            if (table != null && table.Rows.Count > 0)
+            {
+                for (int i = 0; i < table.Rows.Count; i++)
+                {
+                    PostSummary ps = new PostSummary();
+                    ps.Department = (string)table.Rows[i]["department"];
+                    if (!(table.Rows[i]["passed"] is DBNull))
+                    {
+                        ps.Passed = Convert.ToInt32(table.Rows[i]["passed"]);
+                    }
+                    else
+                        ps.Passed = -1;
+
+                    postSummarys.Add(ps);
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

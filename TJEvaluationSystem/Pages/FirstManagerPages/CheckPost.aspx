@@ -52,8 +52,9 @@
          </table>
          </div>         
          <br />
+         <div id="summarygrid" style="margin:0 auto" ></div>
          <asp:label id="Title" runat="server" style="position:relative;left:20px;font-size:16px;display:block"></asp:label>
-         <br /><br />
+         <br />
          <div id="evaluatedgrid" style="margin:0 auto" ></div> 
 
           <div id="ShowDetailUserInfo" class="Hidden" style="text-align:center" >
@@ -323,6 +324,7 @@
     </div>
          <div class="Hidden">
             <input id="JsonData" type="hidden" runat="server"/>
+            <input id="JsonSummary" type="hidden" runat="server"/>
             <input id="Errors" type="hidden" runat="server"/>
             <input id="UserID" type="hidden" runat="server"/>
             <input id="UserName" type="hidden" runat="server"/>

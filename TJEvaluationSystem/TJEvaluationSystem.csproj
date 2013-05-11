@@ -194,6 +194,7 @@
     <Compile Include="App_Code\Model\EvaluatorTable.cs" />
     <Compile Include="App_Code\Model\Message.cs" />
     <Compile Include="App_Code\Model\PostResponseBook.cs" />
+    <Compile Include="App_Code\Model\PostSummary.cs" />
     <Compile Include="App_Code\Model\StanderLib.cs" />
     <Compile Include="App_Code\Model\User.cs" />
     <Compile Include="App_Code\Model\UserInfo.cs" />
