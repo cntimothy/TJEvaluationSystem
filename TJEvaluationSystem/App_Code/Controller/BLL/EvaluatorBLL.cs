@@ -112,6 +112,7 @@ namespace BLL
             string sql = "select * from tb_Evaluator where uiID='" + uiID + "' and pass=" + pass;
             return Select1(ref model, ref e, sql);
         }
+        
         public static bool Select1(ref List<Evaluator> model, ref string e, string sql)
         {
             DataTable table = new DataTable();
@@ -123,6 +124,38 @@ namespace BLL
             else return false;
         }
 
+        //统计汇总情况
+        public static bool SelectSummary(List<Summary> summarys, ref string e)
+        {
+            string strSql = "select distinct tb_UserInfo.uiID as ID, tb_UserInfo.uiDepartment as department, tb_Evaluator.pass as passed " + 
+                "from tb_UserInfo left outer join tb_Evaluator "+
+                "on tb_UserInfo.uiID = tb_Evaluator.EvaluatedID " + 
+                "order by passed desc";
+            DataTable table = new DataTable();
+            table = db.QueryDataTable(strSql, ref e);
+            table.Columns.Remove("ID");
+            if (table != null && table.Rows.Count > 0)
+            {
+                for (int i = 0; i < table.Rows.Count; i++)
+                {
+                    Summary s = new Summary();
+                    s.Department = (string)table.Rows[i]["department"];
+                    if (!(table.Rows[i]["passed"] is DBNull))
+                    {
+                        s.Passed = Convert.ToInt32(table.Rows[i]["passed"]);
+                    }
+                    else
+                        s.Passed = -1;
+
+                    summarys.Add(s);
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         //更新通过,同时要更新User
         public static bool Update1(Evaluator model, ref string e)

@@ -346,7 +346,7 @@ namespace BLL
             return true;
         }
 
-        public static bool SelectSummary(List<PostSummary> postSummarys, ref string e)
+        public static bool SelectSummary(List<Summary> postSummarys, ref string e)
         {
             string strSql = "select tb_UserInfo.uiDepartment AS department, tb_PostResponseBook.prbPassed AS passed from tb_UserInfo left outer join tb_PostResponseBook on tb_UserInfo.uiID = tb_PostResponseBook.prbUserID order by passed desc";
             DataTable table = new DataTable();
@@ -355,7 +355,7 @@ namespace BLL
             {
                 for (int i = 0; i < table.Rows.Count; i++)
                 {
-                    PostSummary ps = new PostSummary();
+                    Summary ps = new Summary();
                     ps.Department = (string)table.Rows[i]["department"];
                     if (!(table.Rows[i]["passed"] is DBNull))
                     {

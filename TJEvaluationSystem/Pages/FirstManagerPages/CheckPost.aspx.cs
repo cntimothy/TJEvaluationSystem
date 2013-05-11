@@ -361,7 +361,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             exception = "";
             DataTable dt = new DataTable();
             DataRow dr;
-            List<PostSummary> pss = new List<PostSummary>();
+            List<Summary> pss = new List<Summary>();
             Dictionary<string, TempSummary> dicSummary = new Dictionary<string, TempSummary>();
             //初始化table
             dt.Columns.Add("SDepartment");
@@ -385,7 +385,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             //查询数据库，获取汇总
             if (PostResponseBookBLL.SelectSummary(pss, ref exception))
             {
-                foreach (PostSummary ps in pss)
+                foreach (Summary ps in pss)
                 {
                     if (!dicSummary.Keys.Contains(ps.Department))
                     {
