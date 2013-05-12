@@ -12,6 +12,7 @@ function search()
 {
     document.getElementById("SearchEvaluated").click();
 }
+
 function submitpost()
  {
      if (confirm('确认提交？')) {
@@ -33,6 +34,29 @@ function submitpost()
          document.getElementById("prbWorkContentRequest").value = str;
          document.getElementById("SubmitPost").click();
     }
+
+ }
+
+ function savepost() {
+     if (confirm('确认保存？')) {
+         var str = "";
+         var num = document.getElementById("WorkContentRequest").childNodes.length;
+         var count = 1;
+         for (; count < num; count++) {
+             if (count != 1)
+                 str += "&";
+             var titleID = "Title" + count;
+             var contentID = "Content" + count;
+             var requestID = "Request" + count;
+             var checkPointID = "CheckPoint" + count;
+             str = str + count.toString() + ")" + "*" + trim(document.getElementById(titleID).value) + "$" +
+                    "具体内容：" + "*" + trim(document.getElementById(contentID).value) + "$" +
+                    "具体要求：" + "*" + trim(document.getElementById(requestID).value) + "$" +
+                    "考核要点：" + "*" + trim(document.getElementById(checkPointID).value);
+         }
+         document.getElementById("prbWorkContentRequest").value = str;
+         document.getElementById("SavePost").click();
+     }
 
  }
 
@@ -196,6 +220,7 @@ function EditPost() {
         document.getElementById("prbPostAssess").disabled = true;
         document.getElementById("prbOthers").disabled = true;
         document.all.submit_button.disabled = true;
+        document.all.save_button.disabled = true;
         document.getElementById("Add").disabled = true;
 
         var num = document.getElementById("WorkContentRequest").childNodes.length;
@@ -212,6 +237,7 @@ function EditPost() {
     }
     else {
         document.getElementById("submit_button").style.display = ""; //让提交按钮可见
+        document.getElementById("save_button").style.display = "";
         document.getElementById("prbEmployer").disabled = false;
         document.getElementById("prbLaborUnit").disabled = false;
         document.getElementById("prbLaborDep").disabled = false;
@@ -235,6 +261,7 @@ function EditPost() {
         document.getElementById("prbPostAssess").disabled = true;
         document.getElementById("prbOthers").disabled = true;
         document.getElementById("submit_button").disabled = false;
+        document.getElementById("save_button").disabled = false;
         document.getElementById("Add").disabled = false;
 
         var num = document.getElementById("WorkContentRequest").childNodes.length;

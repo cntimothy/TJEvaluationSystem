@@ -29,8 +29,10 @@ function dao() {
     if (confirm('确认导出？')) {
         document.getElementById("Dao").click();
     }
-    
-    
+}
+
+function donework() {
+    document.getElementById("search_button").click();
 }
 
 function load_summary() {
@@ -129,6 +131,10 @@ function ShowDetail(rowid)
 function Check(rowid)
  {
      var rowdata = Evaluated.getSelectedRow(rowid);    //取得数据
+     if (rowdata.PrbPassed == "未制作") {
+         alert("岗位责任书未制作！");
+         return;
+     }
      document.getElementById("UserName").value = rowdata.UiName;
 
     if (rowdata == null)

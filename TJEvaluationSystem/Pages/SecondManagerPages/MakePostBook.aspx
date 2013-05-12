@@ -40,6 +40,10 @@
                     <input type="button" value="提交" id="submit_button" onclick="submitpost()" class="l-button"
                         style="width: 100px; height: 25px; font-size: 15px; display: none" />
                 </td>
+                <td style="padding: 1px;">
+                    <input type="button" value="保存" id="save_button" onclick="savepost()" class="l-button"
+                        style="width: 100px; height: 25px; font-size: 15px; display: none" />
+                </td>
             </tr>
         </table>
     </div>
@@ -402,6 +406,7 @@
         <input id="prbComment" type="hidden" runat="server" />
         <asp:Button ID="SearchEvaluated" runat="server" OnClick="Search" />
         <asp:Button ID="SubmitPost" runat="server" OnClick="SubmitPost_Click" />
+        <asp:Button ID="SavePost" runat="server" OnClick="SavePost_Click" />
         <asp:Button ID="SearchPost" runat="server" Text="Button" OnClick="SearchPost_Click" />
     </div>
     </form>

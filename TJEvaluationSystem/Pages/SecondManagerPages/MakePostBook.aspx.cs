@@ -163,24 +163,11 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             ClientScript.RegisterStartupScript(this.GetType(), "", "EditPost()", true);
         }
 
+        //提交岗位责任书
         protected void SubmitPost_Click(object sender, EventArgs e)
         {
             exception = "";
             PostResponseBook prb = new PostResponseBook();
-            if (Passed.Value.Equals(DBNull.Value)||Passed.Value=="")
-            {
-                Errors.Value = "无待提交制定岗位责任书！";
-                this.Hidden1.Value = "submit";
-                ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
-                return;
-            }
-            if (Passed.Value == "1")
-            {
-                Errors.Value = "岗位责任书已通过审核！";
-                this.Hidden1.Value = "submit";
-                ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
-                return;
-            }
                 
             prb.PrbUserID = UserID.Value;
             prb.PrbPassed =0;
@@ -221,6 +208,53 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 PostResponseBookBLL.Insert(prbs, ref exception);
             }
             
+            ClientScript.RegisterStartupScript(this.GetType(), "", "load_userinfo()", true);
+        }
+
+        protected void SavePost_Click(object sender, EventArgs e)
+        {
+            exception = "";
+            PostResponseBook prb = new PostResponseBook();
+
+            prb.PrbUserID = UserID.Value;
+            prb.PrbPassed = 2;
+            prb.PrbEmployer = prbEmployer.Text;
+            prb.PrbLaborUnit = prbLaborUnit.Text;
+            prb.PrbLaborDep = prbLaborDep.Text;
+            prb.PrbPostName = prbPostName.Text;
+            prb.PrbPostType = prbPostType.Text;
+            prb.PrbEduBg = prbEduBg.Text;
+            prb.PrbCertificate = prbCertificate.Text;
+            prb.PrbExperience = prbExperience.Text;
+            prb.PrbSkill = prbSkill.Text;
+            prb.PrbPersonality = prbPersonality.Text;
+            prb.PrbPhyCond = prbPhycond.Text;
+            prb.PrbWorkOutline = prbWorkOutline.Text;
+            prb.PrbWorkContntRequest = prbWorkContentRequest.Value;
+            prb.PrbPower = prbPower.Text;
+            prb.PrbResponse = prbResponse.Text;
+            prb.PrbDirectLeader = prbDirectLeader.Text;
+            prb.PrbSubordinate = prbSubordinate.Text;
+            prb.PrbColleague = prbColleague.Text;
+            prb.PrbServices = prbServices.Text;
+            prb.PrbReleations = prbRelations.Text;
+            prb.PrbWorkEnter = prbWorkEnter.Text;
+            prb.PrbPostAssess = prbPostAssess.Text;
+            prb.PrbOthers = prbOthers.Text;
+            prb.PrbComment = "";
+
+            List<PostResponseBook> prblist = new List<PostResponseBook>();
+            if (PostResponseBookBLL.Select(prb.PrbUserID, ref prblist, ref exception))
+            {
+                PostResponseBookBLL.Update(prb, ref exception);
+            }
+            else
+            {
+                PostResponseBook[] prbs = new PostResponseBook[1];
+                prbs[0] = prb;
+                PostResponseBookBLL.Insert(prbs, ref exception);
+            }
+
             ClientScript.RegisterStartupScript(this.GetType(), "", "load_userinfo()", true);
         }
 
