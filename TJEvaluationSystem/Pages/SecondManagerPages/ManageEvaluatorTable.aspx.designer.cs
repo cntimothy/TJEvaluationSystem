@@ -193,6 +193,24 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages {
         protected global::System.Web.UI.WebControls.Label LStopTime;
         
         /// <summary>
+        /// pass 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label pass;
+        
+        /// <summary>
+        /// Comment 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Comment;
+        
+        /// <summary>
         /// LStanderType 控件。
         /// </summary>
         /// <remarks>
@@ -353,15 +371,6 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BRefresh;
-        
-        /// <summary>
-        /// SearchEvaluated 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button SearchEvaluated;
         
         /// <summary>
         /// SearchEvaluated1 控件。
