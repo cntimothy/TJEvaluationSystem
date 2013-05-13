@@ -7,8 +7,8 @@ var keyResponseScoreArray = null;
 var keyAbilityScoreArray = null;
 var keyAttitudeScoreArray = null;
 var responseScoreArray = null;
-var AbilityScoreArray = null;
-var AttitudeScoreArray = null;
+var abilityScoreArray = null;
+var attitudeScoreArray = null;
 
 var keyResponse1 = false;
 var keyResponse2 = false;
@@ -30,6 +30,17 @@ var attitude1 = false;
 var attitude2 = false;
 var attitude3 = false;
 var attitude4 = false;
+function test() {
+    //var v = document.getElementById(keyResponseScoreArray[0]).value;
+    //alert(keyResponseScoreArray[0].value);
+}
+
+function number(input, value) { 
+    input.value=value.replace(/\D/g,'');  
+    if(input.value>100){
+        input.value = 100;  
+    }  
+}
 
 $(function () {
     $('#EvaluateToolBar').css('display', 'none');
@@ -156,12 +167,12 @@ function StartEvaluate() {
         }
     })();
 
-    var keyResponseScoreArray = new Array();
-    var keyAbilityScoreArray = new Array();
-    var keyAttitudeScoreArray = new Array();
-    var responseScoreArray = new Array();
-    var abilityScoreArray = new Array();
-    var attitudeScoreArray = new Array();
+    keyResponseScoreArray = new Array();
+    keyAbilityScoreArray = new Array();
+    keyAttitudeScoreArray = new Array();
+    responseScoreArray = new Array();
+    abilityScoreArray = new Array();
+    attitudeScoreArray = new Array();
     //数据转换到数组中
 
     var keyResponseArray = new Array();
@@ -344,8 +355,12 @@ function StartEvaluate() {
     td.className = 'td_fun';
     dom.setAttr(td, 'rowspan', 2);
     var input = document.createElement("input");
-    input.setAttribute("type", "text");
+    input.setAttribute("type", "number");
+    input.setAttribute("value", "100");
     input.className = 'td_score';
+    input.onchange = "if(!/(^0$)|(^100$)|(^\d{1,2}$)/.test(value)){value='';alert('输入格式不正确!');}";
+    //input.onkeyup = number(input,input.value);
+    keyResponseScoreArray.push(input);
     td.appendChild(input);
     tr.appendChild(td);
 
