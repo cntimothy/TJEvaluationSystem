@@ -204,7 +204,8 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             }
             string json = JSON.DataTableToJson(table);
             JsonData.Value = json;
-            ClientScript.RegisterStartupScript(this.GetType(), "", "load_userinfo()", true);
+            ClientScript.RegisterStartupScript(this.GetType(), "", "donework()", true);
+            //Response.Write("<script>document.getElementByI</script>");
         }
 
         protected void SendBack_Click(object Sender, EventArgs e)
@@ -257,7 +258,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             }
             string json = JSON.DataTableToJson(table);
             JsonData.Value = json;
-            ClientScript.RegisterStartupScript(this.GetType(), "", "load_userinfo()", true);
+            ClientScript.RegisterStartupScript(this.GetType(), "", "donework()", true);
         }
 
         protected void Dao_Click(object sender, EventArgs e)
@@ -311,6 +312,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             List<PostResponseBook> posts = new List<PostResponseBook>();
             foreach (DataRow dr in dt.Rows)
             {
+                posts.Clear();
                 if(PostResponseBookBLL.Select(dr["UiID"].ToString(), ref posts, ref exception))
                 {
                     //0：已提交 1：已审核 2：未制作 

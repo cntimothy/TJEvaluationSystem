@@ -50,6 +50,13 @@ namespace Model
         int atVeto4;
         int atVeto5;
         string atVetoOthers;
+        string atComment;
+
+        public string AtComment
+        {
+            get { return atComment; }
+            set { atComment = value; }
+        }
 
         public string AtUserID
         {

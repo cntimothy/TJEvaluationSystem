@@ -23,7 +23,8 @@
     <script src="../../Script/FirstManager/CheckPost.js" type="text/javascript"></script>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server">    
+    <asp:ScriptManager ID="ScriptManager1" runat="server" />
          <div class="ToolBar">
          <table style="position:relative;left:20px;height:100%">
                 <tr> 

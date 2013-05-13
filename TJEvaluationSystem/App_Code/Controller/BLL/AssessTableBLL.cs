@@ -21,10 +21,9 @@ namespace BLL
         { }
         static readonly SQLDatabase db = new SQLDatabase();
 
-
         //查询考核表状态
         //evaluatedID:被考评人ID
-        //考核表不存在，返回-1；考核表审核未通过，返回0；审核通过返回0
+        //考核表不存在，返回-1；考核表审核未通过，返回0；审核通过返回1
         static public int GetAssessTableStatus(string evaluatedID)
         {
             if (evaluatedID == null || evaluatedID == "")
@@ -84,7 +83,7 @@ namespace BLL
                                   + "@atResponse1,@atResponse2,@atResponse3,@atResponse4,@atResponse5,"
                                   + "@atAbility1,@atAbility2,@atAbility3,@atAbility4,@atAbility5,"
                                   + "@atAttitude1,@atAttitude2,@atAttitude3,@atAttitude4,@atAttitude5,"
-                                  + "@atVeto1,@atVeto2,@atVeto3,@atVeto4,@atVeto5,@atVetoOthers)";
+                                  + "@atVeto1,@atVeto2,@atVeto3,@atVeto4,@atVeto5,@atVetoOthers,@atComment)";
 
                 SqlParameter[] parameters =
                 {
@@ -127,7 +126,8 @@ namespace BLL
                 new SqlParameter("@atVeto3", SqlDbType.Int,4), 
                 new SqlParameter("@atVeto4", SqlDbType.Int,4), 
                 new SqlParameter("@atVeto5", SqlDbType.Int,4),
-                new SqlParameter("@atVetoOthers", SqlDbType.NVarChar,int.MaxValue)
+                new SqlParameter("@atVetoOthers", SqlDbType.NVarChar,int.MaxValue),
+                new SqlParameter("@atComment", SqlDbType.NVarChar, 50)
                 };
                 parameters[0].Value = at[i].AtUserID;
                 parameters[1].Value = at[i].AtDep;
@@ -169,6 +169,7 @@ namespace BLL
                 parameters[37].Value = at[i].AtVeto4;
                 parameters[38].Value = at[i].AtVeto5;
                 parameters[39].Value = at[i].AtVetoOthers;
+                parameters[40].Value = at[i].AtComment;
 
                 string exception = db.InsertExec(sql, parameters);
                 if (exception != "" && exception != null)
@@ -195,6 +196,7 @@ namespace BLL
                              + "' and atDep='" + atDep + "' and atDate>='" + atDate + "' and atDate<'" + newyear + "'";
             return Select(sql, ref model, ref e);
         }
+        
         public static bool Select(string sql, ref List<AssessTable> model, ref string e)
         {
             DataTable table = new DataTable();
@@ -280,6 +282,8 @@ namespace BLL
                         at.AtVeto5 = (Int32)table.Rows[i]["atVeto5"];
                     if (!table.Rows[i]["atVetoOthers"].Equals(DBNull.Value))
                         at.AtVetoOthers = (string)table.Rows[i]["atVetoOthers"];
+                    if (!table.Rows[i]["atComment"].Equals(DBNull.Value))
+                        at.AtComment = (string)table.Rows[i]["atComment"];
                     model.Add(at);
                 }
                 return true;
@@ -338,6 +342,7 @@ namespace BLL
             strSql.Append("atVeto4=@atVeto4,");
             strSql.Append("atVeto5=@atVeto5,");
             strSql.Append("atVetoOthers=@atVetoOthers,");
+            strSql.Append("atComment=@atComment,");
             strSql.Append(" where atUserID=@atUserID");
             SqlParameter[] parameters =
                 {
@@ -380,6 +385,8 @@ namespace BLL
                 new SqlParameter("@atVeto3", SqlDbType.Int,4), 
                 new SqlParameter("@atVeto4", SqlDbType.Int,4), 
                 new SqlParameter("@atVeto5", SqlDbType.Int,4),
+                new SqlParameter("@atVetoOthers", SqlDbType.NVarChar,int.MaxValue),
+                new SqlParameter("@atComment", SqlDbType.NVarChar,50),
                 };
             parameters[0].Value = model.AtUserID;
             parameters[1].Value = model.AtDep;
@@ -421,6 +428,7 @@ namespace BLL
             parameters[37].Value = model.AtVeto4;
             parameters[38].Value = model.AtVeto5;
             parameters[39].Value = model.AtVetoOthers;
+            parameters[40].Value = model.AtComment;
 
 
             e = db.QueryExec(strSql.ToString(), parameters);
@@ -431,7 +439,7 @@ namespace BLL
             return true;
         }
 
-        public static bool SetAssesstablePassed(int atUserID, int atPass, ref string e)
+        public static bool SetAssesstablePassed(string atUserID, int atPass, ref string e)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("update tb_AssessTable set ");
@@ -439,7 +447,7 @@ namespace BLL
             strSql.Append(" where atUserID=@atUserID");
             SqlParameter[] parameters =
             {
-                new SqlParameter("@atUserID", SqlDbType.Int,4),
+                new SqlParameter("@atUserID", SqlDbType.VarChar,10),
                 new SqlParameter("@atPass", SqlDbType.Int,4)
             };
             parameters[0].Value = atUserID;
@@ -491,7 +499,8 @@ namespace BLL
             strSql.Append("atVeto3=@atVeto3,");
             strSql.Append("atVeto4=@atVeto4,");
             strSql.Append("atVeto5=@atVeto5,");
-            strSql.Append("atVetoOthers=@atVetoOthers");
+            strSql.Append("atVetoOthers=@atVetoOthers,");
+            strSql.Append("atComment=@atComment ");
             strSql.Append(" where atUserID=@atUserID");
             SqlParameter[] parameters =
                 {
@@ -531,6 +540,7 @@ namespace BLL
                 new SqlParameter("@atVeto4", SqlDbType.Int,4), 
                 new SqlParameter("@atVeto5", SqlDbType.Int,4),
                 new SqlParameter("@atVetoOthers", SqlDbType.NVarChar,int.MaxValue),
+                new SqlParameter("@atComment", SqlDbType.NVarChar,50),
                 new SqlParameter("@atUserID", SqlDbType.Int,4)
                 };
 
@@ -570,8 +580,30 @@ namespace BLL
             parameters[33].Value = model.AtVeto4;
             parameters[34].Value = model.AtVeto5;
             parameters[35].Value = model.AtVetoOthers;
-            parameters[36].Value = model.AtUserID;
+            parameters[36].Value = model.AtComment;
+            parameters[37].Value = model.AtUserID;
 
+            e = db.QueryExec(strSql.ToString(), parameters);
+            if (e != "" && e != null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public static bool UpdateComment(string atUserID, string atComment, ref string e)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("update tb_AssessTable set ");
+            strSql.Append("atComment=@atComment ");
+            strSql.Append(" where atUserID=@atUserID");
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@atUserID", SqlDbType.VarChar,10),
+                new SqlParameter("@atComment", SqlDbType.NVarChar,50)
+            };
+            parameters[0].Value = atUserID;
+            parameters[1].Value = atComment;
             e = db.QueryExec(strSql.ToString(), parameters);
             if (e != "" && e != null)
             {
@@ -595,6 +627,38 @@ namespace BLL
                 return false;
             }
             return true;
+        }
+
+        //统计汇总情况
+        public static bool SelectSummary(List<Summary> summarys, ref string e)
+        {
+            string strSql = "select distinct tb_UserInfo.uiID as ID, tb_UserInfo.uiDepartment as department, tb_AssessTable.atPass as passed " +
+                "from tb_UserInfo left outer join tb_AssessTable " +
+                "ON tb_UserInfo.uiID = tb_AssessTable.atUserID order by passed dest";
+            DataTable table = new DataTable();
+            table = db.QueryDataTable(strSql, ref e);
+            table.Columns.Remove("ID");
+            if (table != null && table.Rows.Count > 0)
+            {
+                for (int i = 0; i < table.Rows.Count; i++)
+                {
+                    Summary s = new Summary();
+                    s.Department = (string)table.Rows[i]["department"];
+                    if (!(table.Rows[i]["passed"] is DBNull))
+                    {
+                        s.Passed = Convert.ToInt32(table.Rows[i]["passed"]);
+                    }
+                    else
+                        s.Passed = -1;
+
+                    summarys.Add(s);
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

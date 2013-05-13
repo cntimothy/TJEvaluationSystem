@@ -115,7 +115,10 @@ function ShowDetail(rowid)
 function Check(rowid) 
 {
     var rowdata = Evaluated.getSelectedRow(rowid);    //取得数据
-
+    if (rowdata.Passed == "未制作") {
+        alert("考评人名单未制作！");
+        return;
+    }
     if (rowdata == null)
         return;
     document.getElementById("UserID").value = rowdata.UiID;

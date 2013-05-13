@@ -30,17 +30,6 @@ var attitude1 = false;
 var attitude2 = false;
 var attitude3 = false;
 var attitude4 = false;
-function test() {
-    //var v = document.getElementById(keyResponseScoreArray[0]).value;
-    //alert(keyResponseScoreArray[0].value);
-}
-
-function number(input, value) { 
-    input.value=value.replace(/\D/g,'');  
-    if(input.value>100){
-        input.value = 100;  
-    }  
-}
 
 $(function () {
     $('#EvaluateToolBar').css('display', 'none');
@@ -358,8 +347,7 @@ function StartEvaluate() {
     input.setAttribute("type", "number");
     input.setAttribute("value", "100");
     input.className = 'td_score';
-    input.onchange = "if(!/(^0$)|(^100$)|(^\d{1,2}$)/.test(value)){value='';alert('输入格式不正确!');}";
-    //input.onkeyup = number(input,input.value);
+    input.setAttribute('onchange', "if(!/(^0$)|(^100$)|(^\d{1,2}$)/.test(value)){value='100';}");
     keyResponseScoreArray.push(input);
     td.appendChild(input);
     tr.appendChild(td);

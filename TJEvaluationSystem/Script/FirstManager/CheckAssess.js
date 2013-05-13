@@ -2,115 +2,153 @@
 var standerLib = null;
 var AssessTables = null;
 var Manager = null;
-var minNum = 1;
-//初始化
-//$(function () {
-//    $("#DepType").ligerComboBox({
-//        data: DepartmentData, valueFieldID: 'type_value', initText: '所有部门', width: 70
-//    });
-//    $("#PassedType").ligerComboBox({
-//        data: DepartmentData, valueFieldID: 'type_value', initText: '所有状态', width: 70
-//    });
-//});
+var minNum = 2;//每一个指标最少项数
 
-//处理
-function search() {
-    document.getElementById("LoadButton").click();
-}
-//显示考核表信息
-function ShowAllTables() {
-    var data = document.getElementById("JsonData").value;
-    var data2 = document.getElementById("JsonData2").value;
-    if (data == null || data == ""||data2 == null || data2 == "")
-        return;
-    AssessTables = JSON2.parse(data);
-    standerLib = JSON2.parse(data2);
-    Manager = $("#maingrid").ligerGrid({
+function load_summary() {
+    var s = document.getElementById("JsonSummary").value;
+    var summary = JSON2.parse(s);
+    data = summary;
+    Evaluated = $("#summarygrid").ligerGrid({
         columns: [
-    { display: '编号', name: 'AtID', width: 50, align: 'center', frozen: true },
-    { display: '制作人', name: 'AtUserID', width: 100, align: 'center' },
-    { display: '部门', name: 'AtDep', width: 120, align: 'center' },
-    { display: '提交时间', name: 'AtDate', width: 120, align: 'center' },
-    { display: '审核状态', width: 100, align: 'center', render: function (rowdata, rowindex, value) {
-        var h = "";
-        if (rowdata.AtPass == 0) {
-            h = "审核未通过";
-        }
-        else if (rowdata.AtPass == 1) {
-            h = "审核已通过";
-        }
-        return h;
-    }},
-    { display: '', isSort: false, width: 100, render: function (rowdata, rowindex, value) {
-        var h = "";
-//        if (rowdata.AtPass == 0) {
-//            h += "<a href='javascript:SetPassedTrue(" + rowindex + ")'>审核通过</a> ";
-//        }
-//        else if (rowdata.AtPass == 1) {
-//            h += "<a href='javascript:SetPassedFalse(" + rowindex + ")'>审核未通过</a> ";
-//        }
-        h += "<a href='javascript:ShowDetail(" + rowindex + ", " + rowdata.AtPass + ")'>查看</a> ";
-        return h;
-    }
-    }],
-        usePager: true, pageSize: 10,
-        data: AssessTables,
-        height: '100%',
-        isScroll: false,
-        onSelectRow: function (rowdata, rowindex) {
-            $("#txtrowindex").val(rowindex);
-        }
+        { display: '部门', name: 'SDepartment', width: 120, align: 'center' },
+        { display: '未审核', name: 'SUnpass', width: 100, align: 'center' },
+        { display: '未制作', name: 'SUnmake', width: 100, align: 'center' },
+        { display: '已审核', name: 'SPass', width: 100, align: 'center' },
+        { display: '总数', name: 'SSum', width: 100, align: 'center'}],
+        usePager: true, pageSize: 20,
+        data: summary,
+        width: '96%'
     });
-    $('#pageloading').hide();
-    Manager.loadData(AssessTables);
+}
+
+function search() {
+    document.getElementById("Search").click();
+}
+
+function load_userinfo() {
+    var s = document.getElementById("JsonData").value;
+    var UsersData = JSON2.parse(s);
+    data = UsersData;
+    Evaluated = $("#evaluatedgrid").ligerGrid({
+        columns: [
+        { display: '用户名', name: 'UiID', width: 80, align: 'center' },
+        { display: '姓名', name: 'UiName', width: 50, align: 'center' },
+        { display: '性别', name: 'UiSex', width: 30, align: 'center' },
+        { display: '身份证号', name: 'UiIdentityNum', width: 100, align: 'center', hide: true },
+        { display: '部门', name: 'UiDepartment', width: 50, align: 'center' },
+        { display: '岗位（职务）', name: 'UiJob', width: 150, align: 'center', hide: true },
+        { display: '电话', name: 'UiTelephone', width: 70, align: 'center', hide: true },
+        { display: 'Email', name: 'UiEmail', width: 150, align: 'center', hide: true },
+        { display: '手机', name: 'UiMobPhone', width: 100, align: 'center' },
+        { display: '地址', name: 'UiAddress', width: 120, align: 'center', hide: true },
+        { display: '邮编', name: 'UiZipCode', width: 0, align: 'lecenterft', hide: true },
+        { display: '经费来源', name: 'UiFund', width: 50, align: 'center', hide: true },
+        { display: '派遣性质', name: 'UiCharacter', width: 50, align: 'center' },
+        { display: '派遣公司', name: 'UiCompany', width: 50, align: 'center' },
+        { display: '考评开始时间', name: 'UiStartTime', width: 80, align: 'center' },
+        { display: '考评结束时间', name: 'UiStopTime', width: 80, align: 'center' },
+        { display: '审核状态', name: 'Passed', width: 80, align: 'center' },
+        { display: '审核意见', name: 'Comment', width: 200, align: 'left' },
+        { display: '', isSort: false, width: 200, render: function (rowdata, rowindex, value) {
+            var h = "";
+            h += "<a href='javascript:ShowDetail1(" + rowindex + ")'>查看详细</a> ";
+            h += "<a href='javascript:searchAssess(" + rowindex + ")'>审核考核表</a> ";
+            return h;
+        }
+        }],
+        usePager: true, pageSize: 20,
+        data: UsersData,
+        width: '96%'
+    });
+}
+
+function ShowDetail1(rowid) {
+    var rowdata = Evaluated.getSelectedRow(rowid);    //取得数据  
+    if (rowdata == null)
+        return;
+    DetailData = rowdata;
+    //
+    $("#evaluatedgrid").css("display", "none");
+    $("#ShowDetailUserInfo").css("display", "block");
+    // $("#UserInfo").css("display", "none");
+    $(".DetailData").css("display", "block");
+    // $(".AddData").css("display", "none");
+    //设置显示与隐藏
+    $(".ShowData").css("display", "block");
+    //$(".EditData").css("display", "none");
+    //设置显示值
+
+    document.getElementById("Title").style.display = "none"; //不显示“XX被考评人名单”
+
+    document.getElementById('LID').innerText = rowdata.UiID;
+    document.getElementById('LName').innerText = rowdata.UiName;
+    document.getElementById('LSex').innerText = rowdata.UiSex;
+    document.getElementById('LIdentityNum').innerText = rowdata.UiIdentityNum;
+    document.getElementById('LDepartment').innerText = rowdata.UiDepartment;
+    document.getElementById('LJob').innerText = rowdata.UiJob;
+    document.getElementById('LTelephone').innerText = rowdata.UiTelephone;
+    document.getElementById('LEmail').innerText = rowdata.UiEmail;
+    document.getElementById('LMobPhone').innerText = rowdata.UiMobPhone;
+    document.getElementById('LAddress').innerText = rowdata.UiAddress;
+    document.getElementById('LZipCode').innerText = rowdata.UiZipCode;
+    document.getElementById('LFund').innerText = rowdata.UiFund;
+    document.getElementById('LCharacter').innerText = rowdata.UiCharacter;
+    document.getElementById('LCompany').innerText = rowdata.UiCompany;
+    document.getElementById('LStartTime').innerText = rowdata.UiStartTime;
+    document.getElementById('LStopTime').innerText = rowdata.UiStopTime;
+}
+
+function searchAssess(rowindex) {
+    var passed = Evaluated.getSelectedRow(rowindex).Passed;
+    if (passed == "未制作") {
+        alert("考评表未制作");
+        return;
+    }
+    document.getElementById("UserID").value = Evaluated.getSelectedRow(rowindex).UiID;
+    document.getElementById("Passed").value = Evaluated.getSelectedRow(rowindex).Passed;
+    document.getElementById("SearchAssess").click();
 }
 
 //设置审核
 function SetPassedTrue() {
     if (window.confirm("确认通过？")) {
-        var rowindex = document.getElementById("RowIndex").value;
-        var rowdata = Manager.getSelectedRow(rowindex);    //取得数据
-        if (rowdata == null)
-            return;
-        document.getElementById("JsonData").value = rowdata.AtID;
-        document.getElementById("JsonData2").value = "true";
-        document.getElementById("JsonData3").value = rowindex;
-        document.getElementById("BSetPassed").click();
-        location = location;
+        document.getElementById("BSetPassedTrue").click();
     }
 }
 
 function SetPassedFalse() {
     if (window.confirm("确认退回？")) {
-        var rowindex = document.getElementById("RowIndex").value;
-        var rowdata = Manager.getSelectedRow(rowindex);    //取得数据
-        if (rowdata == null)
-            return;
-        document.getElementById("JsonData").value = rowdata.AtID;
-        document.getElementById("JsonData2").value = "false";
-        document.getElementById("JsonData3").value = rowindex;
-        document.getElementById("BSetPassed").click();
-        location = location;
+        document.getElementById("BSetPassedFalse").click();
     }
 }
 
 //设置审核完成
 function SetPassedDone() {
     alert('设置成功！');
-    var rowindex = document.getElementById("JsonData3").value;
-    var type = document.getElementById("JsonData2").value;
-    if (rowindex == null || rowindex == "" || type == null || type == "")
-        return;
-    var rowdata = Manager.getSelectedRow(rowindex);    //取得数据
-    if (rowdata == null)
-        return;
-    if (type == "true")
-        rowdata.AtPass = 1;
-    else if (type == "false")
-        rowdata.AtPass = 0;
-    else
-        return;
-    Manager.loadData(AssessTables);
+    location = location;
+}
+
+function comment() {
+    //    var oldComment = document.getElementById("Comment").innerHTML.split("：")[1];
+    var oldComment = document.getElementById("Comment").innerHTML;
+    if (oldComment != "") {
+        oldComment = oldComment.split("：")[1];
+    }
+    if (oldComment) {
+        var comment = prompt("请输入审核意见：（最多50字）", oldComment);
+    }
+    else {
+        var comment = prompt("请输入审核意见：（最多50字）", "");
+    }
+    if (comment) {
+        document.getElementById("EvaComment").value = comment.substring(0, 50);
+        document.getElementById("WriteComment").click();
+    }
+}
+
+function setCommentDone() {
+    alert('审核意见设置成功！');
+    location = location;
 }
 
 //通过指标id查找指标内容
@@ -124,19 +162,28 @@ function GetStanderByID(id, lib) {
     return null;
 }
 
-function ShowDetail(rowindex, atPass) {
-    if (atPass == 0) {
+function ShowDetail(rowindex) {
+    //设置通过和退回按钮的显示
+    var atPass = document.getElementById("Passed").value;
+    if (atPass == "未审核") {
         document.getElementById("pass_button").style.display = "";
     }
     else {
         document.getElementById("sendback_button").style.display = "";
     }
-    document.getElementById("dao_button").style.display = "";
 
-    document.getElementById("RowIndex").value = rowindex;
-    var assessTable = Manager.getSelectedRow(rowindex);    //取得数据
+    document.getElementById("dao_button").style.display = "";
+    document.getElementById("comment_button").style.display = "";
+
+
+    //获取指标库
+    var data2 = document.getElementById("JsonData2").value;
+    standerLib = JSON2.parse(data2)
+    var assessTables = JSON2.parse(document.getElementById("JsonData").value);
+    var assessTable = assessTables.Rows[0];
     if (assessTable == null)
         return;
+
     //解决ie6,7中setAttribute兼容性
     dom = (function () {
         var fixAttr = {
@@ -1202,6 +1249,8 @@ function ShowDetail(rowindex, atPass) {
     //设置显示隐藏
     $('#ShowAllTables').css('display', 'none');
     $('#ShowTableInfo').css('display', 'block');
+    $("#box").css("display", "block");
+    $("#Title").css("display", "none");
 }
 
 //返回
