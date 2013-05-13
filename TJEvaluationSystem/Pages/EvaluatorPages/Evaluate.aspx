@@ -26,23 +26,37 @@
     <div>
         <div class="l-loading" style="display: block" id="pageloading">
         </div>
-        <div class="ToolBar " id="EvaluateToolBar">
-            <table class="tool_bar_table">
-                <tr>
-                    <td class="tool_bar_td">
-                        <input type="button" value="提交" onclick="FinishEvaluate()" class="l-button" style="width: 70px;" />
-                    </td>
-                    <td class="tool_bar_td">
-                        <input type="button" value="返回" onclick="Back()" class="l-button" style="width: 70px;" />
-                    </td>
-                </tr>
-            </table>
-        </div>
         <div id="ShowEvaluateUsers">
+        `   <br />
+            <asp:Label ID="Title" runat="server" Text="" style="position:relative;left:20px;font-size:16px;"></asp:Label>
+            <br /><br />
             <div id="maingrid" style="margin: 0; padding: 0;">
             </div>
         </div>
         <div id="ShowEvaluateTable" style="padding-top: 5px; display: none;">
+            <div class="ToolBar ">
+                <table class="tool_bar_table">
+                    <tr>
+                        <td class="tool_bar_td">
+                            <input type="button" value="提交" onclick="FinishEvaluate()" class="l-button" style="width: 70px;" />
+                        </td>
+                        <td class="tool_bar_td">
+                            <input type="button" value="返回" onclick="Back()" class="l-button" style="width: 70px;" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="TableHeader">
+                被考核人姓名：<label id="LEEvaluatdName"></label>&nbsp&nbsp&nbsp&nbsp
+                岗位名称：<label id="LEJobName"></label>&nbsp&nbsp&nbsp&nbsp
+                用工部门：<label id="LEDep"></label>&nbsp&nbsp&nbsp&nbsp
+                用工单位：<label id="LEUnit"></label>&nbsp&nbsp&nbsp&nbsp
+                <br/>
+                考核时间段：<label id="LEStartEndTime"></label>&nbsp&nbsp&nbsp&nbsp
+                考评者关系：<label id="LERealtion"></label>&nbsp&nbsp&nbsp&nbsp
+                <br />
+                考核日期:<label id="LETime"></label>&nbsp&nbsp&nbsp&nbsp
+            </div>
             <div id="AssessTable"></div>
         </div>
         <div class="Hidden">

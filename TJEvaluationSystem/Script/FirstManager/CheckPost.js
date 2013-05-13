@@ -125,7 +125,6 @@ function ShowDetail(rowid)
     document.getElementById('LCompany').innerText = rowdata.UiCompany;
     document.getElementById('LStartTime').innerText = rowdata.UiStartTime;
     document.getElementById('LStopTime').innerText = rowdata.UiStopTime;
-    document.getElementById('LComment').innerText = rowdata.PrbComment;
 }
 
 function Check(rowid)

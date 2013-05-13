@@ -45,10 +45,11 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                     table = Evaluated.ListToDataTable();
                     //给table增加Comment和Passed栏
                     adjustTable2(table, ref exception);
-                    int sumCount = 0, unPassCount = 0, passCount = 0, savedCount = 0, unMakeCount = 0;
+                    int sumCount = 0, unPassCount = 0, passCount = 0, unMakeCount = 0;
 
-                    countNumber(table, ref sumCount, ref unPassCount, ref passCount, ref savedCount, ref unMakeCount);//做汇总
-                    Title.Text += "（总人数：" + sumCount + " \\未制作：" + unMakeCount + " \\已保存：" + savedCount + " \\已提交：" + unPassCount + " \\已审核：" + passCount + "）";
+                    countNumber(table, ref sumCount, ref unPassCount, ref passCount, ref unMakeCount);//做汇总
+                    //Title.Text += "（总人数：" + sumCount + " \\未制作：" + unMakeCount + " \\已保存：" + savedCount + " \\已提交：" + unPassCount + " \\已审核：" + passCount + "）";
+                    Title.Text += "( 未制作：" + unMakeCount + "\\已提交：" + unPassCount + "\\已审核：" + passCount + "\\总人数：" + sumCount + " )";
 
                     table.DefaultView.Sort = "Passed desc"; //给table按状态排序
                     table = table.DefaultView.ToTable();
@@ -303,7 +304,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         }
 
         //统计汇总情况
-        private void countNumber(DataTable dt, ref int sumCount, ref int unPassCount, ref int passCount, ref int savedCount, ref int unMakeCount)
+        private void countNumber(DataTable dt, ref int sumCount, ref int unPassCount, ref int passCount, ref int unMakeCount)
         {
             foreach (DataRow dr in dt.Rows)
             {
@@ -314,9 +315,6 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                         break;
                     case "已审核":
                         passCount++;
-                        break;
-                    case "已保存":
-                        savedCount++;
                         break;
                     default:
                         unMakeCount++;

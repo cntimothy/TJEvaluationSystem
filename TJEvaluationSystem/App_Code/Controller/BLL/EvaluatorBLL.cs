@@ -18,25 +18,39 @@ namespace BLL
         { }
 
         static readonly SQLDatabase db = new SQLDatabase();
+
+        //static public bool GetEvaluationInfo(string id, DataTable dt, ref string e)
+        //{
+        //    if (dt == null)
+        //        return false;
+        //    string sql = "select * from tb_Evaluator,tb_UserInfo where tb_Evaluator.EvaluatedID = tb_UserInfo.uiID and tb_Evaluator.uiID=" + "\'" + id + "\'";
+        //    dt = db.QueryDataTable(sql, ref e);
+        //    if (dt.Rows.Count < 1)
+        //        return false;
+        //    return true;
+        //}
+
         static public bool Insert(Evaluator[] model, ref string e)
         {
             int count = model.Length;
             for (int i = 0; i < count; i++)
             {
                 string sql = "insert into tb_Evaluator values("
-                                  + "@uiID,@EvaluatedID,@relation,@pass)";
+                                  + "@uiID,@EvaluatedID,@relation,@pass,@status)";
                 SqlParameter[] parameters =
                 {
                     new SqlParameter("@uiID", SqlDbType.VarChar,10),
                     new SqlParameter("@EvaluatedID",SqlDbType.VarChar,10),
                     new SqlParameter("@relation", SqlDbType.VarChar,10),
-                    new SqlParameter("@pass", SqlDbType.Int,4)
+                    new SqlParameter("@pass", SqlDbType.Int,4),
+                    new SqlParameter("@status", SqlDbType.Int,4)
                    
                 };
                 parameters[0].Value = model[i].UiID;
                 parameters[1].Value = model[i].EvaluatedID;
                 parameters[2].Value = model[i].Relation;
                 parameters[3].Value = model[i].Pass;
+                parameters[4].Value = model[i].Status;
 
                 string exception = db.InsertExec(sql, parameters);
                 if (exception != "" && exception != null)
@@ -93,6 +107,7 @@ namespace BLL
                     evaluator.EvaluatedID = (string)table.Rows[i][1];
                     evaluator.Relation = (string)table.Rows[i][2];
                     evaluator.Pass = (int)table.Rows[i][3];
+                    evaluator.Status = (int)table.Rows[i][4];
                     model.Add(evaluator);
                 }
                 return true;
@@ -171,7 +186,6 @@ namespace BLL
                     new SqlParameter("@EvaluatedID",SqlDbType.VarChar,10),
                     new SqlParameter("@relation", SqlDbType.VarChar,10),
                     new SqlParameter("@pass", SqlDbType.Int,4)
-                   
                 };
             parameters[0].Value = model.UiID;
             parameters[1].Value = model.EvaluatedID;

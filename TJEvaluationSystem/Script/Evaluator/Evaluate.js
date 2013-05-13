@@ -9,6 +9,7 @@ var keyAttitudeScoreArray = null;
 var responseScoreArray = null;
 var abilityScoreArray = null;
 var attitudeScoreArray = null;
+var vetoScore = null;
 
 var keyResponse1 = false;
 var keyResponse2 = false;
@@ -32,22 +33,6 @@ var attitude3 = false;
 var attitude4 = false;
 
 $(function () {
-    $('#EvaluateToolBar').css('display', 'none');
-    var scoreData = [
-    { text: '0', id: '0' },{ text: '1', id: '1' },{ text: '2', id: '2' },
-    { text: '3', id: '3' },{ text: '4', id: '4' },{ text: '5', id: '5' },
-    { text: '6', id: '6' },{ text: '7', id: '7' },{ text: '8', id: '8' },
-    { text: '9', id: '9' },{ text: '10', id: '10' }
-    ];
-    var scoreData2 = [
-    { text: '0', id: '0' }, { text: '-1', id: '1' }
-    ];
-    $('.my_combobox').ligerComboBox({
-        data: scoreData, valueFieldID: 'type_value', initText: '10', width: 50
-    });
-    $('#CBVetoScore').ligerComboBox({
-        data: scoreData2, valueFieldID: 'type_value', initText: '0', width: 50
-    });
     $('#pageloading').hide();
 });
 
@@ -73,23 +58,23 @@ function ShowAllEavluateUsers() {
     }
     Manager = $("#maingrid").ligerGrid({
         columns: [
-    { display: '被考评人', name: 'EvaluatedID', width: 100, align: 'center'},
-    { display: '关系', name: 'Relation', width: 100, align: 'center' },
-    { display: '', isSort: false, width: 100, render: function (rowdata, rowindex, value) {
+    { display: '被考评人ID', name: 'EvaluatedID', width: 100, align: 'center' },
+    { display: '被考评人姓名', name: 'EvaluatedName', width: 100, align: 'center' },
+    { display: '被考评人部门', name: 'EvaluatedDep', width: 100, align: 'center' },
+    { display: '与被考评人关系', name: 'Relation', width: 100, align: 'center' },
+    { display: '考核状态', name: 'EvaluationStatus', width: 100, align: 'center' },
+    { display: '操作', isSort: false, width: 100, render: function (rowdata, rowindex, value) {
         var h = "";
-        h += "<a href='javascript:Evaluate(" + rowindex + ")'>考评</a> ";
+        if (parseInt(rowdata.Status) == 0)
+            h += "<a href='javascript:Evaluate(" + rowindex + ")'>考评</a> ";
         return h;
     }
     }],
         usePager: true, pageSize: 10,
         data: userData,
-        height: '100%',
-        isScroll: false,
-        onSelectRow: function (rowdata, rowindex) {
-            $("#txtrowindex").val(rowindex);
-        }
+        height: '98%',width:'100%'
     });
-    
+
 }
 
 
@@ -343,11 +328,11 @@ function StartEvaluate() {
     var td = document.createElement("TD");
     td.className = 'td_fun';
     dom.setAttr(td, 'rowspan', 2);
+    //Add input 
     var input = document.createElement("input");
     input.setAttribute("type", "number");
     input.setAttribute("value", "100");
     input.className = 'td_score';
-    input.setAttribute('onchange', "if(!/(^0$)|(^100$)|(^\d{1,2}$)/.test(value)){value='100';}");
     keyResponseScoreArray.push(input);
     td.appendChild(input);
     tr.appendChild(td);
@@ -404,6 +389,13 @@ function StartEvaluate() {
         var td = document.createElement("TD");
         td.className = 'td_fun';
         dom.setAttr(td, 'rowspan', 2);
+        //Add input 
+        var input = document.createElement("input");
+        input.setAttribute("type", "number");
+        input.setAttribute("value", "100");
+        input.className = 'td_score';
+        keyResponseScoreArray.push(input);
+        td.appendChild(input);
         tr.appendChild(td);
 
         tbody.appendChild(tr);
@@ -473,6 +465,13 @@ function StartEvaluate() {
     var td = document.createElement("TD");
     td.className = 'td_fun';
     dom.setAttr(td, 'rowspan', 2);
+    //Add input 
+    var input = document.createElement("input");
+    input.setAttribute("type", "number");
+    input.setAttribute("value", "100");
+    input.className = 'td_score';
+    keyAbilityScoreArray.push(input);
+    td.appendChild(input);
     tr.appendChild(td);
 
     tbody.appendChild(tr);
@@ -535,6 +534,13 @@ function StartEvaluate() {
         var td = document.createElement("TD");
         td.className = 'td_fun';
         dom.setAttr(td, 'rowspan', 2);
+        //Add input 
+        var input = document.createElement("input");
+        input.setAttribute("type", "number");
+        input.setAttribute("value", "100");
+        input.className = 'td_score';
+        keyAbilityScoreArray.push(input);
+        td.appendChild(input);
         tr.appendChild(td);
 
         tbody.appendChild(tr);
@@ -604,6 +610,14 @@ function StartEvaluate() {
     var td = document.createElement("TD");
     td.className = 'td_fun';
     dom.setAttr(td, 'rowspan', 2);
+    //Add input 
+    var input = document.createElement("input");
+    input.setAttribute("type", "number");
+    input.setAttribute("value", "100");
+
+    input.className = 'td_score';
+    keyAttitudeScoreArray.push(input);
+    td.appendChild(input);
     tr.appendChild(td);
 
     tbody.appendChild(tr);
@@ -666,6 +680,13 @@ function StartEvaluate() {
         var td = document.createElement("TD");
         td.className = 'td_fun';
         dom.setAttr(td, 'rowspan', 2);
+        //Add input 
+        var input = document.createElement("input");
+        input.setAttribute("type", "number");
+        input.setAttribute("value", "100");
+        input.className = 'td_score';
+        keyAttitudeScoreArray.push(input);
+        td.appendChild(input);
         tr.appendChild(td);
 
         tbody.appendChild(tr);
@@ -728,6 +749,13 @@ function StartEvaluate() {
     var td = document.createElement("TD");
     td.className = 'td_fun';
     dom.setAttr(td, 'rowspan', 2);
+    //Add input 
+    var input = document.createElement("input");
+    input.setAttribute("type", "number");
+    input.setAttribute("value", "100");
+    input.className = 'td_score';
+    responseScoreArray.push(input);
+    td.appendChild(input);
     tr.appendChild(td);
 
     var td = document.createElement("TD");
@@ -782,6 +810,13 @@ function StartEvaluate() {
         var td = document.createElement("TD");
         td.className = 'td_fun';
         dom.setAttr(td, 'rowspan', 2);
+        //Add input 
+        var input = document.createElement("input");
+        input.setAttribute("type", "number");
+        input.setAttribute("value", "100");
+        input.className = 'td_score';
+        responseScoreArray.push(input);
+        td.appendChild(input);
         tr.appendChild(td);
 
         tbody.appendChild(tr);
@@ -858,6 +893,13 @@ function StartEvaluate() {
     var td = document.createElement("TD");
     td.className = 'td_fun';
     dom.setAttr(td, 'rowspan', 2);
+    //Add input 
+    var input = document.createElement("input");
+    input.setAttribute("type", "number");
+    input.setAttribute("value", "100");
+    input.className = 'td_score';
+    abilityScoreArray.push(input);
+    td.appendChild(input);
     tr.appendChild(td);
 
     var td = document.createElement("TD");
@@ -925,7 +967,15 @@ function StartEvaluate() {
 
         var td = document.createElement("TD");
         td.className = 'td_fun';
+
         dom.setAttr(td, 'rowspan', 2);
+        //Add input 
+        var input = document.createElement("input");
+        input.setAttribute("type", "number");
+        input.setAttribute("value", "100");
+        input.className = 'td_score';
+        abilityScoreArray.push(input);
+        td.appendChild(input);
         tr.appendChild(td);
 
         tbody.appendChild(tr);
@@ -1002,6 +1052,13 @@ function StartEvaluate() {
     var td = document.createElement("TD");
     td.className = 'td_fun';
     dom.setAttr(td, 'rowspan', 2);
+    //Add input 
+    var input = document.createElement("input");
+    input.setAttribute("type", "number");
+    input.setAttribute("value", "100");
+    input.className = 'td_score';
+    attitudeScoreArray.push(input);
+    td.appendChild(input);
     tr.appendChild(td);
 
     var td = document.createElement("TD");
@@ -1070,6 +1127,13 @@ function StartEvaluate() {
         var td = document.createElement("TD");
         td.className = 'td_fun';
         dom.setAttr(td, 'rowspan', 2);
+        //Add input 
+        var input = document.createElement("input");
+        input.setAttribute("type", "number");
+        input.setAttribute("value", "100");
+        input.className = 'td_score';
+        attitudeScoreArray.push(input);
+        td.appendChild(input);
         tr.appendChild(td);
 
         tbody.appendChild(tr);
@@ -1136,6 +1200,13 @@ function StartEvaluate() {
     var td = document.createElement("TD");
     td.className = 'td_fun';
     dom.setAttr(td, 'rowspan', 6);
+    //Add input 
+    var select = document.createElement("select");
+    select.options[0] = new Option("0", "0");
+    select.options[1] = new Option("-100", "1");
+    select.className = 'td_score';
+    vetoScore = select;
+    td.appendChild(select);
     tr.appendChild(td);
 
     var td = document.createElement("TD");
@@ -1202,10 +1273,26 @@ function StartEvaluate() {
     }
     div.appendChild(table);
 
-    $('#EvaluateToolBar').css('display', 'block');
+
+
+//    显示表头
+    document.getElementById('LEEvaluatdName').innerText = EvaluateData.EvaluatedName;
+    document.getElementById('LEJobName').innerText = EvaluateData.EvaluatedJob;
+    document.getElementById('LEDep').innerText = EvaluateData.EvaluatedDep;
+    document.getElementById('LEUnit').innerText = EvaluateData.EvaluatedUnit;
+    document.getElementById('LEStartEndTime').innerText = EvaluateData.EvaluatedStartTime + " - " + EvaluateData.EvaluatedEndTime;
+    document.getElementById('LERealtion').innerText = EvaluateData.Relation;
+    var date = new Date();
+    document.getElementById('LETime').innerText = date.getFullYear()+"年"+date.getMonth()+"月"+date.getDay()+"日";
+
     $('#ShowEvaluateUsers').css('display', 'none');
     $('#ShowEvaluateTable').css('display', 'block');
-   
+
+}
+
+function Back() {
+    $('#ShowEvaluateUsers').css('display', 'block');
+    $('#ShowEvaluateTable').css('display', 'none');
 }
 
 //提交考评
@@ -1213,122 +1300,57 @@ function FinishEvaluate() {
     $.ligerDialog.confirm('确认提交考评？', function (yes) {
         if (EvaluateData == null || Evaluatetable == null)
             return;
-        var key = 0;
         var keyScore = 0;
-        if (keyResponse1 == true) {
-            key++;
-            keyScore += parseInt($('#CBKeyResponse1Score').val());
+        for (var i = 0; i < keyResponseScoreArray.length; i++) {
+            var value = parseInt(keyResponseScoreArray[i].value);
+            keyScore += value;
         }
-        if (keyResponse2 == true) {
-            key++;
-            keyScore += parseInt($('#CBKeyResponse2Score').val());
+        for (var i = 0; i < keyAbilityScoreArray.length; i++) {
+            var value = parseInt(keyAbilityScoreArray[i].value);
+            keyScore += value;
         }
-        if (keyResponse3 == true) {
-            key++;
-            keyScore += parseInt($('#CBKeyResponse3Score').val());
+        for (var i = 0; i < keyAttitudeScoreArray.length; i++) {
+            var value = parseInt(keyAttitudeScoreArray[i].value);
+            keyScore += value;
         }
-        if (keyAbility1 == true) {
-            key++;
-            keyScore += parseInt($('#CBKeyAbility1Score').val());
-        }
-        if (keyAbility2 == true) {
-            key++;
-            keyScore += parseInt($('#CBKeyAbility2Score').val());
-        }
-        if (keyAbility3 == true) {
-            key++;
-            keyScore += parseInt($('#CBKeyAbility3Score').val());
-        }
-        if (keyAttitude1 == true) {
-            key++;
-            keyScore += parseInt($('#CBKeyAttitude1Score').val());
-        }
-        if (keyAttitude2 == true) {
-            key++;
-            keyScore += parseInt($('#CBKeyAttitude2Score').val());
-        }
-        if (keyAttitude3 == true) {
-            key++;
-            keyScore += parseInt($('#CBKeyAttitude3Score').val());
-        }
-        keyScore = keyScore / key;
-
-        var response = 0;
+        keyScore = keyScore / (keyResponseScoreArray.length + keyAbilityScoreArray.length + keyAttitudeScoreArray.length);
         var responseScore = 0;
-        if (response1 == true) {
-            response++;
-            responseScore += parseInt($('#CBResponse1Score').val());
+        for (var i = 0; i < responseScoreArray.length; i++) {
+            var value = parseInt(responseScoreArray[i].value);
+            responseScore += value;
         }
-        if (response2 == true) {
-            response++;
-            responseScore += parseInt($('#CBResponse2Score').val());
-        }
-        if (response3 == true) {
-            response++;
-            responseScore += parseInt($('#CBResponse3Score').val());
-        }
-        responseScore = responseScore / response;
-
-        var ability = 0;
+        responseScore = responseScore / responseScoreArray.length;
         var abilityScore = 0;
-        if (ability1 == true) {
-            ability++;
-            abilityScore += parseInt($('#CBAbility1Score').val());
+        for (var i = 0; i < abilityScoreArray.length; i++) {
+            var value = parseInt(abilityScoreArray[i].value);
+            abilityScore += value;
         }
-        if (ability2 == true) {
-            ability++;
-            abilityScore += parseInt($('#CBAbility2Score').val());
-        }
-        if (ability3 == true) {
-            ability++;
-            abilityScore += parseInt($('#CBAbility3Score').val());
-        }
-        abilityScore = abilityScore / ability;
+        abilityScore = abilityScore / abilityScoreArray.length;
 
-        var attitude = 0;
         var attitudeScore = 0;
-        if (attitude1 == true) {
-            attitude++;
-            attitudeScore += parseInt($('#CBAttitude1Score').val());
+        for (var i = 0; i < attitudeScoreArray.length; i++) {
+            var value = parseInt(attitudeScoreArray[i].value);
+            attitudeScore += value;
         }
-        if (attitude2 == true) {
-            attitude++;
-            attitudeScore += parseInt($('#CBAttitude2Score').val());
-        }
-        if (attitude3 == true) {
-            attitude++;
-            attitudeScore += parseInt($('#CBAttitude3Score').val());
-        }
-        attitudeScore = attitudeScore / attitude;
-
-        var vetoScore = parseInt($('#CBVetoScore').val());
-
-        var keyWeight = Evaluatetable.AtKeyWeight;
-        var responseWeight = Evaluatetable.AtResponseWeight;
-        var abilityWeight = Evaluatetable.AtAbilityWeight;
-        var attitudeWeight = Evaluatetable.AtAttitudeWeight;
-        var sum = keyScore * keyWeight + responseScore * responseWeight + abilityScore * abilityWeight + attitudeScore * attitudeWeight;
-        var sum = sum / 100;
-        if (vetoScore == -1)
+        attitudeScore = attitudeScore / attitudeScoreArray.length;
+        var sum = keyScore * 0.5 + responseScore * 0.2 + abilityScore * 0.15 + attitudeScore * 0.15;
+        var veto = parseInt(vetoScore.value);
+        if (veto != 0) {
             sum = 0;
+            veto = -1;
+        }
         //Create json object.
         var data = [{ EtEvaluatedID: EvaluateData.EvaluatedID,
             EtEvaluateID: EvaluateData.UiID,
             EtAssessTableID: Evaluatetable.AtID,
             EtRelation: EvaluateData.Relation,
-            EtEvaluationID:0,
-//            EtKey: keyScore,
-//            EtResponse: responseScore,
-//            EtAbility: abilityScore,
-//            EtAttitude: attitudeScore,
-//            EtVeto: vetoScore,
-//            EtSum: sum
-                EtKey: 9.9,
-            EtResponse: 9.9,
-            EtAbility: 9.9,
-            EtAttitude: 9.9,
-            EtVeto: 9.9,
-            EtSum: 9.9
+            EtEvaluationID: 0,
+            EtKey: keyScore,
+            EtResponse: responseScore,
+            EtAbility: abilityScore,
+            EtAttitude: attitudeScore,
+            EtVeto: veto,
+            EtSum: sum
         }];
         document.getElementById("JsonData").value = JSON.stringify(data);
         document.getElementById("BFinishEvaluate").click();

@@ -8,6 +8,7 @@ using BLL;
 using Model;
 using DBUtility;
 using System.Web.Script.Serialization;
+using System.Data;
 
 namespace TJEvaluationSystem.Pages.EvaluatorPages
 {
@@ -41,6 +42,8 @@ namespace TJEvaluationSystem.Pages.EvaluatorPages
         {
             string name=(string)Session["username"];
             string e = "";
+
+            //EvaluatorBLL.GetEvaluationInfo(name, dt, ref e);
             //获取全部名单
             List<Evaluator> evaluators=new List<Evaluator>();
             if (!EvaluatorBLL.Select(name, 1, ref evaluators, ref e)||e!=""||evaluators.Count<=0)
@@ -48,20 +51,53 @@ namespace TJEvaluationSystem.Pages.EvaluatorPages
                 ClientScript.RegisterStartupScript(this.GetType(), "error", "f_alert('error','获取数据失败，请重试');", true);
                 return;
             }
-            //去掉已经考评
-            List<EvaluatorTable> et=new List<EvaluatorTable>();
-            for (int i = 0; i < evaluators.Count; i++)
-            {
-                if (EvaluatorTableBLL.Select(evaluators[i].EvaluatedID, evaluators[i].UiID, ref et, ref e))
-                {
-                    evaluators.RemoveAt(i);
-                }
-            }
-            var jser = new JavaScriptSerializer();
-            var json = jser.Serialize(evaluators);
-            json = "{\"Rows\":" + json + ",\"Total\":" + evaluators.Count + "}";
+            DataTable table = new DataTable();
+            table = evaluators.ListToDataTable();
+            //加入被考评人信息
+            int evaluatedNum=0;
+            adjustTable(table, ref evaluatedNum,ref e);
+            //显示统计信息
+            int totalNum = table.Rows.Count;
+            Title.Text = "共有" + totalNum.ToString() + "人需要考评，已完成" + evaluatedNum.ToString() + "人";
+            string json = JSON.DataTableToJson(table);
             JsonData.Value = json;
             ScriptManager.RegisterStartupScript(BFinishEvaluate,this.GetType(), "fun", "ShowAllEavluateUsers();", true);
+        }
+
+        //向table中加入被考评人信息
+        private void adjustTable(DataTable dt, ref int num,ref string exception)
+        {
+            dt.Columns.Add("EvaluatedName");
+            dt.Columns.Add("EvaluatedDep");
+            dt.Columns.Add("EvaluatedUnit");
+            dt.Columns.Add("EvaluatedStartTime");
+            dt.Columns.Add("EvaluatedEndTime");
+            dt.Columns.Add("EvaluatedJob");
+            dt.Columns.Add("EvaluationStatus");
+            List<UserInfo> ui = new List<UserInfo>();
+            num = 0;
+            foreach (DataRow dr in dt.Rows)
+            {
+                ui.Clear();
+                UserInfoBLL.Select(ref ui, dr["EvaluatedID"].ToString(), ref exception);
+                dr["EvaluatedName"] = ui[0].UiName;
+                dr["EvaluatedDep"] = ui[0].UiDepartment;
+                dr["EvaluatedUnit"] = ui[0].UiCompany;
+                dr["EvaluatedStartTime"] = ui[0].UiStartTime;
+                dr["EvaluatedEndTime"] = ui[0].UiStopTime;
+                dr["EvaluatedJob"] = ui[0].UiJob;
+
+                //
+                if (dr["Status"].ToString().Equals("1"))
+                {
+                    dr["EvaluationStatus"] = "已考评";
+                    num++;
+                }
+                else
+                {
+                    dr["EvaluationStatus"] = "未考评";
+                }
+            }
         }
 
         //获取岗位责任书和考核表数据

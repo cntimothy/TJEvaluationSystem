@@ -13,7 +13,7 @@ namespace Model
         string uiID;
         string evaluatedID;
         string relation;
-
+        int status; //考核状态 ；0未考核，1已考核；
        
         int pass;
 
@@ -39,6 +39,12 @@ namespace Model
         {
             get { return pass; }
             set { pass = value; }
+        }
+
+        public int Status
+        {
+            get { return status; }
+            set { status = value; }
         }
     }
 }
