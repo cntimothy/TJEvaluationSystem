@@ -189,14 +189,6 @@
                     </div>
                 </td>
             </tr>
-            <tr>
-                <td align="right" class="tableKey">审核意见：</td>
-                <td align="left" class="tableValue">
-                    <div class="ShowData">
-                        <asp:Label ID="LComment" runat="server" Text=""></asp:Label>
-                    </div>
-                </td>
-            </tr>
             </table>
         </div>
      </div>

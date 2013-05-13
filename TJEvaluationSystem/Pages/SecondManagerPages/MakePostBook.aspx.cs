@@ -48,7 +48,8 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                     int sumCount = 0, unPassCount = 0, passCount = 0, savedCount = 0, unMakeCount = 0;
 
                     countNumber(table, ref sumCount, ref unPassCount, ref passCount, ref savedCount, ref unMakeCount);//做汇总
-                    Title.Text += "（总人数：" + sumCount + " \\未制作：" + unMakeCount + " \\已保存：" + savedCount + " \\已提交：" + unPassCount + " \\已审核：" + passCount + "）";
+                    //Title.Text += "（总人数：" + sumCount + " \\未制作：" + unMakeCount + " \\已保存：" + savedCount + " \\已提交：" + unPassCount + " \\已审核：" + passCount + "）";
+                    Title.Text += "( 未制作：" + unMakeCount + "\\已保存：" + savedCount + "\\已提交：" + unPassCount + "\\已审核：" + passCount + "\\总人数：" + sumCount + " )";
 
                     table.DefaultView.Sort = "PrbPassed desc"; //给table按状态排序
                     table = table.DefaultView.ToTable();

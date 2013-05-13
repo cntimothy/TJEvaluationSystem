@@ -51,7 +51,6 @@
     <asp:Label ID="Title" runat="server" Text="" Style="position: relative; left: 20px;
         font-size: 16px; display: block"></asp:Label>
     <br />
-    <br />
     <div id="evaluatedgrid" style="margin: 0 auto">
     </div>
     <div id="ShowDetailUserInfo" class="Hidden" style="text-align: center">

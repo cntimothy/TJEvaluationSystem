@@ -47,7 +47,7 @@
          </div>
     <br />
     <%--<asp:label id="name" runat="server" style="position:relative;left:20px;font-size:16px;"></asp:label>--%>
-    <br /><br />
+    <br />
     <div id="secondgrid" style="margin:0 auto"></div> 
 
     <br />
