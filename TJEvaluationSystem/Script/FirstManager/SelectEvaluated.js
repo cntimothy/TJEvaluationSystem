@@ -91,7 +91,3 @@ function brower() {
     var s = document.getElementById("JsonData").value;
 }
 
-function dao() {
-    document.getElementById("Button1").click();
-
-}
