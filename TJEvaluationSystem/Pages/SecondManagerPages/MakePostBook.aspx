@@ -331,9 +331,19 @@
             <br />
             <asp:TextBox ID="prbWorkOutline" runat="server" CssClass="textbox1" TextMode="MultiLine"></asp:TextBox>
             <br />
-            <asp:Label ID="Label17" runat="server" Text="2.工作内容及工作要求：" CssClass="label1"></asp:Label>
-            <input type="button" id="Add" value="新增" onclick="addItem()" />
-            <input type="button" id="Del" value="删除" onclick="delItem()" />
+            <asp:Label ID="Label17" runat="server" Text="2.工作内容及工作要求：（2~5项）" CssClass="label1"></asp:Label>
+            <table>
+                <tr>
+                    <td>
+                        <input type="button" id="Add" value="新增" onclick="addItem()" class="l-button" style="width: 100px;
+                            height: 25px; font-size: 15px" />
+                    </td>
+                    <td>
+                        <input type="button" id="Del" value="删除" onclick="delItem()" class="l-button" style="width: 100px;
+                            height: 25px; font-size: 15px" />
+                    </td>
+                </tr>
+            </table>
             <br />
             <div id="WorkContentRequest">
             </div>

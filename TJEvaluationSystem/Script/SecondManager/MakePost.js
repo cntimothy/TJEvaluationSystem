@@ -16,6 +16,10 @@ function search()
 function submitpost()
  {
      if (confirm('确认提交？')) {
+         if (!checkNotNull()) {
+             alert("有空项目，请检查！");
+             return;
+         }
          var str = "";
          var num = document.getElementById("WorkContentRequest").childNodes.length;
          var count = 1;
@@ -35,6 +39,34 @@ function submitpost()
          document.getElementById("SubmitPost").click();
     }
 
+ }
+
+ function checkNotNull() {
+     var notNull = document.getElementById("prbEmployer").innerHTML != "" &&
+     document.getElementById("prbLaborUnit").innerHTML != "" &&
+     document.getElementById("prbLaborDep").innerHTML != "" &&
+     document.getElementById("prbPostName").innerHTML != "" &&
+     document.getElementById("prbPostType").innerHTML != "" &&
+     document.getElementById("prbEduBg").innerHTML != "" &&
+     document.getElementById("prbCertificate").innerHTML != "" &&
+     document.getElementById("prbExperience").innerHTML != "" &&
+     document.getElementById("prbSkill").innerHTML != "" &&
+     document.getElementById("prbPersonality").innerHTML != "" &&
+     document.getElementById("prbPhycond").innerHTML != "" &&
+     document.getElementById("prbWorkOutline").innerHTML != "" &&
+     document.getElementById("prbPower").innerHTML != "" &&
+     document.getElementById("prbResponse").innerHTML != "" &&
+     document.getElementById("prbDirectLeader").innerHTML != "" &&
+     document.getElementById("prbSubordinate").innerHTML != "" &&
+     document.getElementById("prbColleague").innerHTML != "" &&
+     document.getElementById("prbServices").innerHTML != "" &&
+     document.getElementById("prbRelations").innerHTML != "" &&
+     document.getElementById("prbWorkEnter").innerHTML != "" &&
+     document.getElementById("prbPostAssess").innerHTML != "" &&
+     document.getElementById("prbOthers").innerHTML != "" &&
+     document.getElementById("WorkContentRequest").childNodes.length > 2 &&
+     document.getElementById("WorkContentRequest").childNodes.length < 6;
+     return notNull;
  }
 
  function savepost() {
