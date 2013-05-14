@@ -288,6 +288,13 @@ function EditAssessTable() {
     attitude5 = ShowSelectStander(assessTable.AtAttitude5, '#LAttitude5Name', '#LAttitude5ContentA', '#LAttitude5ContentB', '#LAttitude5ContentC', '#LAttitude5ContentD');
     $('#TVetoOthers').html(assessTable.AtVetoOthers);
 
+    //显示表头
+    document.getElementById('LMEEvaluatdName').innerText = selectUser.UiName;
+    document.getElementById('LMEJobName').innerText = selectUser.UiJob;
+    document.getElementById('LMEDep').innerText = selectUser.UiDepartment;
+    document.getElementById('LMEUnit').innerText = selectUser.UiCompany;
+    document.getElementById('LMETime').innerText = selectUser.UiStartTime + " - " + selectUser.UiStopTime;
+
     //设置显示隐藏
     $("#ShowUserList").css("display", "none");
     $("#MakeEditAssessTable").css("display", "block");
@@ -1385,6 +1392,13 @@ function ViewAssessTable() {
         div.removeChild(div.firstChild);
     }
     div.appendChild(table);
+
+    //显示表头
+    document.getElementById('LVEvaluatdName').innerText = selectUser.UiName;
+    document.getElementById('LVJobName').innerText = selectUser.UiJob;
+    document.getElementById('LVDep').innerText = selectUser.UiDepartment;
+    document.getElementById('LVUnit').innerText = selectUser.UiCompany;
+    document.getElementById('LVTime').innerText = selectUser.UiStartTime + " - " + selectUser.UiStopTime;
 
     //设置显示隐藏
     $("#evaluatedgrid").css("display", "none");

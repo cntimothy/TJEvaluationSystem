@@ -1556,6 +1556,14 @@
                 </tr>
             </table>
         </div>
+        <div id="Div1">
+                被考核人姓名：<label id="LVEvaluatdName"></label>&nbsp&nbsp&nbsp&nbsp
+                岗位名称：<label id="LVJobName"></label>&nbsp&nbsp&nbsp&nbsp
+                用工部门：<label id="LVEDep"></label>&nbsp&nbsp&nbsp&nbsp
+                用工单位：<label id="LVEUnit"></label>&nbsp&nbsp&nbsp&nbsp
+                <br/>
+                考核时间段：<label id="LVEStartEndTime"></label>&nbsp&nbsp&nbsp&nbsp
+        </div>
         <div id="ShowAssessTable">
         </div>
     </div>

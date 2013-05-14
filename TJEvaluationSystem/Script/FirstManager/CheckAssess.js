@@ -2,7 +2,8 @@
 var standerLib = null;
 var AssessTables = null;
 var Manager = null;
-var minNum = 2;//每一个指标最少项数
+var minNum = 2; //每一个指标最少项数
+var EvaluatedUserInfo=null; //被考评人信息
 
 function load_summary() {
     var s = document.getElementById("JsonSummary").value;
@@ -99,6 +100,9 @@ function ShowDetail1(rowid) {
 }
 
 function searchAssess(rowindex) {
+    EvaluatedUserInfo = Evaluated.getSelectedRow(rowindex);
+    if (EvaluatedUserInfo == null)
+        return;
     var passed = Evaluated.getSelectedRow(rowindex).Passed;
     if (passed == "未制作") {
         alert("考评表未制作");
@@ -1245,6 +1249,13 @@ function ShowDetail(rowindex) {
         div.removeChild(div.firstChild);
     }
     div.appendChild(table);
+
+//    //    显示表头
+//    document.getElementById('LEEvaluatdName').innerText = EvaluatedUserInfo.UiName;
+//    document.getElementById('LEJobName').innerText = EvaluatedUserInfo.UiJob;
+//    document.getElementById('LEDep').innerText = EvaluatedUserInfo.UiDepartment;
+//    document.getElementById('LEUnit').innerText = EvaluatedUserInfo.UiCompany;
+//    document.getElementById('LEStartEndTime').innerText = EvaluatedUserInfo.UiStartTime + " - " + EvaluatedUserInfo.UiStopTime;
 
     //设置显示隐藏
     $('#ShowAllTables').css('display', 'none');

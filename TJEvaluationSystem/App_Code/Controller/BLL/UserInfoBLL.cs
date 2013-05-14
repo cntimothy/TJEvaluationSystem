@@ -19,6 +19,22 @@ namespace BLL
         { }
         static readonly SQLDatabase db = new SQLDatabase();
 
+
+        //设置考评结束
+        //evaluated:被考评人ID
+        //成功返回true,失败返回false
+        static public bool StopEvaluation(string evaluated)
+        {
+            if (evaluated == "")
+                return false;
+            string sql = "update tb_UserInfo set uiEvaluationStatus='1' where uiID=" + evaluated;
+            if(!db.QueryExec(sql))
+            {
+                return false;
+            }
+            return true;
+        }
+
         //获取被考评人名单
         //uis:被考评人信息List;e:异常信息;dep:部门
         //成功返回true,失败返回false
@@ -31,6 +47,7 @@ namespace BLL
                 sql = "select * from tb_UserInfo where uiType like '____1%' and uiDepartment='" + dep + "'";  
             return Select(ref uis, ref e, sql);
         }
+
         
         //flag:true——考评人， false——被考评人
          static public bool Insert(UserInfo[] model, ref string e, bool flag)
@@ -42,7 +59,7 @@ namespace BLL
                  if (!Select(ref uistemp, model[i].UiID, ref e))
                  {
                      string sql = "insert into tb_UserInfo values("
-                                       + "@uiID,@uiName,@uiSex,@uiIdentityNum,@uiDepartment,@uiTelephone,@uiEmail,@uiMobPhone,@uiAddress,@uiZipCode,@uiType,@uiJob,@uiFund,@uiCharacter,@uiCompany,@uiStartTime,@uiStopTime)";
+                                       + "@uiID,@uiName,@uiSex,@uiIdentityNum,@uiDepartment,@uiTelephone,@uiEmail,@uiMobPhone,@uiAddress,@uiZipCode,@uiType,@uiJob,@uiFund,@uiCharacter,@uiCompany,@uiStartTime,@uiStopTime,@uiEvaluationStatus)";
                      SqlParameter[] parameters =
                      {
                         new SqlParameter("@uiID", SqlDbType.VarChar,10),
@@ -61,7 +78,8 @@ namespace BLL
                         new SqlParameter("@uiCharacter", SqlDbType.NVarChar,10),
                         new SqlParameter("@uiCompany", SqlDbType.NVarChar,10),
                         new SqlParameter("@uiStartTime", SqlDbType.VarChar,10),
-                        new SqlParameter("@uiStopTime", SqlDbType.VarChar,10)
+                        new SqlParameter("@uiStopTime", SqlDbType.VarChar,10),
+                        new SqlParameter("@uiEvaluationStatus", SqlDbType.Int,4)
                          };
                      parameters[0].Value = model[i].UiID;
                      parameters[1].Value = model[i].UiName;
@@ -80,6 +98,7 @@ namespace BLL
                      parameters[14].Value = model[i].UiCompany;
                      parameters[15].Value = model[i].UiStartTime;
                      parameters[16].Value = model[i].UiStopTime;
+                     parameters[17].Value = model[i].UiEvaluationStatus;
 
                      string uiID = db.InsertExec(sql, parameters);
                      if (uiID != "" && uiID != null)
@@ -202,7 +221,7 @@ namespace BLL
                      userinfo.UiCompany = (string)table.Rows[i]["uiCompany"];
                      userinfo.UiStartTime = (string)table.Rows[i]["uiStartTime"];
                      userinfo.UiStopTime = (string)table.Rows[i]["uiStopTime"];
-                    
+                     userinfo.UiEvaluationStatus = (int)table.Rows[i]["uiEvaluationStatus"];
                      ui.Add(userinfo);
                  }
                  return true;
@@ -237,6 +256,7 @@ namespace BLL
              strSql.Append("uiCompany=@uiCompany,");
              strSql.Append("uiStartTime=@uiStartTime,");
              strSql.Append("uiStopTime=@uiStopTime ");
+             strSql.Append("uiEvaluationStatus=@uiEvaluationStatus ");
              strSql.Append(" where uiID=@uiID ");
              SqlParameter[] parameters =
             {
@@ -256,7 +276,8 @@ namespace BLL
                 new SqlParameter("@uiCharacter", SqlDbType.NVarChar,10),
                 new SqlParameter("@uiCompany", SqlDbType.NVarChar,10),
                 new SqlParameter("@uiStartTime", SqlDbType.VarChar,10),
-                new SqlParameter("@uiStopTime", SqlDbType.VarChar,10)
+                new SqlParameter("@uiStopTime", SqlDbType.VarChar,10),
+                new SqlParameter("@uiEvaluationStatus", SqlDbType.Int,4)
             };
              parameters[0].Value = model.UiID;
              parameters[1].Value = model.UiName;
@@ -275,7 +296,7 @@ namespace BLL
              parameters[14].Value = model.UiCompany;
              parameters[15].Value = model.UiStartTime;
              parameters[16].Value = model.UiStopTime;
-
+             parameters[17].Value = model.UiEvaluationStatus;
              e=db.QueryExec(strSql.ToString(), parameters);
              if (e != "" && e != null)
              {

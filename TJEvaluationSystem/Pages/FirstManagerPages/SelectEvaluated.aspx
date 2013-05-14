@@ -41,8 +41,6 @@
                    <td style="width:10px;"></td>
                    <td style="padding:1px;"><input type="button" value="查询" id="search_button"  onclick="search()" class="l-button" style="width:100px;height:25px;font-size:15px"/></td>
                    <td style="width:10px;"></td>
-                   <td style="padding:1px;"><input type="button" value="导出excel" id="dao_button"  onclick="dao()" class="l-button" style="width:100px;height:25px;font-size:15px"/> </td>
-                  
                 </tr>
          </table>
          </div>
@@ -50,9 +48,6 @@
     <asp:Label ID="Title" runat="server" Text="" style="position:relative;left:20px;font-size:16px;"></asp:Label>
     <br /><br />
     <div id="secondgrid" style="margin:0 auto"></div> 
-
-        <br />
-        <br />
        <div id="ShowDetailUserInfo" class="Hidden" style="text-align:center" >
           <div class="DetailUserData" style="border:3px solid #a3c0e8;width:500px;margin:0px auto;">
             <table>

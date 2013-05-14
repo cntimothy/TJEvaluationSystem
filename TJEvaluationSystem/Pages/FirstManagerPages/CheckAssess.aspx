@@ -256,6 +256,14 @@
             </div>
         </div>
         <div id="ShowTableInfo" style="padding-top: 5px;">
+            <div id="Div1">
+                被考核人姓名：<label id="LEEvaluatdName"></label>&nbsp&nbsp&nbsp&nbsp
+                岗位名称：<label id="LEJobName"></label>&nbsp&nbsp&nbsp&nbsp
+                用工部门：<label id="LEDep"></label>&nbsp&nbsp&nbsp&nbsp
+                用工单位：<label id="LEUnit"></label>&nbsp&nbsp&nbsp&nbsp
+                <br/>
+                考核时间段：<label id="LEStartEndTime"></label>&nbsp&nbsp&nbsp&nbsp
+            </div>
             <div id="AssessTable">
             </div>
         </div>
@@ -267,6 +275,7 @@
                     <input type="hidden" id="JsonData3" runat="server" />
                     <asp:Button ID="BSetPassedTrue" runat="server" Text="Button" OnClick="BSetPassedTrue_Click" />
                     <asp:Button ID="BSetPassedFalse" runat="server" Text="Button" OnClick="BSetPassedFalse_Click" />
+                    
                 </ContentTemplate>
             </asp:UpdatePanel>
             <asp:Button ID="BRefresh" runat="server" Text="" OnClick="BRefresh_Click" />
