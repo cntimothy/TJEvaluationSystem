@@ -7,12 +7,12 @@ using System.Web.UI.WebControls;
 using BLL;
 using Model;
 using DBUtility;
+using System.Data;
 
 namespace TJEvaluationSystem.Pages.FirstManagerPages
 {
     public partial class ManageCurrentEvaluation : System.Web.UI.Page
     {
-        private int EvaluationID;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -56,21 +56,17 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
 
         protected void Search_Click(object sender, EventArgs e)
         {
-            //string exception = "";
+            string exception = "";
             System.Data.DataTable table = new System.Data.DataTable();
             table = searchSql();
             if (table == null)
                 return;
 
-            //adjustTable(table, ref exception); //改table，加栏目
+            adjustTable(table, ref exception); //改table，加栏目
 
-            int sumCount = 0, unPassCount = 0, passCount = 0, unMakeCount = 0;
-
-            //countNumber(table, ref sumCount, ref unPassCount, ref passCount, ref unMakeCount);//做汇总
-            //Title.Text += "（总人数：" + sumCount + " \\未制作：" + unMakeCount + " \\未审核：" + unPassCount + " \\已审核：" + passCount + "）";
-
-            //table.DefaultView.Sort = "PrbPassed asc"; //给table按状态排序
+            table.DefaultView.Sort = "UiEvaluationStatus asc"; //给table按状态排序
             table = table.DefaultView.ToTable();
+
             string json = JSON.DataTableToJson(table);
             JsonData.Value = json;
 
@@ -91,6 +87,27 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             {
                 //失败
                 ScriptManager.RegisterStartupScript(BStartNewEvaluation, this.GetType(), "fun", "FailStartNewEvaluation();", true);
+            }
+        }
+
+        private void adjustTable(DataTable dt, ref string exception)
+        {
+            //0：未开始， 1：正在考评， 2：已结束
+            dt.Columns.Add("EvaluationStatus");
+            foreach (DataRow dr in dt.Rows)
+            {
+                switch ((int)dr["UiEvaluationStatus"])
+                { 
+                    case 0:
+                        dr["EvaluationStatus"] = "未开始";
+                        break;
+                    case 1:
+                        dr["EvaluationStatus"] = "正在考评";
+                        break;
+                    case 2:
+                        dr["EvaluationStatus"] = "已结束";
+                        break;
+                }
             }
         }
     }
