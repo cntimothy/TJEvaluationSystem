@@ -19,17 +19,6 @@ namespace BLL
 
         static readonly SQLDatabase db = new SQLDatabase();
 
-        //static public bool GetEvaluationInfo(string id, DataTable dt, ref string e)
-        //{
-        //    if (dt == null)
-        //        return false;
-        //    string sql = "select * from tb_Evaluator,tb_UserInfo where tb_Evaluator.EvaluatedID = tb_UserInfo.uiID and tb_Evaluator.uiID=" + "\'" + id + "\'";
-        //    dt = db.QueryDataTable(sql, ref e);
-        //    if (dt.Rows.Count < 1)
-        //        return false;
-        //    return true;
-        //}
-
         static public bool Insert(Evaluator[] model, ref string e)
         {
             int count = model.Length;
@@ -92,6 +81,24 @@ namespace BLL
         {
             string sql = "select * from tb_Evaluator where EvaluatedID='" + EvaluatedID + "' and pass=" + pass;
             return Select(ref model, ref e, sql);
+        }
+
+        //获取考评情况汇总
+        public static bool SelectSummary(DataTable dt, ref string e)
+        {
+            string strSql = "select   EvaluatedID as ID, sum(status) as Done, count(*) as Sum from tb_Evaluator group by EvaluatedID";
+            dt = db.QueryDataTable(strSql, ref e);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                if (e != "" && e != null)
+                    return false;
+                e = "考评人名单尚未制定";
+                return false;
+            }
         }
 
         public static bool Select(ref List<Evaluator> model, ref string e, string sql)

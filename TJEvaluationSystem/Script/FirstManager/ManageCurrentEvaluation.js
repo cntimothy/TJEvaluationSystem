@@ -32,9 +32,9 @@ function load_userinfo() {
         { display: '派遣公司', name: 'UiCompany', width: 50, align: 'center' },
         { display: '考评开始时间', name: 'UiStartTime', width: 80, align: 'center' },
         { display: '考评结束时间', name: 'UiStopTime', width: 80, align: 'center' },
-        { display: '考核状态', name: 'EvaluationStatus', width: 80, align: 'center' },
-        { display: '考核状态代码', name: 'UiEvaluationStatus', width: 80, align: 'center', hide: true },
-//        { display: '审核意见', name: 'PrbComment', width: 200, align: 'left' },
+        { display: '考评状态', name: 'EvaluationStatus', width: 80, align: 'center' },
+        { display: '考评状态代码', name: 'UiEvaluationStatus', width: 80, align: 'center', hide: true },
+        { display: '（已完成/总数）', name: 'Statistics', width: 150, align: 'center' },
         { display: '', isSort: false, width: 200, render: function (rowdata, rowindex, value) {
             var h = "";
             h += "<a href='javascript:ShowDetail(" + rowindex + ")'>查看详细</a> ";

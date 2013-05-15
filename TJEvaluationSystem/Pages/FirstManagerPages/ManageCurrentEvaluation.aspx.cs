@@ -94,8 +94,26 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         {
             //0：未开始， 1：正在考评， 2：已结束
             dt.Columns.Add("EvaluationStatus");
+            dt.Columns.Add("Statistics");
+
+            //获取考评情况汇总
+            exception = "";
+            DataTable summaryTable = new DataTable();
+            Dictionary<string, EvaluationSummary> summaryDic = new Dictionary<string, EvaluationSummary>();
+            if (EvaluatorBLL.SelectSummary(summaryTable, ref exception))
+            {
+                foreach (DataRow summaryRow in summaryTable.Rows)
+                {
+                    string id = (string)summaryRow["ID"];
+                    int done = (int)summaryRow["Done"];
+                    int sum = (int)summaryRow["Sum"];
+                    summaryDic.Add(id, new EvaluationSummary(done, sum));
+                }
+            }
+
             foreach (DataRow dr in dt.Rows)
             {
+                //状态
                 switch ((int)dr["UiEvaluationStatus"])
                 { 
                     case 0:
@@ -108,6 +126,27 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                         dr["EvaluationStatus"] = "已结束";
                         break;
                 }
+                //统计
+                if (summaryDic.Keys.Contains((string)dr["UiID"]))
+                {
+                    dr["Statistics"] = summaryDic[(string)dr["UiID"]].Done + "/" + summaryDic[(string)dr["UiID"]].Done;
+                }
+                else
+                {
+                    dr["Statistics"] = "未参加考评！";
+                }
+            }
+        }
+
+        public class EvaluationSummary
+        {
+            public int Done;
+            public int Sum;
+
+            public EvaluationSummary(int done, int sum)
+            {
+                this.Done = done;
+                this.Sum = sum;
             }
         }
     }
