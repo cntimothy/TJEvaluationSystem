@@ -84,7 +84,7 @@ namespace BLL
         }
 
         //获取考评情况汇总
-        public static bool SelectSummary(DataTable dt, ref string e)
+        public static bool SelectSummary(ref DataTable dt, ref string e)
         {
             string strSql = "select   EvaluatedID as ID, sum(status) as Done, count(*) as Sum from tb_Evaluator group by EvaluatedID";
             dt = db.QueryDataTable(strSql, ref e);

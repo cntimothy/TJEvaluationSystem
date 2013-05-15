@@ -100,7 +100,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             exception = "";
             DataTable summaryTable = new DataTable();
             Dictionary<string, EvaluationSummary> summaryDic = new Dictionary<string, EvaluationSummary>();
-            if (EvaluatorBLL.SelectSummary(summaryTable, ref exception))
+            if (EvaluatorBLL.SelectSummary(ref summaryTable, ref exception))
             {
                 foreach (DataRow summaryRow in summaryTable.Rows)
                 {

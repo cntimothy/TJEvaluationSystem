@@ -27,7 +27,7 @@ namespace BLL
         {
             if (evaluated == "")
                 return false;
-            string sql = "update tb_UserInfo set uiEvaluationStatus='1' where uiID=" + evaluated;
+            string sql = "update tb_UserInfo set uiEvaluationStatus='2' where uiID=" + evaluated;
             if(!db.QueryExec(sql))
             {
                 return false;
