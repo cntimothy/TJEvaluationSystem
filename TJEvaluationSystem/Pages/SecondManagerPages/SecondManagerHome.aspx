@@ -29,14 +29,14 @@
     </div>
     <div id="layout1" style="width: 99.2%; margin: 0 auto; margin-top: 4px;">
         <div position="left" title="系级管理员" id="accordion1">
-            <div title="考核表管理" class="l-scroll">
-                <ul id="tree1" style="margin-top: 3px;">
-            </div>
             <div title="岗位责任书管理" class="l-scroll">
-                <ul id="tree2" style="margin-top: 3px;">
+                <ul id="tree2" style="margin-top: 3px;" />
             </div>
-            <div title="备选考评人管理" class="l-scroll">
-                <ul id="tree3" style="margin-top: 3px;">
+            <div title="考核表管理" class="l-scroll">
+                <ul id="tree1" style="margin-top: 3px;" />
+            </div>
+            <div title="考评人管理" class="l-scroll">
+                <ul id="tree3" style="margin-top: 3px;" />
             </div>
         </div>
         <div position="center" id="framecenter">

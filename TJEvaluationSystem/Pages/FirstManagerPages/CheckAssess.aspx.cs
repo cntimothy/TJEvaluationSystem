@@ -59,9 +59,10 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             int sumCount = 0, unPassCount = 0, passCount = 0, unMakeCount = 0;
 
             countNumber(table, ref sumCount, ref unPassCount, ref passCount, ref unMakeCount);//做汇总
-            Title.Text += "（总人数：" + sumCount + " \\未制作：" + unMakeCount + " \\未审核：" + unPassCount + " \\已审核：" + passCount + "）";
+            //Title.Text += "（总人数：" + sumCount + "  未制作：" + unMakeCount + "  未审核：" + unPassCount + "  已审核：" + passCount + "）";
+            Title.Text += "（未审核：" + unPassCount + "， 已审核：" + passCount + "， 未制作：" + unMakeCount + "， 总数：" + sumCount + "）";
 
-            table.DefaultView.Sort = "Passed asc"; //给table按状态排序
+            table.DefaultView.Sort = "Passed desc"; //给table按状态排序
             table = table.DefaultView.ToTable();
             string json = JSON.DataTableToJson(table);
             JsonData.Value = json;

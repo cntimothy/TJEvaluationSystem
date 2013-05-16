@@ -331,6 +331,8 @@
             <asp:TextBox ID="prbWorkOutline" runat="server" CssClass="textbox1" TextMode="MultiLine"></asp:TextBox>
             <br />
             <asp:Label ID="Label17" runat="server" Text="2.工作内容及工作要求：（2~5项）" CssClass="label1"></asp:Label>
+            <div id="WorkContentRequest">
+            </div>
             <table>
                 <tr>
                     <td>
@@ -344,8 +346,6 @@
                 </tr>
             </table>
             <br />
-            <div id="WorkContentRequest">
-            </div>
             <br />
             <br />
             <asp:Label ID="Label18" runat="server" Text="(三)权责范围" Style="font-size: 17px; font-weight: 600;

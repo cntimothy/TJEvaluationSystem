@@ -33,7 +33,7 @@ namespace BLL
                     case "同事":
                         returnvalue = 15;
                         break;
-                    case "客户":
+                    case "服务对象":
                         returnvalue = 20;
                         break;
                     default:
@@ -51,7 +51,7 @@ namespace BLL
                     case "同事":
                         returnvalue = 10;
                         break;
-                    case "客户":
+                    case "服务对象":
                         returnvalue = 25;
                         break;
                     case "下属":

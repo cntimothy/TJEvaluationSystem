@@ -308,16 +308,16 @@
                 </tr>
                 <tr class="KeyResponse">
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -338,16 +338,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -368,16 +368,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -398,16 +398,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -428,16 +428,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -478,16 +478,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -520,16 +520,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -562,16 +562,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -604,16 +604,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -646,16 +646,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -696,16 +696,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -738,16 +738,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -780,16 +780,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -822,16 +822,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -864,16 +864,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -908,16 +908,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -938,16 +938,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -968,16 +968,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -998,16 +998,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -1028,16 +1028,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -1084,16 +1084,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -1126,16 +1126,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -1168,16 +1168,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -1210,16 +1210,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -1252,16 +1252,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -1308,16 +1308,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -1350,16 +1350,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -1392,16 +1392,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -1434,16 +1434,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -1476,16 +1476,16 @@
                 </tr>
                 <tr>
                     <td class="td_score_type">
-                        优（9~10）
+                        优（91～100）
                     </td>
                     <td class="td_score_type">
-                        良（7~8）
+                        良（71～90）
                     </td>
                     <td class="td_score_type">
-                        中（4~6）
+                        中（41～70）
                     </td>
                     <td class="td_score_type">
-                        差（0~3）
+                        差（0～40）
                     </td>
                 </tr>
                 <tr>
@@ -1510,7 +1510,7 @@
                         累计旷工3天以上的
                     </td>
                     <td rowspan="5" class="td_score_type">
-                        -10或0
+                        -100或0
                     </td>
                     <td rowspan="6" class="td_fun">
                     </td>
@@ -1557,12 +1557,10 @@
             </table>
         </div>
         <div id="Div1">
-                被考核人姓名：<label id="LVEvaluatdName"></label>&nbsp&nbsp&nbsp&nbsp
-                岗位名称：<label id="LVJobName"></label>&nbsp&nbsp&nbsp&nbsp
-                用工部门：<label id="LVEDep"></label>&nbsp&nbsp&nbsp&nbsp
-                用工单位：<label id="LVEUnit"></label>&nbsp&nbsp&nbsp&nbsp
-                <br/>
-                考核时间段：<label id="LVEStartEndTime"></label>&nbsp&nbsp&nbsp&nbsp
+            被考核人姓名：<label id="LVEvaluatdName"></label>&nbsp&nbsp&nbsp&nbsp 岗位名称：<label id="LVJobName"></label>&nbsp&nbsp&nbsp&nbsp
+            用工部门：<label id="LVEDep"></label>&nbsp&nbsp&nbsp&nbsp 用工单位：<label id="LVEUnit"></label>&nbsp&nbsp&nbsp&nbsp
+            <br />
+            考核时间段：<label id="LVEStartEndTime"></label>&nbsp&nbsp&nbsp&nbsp
         </div>
         <div id="ShowAssessTable">
         </div>

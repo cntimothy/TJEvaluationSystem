@@ -50,7 +50,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                     int sumCount = 0, unPassCount = 0, passCount = 0, savedCount = 0, unMakeCount = 0;
 
                     countNumber(table, ref sumCount, ref unPassCount, ref passCount, ref unMakeCount);//做汇总
-                    Title.Text += "( 未制作：" + unMakeCount + "\\已提交：" + unPassCount + "\\已审核：" + passCount + "\\总人数：" + sumCount + " )";
+                    Title.Text += "( 未制作：" + unMakeCount + ", 已提交：" + unPassCount + ", 已审核：" + passCount + ", 总人数：" + sumCount + " )";
 
                     table.DefaultView.Sort = "Passed asc"; //给table按状态排序
                     table = table.DefaultView.ToTable();

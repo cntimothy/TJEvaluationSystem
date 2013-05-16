@@ -1,17 +1,17 @@
 ﻿var indexdata =
 [
-   { url: "ManageEvaluatorTable.aspx", text: "管理考核表" },
-   { url: "ManageEvaluator.aspx", text: "管理考评人名单" }
+   { url: "ManageEvaluatorTable.aspx", text: "制作考核表" }
 ];
 var indexdata2 =
 [
-   { url: "MakePostBook.aspx", text: "管理岗位责任书" }
+   { url: "MakePostBook.aspx", text: "制作岗位责任书" }
 ];
 
 var indexdata3 =
 [
    { url: "../AccountPages/UploadEvaluator.aspx", text: "上传备选名单" },
-    { url: "SelectEvaluator.aspx", text: "查看备选名单" }
+    { url: "SelectEvaluator.aspx", text: "查看备选名单" },
+   { url: "ManageEvaluator.aspx", text: "制作考评人名单" }
 ];
 
 var tab = null;

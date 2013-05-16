@@ -144,8 +144,8 @@ function show_evaluator()
             h += '<input type="radio" id="RadioButton2' + rowindex + '" name="' + rowindex + '" value="同事">';
             h += ' 下属';
             h += '<input type="radio" id="RadioButton3' + rowindex + '" name="' + rowindex + '" value="下属">';
-            h += ' 客户';
-            h += '<input type="radio" id="RadioButton4' + rowindex + '" name="' + rowindex + '" value="客户">';
+            h += ' 服务对象';
+            h += '<input type="radio" id="RadioButton4' + rowindex + '" name="' + rowindex + '" value="服务对象">';
             return h;
         }
         }

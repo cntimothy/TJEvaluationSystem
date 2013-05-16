@@ -34,6 +34,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             if (ManagerBLL.SelectByID(username, ref manager, ref exception))
             {
                 uiDepart = manager.ElementAt(0).MDepartment;
+                Session["ManagerDepartment"] = uiDepart;
                 Title.Text = uiDepart + "被考评人名单：";
                 List<UserInfo> Evaluated = new List<UserInfo>();
                 string type = "____1%";
@@ -49,7 +50,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
 
                     countNumber(table, ref sumCount, ref unPassCount, ref passCount, ref savedCount, ref unMakeCount);//做汇总
                     //Title.Text += "（总人数：" + sumCount + " \\未制作：" + unMakeCount + " \\已保存：" + savedCount + " \\已提交：" + unPassCount + " \\已审核：" + passCount + "）";
-                    Title.Text += "( 未制作：" + unMakeCount + "\\已保存：" + savedCount + "\\已提交：" + unPassCount + "\\已审核：" + passCount + "\\总人数：" + sumCount + " )";
+                    Title.Text += "( 未制作：" + unMakeCount + ", 已保存：" + savedCount + ", 已提交：" + unPassCount + ", 已审核：" + passCount + "\\总人数：" + sumCount + " )";
 
                     table.DefaultView.Sort = "PrbPassed desc"; //给table按状态排序
                     table = table.DefaultView.ToTable();
@@ -134,7 +135,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 pass.Text = "尚未制定！";
                 Passed.Value = "-1";
                 prbEmployer.Text = "";
-                prbLaborUnit.Text = "";
+                prbLaborUnit.Text = (string)Session["ManagerDepartment"];
                 prbLaborDep.Text = "";
                 prbPostName.Text = "";
                 prbPostType.Text = "";
