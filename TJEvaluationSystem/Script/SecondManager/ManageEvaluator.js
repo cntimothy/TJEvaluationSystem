@@ -3,8 +3,7 @@ var data = null;
 var DetailData = null;
 var Evaluator = null;
 var List = null;
-function tanchuang() 
-{
+function tanchuang() {
     var error = document.getElementById("Errors").value;
     alert(error);
     if (document.getElementById("Chose").value == "submit") {
@@ -12,16 +11,14 @@ function tanchuang()
     }
 }
 
-function search()
- {
+function search() {
     document.getElementById("SearchEvaluated").click();
 }
 
-function load_userinfo() 
-{
+function load_userinfo() {
     var s = document.getElementById("JsonData").value;
     var UsersData = JSON2.parse(s);
-   
+
     Evaluated = $("#evaluatedgrid").ligerGrid({
         columns: [
         { display: '用户名', name: 'UiID', width: 80, align: 'center' },
@@ -55,9 +52,9 @@ function load_userinfo()
         width: '96%'
     });
 
-  
 
-    
+
+
 }
 
 function ShowDetail(rowid) {
@@ -67,7 +64,7 @@ function ShowDetail(rowid) {
     DetailData = rowdata;
     //
     $("#evaluatedgrid").css("display", "none");
-    
+
     $("#ShowDetailUserInfo").css("display", "block");
     // $("#UserInfo").css("display", "none");
     $(".DetailData").css("display", "block");
@@ -94,8 +91,7 @@ function ShowDetail(rowid) {
     document.getElementById('LStopTime').innerText = rowdata.UiStopTime;
 }
 
-function Make(rowid) 
-{
+function Make(rowid) {
     var rowdata = Evaluated.getSelectedRow(rowid);    //取得数据
 
     if (rowdata == null)
@@ -107,8 +103,7 @@ function Make(rowid)
     document.getElementById("SearchUser").click();
 }
 
-function Check(rowid)
- {
+function Check(rowid) {
     var rowdata = Evaluated.getSelectedRow(rowid);    //取得数据
 
     if (rowdata == null)
@@ -117,8 +112,7 @@ function Check(rowid)
     document.getElementById("CheckUser").click();
 }
 
-function show_evaluator() 
-{
+function show_evaluator() {
     load_userinfo();
     var s2 = document.getElementById("JsonEvaluator").value;
     var UsersData2 = JSON2.parse(s2);
@@ -154,18 +148,18 @@ function show_evaluator()
         width: '96%'
     });
     $("#box").css("display", "block");
-    document.getElementById("submit_button").style.display = ""; 
+    document.getElementById("submit_button").style.display = "";
     var manager = $("#evaluator").ligerGetGridManager();
     manager.loadData();
     document.getElementById("LUserName").style.display = "";  //显示被考评人姓名
+    window.scroll(0, 500);
 }
 
 function submitList() {
     var array = Evaluator.getSelecteds();
-    if (array.length<1) 
-    { 
-         alert("请选择考评人"); 
-         return;
+    if (array.length < 1) {
+        alert("请选择考评人");
+        return;
     }
 
     //删除无用数据
@@ -180,26 +174,26 @@ function submitList() {
         delete array[i].EvZipCode;
     }
 
-     for (var i = 0; i < array.length; i++) {
-         var buttons = document.getElementsByName(array[i].__index);
-         for (var j = 0; j < buttons.length; j++) {
-             if (buttons[j].checked == true) {
-                 array[i].Relation = buttons[j].value;
-                 break;
-             }
-             if (j == buttons.length) {
-                 alert("请确认所有考评人都选择了身份！");
-                 break;
-             }
-         }
-     } 
+    for (var i = 0; i < array.length; i++) {
+        var buttons = document.getElementsByName(array[i].__index);
+        for (var j = 0; j < buttons.length; j++) {
+            if (buttons[j].checked == true) {
+                array[i].Relation = buttons[j].value;
+                break;
+            }
+            if (j == buttons.length) {
+                alert("请确认所有考评人都选择了身份！");
+                break;
+            }
+        }
+    }
     var selectData = JSON2.stringify(array);
     document.getElementById("JsonChose").value = selectData;
     document.getElementById("Button1").click();
 }
 
 
-function showList2() {
+function showList() {
     load_userinfo();
     $("#box").css("display", "none");
 
@@ -211,8 +205,7 @@ function showList2() {
         { display: '考评人姓名', name: 'EvaluatorName', width: 150, align: 'center' },
         { display: '考评人部门', name: 'EvaluatorUnit', width: 100, align: 'center' },
         { display: '身份', name: 'Relation', width: 80, align: 'center' },
-         { display: '撤销', isSort: false, width: 40, render: function (rowdata, rowindex, value) 
-         {
+         { display: '撤销', isSort: false, width: 40, render: function (rowdata, rowindex, value) {
              var h = "";
              h += "<a href='javascript:deleteRow(" + rowindex + ")'>删除</a> ";
              return h;
@@ -227,13 +220,12 @@ function showList2() {
     $("#box2").css("display", "block");
     var manager = $("#list").ligerGetGridManager();
     manager.loadData();
+    window.scroll(0, 500);
 }
 
 
-function deleteRow(rowid) 
-{
-    if (confirm('确定删除?')) 
-    {
+function deleteRow(rowid) {
+    if (confirm('确定删除?')) {
         List.deleteRow(rowid);
         var User = List.getDeleted();
         var userinfo = JSON2.stringify(User);

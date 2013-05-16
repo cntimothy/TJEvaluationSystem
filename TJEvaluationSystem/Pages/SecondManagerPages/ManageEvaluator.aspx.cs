@@ -203,7 +203,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 adjustTable(table, ref exception); //为表格加上用户名显示
                 string json = JSON.DataTableToJson(table);
                 JsonList.Value = json;
-                ClientScript.RegisterStartupScript(this.GetType(), "", "showList1()", true);
+                ClientScript.RegisterStartupScript(this.GetType(), "", "showList()", true);
                 return;
             }
 
@@ -215,7 +215,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 adjustTable(table, ref exception); //为表格加上用户名显示
                 string json = JSON.DataTableToJson(table);
                 JsonList.Value = json;
-                ClientScript.RegisterStartupScript(this.GetType(), "", "showList2()", true);
+                ClientScript.RegisterStartupScript(this.GetType(), "", "showList()", true);
                 return;
             }
             Errors.Value = "考评人名单尚未制定";

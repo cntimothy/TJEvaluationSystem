@@ -123,6 +123,7 @@ function Check(rowid)
     document.getElementById("UserID").value = rowdata.UiID;
     document.getElementById("EvaComment").value = rowdata.Comment;
     document.getElementById("CheckUser").click();
+    window.scroll(0, 500);//下滚
 }
 
 function showList1()
