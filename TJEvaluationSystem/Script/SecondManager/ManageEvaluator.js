@@ -145,7 +145,8 @@ function show_evaluator() {
         }
         ],
         data: UsersData2,
-        width: '96%'
+        width: '96%',
+        selectRowButtonOnly: true
     });
     $("#box").css("display", "block");
     document.getElementById("submit_button").style.display = "";
