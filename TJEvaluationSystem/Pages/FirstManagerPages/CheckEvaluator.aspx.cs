@@ -79,29 +79,20 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             string evaluated = UserID.Value;
             
             List<Evaluator> model = new List<Evaluator>();
-            if (EvaluatorBLL.Select(ref model, evaluated, 1, ref exception))
+            if (EvaluatorBLL.SelectByID(model, evaluated, ref exception))
             {
-                this.pass.Text = "已通过审核";
-                DataTable table = new DataTable();
-                table = model.ListToDataTable();
-                adjustTable(table, ref exception);
-                string json = JSON.DataTableToJson(table);
-                JsonList.Value = json;
-                ClientScript.RegisterStartupScript(this.GetType(), "", "showList1()", true);
-                return;
-            }
-            exception = "";
-            if (EvaluatorBLL.Select(ref model, evaluated, 0, ref exception))
-            {
-                this.pass.Text = "未通过审核";
-                if (EvaComment.Value != "")
+                this.pass.Text = "未审核";
+                foreach (Evaluator er in model)
                 {
-                    Comment.Text = "审核意见：" + EvaComment.Value;
+                    if (er.Pass == 1)
+                    {
+                        this.pass.Text = "已审核";
+                        break;
+                    }
                 }
                 DataTable table = new DataTable();
                 table = model.ListToDataTable();
-
-                adjustTable(table, ref exception);
+                adjustTable(table, ref exception); //为表格加上用户名显示
                 string json = JSON.DataTableToJson(table);
                 JsonList.Value = json;
                 ClientScript.RegisterStartupScript(this.GetType(), "", "showList1()", true);
@@ -115,49 +106,52 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
 
         protected void Submit_Click(object sender, EventArgs e)
         {
-            string exception = "";
-            string evaluated = UserID.Value;
-            if (evaluated.Length <= 0)
-            {
-                Errors.Value = "没有选中考评人名单";
-                this.Chose.Value = "submit";
-                ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
-                return;
-            }
+            //string exception = "";
+            //string evaluated = UserID.Value;
+            //if (evaluated.Length <= 0)
+            //{
+            //    Errors.Value = "没有选中考评人名单";
+            //    this.Chose.Value = "submit";
+            //    ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
+            //    return;
+            //}
+            //exception = "";
+            //if (EvaluatorBLL.Select(ref model, evaluated, 1, ref exception))
+            //{
+            //    Errors.Value = "考评人名单已通过审核";
+            //    this.Chose.Value = "submit";
+            //    ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
+            //    return;
+            //}
+
             List<Evaluator> model = new List<Evaluator>();
-            exception = "";
-            if (EvaluatorBLL.Select(ref model, evaluated, 1, ref exception))
-            {
-                Errors.Value = "考评人名单已通过审核";
-                this.Chose.Value = "submit";
-                ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
-                return;
-            }
+            string exception = "";
+            string strData = JsonChose.Value;
+            List<TempEvaluator> userData = JSON.ScriptDeserialize<List<TempEvaluator>>(strData);
 
-            exception = "";
-            if (EvaluatorBLL.Select(ref model, evaluated, 0, ref exception))
-            {
-                for (int i = 0; i < model.Count; i++)
-                {
-                    model[i].Pass = 1;
+            //if (EvaluatorBLL.Select(ref model, evaluated, 0, ref exception))
+            //{
+            //    for (int i = 0; i < model.Count; i++)
+            //    {
+            //        model[i].Pass = 1;
 
-                    exception = "";
-                    if (!EvaluatorBLL.Update1(model[i], ref exception))
-                    {
-                        Errors.Value = exception;
-                        this.Chose.Value = "submit";
-                        ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
-                        return;
-                    }
-                }
-                EvaluatorComment ec = new EvaluatorComment();
-                ec.EcEvaluatedID = evaluated;
-                ec.EcComment = "";
-                EvaluatorCommentBLL.Update(ec, ref exception);
-                this.pass.Text = "已通过审核";
-                ClientScript.RegisterStartupScript(this.GetType(), "", "showList1()", true);
-                return;
-            }
+            //        exception = "";
+            //        if (!EvaluatorBLL.Update1(model[i], ref exception))
+            //        {
+            //            Errors.Value = exception;
+            //            this.Chose.Value = "submit";
+            //            ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
+            //            return;
+            //        }
+            //    }
+            //    EvaluatorComment ec = new EvaluatorComment();
+            //    ec.EcEvaluatedID = evaluated;
+            //    ec.EcComment = "";
+            //    EvaluatorCommentBLL.Update(ec, ref exception);
+            //    this.pass.Text = "已通过审核";
+            //    ClientScript.RegisterStartupScript(this.GetType(), "", "showList1()", true);
+            //    return;
+            //}
             Errors.Value = "考评人名单尚未制定";
             this.Chose.Value = "submit";
             ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
@@ -421,6 +415,11 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         public class TempSummary
         {
             public int Unpass, Unmake, Pass, Sum;
+        }
+
+        public class TempEvaluator
+        {
+            public string EvaluatedID = "", UiID = "";
         }
     }
 }

@@ -133,7 +133,10 @@ function showList1()
     var s3 = document.getElementById("JsonList").value;
     var UsersData3 = JSON2.parse(s3);
     List = $("#list").ligerGrid({
+        checkbox: true,
         columns: [
+        { display: '被考评人ID', name: 'EvaluatedID', width: 150, align: 'center', hide: true },
+        { display: '考评人ID', name: 'UiID', width: 150, align: 'center', hide: true },
         { display: '被考评人姓名', name: 'EvaluatedName', width: 150, align: 'center', frozen: true },
         { display: '考评人姓名', name: 'EvaluatorName', width: 150, align: 'center' },
         { display: '考评人部门', name: 'EvaluatorUnit', width: 100, align: 'center' },
@@ -141,7 +144,8 @@ function showList1()
         ],
         usePager: true, pageSize: 10,
         data: UsersData3,
-        width: '96%'
+        width: '96%',
+        selectRowButtonOnly: true
     });
     $("#box2").css("display", "block");
     if (document.getElementById("pass").innerHTML == "已通过审核") {
@@ -152,13 +156,24 @@ function showList1()
         document.getElementById("comment_button").style.display = ""; //显示审核意见按钮
     }
     document.getElementById("dao_button").style.display = "";
-    $("#list").ligerGetGridManager().loadData()
+    $("#list").ligerGetGridManager().loadData();
+    window.scroll(0, 500);
 }
 
 function pass()
  {
-     if (confirm('确认通过？')) 
-     {
+     if (confirm('确认通过？')) {
+         var array = List.getSelecteds();
+
+         for (var index in array) {
+             delete array[index].EvaluatedName;
+             delete array[index].EvaluatorName;
+             delete array[index].EvaluatorUnit;
+             delete array[index].Relation;
+         }
+
+         var selectData = JSON2.stringify(array);
+         document.getElementById("JsonChose").value = selectData;
          document.getElementById("PassList").click();
          location = location;
      }

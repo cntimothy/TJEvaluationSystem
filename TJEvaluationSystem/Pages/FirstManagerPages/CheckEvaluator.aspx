@@ -208,6 +208,7 @@
              <input id="Chose" type="hidden" runat="server"/>
              <input id="Passed" type="hidden" runat="server"/>
              <input id="EvaComment" type="hidden" runat="server" />
+             <input id="JsonChose" type="hidden" runat="server" />
              <asp:Button ID="Search" runat="server" Text="Button" onclick="Search_Click" style="display:none"/>
              <asp:Button ID="CheckUser" runat="server"  OnClick="Check_User"  />
              <asp:Button ID="PassList" runat="server" Text="Button" onclick="Submit_Click" style="display:none" />
