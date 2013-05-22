@@ -184,20 +184,20 @@ namespace BLL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("update tb_Evaluator set ");
-            strSql.Append("relation=@relation,");
             strSql.Append("pass=@pass");
             strSql.Append(" where uiID=@uiID and  EvaluatedID=@EvaluatedID");
             SqlParameter[] parameters =
                 {
+                    new SqlParameter("@pass", SqlDbType.Int,4),
                     new SqlParameter("@uiID", SqlDbType.VarChar,10),
-                    new SqlParameter("@EvaluatedID",SqlDbType.VarChar,10),
-                    new SqlParameter("@relation", SqlDbType.VarChar,10),
-                    new SqlParameter("@pass", SqlDbType.Int,4)
+                    new SqlParameter("@EvaluatedID",SqlDbType.VarChar,10)
                 };
-            parameters[0].Value = model.UiID;
-            parameters[1].Value = model.EvaluatedID;
-            parameters[2].Value = model.Relation;
-            parameters[3].Value = model.Pass;
+            parameters[0].Value = model.Pass;
+            parameters[1].Value = model.UiID;
+            parameters[2].Value = model.EvaluatedID;
+            
+            //更新Evaluator表
+            e = db.QueryExec(strSql.ToString(), parameters);
 
             if (e != "" && e != null)
             {
@@ -207,7 +207,6 @@ namespace BLL
             //更新User表
             if (model.Pass == 1)
             {
-
                 List<User> users = new List<User>();
                 if (UserBLL.Select(model.UiID, ref users, ref e))
                 {
@@ -233,15 +232,12 @@ namespace BLL
                 }
 
 
-                //更新Evaluator表
-                e = db.QueryExec(strSql.ToString(), parameters);
                 if (e != "" && e != null)
                 {
                     return false;
                 }
-                else return true;
             }
-            return false;
+            return true;
         }
 
         //退回,同时要更新User Userinfo

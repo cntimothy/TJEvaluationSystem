@@ -17,8 +17,7 @@ function sendback() {
     location = location;
 }
 
-function search() 
-{
+function search() {
     document.getElementById("Search").click();
 }
 
@@ -39,8 +38,7 @@ function load_summary() {
     });
 }
 
-function load_userinfo() 
-{
+function load_userinfo() {
     var s = document.getElementById("JsonData").value;
     var UsersData = JSON2.parse(s);
     data = UsersData;
@@ -77,8 +75,7 @@ function load_userinfo()
     });
 }
 
-function ShowDetail(rowid) 
-{
+function ShowDetail(rowid) {
     var rowdata = Evaluated.getSelectedRow(rowid);    //取得数据  
     if (rowdata == null)
         return;
@@ -111,8 +108,7 @@ function ShowDetail(rowid)
     document.getElementById('LStopTime').innerText = rowdata.UiStopTime;
 }
 
-function Check(rowid) 
-{
+function Check(rowid) {
     var rowdata = Evaluated.getSelectedRow(rowid);    //取得数据
     if (rowdata.Passed == "未制作") {
         alert("考评人名单未制作！");
@@ -123,11 +119,10 @@ function Check(rowid)
     document.getElementById("UserID").value = rowdata.UiID;
     document.getElementById("EvaComment").value = rowdata.Comment;
     document.getElementById("CheckUser").click();
-    window.scroll(0, 500);//下滚
+    window.scroll(0, 500); //下滚
 }
 
-function showList1()
-{
+function showList1() {
     load_userinfo();
 
     var s3 = document.getElementById("JsonList").value;
@@ -148,51 +143,50 @@ function showList1()
         selectRowButtonOnly: true
     });
     $("#box2").css("display", "block");
-    if (document.getElementById("pass").innerHTML == "已通过审核") {
+    if (document.getElementById("pass").innerHTML == "已审核") {
         document.getElementById("sendback_button").style.display = "";
     }
-    else if (document.getElementById("pass").innerHTML == "未通过审核") {
+    else if (document.getElementById("pass").innerHTML == "未审核") {
         document.getElementById("pass_button").style.display = "";
         document.getElementById("comment_button").style.display = ""; //显示审核意见按钮
     }
-    document.getElementById("dao_button").style.display = "";
     $("#list").ligerGetGridManager().loadData();
     window.scroll(0, 500);
 }
 
-function pass()
- {
-     if (confirm('确认通过？')) {
-         var array = List.getSelecteds();
+function pass() {
+    if (confirm('确认通过？')) {
+        var array = List.getSelecteds();
 
-         for (var index in array) {
-             delete array[index].EvaluatedName;
-             delete array[index].EvaluatorName;
-             delete array[index].EvaluatorUnit;
-             delete array[index].Relation;
-         }
+        for (var index in array) {
+            delete array[index].EvaluatedID;
+            delete array[index].EvaluatedName;
+            delete array[index].EvaluatorName;
+            delete array[index].EvaluatorUnit;
+            delete array[index].Relation;
+        }
 
-         var selectData = JSON2.stringify(array);
-         document.getElementById("JsonChose").value = selectData;
-         document.getElementById("PassList").click();
-         location = location;
-     }
- }
+        var selectData = JSON2.stringify(array);
+        document.getElementById("JsonChose").value = selectData;
+        document.getElementById("PassList").click();
+        location = location;
+    }
+}
 
- function dao() {
-     document.getElementById("Dao").click();
- }
+function dao() {
+    document.getElementById("Dao").click();
+}
 
- function comment() {
-     var oldComment = document.getElementById("Comment").innerHTML.split("：")[1];
-     if (oldComment) {
-         var comment = prompt("请输入审核意见：（最多50字）", oldComment);
-     }
-     else {
-         var comment = prompt("请输入审核意见：（最多50字）", "");
-     }
-     if (comment) {
-         document.getElementById("EvaComment").value = comment.substring(0, 50);
-         document.getElementById("WriteComment").click();
-     }
- }
+function comment() {
+    var oldComment = document.getElementById("Comment").innerHTML.split("：")[1];
+    if (oldComment) {
+        var comment = prompt("请输入审核意见：（最多50字）", oldComment);
+    }
+    else {
+        var comment = prompt("请输入审核意见：（最多50字）", "");
+    }
+    if (comment) {
+        document.getElementById("EvaComment").value = comment.substring(0, 50);
+        document.getElementById("WriteComment").click();
+    }
+}

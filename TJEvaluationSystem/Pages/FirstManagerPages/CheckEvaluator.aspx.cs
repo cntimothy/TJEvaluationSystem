@@ -21,14 +21,14 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 loadSummary();
             }
         }
-        
+
         protected DataTable searchSql()
         {
             string exception = "";
             string department = Department.SelectedValue;
             string type = "____1%";
             List<UserInfo> userinfo = new List<UserInfo>();
-            if(department == "0")
+            if (department == "0")
             {
                 UserInfoBLL.SelectByType(type, ref userinfo, ref exception);
                 Title.Text = "所有被考评者名单:";
@@ -77,7 +77,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
         {
             string exception = "";
             string evaluated = UserID.Value;
-            
+
             List<Evaluator> model = new List<Evaluator>();
             if (EvaluatorBLL.SelectByID(model, evaluated, ref exception))
             {
@@ -106,52 +106,50 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
 
         protected void Submit_Click(object sender, EventArgs e)
         {
-            //string exception = "";
-            //string evaluated = UserID.Value;
-            //if (evaluated.Length <= 0)
-            //{
-            //    Errors.Value = "没有选中考评人名单";
-            //    this.Chose.Value = "submit";
-            //    ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
-            //    return;
-            //}
-            //exception = "";
-            //if (EvaluatorBLL.Select(ref model, evaluated, 1, ref exception))
-            //{
-            //    Errors.Value = "考评人名单已通过审核";
-            //    this.Chose.Value = "submit";
-            //    ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
-            //    return;
-            //}
-
             List<Evaluator> model = new List<Evaluator>();
             string exception = "";
+            string evaluated = UserID.Value;
             string strData = JsonChose.Value;
-            List<TempEvaluator> userData = JSON.ScriptDeserialize<List<TempEvaluator>>(strData);
 
-            //if (EvaluatorBLL.Select(ref model, evaluated, 0, ref exception))
-            //{
-            //    for (int i = 0; i < model.Count; i++)
-            //    {
-            //        model[i].Pass = 1;
+            List<TempEvaluator> tempEvaluatorList = JSON.ScriptDeserialize<List<TempEvaluator>>(strData);//从前端获取考评人名单
+            List<string> evaluatorList = new List<String>();
+            foreach (TempEvaluator te in tempEvaluatorList)
+            {
+                evaluatorList.Add(te.UiID);
+            }
 
-            //        exception = "";
-            //        if (!EvaluatorBLL.Update1(model[i], ref exception))
-            //        {
-            //            Errors.Value = exception;
-            //            this.Chose.Value = "submit";
-            //            ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
-            //            return;
-            //        }
-            //    }
-            //    EvaluatorComment ec = new EvaluatorComment();
-            //    ec.EcEvaluatedID = evaluated;
-            //    ec.EcComment = "";
-            //    EvaluatorCommentBLL.Update(ec, ref exception);
-            //    this.pass.Text = "已通过审核";
-            //    ClientScript.RegisterStartupScript(this.GetType(), "", "showList1()", true);
-            //    return;
-            //}
+            //构造新的考评人名单
+            if (EvaluatorBLL.SelectByID(model, evaluated, ref exception))
+            {
+                foreach (Evaluator evaluator in model)
+                {
+                    if (evaluatorList.Contains(evaluator.UiID))
+                    {
+                        evaluator.Pass = 1;
+                    }
+                    else
+                    {
+                        evaluator.Pass = 0;
+                    }
+
+                    exception = "";
+                    if (!EvaluatorBLL.Update1(evaluator, ref exception))
+                    {
+                        Errors.Value = exception;
+                        this.Chose.Value = "submit";
+                        ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
+                        return;
+                    }
+                }
+                EvaluatorComment ec = new EvaluatorComment();
+                ec.EcEvaluatedID = evaluated;
+                ec.EcComment = "";
+                EvaluatorCommentBLL.Update(ec, ref exception);
+                this.pass.Text = "已审核";
+                ClientScript.RegisterStartupScript(this.GetType(), "", "showList1()", true);
+                return;
+            }
+
             Errors.Value = "考评人名单尚未制定";
             this.Chose.Value = "submit";
             ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
@@ -178,7 +176,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 table = model.ListToDataTable();
                 string filename = evaluated + "的考评人名单(已通过审核)";
                 Export(filename, table);
-               
+
                 return;
             }
 
@@ -195,14 +193,14 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             this.Chose.Value = "submit";
             ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
 
-            
+
         }
 
         protected void SendBack_Click(object sender, EventArgs e)
         {
             string exception = "";
             string evaluated = UserID.Value;
-            
+
             List<Evaluator> model = new List<Evaluator>();
             if (EvaluatorBLL.Select(ref model, evaluated, 1, ref exception))
             {
@@ -344,7 +342,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 sumCount++;
             }
         }
-        
+
         private void loadSummary()
         {
             string exception = "";
@@ -419,7 +417,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
 
         public class TempEvaluator
         {
-            public string EvaluatedID = "", UiID = "";
+            public string UiID = "";
         }
     }
 }
