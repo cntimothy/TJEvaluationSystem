@@ -143,11 +143,8 @@ function showList1() {
         selectRowButtonOnly: true
     });
     $("#box2").css("display", "block");
-    if (document.getElementById("pass").innerHTML == "已审核") {
-        document.getElementById("sendback_button").style.display = "";
-    }
-    else if (document.getElementById("pass").innerHTML == "未审核") {
-        document.getElementById("pass_button").style.display = "";
+    document.getElementById("pass_button").style.display = "";//显示提交按钮
+    if (document.getElementById("pass").innerHTML == "未审核") {
         document.getElementById("comment_button").style.display = ""; //显示审核意见按钮
     }
     $("#list").ligerGetGridManager().loadData();
@@ -169,7 +166,6 @@ function pass() {
         var selectData = JSON2.stringify(array);
         document.getElementById("JsonChose").value = selectData;
         document.getElementById("PassList").click();
-        location = location;
     }
 }
 
@@ -189,4 +185,9 @@ function comment() {
         document.getElementById("EvaComment").value = comment.substring(0, 50);
         document.getElementById("WriteComment").click();
     }
+}
+
+function doneCommit() {
+    alert("提交成功！");
+    document.getElementById("search_button").click();
 }

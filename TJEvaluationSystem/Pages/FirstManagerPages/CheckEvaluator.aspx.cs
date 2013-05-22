@@ -62,7 +62,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             countNumber(table, ref sumCount, ref unPassCount, ref passCount, ref unMakeCount);//做汇总
             Title.Text += "（未审核：" + unPassCount + "， 已审核：" + passCount + "， 未制作：" + unMakeCount + "， 总数：" + sumCount + "）";
 
-            table.DefaultView.Sort = "Passed desc"; //给table按状态排序
+            table.DefaultView.Sort = "Passed asc"; //给table按状态排序
             table = table.DefaultView.ToTable();
 
             string json = JSON.DataTableToJson(table);
@@ -146,7 +146,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 ec.EcComment = "";
                 EvaluatorCommentBLL.Update(ec, ref exception);
                 this.pass.Text = "已审核";
-                ClientScript.RegisterStartupScript(this.GetType(), "", "showList1()", true);
+                ClientScript.RegisterStartupScript(this.GetType(), "", "doneCommit()", true);
                 return;
             }
 
@@ -302,19 +302,24 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 evaluators.Clear();
                 if (EvaluatorBLL.SelectByID(evaluators, (string)dr["UiID"], ref exception))
                 {
-                    //0：已提交 1：已审核 2：未制作 
-                    if (evaluators[0].Pass.ToString() == "1")
+                    //0：已提交 1：已审核
+                    dr["Passed"] = "未审核";
+                    foreach (Evaluator e in evaluators)
                     {
-                        dr["Passed"] = "已审核";
+                        if (e.Pass.ToString() == "1")
+                        {
+                            dr["Passed"] = "已审核";
+                            break;
+                        }
                     }
-                    else if (evaluators[0].Pass.ToString() == "0")
-                    {
-                        dr["Passed"] = "未审核";
-                    }
-                    else
-                    {
-                        dr["Passed"] = "未制作";
-                    }
+                    //if (evaluators[0].Pass.ToString() == "1")
+                    //{
+                    //    dr["Passed"] = "已审核";
+                    //}
+                    //else if (evaluators[0].Pass.ToString() == "0")
+                    //{
+                    //    dr["Passed"] = "未审核";
+                    //}
                 }
                 else
                 {

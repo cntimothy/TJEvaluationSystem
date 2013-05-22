@@ -67,7 +67,7 @@ namespace BLL
         //根据考评人和被考评人的ID选择
         public static bool SelectByIDs(List<Evaluator> model, string evaluatedID, string evaluatorID, ref string e)
         {
-            string sql = "select * from tb_Evaluator where evaluatedID='" + evaluatedID + "' and uiID='"+ evaluatorID +"'";
+            string sql = "select * from tb_Evaluator where evaluatedID='" + evaluatedID + "' and uiID='" + evaluatorID + "'";
             return Select(ref model, ref e, sql);
         }
 
@@ -134,12 +134,12 @@ namespace BLL
             string sql = "select * from tb_Evaluator where uiID='" + uiID + "' and pass=" + pass;
             return Select1(ref model, ref e, sql);
         }
-        
+
         public static bool Select1(ref List<Evaluator> model, ref string e, string sql)
         {
             DataTable table = new DataTable();
             table = db.QueryDataTable(sql, ref e);
-            if (table.Rows.Count == 1)
+            if (table.Rows.Count == 0)
             {
                 return true;
             }
@@ -149,9 +149,9 @@ namespace BLL
         //统计汇总情况
         public static bool SelectSummary(List<Summary> summarys, ref string e)
         {
-            string strSql = "select distinct tb_UserInfo.uiID as ID, tb_UserInfo.uiDepartment as department, tb_Evaluator.pass as passed " + 
-                "from tb_UserInfo left outer join tb_Evaluator "+
-                "on tb_UserInfo.uiID = tb_Evaluator.EvaluatedID " + 
+            string strSql = "select distinct tb_UserInfo.uiID as ID, tb_UserInfo.uiDepartment as department, tb_Evaluator.pass as passed " +
+                "from tb_UserInfo left outer join tb_Evaluator " +
+                "on tb_UserInfo.uiID = tb_Evaluator.EvaluatedID " +
                 "order by passed desc";
             DataTable table = new DataTable();
             table = db.QueryDataTable(strSql, ref e);
@@ -195,7 +195,7 @@ namespace BLL
             parameters[0].Value = model.Pass;
             parameters[1].Value = model.UiID;
             parameters[2].Value = model.EvaluatedID;
-            
+
             //更新Evaluator表
             e = db.QueryExec(strSql.ToString(), parameters);
 
@@ -210,6 +210,7 @@ namespace BLL
                 List<User> users = new List<User>();
                 if (UserBLL.Select(model.UiID, ref users, ref e))
                 {
+                    e = "";
                     User user = new Model.User();
                     user = users.ElementAt(0);
                     user.UType = user.UType.Remove(3, 1).Insert(3, "1");
@@ -221,6 +222,7 @@ namespace BLL
                 }
                 else
                 {
+                    e = "";
                     User[] user = new User[1];
                     user[0] = new User();
                     user[0].UID = model.UiID;
@@ -235,6 +237,16 @@ namespace BLL
                 if (e != "" && e != null)
                 {
                     return false;
+                }
+            }
+            else
+            {
+                List<Evaluator> evaluators = new List<Evaluator>();
+                if (EvaluatorBLL.Select1(ref evaluators, model.UiID, 1, ref e))
+                {
+                    //更新User表，
+                    string UID = model.UiID;
+                    UserBLL.Delete(UID, ref e);
                 }
             }
             return true;

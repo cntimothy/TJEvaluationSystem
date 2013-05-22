@@ -34,7 +34,8 @@
                        <span>请选择部门</span>
                        <asp:DropDownList ID="Department" runat="server" 
                            DataSourceID="SqlDataSource1" DataTextField="uiDepartment" 
-                           DataValueField="uiDepartment" AppendDataBoundItems="True">
+                           DataValueField="uiDepartment" AppendDataBoundItems="True" 
+                            AutoPostBack="True">
                            <asp:ListItem Value="0" >所有部门</asp:ListItem>
                        </asp:DropDownList>
                    </td>
@@ -42,8 +43,6 @@
                     <td style="padding:1px;"><input type="button" value="获取被考评人名单" id="search_button"  onclick="search()" class="l-button" style="width:150px;height:25px;font-size:15px"/></td>
                     <td style="width:10px;"></td>
                     <td style="padding:1px;"><input type="button" value="提交" id="pass_button"  onclick="pass()" class="l-button" style="width:100px;height:25px;font-size:15px;display:none"/> </td>
-                    <td style="width:10px;"></td>
-                    <td style="padding:1px;"><input type="button" value="退回备选名单" id="sendback_button"  onclick="sendback()" class="l-button" style="width:100px;height:25px;font-size:15px;display:none"/> </td>
                     <td style="width:10px;"></td>
                    <td style="padding:1px;"><input type="button" value="审核意见" id="comment_button"  onclick="comment()" class="l-button" style="width:100px;height:25px;font-size:15px;display:none"/> </td>
                 </tr>

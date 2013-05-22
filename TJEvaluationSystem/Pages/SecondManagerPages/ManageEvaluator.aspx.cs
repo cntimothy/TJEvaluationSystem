@@ -281,19 +281,17 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 {
                     dr["Comment"] = "";
                 }
+                //0：已提交 1：已审核
                 if (EvaluatorBLL.SelectByID(evaluators, (string)dr["UiID"], ref exception))
                 {
-                    if (evaluators[0].Pass.ToString() == "0")
+                    dr["Passed"] = "已提交";
+                    foreach (Evaluator e in evaluators)
                     {
-                        dr["Passed"] = "已提交";
-                    }
-                    else if (evaluators[0].Pass.ToString() == "1")
-                    {
-                        dr["Passed"] = "已审核";
-                    }
-                    else
-                    {
-                        dr["Passed"] = "已保存";
+                        if (e.Pass.ToString() == "1")
+                        {
+                            dr["Passed"] = "已审核";
+                            break;
+                        }
                     }
                 }
                 else
