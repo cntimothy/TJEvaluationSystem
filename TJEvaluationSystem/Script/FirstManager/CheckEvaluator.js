@@ -135,13 +135,22 @@ function showList1() {
         { display: '被考评人姓名', name: 'EvaluatedName', width: 150, align: 'center', frozen: true },
         { display: '考评人姓名', name: 'EvaluatorName', width: 150, align: 'center' },
         { display: '考评人部门', name: 'EvaluatorUnit', width: 100, align: 'center' },
-        { display: '身份', name: 'Relation', width: 80, align: 'center' }
+        { display: '身份', name: 'Relation', width: 80, align: 'center' },
+        { display: '通过状态', name: 'Pass', width: 80, align: 'center', hide: true }
         ],
         usePager: true, pageSize: 10,
         data: UsersData3,
         width: '96%',
-        selectRowButtonOnly: true
+        selectRowButtonOnly: true,
+        isChecked: f_isChecked
     });
+
+    function f_isChecked(rowdata) {
+        if (rowdata.Pass == 1)
+            return true;
+        return false;
+    }
+
     $("#box2").css("display", "block");
     document.getElementById("pass_button").style.display = "";//显示提交按钮
     if (document.getElementById("pass").innerHTML == "未审核") {
