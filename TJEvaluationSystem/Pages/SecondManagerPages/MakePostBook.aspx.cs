@@ -24,7 +24,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             }
         }
 
-      protected void Search(object sender, EventArgs e)
+        protected void Search(object sender, EventArgs e)
         {
             string username = (string)Session["username"];
             //string username = "admin2";
@@ -38,7 +38,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 Title.Text = uiDepart + "被考评人名单：";
                 List<UserInfo> Evaluated = new List<UserInfo>();
                 string type = "____1%";
-                bool b=UserInfoBLL.Select(uiDepart, type, ref Evaluated, ref exception);
+                bool b = UserInfoBLL.Select(uiDepart, type, ref Evaluated, ref exception);
                 if (b)
                 {
                     DataTable table = new DataTable();
@@ -49,7 +49,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                     int sumCount = 0, unPassCount = 0, passCount = 0, savedCount = 0, unMakeCount = 0;
 
                     countNumber(table, ref sumCount, ref unPassCount, ref passCount, ref savedCount, ref unMakeCount);//做汇总
-                    //Title.Text += "（总人数：" + sumCount + " \\未制作：" + unMakeCount + " \\已保存：" + savedCount + " \\已提交：" + unPassCount + " \\已审核：" + passCount + "）";
+
                     Title.Text += "( 未制作：" + unMakeCount + ", 已保存：" + savedCount + ", 已提交：" + unPassCount + ", 已审核：" + passCount + "\\总人数：" + sumCount + " )";
 
                     table.DefaultView.Sort = "PrbPassed desc"; //给table按状态排序
@@ -80,7 +80,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         protected void SearchPost_Click(object sender, EventArgs e)
         {
             exception = "";
-            prbUserID =UserID.Value;
+            prbUserID = UserID.Value;
             LUserName.Text = "被考评人姓名：" + UserName.Value;
             List<PostResponseBook> post = new List<PostResponseBook>();
             if (PostResponseBookBLL.Select(prbUserID, ref post, ref exception))
@@ -89,13 +89,13 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 prb = post.ElementAt(0);
                 if (prb.PrbPassed == 1)
                 {
-                    pass.Text = "审核已通过！";
+                    pass.Text = "已审核！";
                     Passed.Value = "1";
 
                 }
                 else
                 {
-                    pass.Text = "审核未通过！";
+                    pass.Text = "未审核！";
                     Passed.Value = "0";
                 }
                 if (prb.PrbComment != "")
@@ -106,11 +106,40 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 {
                     Comment.Text = "";
                 }
-                prbEmployer.Text = prb.PrbEmployer;
+
+                //prbEmployer.Text = prb.PrbEmployer;
+                if (prb.PrbEmployer == ERadioButton1.Text)
+                {
+                    ERadioButton1.Checked = true;
+                }
+                else
+                {
+                    ERadioButton2.Checked = true;
+                }
                 prbLaborUnit.Text = prb.PrbLaborUnit;
                 prbLaborDep.Text = prb.PrbLaborDep;
                 prbPostName.Text = prb.PrbPostName;
-                prbPostType.Text = prb.PrbPostType;
+                //prbPostType.Text = prb.PrbPostType;
+                if (prb.PrbPostType == PTRadioButton1.Text)
+                {
+                    PTRadioButton1.Checked = true;
+                }
+                else if (prb.PrbPostType == PTRadioButton2.Text)
+                {
+                    PTRadioButton2.Checked = true;
+                }
+                else if (prb.PrbPostType == PTRadioButton3.Text)
+                {
+                    PTRadioButton3.Checked = true;
+                }
+                else if (prb.PrbPostType == PTRadioButton4.Text)
+                {
+                    PTRadioButton4.Checked = true;
+                }
+                else
+                {
+                    PTRadioButton5.Checked = true;
+                }
                 prbEduBg.Text = prb.PrbEduBg;
                 prbCertificate.Text = prb.PrbCertificate;
                 prbExperience.Text = prb.PrbExperience;
@@ -134,11 +163,11 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             {
                 pass.Text = "尚未制定！";
                 Passed.Value = "-1";
-                prbEmployer.Text = "";
+                //prbEmployer.Text = "";
                 prbLaborUnit.Text = (string)Session["ManagerDepartment"];
                 prbLaborDep.Text = "";
                 prbPostName.Text = "";
-                prbPostType.Text = "";
+                //prbPostType.Text = "";
                 prbEduBg.Text = "";
                 prbCertificate.Text = "";
                 prbExperience.Text = "";
@@ -170,14 +199,42 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         {
             exception = "";
             PostResponseBook prb = new PostResponseBook();
-                
+
             prb.PrbUserID = UserID.Value;
-            prb.PrbPassed =0;
-            prb.PrbEmployer = prbEmployer.Text;
+            prb.PrbPassed = 0;
+            //prb.PrbEmployer = prbEmployer.Text;
+            if (ERadioButton1.Checked == true)
+            {
+                prb.PrbEmployer = ERadioButton1.Text;
+            }
+            else
+            {
+                prb.PrbEmployer = ERadioButton2.Text;
+            }
             prb.PrbLaborUnit = prbLaborUnit.Text;
             prb.PrbLaborDep = prbLaborDep.Text;
             prb.PrbPostName = prbPostName.Text;
-            prb.PrbPostType = prbPostType.Text;
+            if (PTRadioButton1.Checked == true)
+            {
+                prb.PrbPostType = PTRadioButton1.Text;
+            }
+            else if (PTRadioButton2.Checked == true)
+            {
+                prb.PrbPostType = PTRadioButton2.Text;
+            }
+            else if (PTRadioButton3.Checked == true)
+            {
+                prb.PrbPostType = PTRadioButton3.Text;
+            }
+            else if (PTRadioButton4.Checked == true)
+            {
+                prb.PrbPostType = PTRadioButton4.Text;
+            }
+            else
+            {
+                prb.PrbPostType = PTRadioButton5.Text;
+            }
+            //prb.PrbPostType = prbPostType.Text;
             prb.PrbEduBg = prbEduBg.Text;
             prb.PrbCertificate = prbCertificate.Text;
             prb.PrbExperience = prbExperience.Text;
@@ -198,7 +255,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             prb.PrbOthers = prbOthers.Text;
             prb.PrbComment = "";
 
-            List<PostResponseBook> prblist=new List<PostResponseBook>();
+            List<PostResponseBook> prblist = new List<PostResponseBook>();
             if (PostResponseBookBLL.Select(prb.PrbUserID, ref prblist, ref exception))
             {
                 PostResponseBookBLL.Update(prb, ref exception);
@@ -209,7 +266,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 prbs[0] = prb;
                 PostResponseBookBLL.Insert(prbs, ref exception);
             }
-            
+
             ClientScript.RegisterStartupScript(this.GetType(), "", "load_userinfo()", true);
         }
 
@@ -220,11 +277,40 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
 
             prb.PrbUserID = UserID.Value;
             prb.PrbPassed = 2;
-            prb.PrbEmployer = prbEmployer.Text;
+            //prb.PrbEmployer = prbEmployer.Text;
+
+            if (ERadioButton1.Checked == true)
+            {
+                prb.PrbEmployer = ERadioButton1.Text;
+            }
+            else
+            {
+                prb.PrbEmployer = ERadioButton2.Text;
+            }
             prb.PrbLaborUnit = prbLaborUnit.Text;
             prb.PrbLaborDep = prbLaborDep.Text;
             prb.PrbPostName = prbPostName.Text;
-            prb.PrbPostType = prbPostType.Text;
+            //prb.PrbPostType = prbPostType.Text;
+            if (PTRadioButton1.Checked == true)
+            {
+                prb.PrbPostType = PTRadioButton1.Text;
+            }
+            else if (PTRadioButton2.Checked == true)
+            {
+                prb.PrbPostType = PTRadioButton2.Text;
+            }
+            else if (PTRadioButton3.Checked == true)
+            {
+                prb.PrbPostType = PTRadioButton3.Text;
+            }
+            else if (PTRadioButton4.Checked == true)
+            {
+                prb.PrbPostType = PTRadioButton4.Text;
+            }
+            else if (PTRadioButton5.Checked == true)
+            {
+                prb.PrbPostType = PTRadioButton5.Text;
+            }
             prb.PrbEduBg = prbEduBg.Text;
             prb.PrbCertificate = prbCertificate.Text;
             prb.PrbExperience = prbExperience.Text;
@@ -281,7 +367,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                     {
                         dr["PrbPassed"] = "已审核";
                     }
-                    else 
+                    else
                     {
                         dr["PrbPassed"] = "已保存";
                     }

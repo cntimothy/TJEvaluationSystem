@@ -253,7 +253,9 @@
                         <asp:Label ID="Label4" runat="server" Text="1.用人单位："></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="prbEmployer" runat="server" CssClass="textbox2"></asp:TextBox>
+                        <asp:RadioButton ID="ERadioButton1" runat="server" GroupName="Employer" Text="上海市东凌国际人才有限公司"
+                            Checked="True" />&nbsp
+                        <asp:RadioButton ID="ERadioButton2" runat="server" GroupName="Employer" Text="上海黄渡同济人力资源有限公司" />
                     </td>
                 </tr>
                 <tr style="height: 20px">
@@ -285,7 +287,12 @@
                         <asp:Label ID="Label8" runat="server" Text="5.岗位类别："></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="prbPostType" runat="server" CssClass="textbox2"></asp:TextBox>
+                        <asp:RadioButton ID="PTRadioButton1" runat="server" GroupName="PostType" Text="管理"
+                            Checked="True" />
+                        <asp:RadioButton ID="PTRadioButton2" runat="server" GroupName="PostType" Text="教辅" />&nbsp
+                        <asp:RadioButton ID="PTRadioButton3" runat="server" GroupName="PostType" Text="思政" />&nbsp
+                        <asp:RadioButton ID="PTRadioButton4" runat="server" GroupName="PostType" Text="教师" />&nbsp
+                        <asp:RadioButton ID="PTRadioButton5" runat="server" GroupName="PostType" Text="工勤" />
                     </td>
                 </tr>
             </table>

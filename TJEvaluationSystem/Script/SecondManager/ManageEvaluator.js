@@ -133,7 +133,7 @@ function show_evaluator() {
         { display: '关系', isSort: false, width: 250, render: function (rowdata, rowindex, value) {
             var h = "";
             h += '领导';
-            h += '<input type="radio" id="RadioButton1' + rowindex + '" name="' + rowindex + '" value="领导">';
+            h += '<input type="radio" id="RadioButton1' + rowindex + '" name="' + rowindex + '" value="领导" checked="true">';
             h += ' 同事';
             h += '<input type="radio" id="RadioButton2' + rowindex + '" name="' + rowindex + '" value="同事">';
             h += ' 下属';

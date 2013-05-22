@@ -42,11 +42,10 @@ function submitpost()
  }
 
  function checkNotNull() {
-     var notNull = document.getElementById("prbEmployer").innerHTML != "" &&
-     document.getElementById("prbLaborUnit").innerHTML != "" &&
+     var notNull = document.getElementById("prbLaborUnit").innerHTML != "" &&
      document.getElementById("prbLaborDep").innerHTML != "" &&
      document.getElementById("prbPostName").innerHTML != "" &&
-     document.getElementById("prbPostType").innerHTML != "" &&
+//     document.getElementById("prbPostType").innerHTML != "" &&
      document.getElementById("prbEduBg").innerHTML != "" &&
      document.getElementById("prbCertificate").innerHTML != "" &&
      document.getElementById("prbExperience").innerHTML != "" &&
@@ -225,15 +224,21 @@ function EditPost() {
         }
     }
 
-//    document.getElementById("")
 
     var s = document.getElementById("Passed").value;
     if (s == "1") {
-        document.getElementById("prbEmployer").disabled = true;
+        //        document.getElementById("prbEmployer").disabled = true;
+        document.getElementById("ERadioButton1").disabled = true;
+        document.getElementById("ERadioButton2").disabled = true;
         document.getElementById("prbLaborUnit").disabled = true;
         document.getElementById("prbLaborDep").disabled = true;
         document.getElementById("prbPostName").disabled = true;
-        document.getElementById("prbPostType").disabled = true;
+        //        document.getElementById("prbPostType").disabled = true;
+        document.getElementById("PTRadioButton1").disabled = true;
+        document.getElementById("PTRadioButton2").disabled = true;
+        document.getElementById("PTRadioButton3").disabled = true;
+        document.getElementById("PTRadioButton4").disabled = true;
+        document.getElementById("PTRadioButton5").disabled = true;
         document.getElementById("prbEduBg").disabled = true;
         document.getElementById("prbCertificate").disabled = true;
         document.getElementById("prbExperience").disabled = true;
@@ -270,11 +275,18 @@ function EditPost() {
     else {
         document.getElementById("submit_button").style.display = ""; //让提交按钮可见
         document.getElementById("save_button").style.display = "";
-        document.getElementById("prbEmployer").disabled = false;
+//        document.getElementById("prbEmployer").disabled = false;
+        document.getElementById("ERadioButton1").disabled = false;
+        document.getElementById("ERadioButton2").disabled = false;
         document.getElementById("prbLaborUnit").disabled = false;
         document.getElementById("prbLaborDep").disabled = false;
         document.getElementById("prbPostName").disabled = false;
-        document.getElementById("prbPostType").disabled = false;
+        //        document.getElementById("prbPostType").disabled = false;
+        document.getElementById("PTRadioButton1").disabled = false;
+        document.getElementById("PTRadioButton2").disabled = false;
+        document.getElementById("PTRadioButton3").disabled = false;
+        document.getElementById("PTRadioButton4").disabled = false;
+        document.getElementById("PTRadioButton5").disabled = false;
         document.getElementById("prbEduBg").disabled = false;
         document.getElementById("prbCertificate").disabled = false;
         document.getElementById("prbExperience").disabled = false;
