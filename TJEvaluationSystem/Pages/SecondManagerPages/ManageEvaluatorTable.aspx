@@ -28,7 +28,7 @@
                 <td style="width: 10px;">
                 </td>
                 <td style="padding: 1px;">
-                    <input type="button" value="获取被考评人名单" id="search_button" onclick="search()" class="l-button"
+                    <input type="button" value="刷新/返回" id="search_button" onclick="search()" class="l-button"
                         style="width: 150px; height: 25px; font-size: 15px" />
                 </td>
                 <td style="width: 10px;">

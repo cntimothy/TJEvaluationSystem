@@ -146,10 +146,12 @@ function show_evaluator() {
         ],
         data: UsersData2,
         width: '96%',
-        selectRowButtonOnly: true
+        selectRowButtonOnly: true,
+        usePager: false 
     });
     $("#box").css("display", "block");
     document.getElementById("submit_button").style.display = "";
+    document.getElementById("submit_button_shadow").style.display = "";
     var manager = $("#evaluator").ligerGetGridManager();
     manager.loadData();
     document.getElementById("LUserName").style.display = "";  //显示被考评人姓名

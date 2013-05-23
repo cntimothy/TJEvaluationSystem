@@ -20,8 +20,18 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         {
             if (!IsPostBack)
             {
-                
+                search();
             }
+        }
+
+        private void search()
+        {
+            if (searchEvaluated())
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "", "load_userinfo()", true);
+            }
+            else
+                ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
         }
         private bool searchEvaluated()
         {
@@ -107,12 +117,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         //调用searchEvaluated（）搜索被考评者
         protected void Search(object sender, EventArgs e)
         {
-            if (searchEvaluated())
-            {
-                ClientScript.RegisterStartupScript(this.GetType(), "", "load_userinfo()", true);
-            }
-            else
-                ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
+            search();
         }
 
         protected void Search_User(object sender, EventArgs e)

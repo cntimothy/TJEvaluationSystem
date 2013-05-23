@@ -21,12 +21,11 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         {
             if (!IsPostBack)
             {
-                //LoadEvaluatorTable();
+                search();
             }
 
         }
-
-        protected void Search(object sender, EventArgs e)
+        private void search()
         {
             string username = (string)Session["username"];
             //string username = "admin2";
@@ -77,63 +76,10 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             }
         }
 
-        //导入被考核人员名单
-        //protected void LoadUserList(object sender, EventArgs e)
-        //{
-        //    exception = "";
-        //    string username = (string)Session["username"];
-        //    string uiDepart = "";
-        //    List<Manager> managers = new List<Manager>();
-
-        //    //查询当前用户
-        //    if (ManagerBLL.SelectByID(username, ref managers, ref exception))
-        //    {
-        //        //获得部门
-        //        uiDepart = managers.ElementAt(0).MDepartment;
-        //        Title.Text = uiDepart + "被考评人名单：";
-        //        List<UserInfo> Evaluated = new List<UserInfo>();
-        //        string type = "____1%";
-        //        //查询被考评名单
-        //        bool b = UserInfoBLL.Select(uiDepart, type, ref Evaluated, ref exception);
-        //        if (b)
-        //        {
-        //            //获取名单，在前台显示
-        //            DataTable table = new DataTable();
-        //            table = Evaluated.ListToDataTable();
-
-        //            //给table增加Passed栏
-        //            adjustTable(table, ref exception);
-        //            int sumCount = 0, unPassCount = 0, passCount = 0, savedCount = 0, unMakeCount = 0;
-
-        //            countNumber(table, ref sumCount, ref unPassCount, ref passCount, ref savedCount, ref unMakeCount);//做汇总
-        //            Title.Text += "（总人数：" + sumCount + " \\未制作：" + unMakeCount + " \\已保存：" + savedCount + " \\已提交：" + unPassCount + " \\已审核：" + passCount + "）";
-
-        //            table.DefaultView.Sort = "Passed desc"; //给table按状态排序
-        //            table = table.DefaultView.ToTable();
-
-        //            string json = JSON.DataTableToJson(table);
-        //            JsonData.Value = json;
-        //            ClientScript.RegisterStartupScript(this.GetType(), "", "ShowUserList()", true);
-        //            return;
-                   
-
-        //        }
-
-        //        else
-        //        {
-        //            //不存在名单
-        //            ClientScript.RegisterStartupScript(this.GetType(), "", "f_alert('warn','本部门不存在被考评人员!')", true);
-        //            return;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        //获取数据失败
-        //        ClientScript.RegisterStartupScript(this.GetType(), "", "f_alert('error','获取数据失败!')", true);
-        //        return;
-        //    }
-
-        //}
+        protected void Search(object sender, EventArgs e)
+        {
+            search();
+        }
 
         private void adjustTable(DataTable dt, ref string exception)
         {

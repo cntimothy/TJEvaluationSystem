@@ -30,7 +30,7 @@
                 <td style="width: 10px;">
                 </td>
                 <td style="padding: 1px;">
-                    <input type="button" value="获取被考评人名单" id="search_button" onclick="search()" class="l-button"
+                    <input type="button" value="刷新/返回" id="search_button" onclick="search()" class="l-button"
                         style="width: 130px; height: 25px; font-size: 15px" />
                 </td>
                 <td style="width: 10px;">
@@ -224,6 +224,24 @@
         <br />
         <div id="evaluator" style="margin: 0 auto">
         </div>
+            <div class="ToolBar">
+                <table style="position: relative; left: 20px; height: 100%">
+                    <tr>
+                        <td style="width: 10px;">
+                        </td>
+                        <td style="padding: 1px;">
+                            <input type="button" value="刷新/返回" id="search_button_shadow" onclick="search()" class="l-button"
+                                style="width: 130px; height: 25px; font-size: 15px" />
+                        </td>
+                        <td style="width: 10px;">
+                        </td>
+                        <td style="padding: 1px;">
+                            <input type="button" value="提交" id="submit_button_shadow" onclick="submitList()" class="l-button"
+                                style="width: 100px; height: 25px; font-size: 15px; display: none" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
     </div>
     <div id="box2" class="Hidden" style="text-align: center">
         <div>

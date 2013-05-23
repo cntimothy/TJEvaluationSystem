@@ -20,11 +20,11 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         {
             if (!IsPostBack)
             {
-                Search();
+                search();
             }
         }
 
-        private void Search()
+        private void search()
         {
             string username = (string)Session["username"];
             //string username = "admin2";
@@ -79,7 +79,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
 
         protected void Search(object sender, EventArgs e)
         {
-            Search();
+            search();
         }
 
         protected void SearchPost_Click(object sender, EventArgs e)
