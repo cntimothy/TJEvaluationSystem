@@ -31,7 +31,7 @@
                 <td style="width: 10px;">
                 </td>
                 <td style="padding: 1px;">
-                    <input type="button" value="获取被考评人名单" id="search_button" onclick="search()" class="l-button"
+                    <input type="button" value="刷新/返回" id="search_button" onclick="search()" class="l-button"
                         style="width: 150px; height: 25px; font-size: 15px" />
                 </td>
                 <td style="width: 10px;">
@@ -409,6 +409,28 @@
             <asp:TextBox ID="prbOthers" runat="server" CssClass="textbox1" TextMode="MultiLine"></asp:TextBox>
             <br />
             <br />
+        </div>
+        <div class="ToolBar">
+            <table style="position: relative; left: 20px; height: 100%">
+                <tr>
+                    <td style="width: 10px;">
+                    </td>
+                    <td style="padding: 1px;">
+                        <input type="button" value="刷新/返回" id="search_button_shadow" onclick="search()" class="l-button"
+                            style="width: 150px; height: 25px; font-size: 15px" />
+                    </td>
+                    <td style="width: 10px;">
+                    </td>
+                    <td style="padding: 1px;">
+                        <input type="button" value="提交" id="submit_button_shadow" onclick="submitpost()" class="l-button"
+                            style="width: 100px; height: 25px; font-size: 15px; display: none" />
+                    </td>
+                    <td style="padding: 1px;">
+                        <input type="button" value="保存" id="save_button_shadow" onclick="savepost()" class="l-button"
+                            style="width: 100px; height: 25px; font-size: 15px; display: none" />
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
     <div class="Hidden">

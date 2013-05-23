@@ -8,44 +8,42 @@ function tanchuang() {
     if (document.getElementById("Hidden1").value == "submit")
         load_userinfo();
 }
-function search() 
-{
+function search() {
     document.getElementById("SearchEvaluated").click();
 }
 
-function submitpost()
- {
-     if (confirm('确认提交？')) {
-         if (!checkNotNull()) {
-             alert("有空项目，请检查！");
-             return;
-         }
-         var str = "";
-         var num = document.getElementById("WorkContentRequest").childNodes.length;
-         var count = 1;
-         for (; count < num; count++) {
-             if (count != 1)
-                 str += "&";
-             var titleID = "Title" + count;
-             var contentID = "Content" + count;
-             var requestID = "Request" + count;
-             var checkPointID = "CheckPoint" + count;
-             str = str + count.toString() + ")" + "*" + trim(document.getElementById(titleID).value) + "$" +
+function submitpost() {
+    if (confirm('确认提交？')) {
+        if (!checkNotNull()) {
+            alert("有空项目，请检查！");
+            return;
+        }
+        var str = "";
+        var num = document.getElementById("WorkContentRequest").childNodes.length;
+        var count = 1;
+        for (; count < num; count++) {
+            if (count != 1)
+                str += "&";
+            var titleID = "Title" + count;
+            var contentID = "Content" + count;
+            var requestID = "Request" + count;
+            var checkPointID = "CheckPoint" + count;
+            str = str + count.toString() + ")" + "*" + trim(document.getElementById(titleID).value) + "$" +
                     "具体内容：" + "*" + trim(document.getElementById(contentID).value) + "$" +
                     "具体要求：" + "*" + trim(document.getElementById(requestID).value) + "$" +
                     "考核要点：" + "*" + trim(document.getElementById(checkPointID).value);
-         }
-         document.getElementById("prbWorkContentRequest").value = str;
-         document.getElementById("SubmitPost").click();
+        }
+        document.getElementById("prbWorkContentRequest").value = str;
+        document.getElementById("SubmitPost").click();
     }
 
- }
+}
 
- function checkNotNull() {
-     var notNull = document.getElementById("prbLaborUnit").innerHTML != "" &&
+function checkNotNull() {
+    var notNull = document.getElementById("prbLaborUnit").innerHTML != "" &&
      document.getElementById("prbLaborDep").innerHTML != "" &&
      document.getElementById("prbPostName").innerHTML != "" &&
-//     document.getElementById("prbPostType").innerHTML != "" &&
+    //     document.getElementById("prbPostType").innerHTML != "" &&
      document.getElementById("prbEduBg").innerHTML != "" &&
      document.getElementById("prbCertificate").innerHTML != "" &&
      document.getElementById("prbExperience").innerHTML != "" &&
@@ -65,46 +63,46 @@ function submitpost()
      document.getElementById("prbOthers").innerHTML != "" &&
      document.getElementById("WorkContentRequest").childNodes.length > 2 &&
      document.getElementById("WorkContentRequest").childNodes.length < 6;
-     return notNull;
- }
+    return notNull;
+}
 
- function savepost() {
-     if (confirm('确认保存？')) {
-         var str = "";
-         var num = document.getElementById("WorkContentRequest").childNodes.length;
-         var count = 1;
-         for (; count < num; count++) {
-             if (count != 1)
-                 str += "&";
-             var titleID = "Title" + count;
-             var contentID = "Content" + count;
-             var requestID = "Request" + count;
-             var checkPointID = "CheckPoint" + count;
-             str = str + count.toString() + ")" + "*" + trim(document.getElementById(titleID).value) + "$" +
+function savepost() {
+    if (confirm('确认保存？')) {
+        var str = "";
+        var num = document.getElementById("WorkContentRequest").childNodes.length;
+        var count = 1;
+        for (; count < num; count++) {
+            if (count != 1)
+                str += "&";
+            var titleID = "Title" + count;
+            var contentID = "Content" + count;
+            var requestID = "Request" + count;
+            var checkPointID = "CheckPoint" + count;
+            str = str + count.toString() + ")" + "*" + trim(document.getElementById(titleID).value) + "$" +
                     "具体内容：" + "*" + trim(document.getElementById(contentID).value) + "$" +
                     "具体要求：" + "*" + trim(document.getElementById(requestID).value) + "$" +
                     "考核要点：" + "*" + trim(document.getElementById(checkPointID).value);
-         }
-         document.getElementById("prbWorkContentRequest").value = str;
-         document.getElementById("SavePost").click();
-     }
+        }
+        document.getElementById("prbWorkContentRequest").value = str;
+        document.getElementById("SavePost").click();
+    }
 
- }
+}
 
- function trim(str) { //删除左右两端的空格
-     return str.replace(/(^\s*)|(\s*$)/g, "");
- }
+function trim(str) { //删除左右两端的空格
+    return str.replace(/(^\s*)|(\s*$)/g, "");
+}
 
 function addItem() {
     var parentDiv = document.getElementById("WorkContentRequest");
     var childDiv = document.createElement("div");
     var count = parentDiv.childNodes.length;
-    childDiv.id = "WorkContentRequestChild" + count; 
+    childDiv.id = "WorkContentRequestChild" + count;
     childDiv.innerHTML = "<span class=\"label1\">" + count + ")标题</span><br/>" +
                         "<input type=\"text\" id=\"Title" + count + "\" class=\"textbox3\"><br/>" +
-                        "<span class=\"label1\">具体内容</span><br/>"+
+                        "<span class=\"label1\">具体内容</span><br/>" +
                         "<textarea id=\"Content" + count + "\" class=\"textbox1\" ></textarea><br/>" +
-                        "<span class=\"label1\">具体要求</span><br/>"+
+                        "<span class=\"label1\">具体要求</span><br/>" +
                         "<textarea id=\"Request" + count + "\" class=\"textbox1\" ></textarea><br/>" +
                         "<span class=\"label1\">考核要点</span><br/>" +
                         "<textarea id=\"CheckPoint" + count + "\" class=\"textbox1\" ></textarea><br/>";
@@ -119,8 +117,7 @@ function delItem() {
     }
 }
 
-function load_userinfo()
- {
+function load_userinfo() {
     var s = document.getElementById("JsonData").value;
     var UsersData = JSON2.parse(s);
     data = UsersData;
@@ -153,17 +150,16 @@ function load_userinfo()
         }],
         usePager: true, pageSize: 20,
         data: UsersData,
-        width: '96%'      
+        width: '96%'
     });
 }
 
-function ShowDetail(rowid) 
-{    
+function ShowDetail(rowid) {
     var rowdata = Evaluated.getSelectedRow(rowid);    //取得数据  
-   if (rowdata == null)
+    if (rowdata == null)
         return;
     DetailData = rowdata;
-   
+
     $("#evaluatedgrid").css("display", "none");
     $("#ShowDetailUserInfo").css("display", "block");
     $(".DetailData").css("display", "block");
@@ -191,8 +187,7 @@ function ShowDetail(rowid)
     document.getElementById('LComment').innerText = rowdata.PrbComment;
 }
 
-function Make(rowid) 
-{
+function Make(rowid) {
     var rowdata = Evaluated.getSelectedRow(rowid);    //取得数据
 
     if (rowdata == null)
@@ -256,8 +251,6 @@ function EditPost() {
         document.getElementById("prbWorkEnter").disabled = true;
         document.getElementById("prbPostAssess").disabled = true;
         document.getElementById("prbOthers").disabled = true;
-        document.all.submit_button.disabled = true;
-        document.all.save_button.disabled = true;
         document.getElementById("Add").disabled = true;
 
         var num = document.getElementById("WorkContentRequest").childNodes.length;
@@ -275,13 +268,13 @@ function EditPost() {
     else {
         document.getElementById("submit_button").style.display = ""; //让提交按钮可见
         document.getElementById("save_button").style.display = "";
-//        document.getElementById("prbEmployer").disabled = false;
+        document.getElementById("submit_button_shadow").style.display = "";
+        document.getElementById("save_button_shadow").style.display = "";
         document.getElementById("ERadioButton1").disabled = false;
         document.getElementById("ERadioButton2").disabled = false;
         document.getElementById("prbLaborUnit").disabled = false;
         document.getElementById("prbLaborDep").disabled = false;
         document.getElementById("prbPostName").disabled = false;
-        //        document.getElementById("prbPostType").disabled = false;
         document.getElementById("PTRadioButton1").disabled = false;
         document.getElementById("PTRadioButton2").disabled = false;
         document.getElementById("PTRadioButton3").disabled = false;
@@ -304,8 +297,6 @@ function EditPost() {
         document.getElementById("prbWorkEnter").disabled = false;
         document.getElementById("prbPostAssess").disabled = true;
         document.getElementById("prbOthers").disabled = true;
-        document.getElementById("submit_button").disabled = false;
-        document.getElementById("save_button").disabled = false;
         document.getElementById("Add").disabled = false;
 
         var num = document.getElementById("WorkContentRequest").childNodes.length;
@@ -321,4 +312,14 @@ function EditPost() {
         }
     }
 
+}
+
+function doneSave() {
+    alert("已保存！");
+    load_userinfo();
+}
+
+function doneSubmit() {
+    alert("设置成功！");
+    load_userinfo();
 }

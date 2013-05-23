@@ -497,6 +497,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Code\Controller\Shared\" />
     <Folder Include="Images\Home\" />
     <Folder Include="Images\Ligerui\" />
     <Folder Include="Images\Login\" />

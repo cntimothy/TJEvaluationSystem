@@ -20,11 +20,11 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         {
             if (!IsPostBack)
             {
-
+                Search();
             }
         }
 
-        protected void Search(object sender, EventArgs e)
+        private void Search()
         {
             string username = (string)Session["username"];
             //string username = "admin2";
@@ -77,6 +77,11 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             }
         }
 
+        protected void Search(object sender, EventArgs e)
+        {
+            Search();
+        }
+
         protected void SearchPost_Click(object sender, EventArgs e)
         {
             exception = "";
@@ -107,7 +112,6 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                     Comment.Text = "";
                 }
 
-                //prbEmployer.Text = prb.PrbEmployer;
                 if (prb.PrbEmployer == ERadioButton1.Text)
                 {
                     ERadioButton1.Checked = true;
@@ -119,7 +123,6 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 prbLaborUnit.Text = prb.PrbLaborUnit;
                 prbLaborDep.Text = prb.PrbLaborDep;
                 prbPostName.Text = prb.PrbPostName;
-                //prbPostType.Text = prb.PrbPostType;
                 if (prb.PrbPostType == PTRadioButton1.Text)
                 {
                     PTRadioButton1.Checked = true;
@@ -202,7 +205,6 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
 
             prb.PrbUserID = UserID.Value;
             prb.PrbPassed = 0;
-            //prb.PrbEmployer = prbEmployer.Text;
             if (ERadioButton1.Checked == true)
             {
                 prb.PrbEmployer = ERadioButton1.Text;
@@ -234,7 +236,6 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             {
                 prb.PrbPostType = PTRadioButton5.Text;
             }
-            //prb.PrbPostType = prbPostType.Text;
             prb.PrbEduBg = prbEduBg.Text;
             prb.PrbCertificate = prbCertificate.Text;
             prb.PrbExperience = prbExperience.Text;
@@ -267,7 +268,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 PostResponseBookBLL.Insert(prbs, ref exception);
             }
 
-            ClientScript.RegisterStartupScript(this.GetType(), "", "load_userinfo()", true);
+            ClientScript.RegisterStartupScript(this.GetType(), "", "doneSubmit()", true);
         }
 
         protected void SavePost_Click(object sender, EventArgs e)
@@ -277,7 +278,6 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
 
             prb.PrbUserID = UserID.Value;
             prb.PrbPassed = 2;
-            //prb.PrbEmployer = prbEmployer.Text;
 
             if (ERadioButton1.Checked == true)
             {
@@ -342,8 +342,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 prbs[0] = prb;
                 PostResponseBookBLL.Insert(prbs, ref exception);
             }
-
-            ClientScript.RegisterStartupScript(this.GetType(), "", "load_userinfo()", true);
+            ClientScript.RegisterStartupScript(this.GetType(), "", "doneSave()", true);
         }
 
         private void adjustTable(DataTable dt, ref string exception)
