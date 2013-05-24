@@ -244,14 +244,34 @@
         </div>
     </div>
     <div id="box" class="Hidden">
-        <asp:Label ID="LUserName" runat="server" Text="" Style="font-size: 18px; font-weight: 500;
-            text-align: center; position: relative; left: 0px"></asp:Label>
         <p id="head" style="font-size: 20px; font-weight: 700; text-align: center">
             岗位责任书</p>
-        <asp:Label ID="passYoN" runat="server" Text="" Style="font-size: 18px; font-weight: 500;
-            text-align: center; position: relative; left: 480px"></asp:Label><br />
-        <asp:Label ID="Comment" runat="server" Text="" Style="font-size: 18px; font-weight: 500;
-            text-align: center; position: relative; left: 480px; color: Red"></asp:Label>
+        <table>
+            <tr>
+                <td align="right" class="tableKey">
+                    <span>姓名:</span>
+                </td>
+                <td align="left" class="tableKey">
+                    <asp:Label ID="LUserName" runat="server" Text=""></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">
+                    <span>状态:</span>
+                </td>
+                <td align="left" class="tableKey">
+                    <asp:Label ID="passYoN" runat="server" Text=""></asp:Label><br />
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">
+                    <span>意见:</span>
+                </td>
+                <td align="left" class="tableKey">
+                    <asp:Label ID="Comment" runat="server" Text=""></asp:Label>
+                </td>
+            </tr>
+        </table>
         <br />
         <br />
         <div id="outline">
