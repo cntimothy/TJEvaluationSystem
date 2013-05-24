@@ -142,7 +142,11 @@ function MakeAssessTable() {
     $("#evaluatedgrid").css("display", "none");
     $("#MakeEditAssessTable").css("display", "block");
     $("#ViewAssessTable").css("display", "none");
-    $("#MakeTableBar").css("display", "block");
+    //    $("#MakeTableBar").css("display", "block");
+    $("#save_button").css("display", "block");
+    $("#reset_button").css("display", "block");
+    $("#save_button_shadow").css("display", "block");
+    $("#reset_button_shadow").css("display", "block");
     $("#EditTableBar").css("display", "none");
     $("#pass").css("display", "block");
     $("#Comment").css("display", "block");
@@ -299,7 +303,11 @@ function EditAssessTable() {
     $("#ShowUserList").css("display", "none");
     $("#MakeEditAssessTable").css("display", "block");
     $("#ViewAssessTable").css("display", "none");
-    $("#MakeTableBar").css("display", "none");
+//    $("#MakeTableBar").css("display", "none");
+    $("#save_button").css("display", "none");
+    $("#reset_button").css("display", "none");
+    $("#save_button_shadow").css("display", "none");
+    $("#reset_button_shadow").css("display", "none");
     $("#EditTableBar").css("display", "block");
     $("#evaluatedgrid").css("display", "none");
     document.getElementById("TitleDiv").style.display = "none";
@@ -640,7 +648,7 @@ function ViewAssessTable() {
     }
 
     var td = document.createElement("TD");
-    dom.setAttr(td, 'rowspan',2);
+    dom.setAttr(td, 'rowspan', 2);
     td.setAttribute("width", 120);
     td.appendChild(document.createTextNode(standerTemp.SlName));
     tr.appendChild(td);
@@ -1394,11 +1402,11 @@ function ViewAssessTable() {
     div.appendChild(table);
 
     //显示表头
-    document.getElementById('LVEvaluatdName').innerText = selectUser.UiName;
-    document.getElementById('LVJobName').innerText = selectUser.UiJob;
-    document.getElementById('LVDep').innerText = selectUser.UiDepartment;
-    document.getElementById('LVUnit').innerText = selectUser.UiCompany;
-    document.getElementById('LVTime').innerText = selectUser.UiStartTime + " - " + selectUser.UiStopTime;
+//    document.getElementById('LVEvaluatdName').innerText = selectUser.UiName;
+//    document.getElementById('LVJobName').innerText = selectUser.UiJob;
+//    document.getElementById('LVDep').innerText = selectUser.UiDepartment;
+//    document.getElementById('LVUnit').innerText = selectUser.UiCompany;
+//    document.getElementById('LVTime').innerText = selectUser.UiStartTime + " - " + selectUser.UiStopTime;
 
     //设置显示隐藏
     $("#evaluatedgrid").css("display", "none");

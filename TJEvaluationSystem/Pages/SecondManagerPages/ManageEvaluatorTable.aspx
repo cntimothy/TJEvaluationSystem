@@ -37,6 +37,18 @@
                     <input type="button" value="提交" id="submit_button" onclick="submitpost()" class="l-button"
                         style="width: 100px; height: 25px; font-size: 15px; display: none" />
                 </td>
+                <td style="width: 10px;">
+                </td>
+                <td style="padding: 1px;">
+                    <input type="button" value="保存" id="save_button" onclick="FinishMakeTable()" class="l-button"
+                        style="width: 150px; height: 25px; font-size: 15px; display: none" />
+                </td>
+                <td style="width: 10px;">
+                </td>
+                <td style="padding: 1px;">
+                    <input type="button" value="重置" id="reset_button" onclick="ResetTable()" class="l-button"
+                        style="width: 150px; height: 25px; font-size: 15px; display: none" />
+                </td>
             </tr>
         </table>
     </div>
@@ -215,38 +227,6 @@
         </div>
     </div>
     <div id="MakeEditAssessTable" class="Hidden">
-        <div class="ToolBar">
-            <div id="MakeTableBar">
-                <table class="tool_bar_table">
-                    <tr>
-                        <td class="tool_bar_td">
-                            <input type="button" class="l-button" value="保存考核表" style="width: 70px;" onclick="FinishMakeTable();" />
-                        </td>
-                        <td class="tool_bar_td ">
-                            <input type="button" class="l-button" value="重置考核表" style="width: 70px;" onclick="ResetTable();" />
-                        </td>
-                        <td class="tool_bar_td">
-                            <input type="button" class="l-button" value="返回" style="width: 70px;" onclick="BackToUserList();" />
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div id="EditTableBar">
-                <table class="tool_bar_table">
-                    <tr>
-                        <td class="tool_bar_td">
-                            <input type="button" class="l-button" value="保存考核表" style="width: 70px;" onclick="FinishEditTable();" />
-                        </td>
-                        <td class="tool_bar_td ">
-                            <input type="button" class="l-button" value="重置考核表" style="width: 70px;" onclick="ResetTable();" />
-                        </td>
-                        <td class="tool_bar_td">
-                            <input type="button" class="l-button" value="返回" style="width: 70px;" onclick="BackToUserList();" />
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
         <div id="AssessTable" style="padding-top: 5px;">
             <asp:Label ID="pass" runat="server" Text="" Style="font-size: 18px; font-weight: 500;
                 text-align: center; position: relative; left: 480px"></asp:Label><br />
@@ -1545,17 +1525,38 @@
                 </tr>
             </table>
         </div>
-    </div>
-    <div id="ViewAssessTable" class="Hidden">
         <div class="ToolBar">
-            <table class="tool_bar_table">
+            <table style="position: relative; left: 20px; height: 100%">
                 <tr>
-                    <td class="tool_bar_td">
-                        <input type="button" class="l-button" value="返回" style="width: 70px;" onclick="BackToUserList();" />
+                    <td style="width: 10px;">
+                    </td>
+                    <td style="padding: 1px;">
+                        <input type="button" value="刷新/返回" id="search_button_shadow" onclick="search()" class="l-button"
+                            style="width: 150px; height: 25px; font-size: 15px" />
+                    </td>
+                    <td style="width: 10px;">
+                    </td>
+                    <td style="padding: 1px;">
+                        <input type="button" value="提交" id="submit_button_shadow" onclick="submitpost()"
+                            class="l-button" style="width: 100px; height: 25px; font-size: 15px; display: none" />
+                    </td>
+                    <td style="width: 10px;">
+                    </td>
+                    <td style="padding: 1px;">
+                        <input type="button" value="保存" id="save_button_shadow" onclick="FinishMakeTable()"
+                            class="l-button" style="width: 150px; height: 25px; font-size: 15px; display: none" />
+                    </td>
+                    <td style="width: 10px;">
+                    </td>
+                    <td style="padding: 1px;">
+                        <input type="button" value="重置" id="reset_button_shadow" onclick="ResetTable()" class="l-button"
+                            style="width: 150px; height: 25px; font-size: 15px; display: none" />
                     </td>
                 </tr>
             </table>
         </div>
+    </div>
+    <div id="ViewAssessTable" class="Hidden">
         <div id="Div1">
             被考核人姓名：<label id="LVEvaluatdName"></label>&nbsp&nbsp&nbsp&nbsp 岗位名称：<label id="LVJobName"></label>&nbsp&nbsp&nbsp&nbsp
             用工部门：<label id="LVEDep"></label>&nbsp&nbsp&nbsp&nbsp 用工单位：<label id="LVEUnit"></label>&nbsp&nbsp&nbsp&nbsp
@@ -1669,6 +1670,7 @@
     </div>
     <div id="ShowEvaluateTable" class="Hidden">
         <div class="ToolBar Hidden">
+        <!--
             <div id="ShowTableBar">
                 <table class="tool_bar_table">
                     <tr id="TrViewTable">
@@ -1693,6 +1695,7 @@
                     </tr>
                 </table>
             </div>
+            -->
             <div id="StanderInfoBar" class="Hidden">
                 <table class="tool_bar_table">
                     <tr>
