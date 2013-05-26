@@ -246,7 +246,7 @@
     <div id="box" class="Hidden">
         <p id="head" style="font-size: 20px; font-weight: 700; text-align: center">
             岗位责任书</p>
-        <table>
+        <table style="position: relative; left: 40px;">
             <tr>
                 <td align="right" class="tableKey">
                     <span>姓名:</span>
@@ -260,7 +260,7 @@
                     <span>状态:</span>
                 </td>
                 <td align="left" class="tableKey">
-                    <asp:Label ID="passYoN" runat="server" Text=""></asp:Label><br />
+                    <asp:Label ID="passYoN" runat="server" Text=""></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -272,7 +272,6 @@
                 </td>
             </tr>
         </table>
-        <br />
         <br />
         <div id="outline">
             <table style="position: relative; left: 40px;">

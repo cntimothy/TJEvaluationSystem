@@ -109,6 +109,9 @@ function searchAssess(rowindex) {
         return;
     }
     document.getElementById("UserID").value = Evaluated.getSelectedRow(rowindex).UiID;
+    document.getElementById("UserName").value = Evaluated.getSelectedRow(rowindex).UiName;
+    document.getElementById("UserStartTime").value = Evaluated.getSelectedRow(rowindex).UiStartTime;
+    document.getElementById("UserStopTime").value = Evaluated.getSelectedRow(rowindex).UiStopTime;
     document.getElementById("Passed").value = Evaluated.getSelectedRow(rowindex).Passed;
     document.getElementById("SearchAssess").click();
 }

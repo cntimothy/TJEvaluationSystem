@@ -132,11 +132,11 @@ function MakeAssessTable() {
     ResetAssessTable();
 
     //显示表头
-    document.getElementById('LMEEvaluatdName').innerText = selectUser.UiName;
-    document.getElementById('LMEJobName').innerText = selectUser.UiJob;
-    document.getElementById('LMEDep').innerText = selectUser.UiDepartment;
-    document.getElementById('LMEUnit').innerText = selectUser.UiCompany;
-    document.getElementById('LMETime').innerText = selectUser.UiStartTime + " - " + selectUser.UiStopTime;
+//    document.getElementById('LMEEvaluatdName').innerText = selectUser.UiName;
+//    document.getElementById('LMEJobName').innerText = selectUser.UiJob;
+//    document.getElementById('LMEDep').innerText = selectUser.UiDepartment;
+//    document.getElementById('LMEUnit').innerText = selectUser.UiCompany;
+//    document.getElementById('LMETime').innerText = selectUser.UiStartTime + " - " + selectUser.UiStopTime;
 
     //设置显示隐藏
     $("#evaluatedgrid").css("display", "none");
@@ -148,8 +148,6 @@ function MakeAssessTable() {
     $("#save_button_shadow").css("display", "block");
     $("#reset_button_shadow").css("display", "block");
     $("#EditTableBar").css("display", "none");
-    $("#pass").css("display", "block");
-    $("#Comment").css("display", "block");
     document.getElementById("TitleDiv").style.display = "none";
 }
 
@@ -292,22 +290,22 @@ function EditAssessTable() {
     attitude5 = ShowSelectStander(assessTable.AtAttitude5, '#LAttitude5Name', '#LAttitude5ContentA', '#LAttitude5ContentB', '#LAttitude5ContentC', '#LAttitude5ContentD');
     $('#TVetoOthers').html(assessTable.AtVetoOthers);
 
-    //显示表头
-    document.getElementById('LMEEvaluatdName').innerText = selectUser.UiName;
-    document.getElementById('LMEJobName').innerText = selectUser.UiJob;
-    document.getElementById('LMEDep').innerText = selectUser.UiDepartment;
-    document.getElementById('LMEUnit').innerText = selectUser.UiCompany;
-    document.getElementById('LMETime').innerText = selectUser.UiStartTime + " - " + selectUser.UiStopTime;
+//    //显示表头
+//    document.getElementById('LMEEvaluatdName').innerText = selectUser.UiName;
+//    document.getElementById('LMEJobName').innerText = selectUser.UiJob;
+//    document.getElementById('LMEDep').innerText = selectUser.UiDepartment;
+//    document.getElementById('LMEUnit').innerText = selectUser.UiCompany;
+//    document.getElementById('LMETime').innerText = selectUser.UiStartTime + " - " + selectUser.UiStopTime;
 
     //设置显示隐藏
     $("#ShowUserList").css("display", "none");
     $("#MakeEditAssessTable").css("display", "block");
     $("#ViewAssessTable").css("display", "none");
 //    $("#MakeTableBar").css("display", "none");
-    $("#save_button").css("display", "none");
-    $("#reset_button").css("display", "none");
-    $("#save_button_shadow").css("display", "none");
-    $("#reset_button_shadow").css("display", "none");
+    $("#save_button").css("display", "block");
+    $("#reset_button").css("display", "block");
+    $("#save_button_shadow").css("display", "block");
+    $("#reset_button_shadow").css("display", "block");
     $("#EditTableBar").css("display", "block");
     $("#evaluatedgrid").css("display", "none");
     document.getElementById("TitleDiv").style.display = "none";
@@ -2158,8 +2156,21 @@ function ViewEvaluateTable(rowid) {
     var rowdata = Evaluated.getSelectedRow(rowid);    //取得数据
     if (rowdata == null)
         return;
+
+
+
     //查找考核表
     selectUser = rowdata;
     document.getElementById("JsonData").value = rowdata.UiID;
+    document.getElementById("UserID1").value = rowdata.UiID;
+    document.getElementById("UserName").value = rowdata.UiName;
+    document.getElementById("Passed").value = rowdata.Passed;
+    document.getElementById("Comment").value = rowdata.Comment;
+    document.getElementById("UserStartTime").value = rowdata.UiStartTime;
+    document.getElementById("UserStopTime").value = rowdata.UiStopTime;
     document.getElementById("BGetEvaluateTable").click();
+}
+
+function refresh() {
+    location = location;
 }

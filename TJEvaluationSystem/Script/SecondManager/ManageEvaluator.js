@@ -99,6 +99,8 @@ function Make(rowid) {
 
     document.getElementById("UserID").value = rowdata.UiID;
     document.getElementById("UserName").value = rowdata.UiName;
+    document.getElementById("Comment").value = rowdata.Comment;
+    document.getElementById("Passed").value = rowdata.Passed;
 
     document.getElementById("SearchUser").click();
 }
@@ -108,7 +110,12 @@ function Check(rowid) {
 
     if (rowdata == null)
         return;
+
     document.getElementById("UserID").value = rowdata.UiID;
+    document.getElementById("UserName").value = rowdata.UiName;
+    document.getElementById("Comment").value = rowdata.Comment;
+    document.getElementById("Passed").value = rowdata.Passed;
+
     document.getElementById("CheckUser").click();
 }
 
@@ -147,7 +154,7 @@ function show_evaluator() {
         data: UsersData2,
         width: '96%',
         selectRowButtonOnly: true,
-        usePager: false 
+        usePager: false
     });
     $("#box").css("display", "block");
     document.getElementById("submit_button").style.display = "";

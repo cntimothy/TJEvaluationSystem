@@ -62,7 +62,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             //Title.Text += "（总人数：" + sumCount + "  未制作：" + unMakeCount + "  未审核：" + unPassCount + "  已审核：" + passCount + "）";
             Title.Text += "（未审核：" + unPassCount + "， 已审核：" + passCount + "， 未制作：" + unMakeCount + "， 总数：" + sumCount + "）";
 
-            table.DefaultView.Sort = "Passed desc"; //给table按状态排序
+            table.DefaultView.Sort = "Passed asc"; //给table按状态排序
             table = table.DefaultView.ToTable();
             string json = JSON.DataTableToJson(table);
             JsonData.Value = json;
@@ -94,6 +94,8 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
             exception = "";
             if (AssessTableBLL.Select(evaluatedID, ref at, ref exception))
             {
+                //填写表头
+                LUserName.Text = UserName.Value;
                 if (at.AtPass == 1)
                 {
                     passYoN.Text = "已审核";
@@ -102,9 +104,24 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 else
                 {
                     passYoN.Text = "未审核";
-                    Comment.Text = "审核意见：" + at.AtComment;
+                    Comment.Text = at.AtComment;
                 }
 
+                LEStartEndTime.Text = UserStartTime.Value + " 至 " + UserStopTime.Value;
+                
+                List<PostResponseBook> prbs = new List<PostResponseBook>();
+                exception = "";
+                if (PostResponseBookBLL.Select(evaluatedID, ref prbs, ref exception))
+                {
+                    LEJobName.Text = prbs[0].PrbPostName;
+                    LEDep.Text = prbs[0].PrbLaborDep;
+                    LEUnit.Text = prbs[0].PrbLaborUnit;
+                }
+                else
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "error", "f_alert('error','被考评人岗位责任书尚未制定！');", true);
+                    return;
+                }
                 List<AssessTable> ats = new List<AssessTable>();
                 ats.Add(at);
                 var json = jser.Serialize(ats);

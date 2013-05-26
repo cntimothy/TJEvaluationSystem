@@ -190,8 +190,25 @@
      </div>
      <br /><br />
      <div id="box2"  class="Hidden" style="text-align:center">     
-         <div><asp:Label ID="pass" runat="server" Text="" style="font-size:18px;font-weight:500;text-align:center;position:relative;"></asp:Label></div>
-         <div><asp:Label ID="Comment" runat="server" Text="" style="font-size:18px;font-weight:500;text-align:center;position:relative;left:0px;color:Red"></asp:Label></div>
+     <table style="position: relative; left: 40px;">
+                <td align="right" class="tableKey">
+                    <span>状态:</span>
+                </td>
+                <td align="left" class="tableKey">
+                    <asp:Label ID="pass" runat="server" Text=""></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">
+                    <span>意见:</span>
+                </td>
+                <td align="left" class="tableKey">
+                    <asp:Label ID="Comment" runat="server" Text=""></asp:Label>
+                </td>
+            </tr>
+        </table>
+<%--         <div><asp:Label ID="pass" runat="server" Text="" style="font-size:18px;font-weight:500;text-align:center;position:relative;"></asp:Label></div>
+         <div><asp:Label ID="Comment" runat="server" Text="" style="font-size:18px;font-weight:500;text-align:center;position:relative;left:0px;color:Red"></asp:Label></div>--%>
          <div id="list" style="margin:0 auto" ></div> 
      </div>
 

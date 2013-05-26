@@ -228,16 +228,56 @@
     </div>
     <div id="MakeEditAssessTable" class="Hidden">
         <div id="AssessTable" style="padding-top: 5px;">
-            <asp:Label ID="pass" runat="server" Text="" Style="font-size: 18px; font-weight: 500;
-                text-align: center; position: relative; left: 480px"></asp:Label><br />
-            <asp:Label ID="Comment" runat="server" Text="" Style="font-size: 18px; font-weight: 500;
-                text-align: center; position: relative; left: 480px; color: Red"></asp:Label>
-            <div id="TableHeader">
-                被考核人姓名：<label id="LMEEvaluatdName"></label>&nbsp&nbsp&nbsp&nbsp 岗位名称：<label id="LMEJobName"></label>&nbsp&nbsp&nbsp&nbsp
-                用工部门：<label id="LMEDep"></label>&nbsp&nbsp&nbsp&nbsp 用工单位：<label id="LMEUnit"></label>&nbsp&nbsp&nbsp&nbsp
-                <br />
-                考核时间段：<label id="LMETime"></label>
-            </div>
+            <table style="position: relative; left: 100px">
+                <tr>
+                    <td align="right" class="tableKey">
+                        <span>姓名:</span>
+                    </td>
+                    <td align="left" class="tableKey">
+                        <asp:Label ID="LEUserName" runat="server" Text=""></asp:Label>&nbsp&nbsp
+                    </td>
+                    <td align="right" class="tableKey">
+                        <span>岗位名称:</span>
+                    </td>
+                    <td align="left" class="tableKey">
+                        <asp:Label ID="LEJobName" runat="server" Text=""></asp:Label>&nbsp&nbsp
+                    </td>
+                    <td align="right" class="tableKey">
+                        <span>用工部门:</span>
+                    </td>
+                    <td align="left" class="tableKey">
+                        <asp:Label ID="LEDep" runat="server" Text=""></asp:Label>&nbsp&nbsp
+                    </td>
+                    <td align="right" class="tableKey">
+                        <span>用工单位:</span>
+                    </td>
+                    <td align="left" class="tableKey">
+                        <asp:Label ID="LEUnit" runat="server" Text=""></asp:Label>&nbsp&nbsp
+                    </td>
+                    <td align="right" class="tableKey">
+                        <span>考核时间段:</span>
+                    </td>
+                    <td align="left" class="tableKey">
+                        <asp:Label ID="LEStartEndTime" runat="server" Text=""></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" class="tableKey">
+                        <span>状态:</span>
+                    </td>
+                    <td align="left" class="tableKey">
+                        <asp:Label ID="LEPassYoN" runat="server" Text=""></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" class="tableKey">
+                        <span>意见:</span>
+                    </td>
+                    <td align="left" class="tableKey">
+                        <asp:Label ID="LEComment" runat="server" Text=""></asp:Label>
+                    </td>
+                </tr>
+            </table>
             <table id="MainTable" class="my_table">
                 <tr>
                     <td colspan="4" class="td_title">
@@ -1557,11 +1597,57 @@
         </div>
     </div>
     <div id="ViewAssessTable" class="Hidden">
+    <table style="position: relative; left: 100px">
+                <tr>
+                    <td align="right" class="tableKey">
+                        <span>姓名:</span>
+                    </td>
+                    <td align="left" class="tableKey">
+                        <asp:Label ID="LEUserName1" runat="server" Text=""></asp:Label>&nbsp&nbsp
+                    </td>
+                    <td align="right" class="tableKey">
+                        <span>岗位名称:</span>
+                    </td>
+                    <td align="left" class="tableKey">
+                        <asp:Label ID="LEJobName1" runat="server" Text=""></asp:Label>&nbsp&nbsp
+                    </td>
+                    <td align="right" class="tableKey">
+                        <span>用工部门:</span>
+                    </td>
+                    <td align="left" class="tableKey">
+                        <asp:Label ID="LEDep1" runat="server" Text=""></asp:Label>&nbsp&nbsp
+                    </td>
+                    <td align="right" class="tableKey">
+                        <span>用工单位:</span>
+                    </td>
+                    <td align="left" class="tableKey">
+                        <asp:Label ID="LEUnit1" runat="server" Text=""></asp:Label>&nbsp&nbsp
+                    </td>
+                    <td align="right" class="tableKey">
+                        <span>考核时间段:</span>
+                    </td>
+                    <td align="left" class="tableKey">
+                        <asp:Label ID="LEStartEndTime1" runat="server" Text=""></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" class="tableKey">
+                        <span>状态:</span>
+                    </td>
+                    <td align="left" class="tableKey">
+                        <asp:Label ID="LEPassYoN1" runat="server" Text=""></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" class="tableKey">
+                        <span>意见:</span>
+                    </td>
+                    <td align="left" class="tableKey">
+                        <asp:Label ID="LEComment1" runat="server" Text=""></asp:Label>
+                    </td>
+                </tr>
+            </table>
         <div id="Div1">
-            被考核人姓名：<label id="LVEvaluatdName"></label>&nbsp&nbsp&nbsp&nbsp 岗位名称：<label id="LVJobName"></label>&nbsp&nbsp&nbsp&nbsp
-            用工部门：<label id="LVEDep"></label>&nbsp&nbsp&nbsp&nbsp 用工单位：<label id="LVEUnit"></label>&nbsp&nbsp&nbsp&nbsp
-            <br />
-            考核时间段：<label id="LVEStartEndTime"></label>&nbsp&nbsp&nbsp&nbsp
         </div>
         <div id="ShowAssessTable">
         </div>
@@ -1670,7 +1756,7 @@
     </div>
     <div id="ShowEvaluateTable" class="Hidden">
         <div class="ToolBar Hidden">
-        <!--
+            <!--
             <div id="ShowTableBar">
                 <table class="tool_bar_table">
                     <tr id="TrViewTable">
@@ -1744,6 +1830,8 @@
     <div class="Hidden">
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
+            </ContentTemplate>
+        </asp:UpdatePanel>     
                 <input id="Errors" type="hidden" runat="server" />
                 <input id="JsonData" type="hidden" runat="server" />
                 <input id="JsonData2" type="hidden" runat="server" />
@@ -1753,10 +1841,14 @@
                 <asp:Button ID="BFinishMakeTable" runat="server" Text="" OnClick="BFinishMakeTable_Click" />
                 <asp:Button ID="BFinishEditTable" runat="server" Text="" OnClick="BFinishEditTable_Click" />
                 <asp:Button ID="BGetEvaluateTable" runat="server" Text="" OnClick="BGetEvaluateTable_Click" />
-            </ContentTemplate>
-        </asp:UpdatePanel>
-        <asp:Button ID="BRefresh" runat="server" Text="" OnClick="BRefresh_Click" />
-        <asp:Button ID="SearchEvaluated1" runat="server" OnClick="Search" />
+                <asp:Button ID="BRefresh" runat="server" Text="" OnClick="BRefresh_Click" />
+                <asp:Button ID="SearchEvaluated1" runat="server" OnClick="Search" />           
+                <input id="UserName" type="hidden" runat="server" />
+                <input id="UserID1" type="hidden" runat="server" />
+                <input id="Passed" type="hidden" runat="server" />
+                <input id="Comment" type="hidden" runat="server" />
+                <input id="UserStartTime" type="hidden" runat="server" />
+                <input id="UserStopTime" type="hidden" runat="server" />
     </div>
     </form>
 </body>

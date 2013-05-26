@@ -98,6 +98,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             {
                 mDepart = managers.ElementAt(0).MDepartment;
                 List<EvaluatorInfo> evi = new List<EvaluatorInfo>();
+                exception = "";
                 EvaluatorInfoBLL.SelectByDepartment(evi, mDepart, ref exception);
                 
                 if (evi.Count <= 0)
@@ -111,7 +112,6 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             }
             else
                 return false;
-
         }
 
         //调用searchEvaluated（）搜索被考评者
@@ -127,31 +127,21 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             //string username = "admin2";
             string evaluatedID = UserID.Value;
 
-            LUserName.Text = "被考评人姓名:" + UserName.Value; //显示被考评人姓名
 
-            List<Evaluator> model = new List<Evaluator>();
-            EvaluatorBLL.Select(ref model, evaluatedID, 1, ref exception);
-            if (model.Count > 0)
+            List<Evaluator> evaluators = new List<Evaluator>();
+            if (searchEvaluator())
             {
-                Errors.Value = "考评人名单已制定并通过了审核！";
+                LUserName.Text = UserName.Value; //显示被考评人姓名
+                pass.Text = Passed.Value;
+                LComment.Text = Comment.Value;
+                ClientScript.RegisterStartupScript(this.GetType(), "", "show_evaluator()", true);
+            }
+            else
+            {
+                Errors.Value = "无可选考评人！";
                 this.Chose.Value = "submit";
                 ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
                 return;
-            }
-
-            else
-            {
-                if (searchEvaluator())
-                {
-                    ClientScript.RegisterStartupScript(this.GetType(), "", "show_evaluator()", true);
-                }
-                else
-                {
-                    Errors.Value = "无可选考评人！";
-                    this.Chose.Value = "submit";
-                    ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
-                    return;
-                }
             }
         }
 
@@ -200,21 +190,13 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             string evaluated = UserID.Value;
 
             List<Evaluator> model = new List<Evaluator>();
-            if (EvaluatorBLL.Select(ref model, evaluated, 1, ref exception))
-            {
-                this.pass.Text = "审核通过";
-                DataTable table = new DataTable();
-                table = model.ListToDataTable();
-                adjustTable(table, ref exception); //为表格加上用户名显示
-                string json = JSON.DataTableToJson(table);
-                JsonList.Value = json;
-                ClientScript.RegisterStartupScript(this.GetType(), "", "showList()", true);
-                return;
-            }
 
-            if (EvaluatorBLL.Select(ref model, evaluated, 0, ref exception))
+            LUserName1.Text = UserName.Value; //显示被考评人姓名
+            pass1.Text = Passed.Value;
+            LComment1.Text = Comment.Value;
+
+            if(EvaluatorBLL.SelectByID(model, evaluated, ref exception))
             {
-                this.pass.Text = "审核未通过";
                 DataTable table = new DataTable();
                 table = model.ListToDataTable();
                 adjustTable(table, ref exception); //为表格加上用户名显示
@@ -287,6 +269,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                     dr["Comment"] = "";
                 }
                 //0：已提交 1：已审核
+                evaluators.Clear();
                 if (EvaluatorBLL.SelectByID(evaluators, (string)dr["UiID"], ref exception))
                 {
                     dr["Passed"] = "已提交";

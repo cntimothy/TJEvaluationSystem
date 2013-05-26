@@ -230,15 +230,34 @@
         </div>
     </div>
     <div id="box" class="Hidden">
-        <asp:Label ID="LUserName" runat="server" Text="" Style="font-size: 18px; font-weight: 500;
-            text-align: center; position: relative; left: 0px"></asp:Label>
         <p id="head" style="font-size: 20px; font-weight: 700; text-align: center">
             岗位责任书</p>
-        <asp:Label ID="pass" runat="server" Text="" Style="font-size: 18px; font-weight: 500;
-            text-align: center; position: relative; left: 480px"></asp:Label>
-        <asp:Label ID="Comment" runat="server" Text="" Style="font-size: 18px; font-weight: 500;
-            text-align: center; position: relative; left: 480px; color: Red"></asp:Label>
-        <br />
+        <table style="position: relative; left: 40px;">
+            <tr>
+                <td align="right" class="tableKey">
+                    <span>姓名:</span>
+                </td>
+                <td align="left" class="tableKey">
+                    <asp:Label ID="LUserName" runat="server" Text=""></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">
+                    <span>状态:</span>
+                </td>
+                <td align="left" class="tableKey">
+                    <asp:Label ID="pass" runat="server" Text=""></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">
+                    <span>意见:</span>
+                </td>
+                <td align="left" class="tableKey">
+                    <asp:Label ID="Comment" runat="server" Text=""></asp:Label>
+                </td>
+            </tr>
+        </table>
         <br />
         <div id="outline">
             <table style="position: relative; left: 40px;">
@@ -422,8 +441,8 @@
                     <td style="width: 10px;">
                     </td>
                     <td style="padding: 1px;">
-                        <input type="button" value="提交" id="submit_button_shadow" onclick="submitpost()" class="l-button"
-                            style="width: 100px; height: 25px; font-size: 15px; display: none" />
+                        <input type="button" value="提交" id="submit_button_shadow" onclick="submitpost()"
+                            class="l-button" style="width: 100px; height: 25px; font-size: 15px; display: none" />
                     </td>
                     <td style="padding: 1px;">
                         <input type="button" value="保存" id="save_button_shadow" onclick="savepost()" class="l-button"

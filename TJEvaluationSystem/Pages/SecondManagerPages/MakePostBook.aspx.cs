@@ -20,11 +20,16 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         {
             if (!IsPostBack)
             {
-                search();
+                Search(sender, e);
             }
         }
 
         private void search()
+        {
+            
+        }
+
+        protected void Search(object sender, EventArgs e)
         {
             string username = (string)Session["username"];
             //string username = "admin2";
@@ -77,11 +82,6 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
             }
         }
 
-        protected void Search(object sender, EventArgs e)
-        {
-            search();
-        }
-
         protected void SearchPost_Click(object sender, EventArgs e)
         {
             exception = "";
@@ -105,7 +105,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 }
                 if (prb.PrbComment != "")
                 {
-                    Comment.Text = "审核意见：" + prb.PrbComment;
+                    Comment.Text = prb.PrbComment;
                 }
                 else
                 {

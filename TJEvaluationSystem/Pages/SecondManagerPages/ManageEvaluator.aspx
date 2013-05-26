@@ -218,35 +218,85 @@
     <br />
     <br />
     <div id="box" class="Hidden">
-        <div>
-            <asp:Label ID="LUserName" runat="server" Text="" Style="font-size: 18px; font-weight: 500;
-                text-align: center; position: relative; display: block"></asp:Label></div>
+    <p id="P1" style="font-size: 20px; font-weight: 700; text-align: center">
+            考评人名单</p>
+        <table style="position: relative; left: 40px;">
+            <tr>
+                <td align="right" class="tableKey">
+                    <span>姓名:</span>
+                </td>
+                <td align="left" class="tableKey">
+                    <asp:Label ID="LUserName" runat="server" Text=""></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">
+                    <span>状态:</span>
+                </td>
+                <td align="left" class="tableKey">
+                    <asp:Label ID="pass" runat="server" Text=""></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">
+                    <span>意见:</span>
+                </td>
+                <td align="left" class="tableKey">
+                    <asp:Label ID="LComment" runat="server" Text=""></asp:Label>
+                </td>
+            </tr>
+        </table>
         <br />
         <div id="evaluator" style="margin: 0 auto">
         </div>
-            <div class="ToolBar">
-                <table style="position: relative; left: 20px; height: 100%">
-                    <tr>
-                        <td style="width: 10px;">
-                        </td>
-                        <td style="padding: 1px;">
-                            <input type="button" value="刷新/返回" id="search_button_shadow" onclick="search()" class="l-button"
-                                style="width: 130px; height: 25px; font-size: 15px" />
-                        </td>
-                        <td style="width: 10px;">
-                        </td>
-                        <td style="padding: 1px;">
-                            <input type="button" value="提交" id="submit_button_shadow" onclick="submitList()" class="l-button"
-                                style="width: 100px; height: 25px; font-size: 15px; display: none" />
-                        </td>
-                    </tr>
-                </table>
-            </div>
+        <div class="ToolBar">
+            <table style="position: relative; left: 20px; height: 100%">
+                <tr>
+                    <td style="width: 10px;">
+                    </td>
+                    <td style="padding: 1px;">
+                        <input type="button" value="刷新/返回" id="search_button_shadow" onclick="search()" class="l-button"
+                            style="width: 130px; height: 25px; font-size: 15px" />
+                    </td>
+                    <td style="width: 10px;">
+                    </td>
+                    <td style="padding: 1px;">
+                        <input type="button" value="提交" id="submit_button_shadow" onclick="submitList()"
+                            class="l-button" style="width: 100px; height: 25px; font-size: 15px; display: none" />
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
     <div id="box2" class="Hidden" style="text-align: center">
-        <div>
-            <asp:Label ID="pass" runat="server" Text="" Style="font-size: 18px; font-weight: 500;
-                text-align: center; position: relative;"></asp:Label></div>
+    <p id="head" style="font-size: 20px; font-weight: 700; text-align: center">
+            考评人名单</p>
+    <table style="position: relative; left: 40px;">
+            <tr>
+                <td align="right" class="tableKey">
+                    <span>姓名:</span>
+                </td>
+                <td align="left" class="tableKey">
+                    <asp:Label ID="LUserName1" runat="server" Text=""></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">
+                    <span>状态:</span>
+                </td>
+                <td align="left" class="tableKey">
+                    <asp:Label ID="pass1" runat="server" Text=""></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="tableKey">
+                    <span>意见:</span>
+                </td>
+                <td align="left" class="tableKey">
+                    <asp:Label ID="LComment1" runat="server" Text=""></asp:Label>
+                </td>
+            </tr>
+        </table>
         <div id="list" style="margin: 0 auto">
         </div>
     </div>
@@ -261,6 +311,7 @@
         <input id="UserID" type="hidden" runat="server" />
         <input id="UserName" type="hidden" runat="server" />
         <input id="Passed" type="hidden" runat="server" />
+        <input id="Comment" type="hidden" runat="server" /> 
         <asp:Button ID="SearchEvaluated" runat="server" OnClick="Search" />
         <asp:Button ID="SearchUser" runat="server" OnClick="Search_User" />
         <asp:Button ID="CheckUser" runat="server" OnClick="Check_User" />

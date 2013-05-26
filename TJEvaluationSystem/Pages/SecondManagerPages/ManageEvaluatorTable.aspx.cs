@@ -21,11 +21,11 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         {
             if (!IsPostBack)
             {
-                search();
+                Search(sender, e);               
             }
-
         }
-        private void search()
+
+        protected void Search(object sender, EventArgs e)
         {
             string username = (string)Session["username"];
             //string username = "admin2";
@@ -46,7 +46,7 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
 
                     //给table添加prbComment栏
                     adjustTable(table, ref exception);
-                    int sumCount = 0, unPassCount = 0, passCount = 0, savedCount = 0, unMakeCount = 0;
+                    int sumCount = 0, unPassCount = 0, passCount = 0, unMakeCount = 0;
 
                     countNumber(table, ref sumCount, ref unPassCount, ref passCount, ref unMakeCount);//做汇总
                     Title.Text += "( 未制作：" + unMakeCount + ", 已提交：" + unPassCount + ", 已审核：" + passCount + ", 总人数：" + sumCount + " )";
@@ -74,11 +74,6 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                 ClientScript.RegisterStartupScript(this.GetType(), "", "tanchuang()", true);
                 return;
             }
-        }
-
-        protected void Search(object sender, EventArgs e)
-        {
-            search();
         }
 
         private void adjustTable(DataTable dt, ref string exception)
@@ -422,23 +417,8 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                     ScriptManager.RegisterStartupScript(BGetEvaluateTable, this.GetType(), "fun", "f_alert('error','获取考核表数据失败，请重试！');", true);
                     return;
                 }
-                //填写pass和Comment
-                if (at.AtPass == 1)
-                {
-                    pass.Text = "已审核";
-                }
-                else
-                {
-                    pass.Text = "未审核";
-                }
-                if (at.AtComment != "")
-                {
-                    Comment.Text = "审核意见：" + at.AtComment;
-                }
-                else
-                {
-                    Comment.Text = "";
-                }
+                writeTableHead();
+
                 JsonData3.Value = JSON.ScriptSerialize<AssessTable>(at);
                 JsonData.Value = standerLib;
                 //制作考核表
@@ -453,16 +433,9 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
                     ScriptManager.RegisterStartupScript(BGetEvaluateTable, this.GetType(), "fun", "f_alert('error','获取考核表数据失败，请重试！');", true);
                     return;
                 }
-                //填写表头以上的pass和Comment
-                if (at.AtPass == 1)
-                {
-                    pass.Text = "已审核";
-                }
-                else
-                {
-                    pass.Text = "未审核";
-                }
-                Comment.Text = "";
+
+                writeTableHead1();
+
                 JsonData3.Value = JSON.ScriptSerialize<AssessTable>(at);
                 JsonData.Value = standerLib;
                 //制作考核表
@@ -478,6 +451,49 @@ namespace TJEvaluationSystem.Pages.SecondManagerPages
         //刷新
         protected void BRefresh_Click(object sender, EventArgs e)
         {
+        }
+
+        private void writeTableHead()
+        {
+            string evaluatedID = UserID1.Value;
+            LEUserName.Text = UserName.Value;
+            LEStartEndTime.Text = UserStartTime.Value + " 至 " + UserStopTime.Value;
+            LEPassYoN.Text = Passed.Value;
+            LEComment.Text = Comment.Value;
+            List<PostResponseBook> prbs = new List<PostResponseBook>();
+            exception = "";
+            if (PostResponseBookBLL.Select(evaluatedID, ref prbs, ref exception))
+            {
+                LEJobName.Text = prbs[0].PrbPostName;
+                LEDep.Text = prbs[0].PrbLaborDep;
+                LEUnit.Text = prbs[0].PrbLaborUnit;
+            }
+            else
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "error", "f_alert('error','被考评人岗位责任书尚未制定！');", true);
+                return;
+            }
+        }
+        private void writeTableHead1()
+        {
+            string evaluatedID = UserID1.Value;
+            LEUserName1.Text = UserName.Value;
+            LEStartEndTime1.Text = UserStartTime.Value + " 至 " + UserStopTime.Value;
+            LEPassYoN1.Text = Passed.Value;
+            LEComment1.Text = Comment.Value;
+            List<PostResponseBook> prbs = new List<PostResponseBook>();
+            exception = "";
+            if (PostResponseBookBLL.Select(evaluatedID, ref prbs, ref exception))
+            {
+                LEJobName1.Text = prbs[0].PrbPostName;
+                LEDep1.Text = prbs[0].PrbLaborDep;
+                LEUnit1.Text = prbs[0].PrbLaborUnit;
+            }
+            else
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "error", "f_alert('error','被考评人岗位责任书尚未制定！');", true);
+                return;
+            }
         }
     }
 }

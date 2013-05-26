@@ -92,7 +92,7 @@ namespace TJEvaluationSystem.Pages.FirstManagerPages
                 }
                 if (prb.PrbComment != "")
                 {
-                    Comment.Text = "审核意见：" + prb.PrbComment;
+                    Comment.Text = prb.PrbComment;
                 }
                 else
                 {
