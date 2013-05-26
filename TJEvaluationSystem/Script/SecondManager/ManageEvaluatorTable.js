@@ -143,9 +143,9 @@ function MakeAssessTable() {
     $("#MakeEditAssessTable").css("display", "block");
     $("#ViewAssessTable").css("display", "none");
     //    $("#MakeTableBar").css("display", "block");
-    $("#save_button").css("display", "block");
+//    $("#save_button").css("display", "block");
     $("#reset_button").css("display", "block");
-    $("#save_button_shadow").css("display", "block");
+//    $("#save_button_shadow").css("display", "block");
     $("#reset_button_shadow").css("display", "block");
     $("#EditTableBar").css("display", "none");
     document.getElementById("TitleDiv").style.display = "none";
@@ -302,9 +302,9 @@ function EditAssessTable() {
     $("#MakeEditAssessTable").css("display", "block");
     $("#ViewAssessTable").css("display", "none");
 //    $("#MakeTableBar").css("display", "none");
-    $("#save_button").css("display", "block");
+//    $("#save_button").css("display", "block");
     $("#reset_button").css("display", "block");
-    $("#save_button_shadow").css("display", "block");
+//    $("#save_button_shadow").css("display", "block");
     $("#reset_button_shadow").css("display", "block");
     $("#EditTableBar").css("display", "block");
     $("#evaluatedgrid").css("display", "none");
