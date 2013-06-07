@@ -67,11 +67,11 @@
                     ImageUrl="../images/login/btnlogin.gif" onclick="IBLogin_Click"  />
             </span>
             </li>
-            </ContentTemplate>
-            </asp:UpdatePanel>
             <li class="middle_D"></li>
             <li class="bottom_A"></li>
             <li class="bottom_B"></li>
+            </ContentTemplate>
+            </asp:UpdatePanel>
         </ul>
     </div>
     </form>
