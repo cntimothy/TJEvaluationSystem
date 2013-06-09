@@ -19,7 +19,7 @@ namespace TJEvaluationSystem.Pages.EvaluatorPages
                     string name = (string)Session["username"];
                     if (name.Equals(DBNull.Value))
                     {
-                        Response.Redirect("../Login.aspx");
+                        Response.Redirect("../../Login.aspx");
                     }
                     else
                         LUserName.Text = "欢迎您：" + name;
@@ -27,7 +27,7 @@ namespace TJEvaluationSystem.Pages.EvaluatorPages
                 catch (Exception ex)
                 {
                     ex.ToString();
-                    Response.Redirect("../Login.aspx");
+                    Response.Redirect("../../Login.aspx");
                 }
             }
             int count = 0;
@@ -50,7 +50,7 @@ namespace TJEvaluationSystem.Pages.EvaluatorPages
             Session["username"] = null;
             Session["usertype"] = null;
             Session["userlevel"] = null;
-            Response.Redirect("../Login.aspx");
+            Response.Redirect("../../Login.aspx");
         }
 
         protected void GoHome_Click(object sender, EventArgs e)

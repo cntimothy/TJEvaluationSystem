@@ -24,8 +24,8 @@ namespace DBUtility
         public static string init()
         {
             sqlcon = new SqlConnection();
-             sqlcon.ConnectionString = "Data Source=.\\SQLEXPRESS;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True;User Instance=True";
-            //sqlcon.ConnectionString = @"Data Source=PENGTIAN-PC\MYSQL2008;database=TjHrEvaluation;Integrated Security=True";
+             //sqlcon.ConnectionString = "Data Source=.\\SQLEXPRESS;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True;User Instance=True";
+            sqlcon.ConnectionString = @"Data Source=.\\SQLEXPRESS;database=TJEvaluationSystemDatabase;User ID=sa;Password=sa";
             string exception = "";
             if (sqlcon.State == ConnectionState.Closed)
             {

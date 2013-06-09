@@ -29,7 +29,7 @@ namespace DBUtility
             //this.passWord = ClsEncrypt.Encrypt(this.passWord, this.encryptKey);
             //			SqlConnectionString = "initial catalog=" + dbName + ";data source=" + Server + ";Integrated Security=True;Connect Timeout=30";
             // this.sqlConnectionString = @"Data Source=PENGTIAN-PC\MYSQL2008;database=TjHrEvaluation;Integrated Security=True";
-            this.sqlConnectionString = "Data Source=.\\SQLEXPRESS;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True;User Instance=True";
+            this.sqlConnectionString = "Data Source=.\\SQLEXPRESS;database=TJEvaluationSystemDatabase;User ID=sa;Password=sa";
             //this.sqlConnectionString = ConfigurationManager.ConnectionStrings[1].ToString();
         }
 

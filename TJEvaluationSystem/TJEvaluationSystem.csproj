@@ -86,7 +86,7 @@
     <Content Include="Pages\FirstManagerPages\SelectEvaluated.aspx" />
     <Content Include="Pages\FirstManagerPages\SelectSecond.aspx" />
     <Content Include="Pages\AccountPages\UploadEvaluated.aspx" />
-    <Content Include="Pages\Login.aspx" />
+    <Content Include="Login.aspx" />
     <Content Include="Pages\MessagePages\InBox.aspx" />
     <Content Include="Pages\MessagePages\New.aspx" />
     <Content Include="Pages\MessagePages\OutBox.aspx" />
@@ -368,11 +368,11 @@
     <Compile Include="Pages\AccountPages\UploadEvaluated.aspx.designer.cs">
       <DependentUpon>UploadEvaluated.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Login.aspx.cs">
+    <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Login.aspx.designer.cs">
+    <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Code\Model\Manager.cs" />
