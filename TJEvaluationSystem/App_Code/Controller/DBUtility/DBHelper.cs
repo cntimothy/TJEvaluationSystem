@@ -25,7 +25,7 @@ namespace DBUtility
         {
             sqlcon = new SqlConnection();
              //sqlcon.ConnectionString = "Data Source=.\\SQLEXPRESS;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True;User Instance=True";
-            sqlcon.ConnectionString = @"Data Source=.\\SQLEXPRESS;database=TJEvaluationSystemDatabase;User ID=sa;Password=sa";
+            sqlcon.ConnectionString = @"Data Source=.\SQLEXPRESS;AttachDbFilename=E:\projects\TJEvaluationSystem\TJEvaluationSystem\App_Data\Database.mdf;Integrated Security=True;User Instance=True";
             string exception = "";
             if (sqlcon.State == ConnectionState.Closed)
             {
